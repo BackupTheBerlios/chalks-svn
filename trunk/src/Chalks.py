@@ -2461,6 +2461,7 @@ class ChalksPerspective(pb.Avatar):
 class ChalksServerMonitor(object):
     """ 
     This class provides removeService and addService methods for Rendezvous module's ServiceBrowser().
+    The one responsible for creating this object should call self.stop() when not using it any more.
     Users of this class should only call the getServers() method, which should return a dict of known local servers, keyed by server name. Each entry is a server, 
     represented as a dictionary with the following keys:
         "address": ip address
@@ -2470,9 +2471,13 @@ class ChalksServerMonitor(object):
     """
     def __init__(self):
         self.servers =  {} # known servers
+        self.rendezvous = None # the one and only Rendezvous instance
+        self.browser = None # the one and only Service browser
         self.startListening()  # make it active
 
     def removeService(self, rendezvous, type, name):
+        """ this is a callback method and should not be called externally
+        """
         print "Server", name, "removed"
         try:
             del self.servers[name]
@@ -2480,6 +2485,8 @@ class ChalksServerMonitor(object):
             print "attempt to remove unknown server"
 
     def addService(self, rendezvous, type, name):
+        """ this is a callback method and should not be called externally
+        """        
         info = rendezvous.getServiceInfo(type, name)
         
         print "Server", name, "added"
@@ -2494,12 +2501,19 @@ class ChalksServerMonitor(object):
         return self.servers
         
     def startListening(self):
+        assert (self.rendezvous is None) and (self.browser is None), 'you can only call this method once'
         from Rendezvous import Rendezvous, ServiceBrowser
-        print "Started listening local network for Chalks servers ..."
-        r = Rendezvous()
+        self.rendezvous = Rendezvous()
         type = "_chalks._tcp.local."
-        browser = ServiceBrowser(r, type, self)
-    
+        self.browser = ServiceBrowser(self.rendezvous, type, self)
+        print "Started listening local network for Chalks servers ..."
+                
+    def stop(self):
+        assert self.browser, 'you should only call stop() when there is a browser/rendevzvous threads running'
+        self.browser.cancel()
+        self.rendezvous.close()
+        print "Stopped service browser."
+            
     def registerService(self, name, host, port, owner = "unknown", private = 0):
         """ 
         Registers a service provider with the supplied parameters on mDNS records.  Parameter examples:
@@ -2512,11 +2526,12 @@ class ChalksServerMonitor(object):
         
         """
         from Rendezvous import Rendezvous, ServiceInfo
+        import socket
         print "Registering your server with rendezvous ..."        
         # register record with Rendezvous
         r = Rendezvous()
         desc = {'owner':owner,
-                'private':private,
+                'private': str(private),
                 }
         info = ServiceInfo("_chalks._tcp.local.", name + "._chalks._tcp.local.", socket.inet_aton(host), port, 0, 0, desc)
         r.registerService(info)
