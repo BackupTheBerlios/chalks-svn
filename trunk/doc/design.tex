@@ -72,6 +72,14 @@
 %@+node:rodrigob.20040908172407:Chalks
 \chapter{Chalks}
 
+
+Chalks is a software \emph{under development} for crossplatform realtime concurrent text editing.
+The primary focus will be ease of use and minimum requirements.
+
+
+Chalks is aviable at \url{http://chalks.berlios.de}
+
+
 %@+others
 %@+node:rodrigob.20040908172407.1:Requirements
 \section{Requirements}
@@ -80,49 +88,49 @@ This are the requirements for Chalks:
 
 \begin{description}
 
-\item [Realtime Concurrent Edition]
+\item [Realtime Concurrent Edition] \hspace{0cm} \\
+    \begin{itemize}
+    \item As defined in Chengzheng Sun's works, see ResearchNotes.
+    \end{itemize}
+    
+\item [Easy to install] \hspace{0cm} \\
+    \begin{itemize}
+    \item The user should not know about python existence
+    \item Lightweight
+    \item Ideally only one executable file, without requiring an installation process
+    \end{itemize}
+    
+\item [Easy to use] \hspace{0cm} \\
+    \begin{itemize}
+    \item Scan local network (also guessing local network) for Chalks servers
+    \item Collaborative NotePad for dummies
+    \item Very simple gui (figure \ref{fig:chalksguiconcept}), notepad/wordpad look'n'feel, so it should have similar menus and basic features:
+      \begin{itemize}
+      \item Search, Find, Replace, Print, Save as, Insert date/time.
+      \end{itemize}
 
-   - As defined in Chengzheng Sun's works, see ResearchNotes.
-
-\item [Easy to install]
-
-   - The user should not know about python existence
-   
-   - Lightweight
-
-   - Ideally only one executable file, without requiring an installation process
-
-\item [Easy to use]
-
-  - Scan local network (also guessing local network) for Chalks servers
-
-  - Collaborative !NotePad for dummies
-
-  - Very simple gui, notepad/wordpad look'n'feel, so it should have similar menus and basic features:
-
-    - Search, Find, Replace, Print, Save as, Insert date/time.
-
-  - <a href="images/Chalks_gui_concept.png"><img src="images/Chalks_gui_concept.png" title="Chalks Gui Concept" width="350"/></a>
-
-
-  - Undo/redo operations
-
-  - Chat space among users
-
-  - Background text coloring for indicating the user who made changes
-
-  - Cursors for indicating other users current position on the text, as an additional measure to avoid conflicts
-
-  - Only text, no pretention of text formatting or any multimedia support
-
-  - One app instance can manage only one document, but can run many instances in a computer. In other words, Single Document Interface approach.
-
-     - One app instance can do only one thing at a time: connect to a remote server or serve a local file.
-
-\item [Descentralized data flow]
-
-  - Nearby users will have better ping (responsiveness) than remotes one
-  
+\begin{figure}[htbp]
+ \begin{center}
+    \includegraphics[angle=0,width=0.5\linewidth]{schemas/chalks_gui_concept.png}
+ \end{center}
+ \caption{Chalks Gui Concept}
+  \label{fig:chalksguiconcept}
+\end{figure}
+      
+    \item Undo/redo operations
+    \item Chat space among users
+    \item Background text coloring for indicating the user who made changes
+    \item Cursors for indicating other users current position on the text, as an additional measure to avoid conflicts
+    \item Only text, no pretention of text formatting or any multimedia support
+    \item One app instance can manage only one document, but can run many instances in a computer. In other words, Single Document Interface approach.
+    \item One app instance can do only one thing at a time: connect to a remote server or serve a local file.
+    \end{itemize}
+    
+\item [Descentralized data flow] \hspace{0cm} \\
+    \begin{itemize}
+    \item Nearby users will have better ping (responsiveness) than remotes one
+    \end{itemize}
+    
 \end{description}
 %@nonl
 %@-node:rodrigob.20040908172407.1:Requirements
@@ -144,54 +152,79 @@ The development of Chalks has some specific difficulties, it is important the ha
 Chalks is a software with three aspects. Identifiying these aspects helps understanding the application structure:
 
 \begin{enumerate}
-\item Concurrent Editing
- 
-  - Managing Concurrent Realtime editing of just text 
 
-     - Define the memory/cpu performance
+\item Concurrent Editing (figure \ref{fig:operationsintime})
 
-     - <a href="images/operations_in_time.png"><img src="images/operations_in_time.png" title="Operations in time" width=250 /></a>
+  \begin{itemize} 
+  \item Managing Concurrent Realtime editing of just text 
+     \begin{itemize}
+     \item Define the memory/cpu performance
+           
+\begin{figure}[htbp]
+ \begin{center}
+    \includegraphics[angle=0,width=0.3\linewidth]{schemas/operations_in_time.png}
+ \end{center}
+ \caption{Operations in the time}
+ \label{fig:operationsintime}
+\end{figure}
 
-  - Receive tagged atomic operations over the text and manage them
-
-  - Generate tagged atomic operations over the local text and pass them to the network layer
-
+     \end{itemize}
+     
+  \item Receive tagged atomic operations over the text and manage them
+  \item Generate tagged atomic operations over the local text and pass them to the network layer
+  \end{itemize}
+  
 \item Network
 
-  - Create a transparent layer between the concurrent editing of objects
+  \begin{itemize}
+  \item Create a transparent layer between the concurrent editing of objects
+      \begin{itemize}
+      \item Creates the ilustion of an "all to all" network (figure \ref{fig:alltoallnetwork})
+      
+\begin{figure}[htbp]
+ \begin{center}
+    \includegraphics[angle=0,width=0.3\linewidth]{schemas/all_to_all_network.png}
+ \end{center}
+ \caption{All to all network}
+ \label{fig:alltoallnetwork}
+\end{figure}
+      
+      \item Define the real network topology (figure \ref{fig:realnetwork})
+\begin{figure}[htbp]
+ \begin{center}
+    \includegraphics[angle=0,width=0.3\linewidth]{schemas/real_network.png}
+ \end{center}
+ \caption{A possible real network topology}
+ \label{fig:realnetwork}
+\end{figure}
 
-      - Creates the ilustion of an "all to all" network.
-
-         - <a href="images/all_to_all_network.png"><img src="images/all_to_all_network.png" title="All to all network" width=150 /></a>
-
-      - Define the real network topology
-
-         - <a href="images/real_network.png"><img src="images/real_network.png" title="A possible real network topology" width=150 /></a>
-
-      - Define the protocol
-
-      - Define the network usage performances
+      \item Define the protocol
+      \item Define the network usage performances
+      \end{itemize}
+  \item Insertion/deletion of new nodes into the network $\leftarrow$ \emph{tricky point}
+  \item How to discover Chalks servers on the current local network automatically    
   
-  - Insertion/deletion of new nodes into the network *<= tricky point*
-
-  - How to discover Chalks servers on the current local network automatically
-    
        Figure out local ip address and netmask, then scan ip range for default chalks server port
-
-  - Translation/transport of atomic operations
-
+       
+  \item Translation/transport of atomic operations
+  \end{itemize}
+  
 \item Gui
 
-  - Simple gui
+  \begin{itemize}
+  \item Simple gui
 
-  - Reflect the local and remote operations over the seen text
-
-    - <a href="images/collaborating_small_shot.png
-"><img src="images/collaborating_small_shot.png
-" title="Remote users operations are colored" width=250 /></a>
-
-  - Allow user entry of operations, pass the atomic operations to the !Concurrentediting layer *<= tricky point*
-
+  \item Reflect the local and remote operations over the seen text (figure\ref{fig:aspectcollaboratingsmallshot})
+\begin{figure}[htbp]
+ \begin{center}
+    \includegraphics[angle=0,width=0.4\linewidth]{schemas/collaborating_small_shot.png}
+ \end{center}
+ \caption{Remote users operations are colored}
+ \label{fig:aspectcollaboratingsmallshot}
+\end{figure}
+  
+  \item Allow user entry of operations, pass the atomic operations to the Concurrentediting layer $\leftarrow$ \emph{tricky point}
+  \end{itemize}
 \end{enumerate}
 %@nonl
 %@-node:rodrigob.20040908172711.1:Aspects
@@ -244,8 +277,8 @@ The concurrent editable algorithm define what to do with an new operations. The 
  \begin{center}
     \includegraphics[angle=0,width=0.5\linewidth]{schemas/concurrent_editable.png}
  \end{center}
- \label{fig:concurrenteditable}
  \caption{ConcurrentEditable, TextContainer and the Operations}
+ \label{fig:concurrenteditable}
 \end{figure}
 
 \fbox{\begin{minipage}[c]{\linewidth}
@@ -288,8 +321,8 @@ The proposal is to use a ``Connect to One, Accept N'' topology, also known as a 
  \begin{center}
     \includegraphics[angle=0,width=0.5\linewidth]{schemas/connect_to_one_accept_N.png}
  \end{center}
- \label{fig:connectooneacceptN}
  \caption{Connect to One, Accept N ilustrative topology}
+ \label{fig:connectooneacceptN}
 \end{figure}
 
 The concept of this topology is, very simple. One user only want to connect himself to one computer, so let's do that. If more than one user want to connect to the same computer let's do that. After the first connection no more connections are made.
@@ -389,26 +422,25 @@ In the text area color codes are used to differenciate the users entries. Also t
  \begin{center}
     \includegraphics[angle=0,width=0.5\linewidth]{schemas/collaborating_small_shot.png}
  \end{center}
- \label{fig:collaboratingsmallshot}
  \caption{Text from other users are colored. Text not yet processed is raised}
+ \label{fig:collaboratingsmallshot}
 \end{figure}
 
 
-
 The color of the users is randomly choosen at the local site. The color generator choose in a family of smooth agradable colors. 
+
 
 \subsection{Menus}
 
 The menus should be strictly minimal, siilar to NotePad ones, but with less options.
 The number of dialogs is also minimal, and they complexity very low.
 
-
 \begin{figure}[htbp]
  \begin{center}
     \includegraphics[angle=0,width=0.5\linewidth]{schemas/simples_menus_and_dialogs.png}
  \end{center}
- \label{fig:simplesmenusanddialogs}
  \caption{Simples menus and dialogs}
+ \label{fig:simplesmenusanddialogs}
 \end{figure}
 
 

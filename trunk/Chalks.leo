@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2927" clone_windows="0"/>
-<globals body_outline_ratio="0.490458015267">
-	<global_window_position top="10" left="10" height="524" width="800"/>
+<globals body_outline_ratio="0.33475177305">
+	<global_window_position top="0" left="0" height="705" width="1009"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -25,11 +25,10 @@
 </v>
 </v>
 </v>
-<v t="rodrigob.20040824110326.1"><vh>Docs</vh>
+<v t="rodrigob.20040824110326.1" a="E"><vh>Docs</vh>
 <v t="rodrigob.20040826155317" a="E"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
 <v t="rodrigob.20040908003956" a="E"><vh>Latex</vh>
 <v t="rodrigob.20040908003956.1" a="E"
-marks="rodrigob.20040908172407.1,rodrigob.20040908172711.1,"
 expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010357.1,"><vh>@thin doc/design.tex</vh></v>
 <v t="rodrigob.20040908004300"><vh>@read-only doc/Makefile</vh></v>
 </v>
@@ -1673,7 +1672,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040826215836"><vh>Old LeoN todo list (to purge)</vh>
 <v t="rodrigob.20040125223416" a="E"><vh>HOOK PROBLEM</vh></v>
 </v>
-<v t="niederberger.20040825222327.1" a="MTV"><vh>High</vh></v>
+<v t="niederberger.20040825222327.1" a="M"><vh>High</vh></v>
 <v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
 <v t="niederberger.20040825222327.3"><vh>Low</vh></v>
 </v>
