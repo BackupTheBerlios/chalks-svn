@@ -7,8 +7,8 @@
 #@@language python
 
 #@+at
-# Chalks is a simplified LeoN application. Intended to give ultra easy usage in order to 
-# allow massive employment of this technology.
+# Chalks is a simplified LeoN application. Intended to give ultra easy usage 
+# in order to allow massive employment of this technology.
 # This program is one pure python package. Most of the code is derived from 
 # LeoN and Leo base code.
 # http://souvenirs.sf.net
@@ -26,8 +26,9 @@
 # 03/02/04 Working. RodrigoB.
 # 12/02/04 Minor bugfix. RodrigoB.
 # 19/02/04 Debugging. RodrigoB.
-#
-# 25/08/04 Project resurrected. Ricardo Niederberger Cabral joined development efforts.
+# 
+# 25/08/04 Project ressurected. Ricardo Niederberger Cabral joined development 
+# efforts.
 # 
 # Todo
 # ----
@@ -60,7 +61,6 @@
 #@-at
 #@@c
 
-# Tkinter imports
 from Tkinter import *
 from Tkconstants import *
 
@@ -120,7 +120,7 @@ from twisted.python import failure
 #@-node:Theorical aspects
 #@+node:helpers
 #@+at
-# Miscelaneous functions that help to do common actions
+# Miscelaneous functions that help doing common actions
 #@-at
 #@@c
 #@nonl
@@ -180,7 +180,7 @@ class Chalks:
         #@+node:<< install the collaboration service >>
         # install the collaboration service 
         
-        self.node = ChalksNode(self) # ChalksNode should take care of the rest
+        self.node = ChalksNode(self) # ChalksNode take care of the rest
         
         # local PB classes definitions
         #@+others
@@ -245,6 +245,30 @@ class Chalks:
         #@nonl
         #@-node:<< install the collaboration service >>
         #@nl
+        #@    << guess local ip address >>
+        #@+node:<< guess local ip address >>
+        """this method relies on an external perl script hosted on any cgi-bin environment to guess the correct external ip address.
+        This is definitely not needed for NAT'd nodes.
+        """
+        #### To force an ip and speed up start up:  
+        #self.opts['ip'] = "200.165.227.174"
+        #return
+        
+        self.log("Guessing your IP address...")
+        
+        t_onError='127.0.0.1'
+        t_adr = "http://imgseek.sourceforge.net/cgi-bin/getMyAddress.pl"
+        
+        def ip_callback(value):
+            self.log("Your local IP address is '%s'"%value)
+        
+        def ip_errback(error):
+            self.log("Unable to determine IP address. Setting to '%s'" % t_onError)
+        
+        from twisted.web.client import getPage
+        getPage(t_adr).addCallbacks( callback=ip_callback, errback=ip_errback )
+        #@-node:<< guess local ip address >>
+        #@nl
         
         return
     
@@ -286,6 +310,72 @@ class Chalks:
     #@-at
     #@@c
     #@nonl
+    #@+node:is_firewalled
+    def is_firewalled(self):
+        """check if this machine is firewalled or nat'd
+        -1 means 'unable to determine with this test'
+        """
+        def getstatusoutput(cmd): #python commands.py is broken on nt/xp systems, since {cmd} is not supported by cmd.exe
+            """Return (status, output) of executing cmd in a shell."""
+            import os
+    
+            if (os.name == 'nt'):
+                pipe = os.popen(cmd + ' 2>&1', 'r')
+            else:
+                pipe = os.popen('{ ' + cmd + '; } 2>&1', 'r')
+    
+            text = pipe.read()
+            sts = pipe.close()
+            if sts is None: sts = 0
+            if text[-1:] == '\n': text = text[:-1]
+            return sts, text
+    
+        import sys
+        gateway_column = 1
+        if sys.platform == 'win32':
+            gateway_column = 2
+        else:
+            gateway_column = 1
+    
+        error = 0
+        try:
+            data = getstatusoutput('netstat -rn')
+            if data[0]:
+                return -1
+            data = data[1]
+            data = data.split('\n')
+            for line in data:
+                if not line:
+                    break
+    
+                list = line.split()
+                if len(list) < 3:
+                    continue
+    
+                #if list[2] == '0.0.0.0':   # genmask == this -> default gw
+    
+                # linux2:
+                #  Destination Gateway  Genmask ...
+                #  0.0.0.0     10.0.0.1 0.0.0.0
+                # freebsd4:
+                #  Destination Gateway  Flags, ...
+                #  default     10.0.0.1 ...
+                # win32:
+                #  Net-addr    Netmask  Gateway   Interface  Metric
+                #  0.0.0.0
+    
+                # RFC 1918 specifies 10., 172.16., 192.168.
+                # DHCP uses 169.254. (?)
+    
+                if list[2] == '0.0.0.0' or list[0] == 'default' or list[0] == '0.0.0.0':
+                    for prefix in [ '10.', '172.16.', '192.168.', '169.254.' ]:
+                        if list[gateway_column][:len(prefix)] == prefix:
+                            error = 1
+        except:
+            logging.exception("while figuring out if local machine is firewalled")
+    
+        return error
+    #@-node:is_firewalled
     #@+node:set_encoding
     #@+at 
     #@nonl
@@ -1020,9 +1110,11 @@ class Chalks:
         top = Toplevel(self.root)
         top.title("Connect to ...")
     
+        t_text = Label(top, text="fill all the entry spaces,")
+        t_text.pack()
+    
         #|-|-|
-        
-        t_frame = LabelFrame(top, text="Enter remote server info", padx=5, pady=5)#Frame(top, borderwidth=2, relief=GROOVE)
+        t_frame = Frame(top, borderwidth=2, relief=GROOVE)
         
         t_text = Label(t_frame, text="Address:")
         t_text.grid(row=0, column=0, pady=5)
@@ -1044,7 +1136,7 @@ class Chalks:
         t_text.grid(row=1, column=2, columnspan=2, sticky=E)
         
         #-|-|-
-        tt_frame = LabelFrame(top, text="Identify yourself", padx=5, pady=5)#Frame(top, borderwidth=2, relief=GROOVE)#Frame(t_frame) 
+        tt_frame = Frame(t_frame) 
         
         t_text = Label(tt_frame, text="Nickname:")
         t_text.grid(row=2, column=0)
@@ -1056,9 +1148,10 @@ class Chalks:
         t_text = Label(tt_frame, text="e.g. : mike")
         t_text.grid(row=3, column=0, columnspan=2, sticky=E)
         
+        tt_frame.grid(row=2, column=0, columnspan=2, sticky=W, pady=5)
         #-|-|-
-        t_frame.pack(ipadx = 5)
-        tt_frame.pack(ipadx = 5)        
+        
+        t_frame.pack(ipadx= 5)    
         #|-|-|
         
         t_frame = Frame(top)
@@ -1220,7 +1313,22 @@ class Chalks:
     # this is part of the code, so do not delete the "help" definition and the """ elements.
     help = \
     """
+    
     NOT YET WRITTEN
+    
+    #@+others
+    #@+node:network graph (about Server, Client, Children, Parent, and Trees)
+    #@+at
+    # The network graph is a Tree.
+    # The upper node is the first instance, that created the original content.
+    # Down tree we found the other sessions.
+    # Each node has one parent and possibly many childrens.
+    #@-at
+    #@@c
+    #@nonl
+    #@-node:network graph (about Server, Client, Children, Parent, and Trees)
+    #@-others
+    
     """
     
     #@-node:<< chalks help >>
@@ -2100,10 +2208,10 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     #@+node:send message
     def remote_send_message(self, txt, who=None):
         """ 
-        A remote node sends a message to us
-        we repeat it to every known node except from the one that gave the message to us
+        A remote node send a message to us
+        we repeat it to every known node except from the one that gived the message to us
         
-        (this method is used to manage both parent and children remote calls (children access to an avatar calling this method))
+        (this method is used to manage both parent and children remote calls (childrens access to an avatar that call this method))
         """
         
         if not who:

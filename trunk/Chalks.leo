@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2926" clone_windows="0"/>
-<globals body_outline_ratio="0.5134751773049645">
-	<global_window_position top="10" left="10" height="705" width="1009"/>
+<globals body_outline_ratio="0.619858156028">
+	<global_window_position top="82" left="7" height="705" width="1009"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -23,7 +23,7 @@
 <v t="rodrigob.20040826154830.3"><vh>&lt;&lt;usage&gt;&gt;</vh></v>
 <v t="rodrigob.20040826155317"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
 </v>
-<v t="rodrigob.121403173614.1" a="TV"><vh>Old LeoN (to purge) Introduction (for LeoN newbies)</vh>
+<v t="rodrigob.121403173614.1"><vh>Old LeoN (to purge) Introduction (for LeoN newbies)</vh>
 <v t="rodrigob.121403173614.57" a="E"><vh>General view of the system</vh>
 <v t="rodrigob.010104211709"><vh>see image misc/leon_scheme.png</vh></v>
 </v>
@@ -1659,7 +1659,7 @@
 </v>
 </v>
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
-<v t="niederberger.20040825222327"><vh>Things left to do</vh>
+<v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
 <v t="niederberger.20040825222327.1"><vh>High</vh></v>
 <v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
 <v t="niederberger.20040825222327.3"><vh>Low</vh></v>
@@ -1672,7 +1672,7 @@
 <v t="rodrigob.20040125154815.3"><vh>edit content</vh>
 <v t="rodrigob.20040125154815.4"><vh>set text</vh></v>
 <v t="rodrigob.20040125154815.5"><vh>insert text</vh></v>
-<v t="rodrigob.20040125154815.6"><vh>delete text</vh></v>
+<v t="rodrigob.20040125154815.6" a="M"><vh>delete text</vh></v>
 <v t="rodrigob.20040125154815.8"><vh>fill body</vh>
 <v t="rodrigob.20040125154815.9" a="E"><vh>helpers functions</vh>
 <v t="rodrigob.20040125154815.10"><vh>&lt;&lt; def index_to_list &gt;&gt;</vh></v>
@@ -1692,12 +1692,12 @@
 </v>
 <v t="rodrigob.20040127182438" a="E"><vh>remote callable methods</vh>
 <v t="rodrigob.20040127182530" a="E"><vh>messages and presence methods</vh>
-<v t="rodrigob.20040127185444"><vh>get users list</vh></v>
+<v t="rodrigob.20040127185444" a="M"><vh>get users list</vh></v>
 <v t="rodrigob.20040127184605"><vh>send message</vh></v>
 <v t="rodrigob.20040127184605.1"><vh>set presence</vh></v>
 </v>
 <v t="rodrigob.20040126020544" a="E"><vh>insert/delete text</vh>
-<v t="rodrigob.20040127203753"><vh>check sites</vh></v>
+<v t="rodrigob.20040127203753" a="M"><vh>check sites</vh></v>
 </v>
 </v>
 </v>
@@ -1754,26 +1754,28 @@
 </v>
 <v t="rodrigob.20040125153141"><vh>&lt;&lt; install the collaboration service &gt;&gt;</vh>
 <v t="rodrigob.20040125200531.1"><vh>Chalks realm</vh></v>
-<v t="rodrigob.20040125200531"><vh>dummy checker</vh></v>
+<v t="rodrigob.20040125200531" a="M"><vh>dummy checker</vh></v>
 </v>
 </v>
 </v>
-<v t="rodrigob.20040119132914" a="EM" tnodeList="rodrigob.20040119132914,rodrigob.20040119133203,rodrigob.20040126020116,rodrigob.20040125194054,rodrigob.20040129130513,rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531.1,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040123142302,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123133012,rodrigob.20040123134959,rodrigob.20040128005315,rodrigob.20040124165851,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040123123829,rodrigob.20040123130224.1,rodrigob.20040125153909,rodrigob.20040125153909.1,rodrigob.20040122173046.1,rodrigob.20040122173046.3,rodrigob.20040122173046.2,rodrigob.20040125210836,rodrigob.20040122182446.1,rodrigob.20040123142018,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040125192325,rodrigob.20040125154657,rodrigob.20040125145031,rodrigob.20040121150952.2,rodrigob.20040121150952.7,rodrigob.20040121150952.6,rodrigob.20040123133928,rodrigob.20040123140212,rodrigob.20040125211222,rodrigob.20040123134358,rodrigob.20040125213003,rodrigob.20040125213003.1,rodrigob.20040121153312,rodrigob.20040121153834.4,rodrigob.20040123123802,rodrigob.20040123132311.1,rodrigob.20040126020116,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040125154815.3,rodrigob.20040125154815.4,rodrigob.20040125154815.5,rodrigob.20040125154815.6,rodrigob.20040125154815.8,rodrigob.20040125154815.10,rodrigob.20040125154815.11,rodrigob.20040125154815.12,rodrigob.20040125154815.13,rodrigob.20040125154815.14,rodrigob.20040125154815.15,rodrigob.20040125154815.16,rodrigob.20040125154815.17,rodrigob.20040125154815.18,rodrigob.20040125154815.19,rodrigob.20040125154815.7,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040127185444,rodrigob.20040127184605,rodrigob.20040127184605.1,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040129150513,rodrigob.20040126020641,rodrigob.20040127190845,rodrigob.20040125220331,rodrigob.20040127182541,rodrigob.20040119132949,rodrigob.20040122143140,rodrigob.20040127180819,rodrigob.20040125150021,rodrigob.20040125152117,rodrigob.20040124181251.3,rodrigob.20040130123655"><vh>@file Chalks.py</vh>
-<v t="rodrigob.20040119133203" a="E"><vh>Theorical aspects</vh>
+<v t="rodrigob.20040119132914" a="EM" tnodeList="rodrigob.20040119132914,rodrigob.20040119133203,rodrigob.20040126020116,rodrigob.20040125194054,rodrigob.20040129130513,rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531.1,rodrigob.20040125200531,niederberger.20040826214344,rodrigob.20040123131236.1,rodrigob.20040123142302,niederberger.20040826214731,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123133012,rodrigob.20040123134959,rodrigob.20040128005315,rodrigob.20040124165851,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040123123829,rodrigob.20040123130224.1,rodrigob.20040125153909,rodrigob.20040125153909.1,rodrigob.20040122173046.1,rodrigob.20040122173046.3,rodrigob.20040122173046.2,rodrigob.20040125210836,rodrigob.20040122182446.1,rodrigob.20040123142018,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040125192325,rodrigob.20040125154657,rodrigob.20040125145031,rodrigob.20040123130224,rodrigob.20040121150952.2,rodrigob.20040121150952.7,rodrigob.20040121150952.6,rodrigob.20040122175312,rodrigob.20040123133928,rodrigob.20040123140212,rodrigob.20040125211222,rodrigob.20040123134358,rodrigob.20040125213003,rodrigob.20040125213003.1,rodrigob.20040121153312,rodrigob.20040124160427,rodrigob.20040121153834.4,rodrigob.20040123123802,rodrigob.20040123132311.1,rodrigob.20040126020116,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040125154815.3,rodrigob.20040125154815.4,rodrigob.20040125154815.5,rodrigob.20040125154815.6,rodrigob.20040125154815.8,rodrigob.20040125154815.10,rodrigob.20040125154815.11,rodrigob.20040125154815.12,rodrigob.20040125154815.13,rodrigob.20040125154815.14,rodrigob.20040125154815.15,rodrigob.20040125154815.16,rodrigob.20040125154815.17,rodrigob.20040125154815.18,rodrigob.20040125154815.9,rodrigob.20040125154815.19,rodrigob.20040125154815.7,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040127185444,rodrigob.20040127184605,rodrigob.20040127184605.1,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040129150513,rodrigob.20040126020641,rodrigob.20040127190845,rodrigob.20040125220331,rodrigob.20040127182541,rodrigob.20040119132949,rodrigob.20040122143140,rodrigob.20040127180819,rodrigob.20040125150021,rodrigob.20040125152117,rodrigob.20040124181251.3,rodrigob.20040130123655"><vh>@file Chalks.py</vh>
+<v t="rodrigob.20040119133203"><vh>Theorical aspects</vh>
 <v t="rodrigob.20040126020116"><vh>network graph (about Server, Client, Children, Parent, and Trees)</vh></v>
 <v t="rodrigob.20040125194054"><vh>repetitions (personal note)</vh></v>
 </v>
 <v t="rodrigob.20040129130513" a="E"><vh>helpers</vh></v>
-<v t="rodrigob.20040119152542" a="M"><vh>class Chalks</vh>
+<v t="rodrigob.20040119152542" a="EM"><vh>class Chalks</vh>
 <v t="rodrigob.20040123131236" a="EM"><vh>__init__</vh>
-<v t="rodrigob.20040125150558" a="M"><vh>&lt;&lt; install the web service &gt;&gt;</vh></v>
-<v t="rodrigob.20040125153141" a="M"><vh>&lt;&lt; install the collaboration service &gt;&gt;</vh>
+<v t="niederberger.20040826214344" a="ETV"><vh>&lt;&lt; guess local ip address &gt;&gt;</vh></v>
+<v t="rodrigob.20040125150558" a="EM"><vh>&lt;&lt; install the web service &gt;&gt;</vh></v>
+<v t="rodrigob.20040125153141" a="EM"><vh>&lt;&lt; install the collaboration service &gt;&gt;</vh>
 <v t="rodrigob.20040125200531.1"><vh>Chalks realm</vh></v>
 <v t="rodrigob.20040125200531" a="M"><vh>dummy checker</vh></v>
 </v>
 </v>
 <v t="rodrigob.20040123131236.1" a="EM"><vh>quit</vh></v>
 <v t="rodrigob.20040123142302" a="E"><vh>helpers</vh>
+<v t="niederberger.20040826214731"><vh>is_firewalled</vh></v>
 <v t="rodrigob.20040129131141" a="M"><vh>set_encoding</vh></v>
 <v t="rodrigob.20040125204408" a="M"><vh>is dirty</vh></v>
 </v>
@@ -1891,7 +1893,7 @@
 <v t="rodrigob.20040125151012" tnodeList="rodrigob.20040125151012,rodrigob.20040125151012.1"><vh>@nosentinelsfile Chalks.xhtml</vh>
 <v t="rodrigob.20040125151012.1"><vh>&lt;&lt; css code &gt;&gt;</vh></v>
 </v>
-<v t="rodrigob.121403173614.1502" a="E" tnodeList="rodrigob.121403173614.1502,rodrigob.121403173614.1503,rodrigob.121403173614.1504,rodrigob.122403213028,rodrigob.121403173614.1505,rodrigob.121403173614.1506,rodrigob.121403173614.1507,rodrigob.121403173614.60,rodrigob.121403173614.1508,rodrigob.121403173614.1509,rodrigob.121403173614.1510,rodrigob.121403173614.1511,rodrigob.121403173614.1512,rodrigob.121403173614.1513,rodrigob.121403173614.1514,rodrigob.121403173614.1515,rodrigob.121403173614.1516,rodrigob.20040121161315,rodrigob.121403173614.1517,rodrigob.121403173614.1518,rodrigob.121403173614.1519,rodrigob.121403173614.1520,rodrigob.121403173614.1521,rodrigob.121403173614.1522,rodrigob.121403173614.1523,rodrigob.121403173614.1524,rodrigob.121403173614.1525,rodrigob.121403173614.1526,rodrigob.121403173614.1527,rodrigob.121403173614.1528,rodrigob.121403173614.1529,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1534,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1537,rodrigob.121403173614.1538,rodrigob.121403173614.1539,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.121403173614.1542,rodrigob.121403173614.1543,rodrigob.121403173614.1544,rodrigob.121403173614.1545,rodrigob.121403173614.1546,rodrigob.20040121154800,rodrigob.20040121155420,rodrigob.20040128013418,rodrigob.20040128011816,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040130122927,rodrigob.20040129165804.1,rodrigob.20040129165804.2,rodrigob.20040128011921,rodrigob.20040128011921.1,rodrigob.20040130224144,rodrigob.20040129181502,rodrigob.20040130225705,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040128011939,rodrigob.20040130225148.1,rodrigob.20040128012459,rodrigob.20040128012627,rodrigob.121403173614.1547,rodrigob.121403173614.1548,rodrigob.121403173614.1549,rodrigob.121403173614.1550,rodrigob.20040121155542,rodrigob.20040128013509,rodrigob.20040128013523"><vh>@file ConcurrentEditable.py</vh>
+<v t="rodrigob.121403173614.1502" tnodeList="rodrigob.121403173614.1502,rodrigob.121403173614.1503,rodrigob.121403173614.1504,rodrigob.122403213028,rodrigob.121403173614.1505,rodrigob.121403173614.1506,rodrigob.121403173614.1507,rodrigob.121403173614.60,rodrigob.121403173614.1508,rodrigob.121403173614.1509,rodrigob.121403173614.1510,rodrigob.121403173614.1511,rodrigob.121403173614.1512,rodrigob.121403173614.1513,rodrigob.121403173614.1514,rodrigob.121403173614.1515,rodrigob.121403173614.1516,rodrigob.20040121161315,rodrigob.121403173614.1517,rodrigob.121403173614.1518,rodrigob.121403173614.1519,rodrigob.121403173614.1520,rodrigob.121403173614.1521,rodrigob.121403173614.1522,rodrigob.121403173614.1523,rodrigob.121403173614.1524,rodrigob.121403173614.1525,rodrigob.121403173614.1526,rodrigob.121403173614.1527,rodrigob.121403173614.1528,rodrigob.121403173614.1529,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1534,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1537,rodrigob.121403173614.1538,rodrigob.121403173614.1539,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.121403173614.1542,rodrigob.121403173614.1543,rodrigob.121403173614.1544,rodrigob.121403173614.1545,rodrigob.121403173614.1546,rodrigob.20040121154800,rodrigob.20040121155420,rodrigob.20040128013418,rodrigob.20040128011816,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040130122927,rodrigob.20040129165804.1,rodrigob.20040129165804.2,rodrigob.20040128011921,rodrigob.20040128011921.1,rodrigob.20040130224144,rodrigob.20040129181502,rodrigob.20040130225705,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040128011939,rodrigob.20040130225148.1,rodrigob.20040128012459,rodrigob.20040128012627,rodrigob.121403173614.1547,rodrigob.121403173614.1548,rodrigob.121403173614.1549,rodrigob.121403173614.1550,rodrigob.20040121155542,rodrigob.20040128013509,rodrigob.20040128013523"><vh>@file ConcurrentEditable.py</vh>
 <v t="rodrigob.121403173614.1503" a="E"><vh>&lt;&lt;docs&gt;&gt;</vh>
 <v t="rodrigob.121403173614.1504" a="E"><vh>About</vh>
 <v t="rodrigob.122403213028"><vh>&lt;&lt; legal declaration &gt;&gt;</vh></v>
@@ -3393,6 +3395,92 @@ Currently they may be related to coding, researching, packaging, everything.</t>
 <t tx="niederberger.20040825222327.1"></t>
 <t tx="niederberger.20040825222327.2"></t>
 <t tx="niederberger.20040825222327.3"></t>
+<t tx="niederberger.20040826214344">"""this method relies on an external perl script hosted on any cgi-bin environment to guess the correct external ip address.
+This is definitely not needed for NAT'd nodes.
+"""
+#### To force an ip and speed up start up:  
+#self.opts['ip'] = "200.165.227.174"
+#return
+
+self.log("Guessing your IP address...")
+
+t_onError='127.0.0.1'
+t_adr = "http://imgseek.sourceforge.net/cgi-bin/getMyAddress.pl"
+
+def ip_callback(value):
+    self.log("Your local IP address is '%s'"%value)
+
+def ip_errback(error):
+    self.log("Unable to determine IP address. Setting to '%s'" % t_onError)
+
+from twisted.web.client import getPage
+getPage(t_adr).addCallbacks( callback=ip_callback, errback=ip_errback )
+</t>
+<t tx="niederberger.20040826214731">def is_firewalled(self):
+    """check if this machine is firewalled or nat'd
+    -1 means 'unable to determine with this test'
+    """
+    def getstatusoutput(cmd): #python commands.py is broken on nt/xp systems, since {cmd} is not supported by cmd.exe
+        """Return (status, output) of executing cmd in a shell."""
+        import os
+
+        if (os.name == 'nt'):
+            pipe = os.popen(cmd + ' 2&gt;&amp;1', 'r')
+        else:
+            pipe = os.popen('{ ' + cmd + '; } 2&gt;&amp;1', 'r')
+
+        text = pipe.read()
+        sts = pipe.close()
+        if sts is None: sts = 0
+        if text[-1:] == '\n': text = text[:-1]
+        return sts, text
+
+    import sys
+    gateway_column = 1
+    if sys.platform == 'win32':
+        gateway_column = 2
+    else:
+        gateway_column = 1
+
+    error = 0
+    try:
+        data = getstatusoutput('netstat -rn')
+        if data[0]:
+            return -1
+        data = data[1]
+        data = data.split('\n')
+        for line in data:
+            if not line:
+                break
+
+            list = line.split()
+            if len(list) &lt; 3:
+                continue
+
+            #if list[2] == '0.0.0.0':   # genmask == this -&gt; default gw
+
+            # linux2:
+            #  Destination Gateway  Genmask ...
+            #  0.0.0.0     10.0.0.1 0.0.0.0
+            # freebsd4:
+            #  Destination Gateway  Flags, ...
+            #  default     10.0.0.1 ...
+            # win32:
+            #  Net-addr    Netmask  Gateway   Interface  Metric
+            #  0.0.0.0
+
+            # RFC 1918 specifies 10., 172.16., 192.168.
+            # DHCP uses 169.254. (?)
+
+            if list[2] == '0.0.0.0' or list[0] == 'default' or list[0] == '0.0.0.0':
+                for prefix in [ '10.', '172.16.', '192.168.', '169.254.' ]:
+                    if list[gateway_column][:len(prefix)] == prefix:
+                        error = 1
+    except:
+        logging.exception("while figuring out if local machine is firewalled")
+
+    return error
+</t>
 <t tx="rodrigob.010104175231"></t>
 <t tx="rodrigob.010104211709"></t>
 <t tx="rodrigob.010104212717">no real requirement right now, but issues we should think about:
@@ -31272,6 +31360,7 @@ else:
     
     &lt;&lt; install the web service &gt;&gt;
     &lt;&lt; install the collaboration service &gt;&gt;
+    &lt;&lt; guess local ip address &gt;&gt;
     
     return
 
@@ -33505,7 +33594,7 @@ def TestConcurrentEditable1():
 
     return success</t>
 <t tx="rodrigob.20040129130513">@
-Miscelaneous functions that help to do common actions
+Miscelaneous functions that help doing common actions
 @c</t>
 <t tx="rodrigob.20040129130513.1"></t>
 <t tx="rodrigob.20040129130513.2">def isUnicode(s):
