@@ -2503,7 +2503,7 @@ class ChalksNode(ConcurrentEditableNode):
         for perspective in perspectives:
             if perspective:       
                 # send to the other nodes
-                perspective.callRemote("receive_op", op_type, pos, data, state_vector ).addErrback(self.exception)
+                perspective.callRemote("receive_op", op_type, pos, data, state_vector).addErrback(self.exception)
         
         return
     
@@ -2568,7 +2568,7 @@ class ChalksNode(ConcurrentEditableNode):
         return
     #@-node:rodrigob.20040127184605:send message
     #@+node:rodrigob.20040920122333:receive operation
-    def remote_receive_operation(self, in_op, *args, **kw):
+    def remote_receive_operation(self, received_from, in_op, *args, **kw):
         """
         Receive an operation from a remote location
         """
@@ -2593,7 +2593,37 @@ class ChalksNode(ConcurrentEditableNode):
         # ---
         
         ConcurrentEditableNode.receive_operation(self, t_op) # apply localy
-                
+        # ---
+        
+        
+        perspectives = self.childrens_perspectives + [self.parent_perspective]
+    
+    #@+at        
+    #     # diagnose code
+    #     #print "%s" %(t_op)
+    #     print "received_from %s" % received_from
+    #     #print "perspectives %s" % perspectives
+    #     print "[x==%s for x in %s] == %s" %(received_from, perspectives, 
+    # [x==received_from for x in perspectives])
+    #@-at
+    #@@c
+    #@+at
+    #     if self.parent_perspective: 
+    # self.parent_perspective.callRemote("send_message", from_, to, 
+    # txt).addErrback(lambda _, name: self.log_error("Could not send the 
+    # message from user %s to user %s"), from_, to)
+    #     return # to avoid horrible loop
+    #@-at
+    #@@c
+        
+        for t_perspective in perspectives:
+            if t_perspective and received_from != t_perspective:
+                #print "%s.callRemote('send_message', ..." % t_perspective
+                t_deferred = t_perspective.callRemote("receive_operation", in_op, *args, **kw)
+                t_deferred.addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
+        #print
+        
+        
         return
     
     remote_receive_op = remote_receive_operation # alias

@@ -2211,6 +2211,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
         This function is called by 'receive operation' when the node repeat the message to his neighbors.
         This function has in charge to make sure that an operation will arive to the indicated site.
         
+        DUMMY IMPLEMENTATION FOR OVERWRITING.
         This method should be overwritten for real network transmision. 
         Test implementation is presented here.
         I repeat, This method should be overwritten to send the object over the network.

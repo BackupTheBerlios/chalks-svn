@@ -550,11 +550,11 @@ This is an horrible draft.
 
 % how to add a site ?
 
-- Simply the dictionanry is extend with a new entry. When a site receive a new entry it extend his local state_vector and HB timestamps.
+- Simply the dictionanry is extend with a new entry. When a site receive a new entry it extend his local state\_vector and HB timestamps.
 
 % how to quit a site ?
 
-- Tag the site_id operation timestamp entry with a -1. Thus when a site receive such packet it delete the entry in the local state_vector and HB timestamps. The site_id is keept in the site_id->site_index translation index for possible disordered packets reapareance. If a packet with non -1 killed site_id reference appears such reference is overwritten.
+- Tag the site\_id operation timestamp entry with a -1. Thus when a site receive such packet it delete the entry in the local state\_vector and HB timestamps. The site\_id is keept in the site_id->site\_index translation index for possible disordered packets reapareance. If a packet with non -1 killed site\_id reference appears such reference is overwritten.
 
 This method should work fine but it allow anyone to disconnect/ban a site. As anyway all the comunications are insecure, we do not care about this issue by now.
 
@@ -562,21 +562,19 @@ This method should work fine but it allow anyone to disconnect/ban a site. As an
 
 % how the new time stamp format is managed ?
 
-To ensure the concurrent edition convergence is important that every site consider an unique site order. Thus the site_id has to be defined to keep a specific order eg: the seconds since epoch. Using such site_id all the sites can be ordered in a specific way.
+To ensure the concurrent edition convergence is important that every site consider an unique site order. Thus the site\_id has to be defined to keep a specific order eg: the seconds since epoch. Using such site\_id all the sites can be ordered in a specific way.
 
 
 To keep maximal backward compatibility the idea is to:
-1- Keep a map of site_id -> site_index
+1- Keep a map of site\_id -> site\_index
 2- Implement methods to insert sites and delete sites
 
 
 If a site disconnect himself and then reconnect himself, it will appear as a new site, different from the first one.
 
-All the complication is focused on the disconnection/reconnection attack. If a site disconnect and reconect repreatidelly it will make the state_vector (and thus the timestamp) grow more and more, slowing down the communications and the local processing. 
+All the complication is focused on the disconnection/reconnection attack. If a site disconnect and reconect repreatidelly it will make the state\_vector (and thus the timestamp) grow more and more, slowing down the communications and the local processing. 
 
 The first idea to solve this issue is to have clean up measures, maybe something smarter could be done ?
-
-
 
 %@-node:rodrigob.20041011000844:<<about the state vectors and the timestamps in a distributed network>>
 %@nl

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2937" clone_windows="0"/>
-<globals body_outline_ratio="0.489361702128">
+<globals body_outline_ratio="0.485106382979">
 	<global_window_position top="0" left="0" height="705" width="1009"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
@@ -27,7 +27,7 @@
 </v>
 <v t="rodrigob.20040824110326.1" a="E"><vh>Docs</vh>
 <v t="rodrigob.20040826155317" a="EM"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
-<v t="rodrigob.20040908003956" a="E"><vh>Latex</vh>
+<v t="rodrigob.20040908003956"><vh>Latex</vh>
 <v t="rodrigob.20040908003956.1" a="E"
 expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010357.1,rodrigob.20040913234027,"><vh>@thin doc/design.tex</vh></v>
 <v t="rodrigob.20040908004300"><vh>@read-only doc/Makefile</vh></v>
@@ -1687,9 +1687,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
 <v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
-<v t="niederberger.20040825222327.1" a="E"><vh>High</vh>
-<v t="rodrigob.20041011010233" a="TV"><vh>state vectors and timestamps</vh></v>
-</v>
+<v t="niederberger.20040825222327.1" a="ETV"><vh>High</vh></v>
 <v t="niederberger.20040825222327.2"><vh>Medium</vh>
 <v t="niederberger.20040922110026" a="E"><vh>pyzeroconf problems</vh>
 <v t="niederberger.20040922111043"><vh>Another rendezvous bug</vh></v>
@@ -1716,7 +1714,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040912225813.1" a="E"><vh>add site</vh></v>
 <v t="rodrigob.20040912225813.2"><vh>del site</vh></v>
 </v>
-<v t="rodrigob.20040125154815.3"><vh>edit content</vh>
+<v t="rodrigob.20040125154815.3" a="E"><vh>edit content</vh>
 <v t="rodrigob.20040125154815.4" a="EM"><vh>set text</vh></v>
 <v t="rodrigob.20040125154815.5"><vh>insert text</vh></v>
 <v t="rodrigob.20040125154815.6" a="M"><vh>delete text</vh></v>
@@ -1739,7 +1737,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 <v t="rodrigob.20040127182438" a="E"><vh>remote callable methods</vh>
 <v t="rodrigob.20040127184605" a="E"><vh>send message</vh></v>
-<v t="rodrigob.20040920122333" a="M"><vh>receive operation</vh></v>
+<v t="rodrigob.20040920122333"><vh>receive operation</vh></v>
 </v>
 </v>
 <v t="rodrigob.20040125194534" a="EM"><vh>class ChalksAvatar</vh>
@@ -1877,7 +1875,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040912225813.1" a="E"><vh>add site</vh></v>
 <v t="rodrigob.20040912225813.2"><vh>del site</vh></v>
 </v>
-<v t="rodrigob.20040125154815.3"><vh>edit content</vh>
+<v t="rodrigob.20040125154815.3" a="E"><vh>edit content</vh>
 <v t="rodrigob.20040125154815.4" a="EM"><vh>set text</vh></v>
 <v t="rodrigob.20040125154815.5"><vh>insert text</vh></v>
 <v t="rodrigob.20040125154815.6" a="M"><vh>delete text</vh></v>
@@ -1900,7 +1898,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 <v t="rodrigob.20040127182438" a="E"><vh>remote callable methods</vh>
 <v t="rodrigob.20040127184605" a="E"><vh>send message</vh></v>
-<v t="rodrigob.20040920122333" a="M"><vh>receive operation</vh></v>
+<v t="rodrigob.20040920122333"><vh>receive operation</vh></v>
 </v>
 </v>
 <v t="rodrigob.20040121155420" a="EM"><vh>ConcurrentEditableNode</vh>
@@ -1954,8 +1952,8 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 </v>
 <v t="rodrigob.20040119132914" a="E"
-marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040125154815.19,rodrigob.20040920122333,rodrigob.20040125194534,rodrigob.20040126020641,"
-expanded="rodrigob.20040119133203,rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040123142302,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040123130224,rodrigob.20040121150952.7,rodrigob.20040122175312,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040912225813,rodrigob.20040125154815.8,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
+marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040125154815.19,rodrigob.20040125194534,rodrigob.20040126020641,"
+expanded="rodrigob.20040119133203,rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040123142302,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040123130224,rodrigob.20040121150952.7,rodrigob.20040122175312,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040912225813,rodrigob.20040125154815.3,rodrigob.20040125154815.8,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.121403173614.1502" a="E"
 marks="rodrigob.121403173614.1509,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040128011921,rodrigob.20040130224144,rodrigob.20040129181502,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
 expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1509,rodrigob.121403173614.1516,rodrigob.121403173614.1518,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040129165804,rodrigob.20040128011921,rodrigob.20040128011921.1,rodrigob.20040130224144,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
@@ -3378,7 +3376,7 @@ Example:
 <t tx="niederberger.20040825222327">@language plain
 This node contains reminders and all things left to do in general, grouped by priority.
 Currently they may be related to coding, researching, packaging, everything.</t>
-<t tx="niederberger.20040825222327.1">- inspect and make a consistent use of the timestamp (operations creation, emission, reception, application) (&lt;&lt;&lt; the next big thing)
+<t tx="niederberger.20040825222327.1">- Find the bug and inconsistencies in the timestamp/state_vector manipulations
 
 - in Test_Chalks, separate both instance stdout redirection (run in threads ?). Test_Chalks should be reimplemented.
 
@@ -30683,7 +30681,7 @@ def set_cursor_position(self, who, pos):
     for perspective in perspectives:
         if perspective:       
             # send to the other nodes
-            perspective.callRemote("receive_op", op_type, pos, data, state_vector ).addErrback(self.exception)
+            perspective.callRemote("receive_op", op_type, pos, data, state_vector).addErrback(self.exception)
     
     return
 
@@ -31472,6 +31470,7 @@ This method have to be overwritten for network transfers support.
     This function is called by 'receive operation' when the node repeat the message to his neighbors.
     This function has in charge to make sure that an operation will arive to the indicated site.
     
+    DUMMY IMPLEMENTATION FOR OVERWRITING.
     This method should be overwritten for real network transmision. 
     Test implementation is presented here.
     I repeat, This method should be overwritten to send the object over the network.
@@ -32901,7 +32900,7 @@ perspective_receive_op = perspective_receive_operation
 - Find a better way to quit the ambiguities on the 'if else {}' operation pertenence. (save_RA, save_LI conditions ?)
 
 </t>
-<t tx="rodrigob.20040920122333">def remote_receive_operation(self, in_op, *args, **kw):
+<t tx="rodrigob.20040920122333">def remote_receive_operation(self, received_from, in_op, *args, **kw):
     """
     Receive an operation from a remote location
     """
@@ -32926,7 +32925,31 @@ perspective_receive_op = perspective_receive_operation
     # ---
     
     ConcurrentEditableNode.receive_operation(self, t_op) # apply localy
-            
+    # ---
+    
+    
+    perspectives = self.childrens_perspectives + [self.parent_perspective]
+
+@        
+    # diagnose code
+    #print "%s" %(t_op)
+    print "received_from %s" % received_from
+    #print "perspectives %s" % perspectives
+    print "[x==%s for x in %s] == %s" %(received_from, perspectives, [x==received_from for x in perspectives])
+@c
+@
+    if self.parent_perspective: self.parent_perspective.callRemote("send_message", from_, to, txt).addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
+    return # to avoid horrible loop
+@c
+    
+    for t_perspective in perspectives:
+        if t_perspective and received_from != t_perspective:
+            #print "%s.callRemote('send_message', ..." % t_perspective
+            t_deferred = t_perspective.callRemote("receive_operation", in_op, *args, **kw)
+            t_deferred.addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
+    #print
+    
+    
     return
 
 remote_receive_op = remote_receive_operation # alias
@@ -32949,11 +32972,11 @@ This is an horrible draft.
 
 % how to add a site ?
 
-- Simply the dictionanry is extend with a new entry. When a site receive a new entry it extend his local state_vector and HB timestamps.
+- Simply the dictionanry is extend with a new entry. When a site receive a new entry it extend his local state\_vector and HB timestamps.
 
 % how to quit a site ?
 
-- Tag the site_id operation timestamp entry with a -1. Thus when a site receive such packet it delete the entry in the local state_vector and HB timestamps. The site_id is keept in the site_id-&gt;site_index translation index for possible disordered packets reapareance. If a packet with non -1 killed site_id reference appears such reference is overwritten.
+- Tag the site\_id operation timestamp entry with a -1. Thus when a site receive such packet it delete the entry in the local state\_vector and HB timestamps. The site\_id is keept in the site_id-&gt;site\_index translation index for possible disordered packets reapareance. If a packet with non -1 killed site\_id reference appears such reference is overwritten.
 
 This method should work fine but it allow anyone to disconnect/ban a site. As anyway all the comunications are insecure, we do not care about this issue by now.
 
@@ -32961,21 +32984,19 @@ This method should work fine but it allow anyone to disconnect/ban a site. As an
 
 % how the new time stamp format is managed ?
 
-To ensure the concurrent edition convergence is important that every site consider an unique site order. Thus the site_id has to be defined to keep a specific order eg: the seconds since epoch. Using such site_id all the sites can be ordered in a specific way.
+To ensure the concurrent edition convergence is important that every site consider an unique site order. Thus the site\_id has to be defined to keep a specific order eg: the seconds since epoch. Using such site\_id all the sites can be ordered in a specific way.
 
 
 To keep maximal backward compatibility the idea is to:
-1- Keep a map of site_id -&gt; site_index
+1- Keep a map of site\_id -&gt; site\_index
 2- Implement methods to insert sites and delete sites
 
 
 If a site disconnect himself and then reconnect himself, it will appear as a new site, different from the first one.
 
-All the complication is focused on the disconnection/reconnection attack. If a site disconnect and reconect repreatidelly it will make the state_vector (and thus the timestamp) grow more and more, slowing down the communications and the local processing. 
+All the complication is focused on the disconnection/reconnection attack. If a site disconnect and reconect repreatidelly it will make the state\_vector (and thus the timestamp) grow more and more, slowing down the communications and the local processing. 
 
 The first idea to solve this issue is to have clean up measures, maybe something smarter could be done ?
-
-
 
 </t>
 <t tx="rodrigob.20041011002305">def __init__(self, chalks_gui, text=""):
@@ -33011,19 +33032,6 @@ The first idea to solve this issue is to have clean up measures, maybe something
     return
 
 
-</t>
-<t tx="rodrigob.20041011010233">Implementation todo:
-
-- Implement the timestamp/state_vector/packet_timestamp translation
-
-- Check the connection process to be consistent with the insert/del _site methods
-
-- Think about the cleanup methods
-
-- Has ConcurrentEditableNode something todo with     
-    #self.parent_perspective = None # the perspective of the parent node
-    #self.connected_sites = {} # the map &lt;connected sites id&gt; =&gt; &lt;site remote perspective object&gt;
-are they used for debuging ? where and how ?
 </t>
 </tnodes>
 </leo_file>
