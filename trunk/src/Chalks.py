@@ -180,7 +180,7 @@ class Chalks:
         #@+node:rodrigob.20040125153141:<< install the collaboration service >>
         # install the collaboration service 
         
-        self.node = ChalksNode(self) # ChalksNode take care of the rest
+        self.node = ChalksNode(self) # ChalksNode takes care of the rest
         
         # local PB classes definitions
         #@+others
@@ -348,11 +348,11 @@ class Chalks:
                 if not line:
                     break
     
-                list = line.split()
-                if len(list) < 3:
+                t_list = line.split()
+                if len(t_list) < 3:
                     continue
     
-                #if list[2] == '0.0.0.0':   # genmask == this -> default gw
+                #if t_list[2] == '0.0.0.0':   # genmask == this -> default gw
     
                 # linux2:
                 #  Destination Gateway  Genmask ...
@@ -367,9 +367,9 @@ class Chalks:
                 # RFC 1918 specifies 10., 172.16., 192.168.
                 # DHCP uses 169.254. (?)
     
-                if list[2] == '0.0.0.0' or list[0] == 'default' or list[0] == '0.0.0.0':
+                if t_list[2] == '0.0.0.0' or t_list[0] == 'default' or t_list[0] == '0.0.0.0':
                     for prefix in [ '10.', '172.16.', '192.168.', '169.254.' ]:
-                        if list[gateway_column][:len(prefix)] == prefix:
+                        if t_list[gateway_column][:len(prefix)] == prefix:
                             error = 1
         except:
             self.log_error("error while figuring out if local machine is firewalled")
@@ -388,7 +388,7 @@ class Chalks:
     def set_encoding (self):
     	
     	"""Set app.tkEncoding."""
-        
+        #<<<<< finish
         raise NotImplementedError
     
     	for (encoding,src) in (
