@@ -1892,7 +1892,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
             raise TypeError, "expected a dict or list timestamp. Umnanaged type %s" % type(timestamp)
     
         # send the operation to all the other clients -- --    
-        for site_id in self.connected_sites:
+        for site_id in self.connected_sites: # <<< there is not a bug here, connected_sites has to be managed better
             if site_id == in_op["source_site"]: continue # do not send back to the emisor	
             self.send_operation(site_id, in_op) # send it
                

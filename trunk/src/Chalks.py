@@ -2470,8 +2470,8 @@ class ChalksNode(ConcurrentEditableNode):
                 
         return
     #@-node:rodrigob.20040125154815.19:flush body
-    #@+node:rodrigob.20040125154815.7:send operation
-    def send_operation(self, op_type, pos, data):
+    #@+node:rodrigob.20040125154815.7:send operation <<< BUG HERE
+    def send_operation(self, op_type, pos, data): # <<< Should be def send_operation(self, site_index, t_op):
         """
         Apply locally and then send the operation to all the adjacent nodes (upward and downward the tree).
         This method overwrite the ConcurrentEditableNode implementation to take care of the network layer.
@@ -2497,7 +2497,7 @@ class ChalksNode(ConcurrentEditableNode):
         for site_id, pos in self.sites_index.items():
             state_vector[site_id] = self.state_vector[pos]
         
-        
+    
         # send to all the connected sites
         perspectives = self.childrens_perspectives + [self.parent_perspective]
         for perspective in perspectives:
@@ -2508,7 +2508,7 @@ class ChalksNode(ConcurrentEditableNode):
         return
     
     
-    #@-node:rodrigob.20040125154815.7:send operation
+    #@-node:rodrigob.20040125154815.7:send operation <<< BUG HERE
     #@-node:rodrigob.20040125154815.3:edit content
     #@+node:rodrigob.20040127182438:remote callable methods
     #@+at

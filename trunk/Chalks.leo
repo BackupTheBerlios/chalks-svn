@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2937" clone_windows="0"/>
-<globals body_outline_ratio="0.485106382979">
-	<global_window_position top="0" left="0" height="705" width="1009"/>
+<globals body_outline_ratio="0.519083969466">
+	<global_window_position top="10" left="10" height="524" width="800"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -1733,7 +1733,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040125154815.18"><vh>&lt;&lt; text paste &gt;&gt;</vh></v>
 </v>
 <v t="rodrigob.20040125154815.19" a="M"><vh>flush body</vh></v>
-<v t="rodrigob.20040125154815.7"><vh>send operation</vh></v>
+<v t="rodrigob.20040125154815.7" a="M"><vh>send operation &lt;&lt;&lt; BUG HERE</vh></v>
 </v>
 <v t="rodrigob.20040127182438" a="E"><vh>remote callable methods</vh>
 <v t="rodrigob.20040127184605" a="E"><vh>send message</vh></v>
@@ -1751,8 +1751,8 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040121155420" a="EM"><vh>ConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013418" a="E"><vh>__init__</vh></v>
 <v t="rodrigob.20040128011816"><vh>receive operation</vh></v>
-<v t="rodrigob.20040128011809"><vh>add/del site</vh>
-<v t="rodrigob.20040129165804" a="E"><vh>add site</vh>
+<v t="rodrigob.20040128011809" a="E"><vh>add/del site</vh>
+<v t="rodrigob.20040129165804" a="EM"><vh>add site</vh>
 <v t="rodrigob.20040130122927"><vh>&lt;&lt; expand the vectors and matrices &gt;&gt;</vh></v>
 </v>
 <v t="rodrigob.20040129165804.1" a="E"><vh>del site</vh></v>
@@ -1894,7 +1894,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040125154815.18"><vh>&lt;&lt; text paste &gt;&gt;</vh></v>
 </v>
 <v t="rodrigob.20040125154815.19" a="M"><vh>flush body</vh></v>
-<v t="rodrigob.20040125154815.7"><vh>send operation</vh></v>
+<v t="rodrigob.20040125154815.7" a="M"><vh>send operation &lt;&lt;&lt; BUG HERE</vh></v>
 </v>
 <v t="rodrigob.20040127182438" a="E"><vh>remote callable methods</vh>
 <v t="rodrigob.20040127184605" a="E"><vh>send message</vh></v>
@@ -1904,8 +1904,8 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040121155420" a="EM"><vh>ConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013418" a="E"><vh>__init__</vh></v>
 <v t="rodrigob.20040128011816"><vh>receive operation</vh></v>
-<v t="rodrigob.20040128011809"><vh>add/del site</vh>
-<v t="rodrigob.20040129165804" a="E"><vh>add site</vh>
+<v t="rodrigob.20040128011809" a="E"><vh>add/del site</vh>
+<v t="rodrigob.20040129165804" a="EM"><vh>add site</vh>
 <v t="rodrigob.20040130122927"><vh>&lt;&lt; expand the vectors and matrices &gt;&gt;</vh></v>
 </v>
 <v t="rodrigob.20040129165804.1" a="E"><vh>del site</vh></v>
@@ -1951,12 +1951,12 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 </v>
 </v>
-<v t="rodrigob.20040119132914" a="E"
-marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040125154815.19,rodrigob.20040125194534,rodrigob.20040126020641,"
+<v t="rodrigob.20040119132914"
+marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040125154815.19,rodrigob.20040125154815.7,rodrigob.20040125194534,rodrigob.20040126020641,"
 expanded="rodrigob.20040119133203,rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040123142302,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040123130224,rodrigob.20040121150952.7,rodrigob.20040122175312,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040912225813,rodrigob.20040125154815.3,rodrigob.20040125154815.8,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
-<v t="rodrigob.121403173614.1502" a="E"
-marks="rodrigob.121403173614.1509,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040128011921,rodrigob.20040130224144,rodrigob.20040129181502,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
-expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1509,rodrigob.121403173614.1516,rodrigob.121403173614.1518,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040129165804,rodrigob.20040128011921,rodrigob.20040128011921.1,rodrigob.20040130224144,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
+<v t="rodrigob.121403173614.1502"
+marks="rodrigob.121403173614.1509,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040128011921,rodrigob.20040130224144,rodrigob.20040129181502,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
+expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1509,rodrigob.121403173614.1516,rodrigob.121403173614.1518,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040121155420,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040128011921,rodrigob.20040128011921.1,rodrigob.20040130224144,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
 <v t="rodrigob.20040912220039"
 marks="rodrigob.20040912220039.14,rodrigob.20040912220039.15,rodrigob.20040912220039.16,rodrigob.20040912220039.17,rodrigob.20040912220039.18,rodrigob.20040912220039.19,rodrigob.20040912220039.21,rodrigob.20040912220039.22,rodrigob.20040912220039.23,rodrigob.20040912220039.25,rodrigob.20040912220039.26,rodrigob.20040912220039.27,rodrigob.20040912220039.28,rodrigob.20040912220039.29,rodrigob.20040912220039.30,rodrigob.20040912220039.31,rodrigob.20040912220039.32,rodrigob.20040912220039.33,rodrigob.20040912220039.34,rodrigob.20040912220039.35,rodrigob.20040912220039.37,rodrigob.20040912220039.38,rodrigob.20040912220039.39,rodrigob.20040912220039.40,rodrigob.20040912220039.42,rodrigob.20040912220039.43,rodrigob.20040912220039.44,rodrigob.20040912220039.45,rodrigob.20040912220039.47,rodrigob.20040912220039.48,rodrigob.20040912220039.49,rodrigob.20040912220039.50,rodrigob.20040912220039.52,rodrigob.20040912220039.53,rodrigob.20040912220039.54,rodrigob.20040912220039.55,rodrigob.20040912220039.57,rodrigob.20040912220039.58,rodrigob.20040912220039.59,rodrigob.20040912220039.60,rodrigob.20040912220039.62,rodrigob.20040912220039.63,rodrigob.20040912220039.64,rodrigob.20040912220039.65,rodrigob.20040912220039.66,rodrigob.20040912220039.67,rodrigob.20040912220039.68,rodrigob.20040912220039.69,rodrigob.20040912220039.70,rodrigob.20040912220039.71,rodrigob.20040912220039.72,rodrigob.20040912220039.73,rodrigob.20040912220039.75,rodrigob.20040912220039.76,rodrigob.20040912220039.77,rodrigob.20040912220039.78,rodrigob.20040912220039.79,rodrigob.20040912220039.80,rodrigob.20040912220039.81,rodrigob.20040912220039.82,rodrigob.20040912220039.83,rodrigob.20040912220039.84,rodrigob.20040912220039.85,rodrigob.20040912220039.86,rodrigob.20040912220039.87,rodrigob.20040912220039.88,rodrigob.20040912220039.89,rodrigob.20040912220039.90,rodrigob.20040912220039.92,rodrigob.20040912220039.93,rodrigob.20040912220039.94,rodrigob.20040912220039.95,rodrigob.20040912220039.96,rodrigob.20040912220039.97,rodrigob.20040912220039.98,rodrigob.20040912220039.100,rodrigob.20040912220039.101,rodrigob.20040912220039.102,rodrigob.20040912220039.103,rodrigob.20040912220039.104,rodrigob.20040912220039.105,rodrigob.20040912220039.107,rodrigob.20040912220039.108,rodrigob.20040912220039.110,rodrigob.20040912220039.111,rodrigob.20040912220039.113,rodrigob.20040912220039.114,rodrigob.20040912220039.115,rodrigob.20040912220039.116,rodrigob.20040912220039.118,rodrigob.20040912220039.119,rodrigob.20040912220039.120,rodrigob.20040912220039.121,rodrigob.20040912220039.122,rodrigob.20040912220039.123,rodrigob.20040912220039.124,rodrigob.20040912220039.125,rodrigob.20040912220039.126,rodrigob.20040912220039.127,rodrigob.20040912220039.128,rodrigob.20040912220039.129,rodrigob.20040912220039.130,rodrigob.20040912220039.131,rodrigob.20040912220039.132,rodrigob.20040912220039.133,rodrigob.20040912220039.134,rodrigob.20040912220039.136,rodrigob.20040912220039.137,rodrigob.20040912220039.138,rodrigob.20040912220039.139,rodrigob.20040912220039.140,rodrigob.20040912220039.141,rodrigob.20040912220039.142,rodrigob.20040912220039.143,rodrigob.20040912220039.144,rodrigob.20040912220039.145,rodrigob.20040912220039.146,rodrigob.20040912220039.147,rodrigob.20040912220039.148,rodrigob.20040912220039.149,rodrigob.20040912220039.150,rodrigob.20040912220039.151,rodrigob.20040912220039.152,rodrigob.20040912220039.153,rodrigob.20040912220039.154,"
 expanded="rodrigob.20040912220039.13,"><vh>@thin Rendezvous.py</vh></v>
@@ -3377,6 +3377,10 @@ Example:
 This node contains reminders and all things left to do in general, grouped by priority.
 Currently they may be related to coding, researching, packaging, everything.</t>
 <t tx="niederberger.20040825222327.1">- Find the bug and inconsistencies in the timestamp/state_vector manipulations
+  - self.connected_sites has to keep a list of {site_ids -&gt; [self.childrens_perspectives + self.parent_perspective]}
+  - ChalksNode.send_operation is inconsistent with ConcurrentEditableNode.send_operation, ChalksNode.send_operation method have to be modified to be just like ConcurrentEditableNode.send_operation
+
+
 
 - in Test_Chalks, separate both instance stdout redirection (run in threads ?). Test_Chalks should be reimplemented.
 
@@ -30649,7 +30653,7 @@ def set_cursor_position(self, who, pos):
     return
     
 </t>
-<t tx="rodrigob.20040125154815.7">def send_operation(self, op_type, pos, data):
+<t tx="rodrigob.20040125154815.7">def send_operation(self, op_type, pos, data): # &lt;&lt;&lt; Should be def send_operation(self, site_index, t_op):
     """
     Apply locally and then send the operation to all the adjacent nodes (upward and downward the tree).
     This method overwrite the ConcurrentEditableNode implementation to take care of the network layer.
@@ -30675,7 +30679,7 @@ def set_cursor_position(self, who, pos):
     for site_id, pos in self.sites_index.items():
         state_vector[site_id] = self.state_vector[pos]
     
-    
+
     # send to all the connected sites
     perspectives = self.childrens_perspectives + [self.parent_perspective]
     for perspective in perspectives:
@@ -31414,7 +31418,7 @@ or when we are notified that a node quited it
         raise TypeError, "expected a dict or list timestamp. Umnanaged type %s" % type(timestamp)
 
     # send the operation to all the other clients -- --    
-    for site_id in self.connected_sites:
+    for site_id in self.connected_sites: # &lt;&lt;&lt; there is not a bug here, connected_sites has to be managed better
         if site_id == in_op["source_site"]: continue # do not send back to the emisor	
         self.send_operation(site_id, in_op) # send it
            
@@ -31925,7 +31929,7 @@ Code related to the Chalks network and his related events
 
     # assign a site index    
     c = 0
-    keys = self.sites_index.keys
+    keys = self.sites_index.keys()
     for c in xrange(len(keys)):
         if keys[c] &gt; site_id:
             break
