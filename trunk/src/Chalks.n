@@ -1,0 +1,20 @@
+/*
+
+*/
+
+using System;
+using Gtk;
+
+namespace Chalks
+{
+	module Chalks
+	{
+		public Main() : void
+		{
+			Application.Init();
+			def _ = Gui.ChalksWindow();
+			Application.Run();
+		}
+	}
+	
+}

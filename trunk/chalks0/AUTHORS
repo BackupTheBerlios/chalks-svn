@@ -5,3 +5,6 @@ Ricardo Niederberger Cabral (ncabral at terra.com.br)
 -------------------------------------------------------------
 
 - The collaborative editing code is based research papers of Chengzheng Sun.
+
+- Rendezvous.py module was written by Paul Scott-Murphy 
+  (http://sourceforge.net/projects/pyzeroconf)

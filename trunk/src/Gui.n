@@ -1,0 +1,60 @@
+/*
+
+*/
+
+using System;
+using Gtk;
+using Glade;
+// Look at 
+// http://www.mono-project.com/GtkSharp 
+// http://primates.ximian.com/~edasque/projects/Tutorial/glade2.html 
+// for some hints
+
+namespace Chalks.Gui
+{
+
+	public class ChalksWindow 
+	{
+		public this() 
+		{
+			def gxml = Glade.XML("../../src/chalks.glade", "chalks_window", null);
+			//def gxml = Glade.XML(null, "chalks.glade", "chalks_window", null);
+			// how to include the resource during the compiling ?
+			gxml.Autoconnect (this);
+			Application.Run();
+			
+			/*base("MyWindow");
+			SetDefaultSize(400, 300);
+			this.DeleteEvent += (fun (_) { Application.Quit ();} )
+			ShowAll();*/
+		}
+		
+		
+		/* Connect the Signals defined in Glade */
+		#region SignalsHandlers
+
+        on_chalks_window_delete_event( o :object, args :DeleteEventArgs) : void 
+        {
+                Application.Quit ();
+                args.RetVal = true;
+        }
+        
+        on_new_menu_item_activate (o :object,  args : EventArgs) : void
+        {
+        
+        }
+        
+        	   
+        on_quit_menu_item_activate(o :object,  args : EventArgs) : void
+        {
+        	Application.Quit();
+        	// TODO The application quit only at the second click 
+        	// (need to do something to EventArgs ?)
+        }
+        
+        #endregion
+        
+	}
+
+
+}

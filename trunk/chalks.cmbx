@@ -1,0 +1,16 @@
+<Combine fileversion="1.0" name="chalks" description="">
+  <StartMode startupentry="chalks" single="True">
+    <Execute entry="chalks" type="None" />
+  </StartMode>
+  <Entries>
+    <Entry filename="./chalks.prjx" />
+  </Entries>
+  <Configurations active="Debug">
+    <Configuration name="Release">
+      <Entry name="chalks" configurationname="Debug" build="False" />
+    </Configuration>
+    <Configuration name="Debug">
+      <Entry name="chalks" configurationname="Debug" build="False" />
+    </Configuration>
+  </Configurations>
+</Combine>

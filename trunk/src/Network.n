@@ -1,0 +1,17 @@
+/*
+
+*/
+
+using System;
+
+namespace Chalks.Network
+{
+
+	interface INode
+	{
+	
+	
+	}
+
+
+}

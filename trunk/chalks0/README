@@ -15,16 +15,16 @@
 ###############################################################################
 
 This file is part of Chalks.
-
 What is Chalks ?
 --------------
 Chalks is a software under development for crossplatform realtime concurrent editing.
 The primary focus will be ease of use and minimum requirements.
 
-Chalks is written in Nermerle, using the Mono platform http://go-mono.com
-Chalks, Nermele and Mono are open source multiplatform projects.
+Chalks is written in Python. http://www.python.org
+Chalks requires Twisted, a network module for Python. http://www.twistedmatrix.com
+Chalks, Twisted and Python are open source multiplatform projects.
 
-Chalks 2003, 2004, 2005.
+Chalks 2003, 2004.
 http://chalks.berlios.de
 
 
@@ -33,8 +33,7 @@ Features
 --------
 
 - Server/Client architecture, ultra easy usage
-- Full crossplatform (inherited from Mono)
-
+- Full crossplatform (inherited from python, and twisted)
 Release Status
 --------------
 
@@ -47,7 +46,9 @@ Know bugs
 Installing 
 ----------
 
+To install the source package, try running, as root:
 
+ $ python setup.py install
 
 Using
 -----
@@ -56,13 +57,14 @@ To be written
 
                      Chalks authors
 -------------------------------------------------------------
-Rodrigo Benenson Díaz (rodrig.benenson at gmail.com)
+Rodrigo Benenson Díaz (rodrigob at elo.utfsm.cl)
 Ricardo Niederberger Cabral (ncabral at terra.com.br)
 -------------------------------------------------------------
 
 - The collaborative editing code is based research papers of Chengzheng Sun.
 
-  
+- Rendezvous.py module was written by Paul Scott-Murphy 
+  (http://sourceforge.net/projects/pyzeroconf)
 
 
 
