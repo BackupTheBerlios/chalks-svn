@@ -1,14 +1,14 @@
 #!/usr/bin/env python2.3
 # -*- coding: utf-8 -*-
-#@+leo-ver=4
-#@+node:@file ConcurrentEditable.py
+#@+leo-ver=4-thin
+#@+node:rodrigob.121403173614.1502:@thin ConcurrentEditable.py
 #@@first
 #@@first
 
 #@<<docs>>
-#@+node:<<docs>>
+#@+node:rodrigob.121403173614.1503:<<docs>>
 #@+others
-#@+node:About
+#@+node:rodrigob.121403173614.1504:About
 """
 This code correspond to an implementation of a Concurrent Editable Text buffer.
 
@@ -34,7 +34,7 @@ I recomend using Leo to explore the code. http://leo.sf.net
 """
 
 #@<<legal declaration>>
-#@+node:<< legal declaration >>
+#@+node:rodrigob.122403213028:<< legal declaration >>
 #@+at
 # LeoN version 0.1.0 alpha, "Feux d'artifice".
 # LeoN project. Leo over Network.
@@ -67,21 +67,21 @@ I recomend using Leo to explore the code. http://leo.sf.net
 #@-at
 #@@c
 #@nonl
-#@-node:<< legal declaration >>
+#@-node:rodrigob.122403213028:<< legal declaration >>
 #@nl
 
 #@+others
-#@+node:Release status
+#@+node:rodrigob.121403173614.1505:Release status
 #@+at
 # This file is released as part of the LeoN distribution. Look at the LeoN 
 # docs for information of the status of this module.
 #@-at
 #@@c
-#@-node:Release status
+#@-node:rodrigob.121403173614.1505:Release status
 #@-others
 #@nonl
-#@-node:About
-#@+node:ConcurrentEditable algorithm explanation
+#@-node:rodrigob.121403173614.1504:About
+#@+node:rodrigob.121403173614.1506:ConcurrentEditable algorithm explanation
 #@+at
 # To understand the ConcurrentEditable code you will have to read the works of 
 # Chengzheng Sun.
@@ -110,8 +110,8 @@ I recomend using Leo to explore the code. http://leo.sf.net
 # Tadaaa...
 #@-at
 #@@c
-#@-node:ConcurrentEditable algorithm explanation
-#@+node:Context (so what?)
+#@-node:rodrigob.121403173614.1506:ConcurrentEditable algorithm explanation
+#@+node:rodrigob.121403173614.1507:Context (so what?)
 #@+at
 # so what? -> Why should you care about this code?
 # 
@@ -130,8 +130,8 @@ I recomend using Leo to explore the code. http://leo.sf.net
 # mail me (see 'legal declaration' node for my email).
 #@-at
 #@@c
-#@-node:Context (so what?)
-#@+node:About ConcurrentEditableClient and ConcurrentEditableServer
+#@-node:rodrigob.121403173614.1507:Context (so what?)
+#@+node:rodrigob.121403173614.60:About ConcurrentEditableClient and ConcurrentEditableServer
 #@+at
 # (A little explication about centralized network, ConcurrentEditableServer 
 # and ConcurrentEditableClient)
@@ -218,10 +218,10 @@ I recomend using Leo to explore the code. http://leo.sf.net
 # 
 #@-at
 #@@c
-#@-node:About ConcurrentEditableClient and ConcurrentEditableServer
+#@-node:rodrigob.121403173614.60:About ConcurrentEditableClient and ConcurrentEditableServer
 #@-others
 #@nonl
-#@-node:<<docs>>
+#@-node:rodrigob.121403173614.1503:<<docs>>
 #@nl
 
 import unittest
@@ -229,14 +229,13 @@ import unittest
 dbg = 0# debug level ;p
         
 #@+others
-#@+node:base implementation
+#@+node:rodrigob.121403173614.1508:base implementation
 #@+at
 # Base implementation of the paper concepts. This code do not worry about 
 # comunication methods.
 #@-at
 #@@c
-#@-node:base implementation
-#@+node:ConcurrentEditable
+#@+node:rodrigob.121403173614.1509:ConcurrentEditable
 class ConcurrentEditable:
     """
     This is the core class.
@@ -274,7 +273,7 @@ class ConcurrentEditable:
 
 
     #@    @+others
-    #@+node:receive operation
+    #@+node:rodrigob.121403173614.1510:receive operation
     def receive_operation(self, t_op, *args, **kw):
         """
         can receive operations receiving an Operation object, or being called as : (type, pos, data, {extra args}) 
@@ -327,8 +326,8 @@ class ConcurrentEditable:
     
     receive_op = receive_operation # alias
         
-    #@-node:receive operation
-    #@+node:apply
+    #@-node:rodrigob.121403173614.1510:receive operation
+    #@+node:rodrigob.121403173614.1511:apply
     def apply(self, Onew):
         """
         Algorithm 3: The undo/transform-do/transform-redo scheme (sun98generic)
@@ -417,8 +416,8 @@ class ConcurrentEditable:
             self.collect_garbage()
     
         return
-    #@-node:apply
-    #@+node:execute
+    #@-node:rodrigob.121403173614.1511:apply
+    #@+node:rodrigob.121403173614.1512:execute
     def execute(self, EO, splitted_part=0):
         """
         Modify the text buffer.
@@ -445,8 +444,7 @@ class ConcurrentEditable:
         
     redo = execute # alias
     #@nonl
-    #@-node:execute
-    #@+node:insert_text
+    #@+node:rodrigob.121403173614.1513:insert_text
     def insert_text(self, startpos, data, op=None):
         """
         the op argument is used to obtain extra information in some specific posible implementations
@@ -455,8 +453,8 @@ class ConcurrentEditable:
         self.text_buffer = self.text_buffer[:startpos] + data + self.text_buffer[startpos:]
         
         return
-    #@-node:insert_text
-    #@+node:delete_text
+    #@-node:rodrigob.121403173614.1513:insert_text
+    #@+node:rodrigob.121403173614.1514:delete_text
     def delete_text(self, startpos, length, op=None):
         """
         the op argument is used to obtain extra information in some specific posible implementations
@@ -469,8 +467,9 @@ class ConcurrentEditable:
             
         return
     #@nonl
-    #@-node:delete_text
-    #@+node:undo
+    #@-node:rodrigob.121403173614.1514:delete_text
+    #@-node:rodrigob.121403173614.1512:execute
+    #@+node:rodrigob.121403173614.1515:undo
     def undo(self, EO):
         """
         Undo an operation. Return the text to his previous state.
@@ -495,8 +494,8 @@ class ConcurrentEditable:
         
         return
     
-    #@-node:undo
-    #@+node:collect_garbage
+    #@-node:rodrigob.121403173614.1515:undo
+    #@+node:rodrigob.121403173614.1516:collect_garbage
     def collect_garbage(self):
         """
         Algorithm 4. The garbage collection procedure. sun98achieving (page 18, 19, 20).
@@ -549,8 +548,7 @@ class ConcurrentEditable:
             print "Site %s; after garbage collector; HB %s"%(self.site_index, map(lambda x: "{from S%i%s}"%(x["source_site"], x["timestamp"]) , HB))
             
         return deleted_operations_list
-    #@-node:collect_garbage
-    #@+node:update SVT
+    #@+node:rodrigob.20040121161315:update SVT
     def update_SVT(self, site_index, state_vector):
         """
         update_StateVectorTable
@@ -565,8 +563,9 @@ class ConcurrentEditable:
         
         return
     
-    #@-node:update SVT
-    #@+node:generate operations
+    #@-node:rodrigob.20040121161315:update SVT
+    #@-node:rodrigob.121403173614.1516:collect_garbage
+    #@+node:rodrigob.121403173614.1517:generate operations
     def generate_operation(self, type, pos, data, **kws):
         """
         The site generate an operation, and apply it locally.
@@ -600,18 +599,17 @@ class ConcurrentEditable:
         """
         
         return self.gen_op(type, pos, data, **kws)
-    #@-node:generate operations
+    #@-node:rodrigob.121403173614.1517:generate operations
     #@-others
     
 
-#@-node:ConcurrentEditable
-#@+node:operations relations
+#@-node:rodrigob.121403173614.1509:ConcurrentEditable
+#@+node:rodrigob.121403173614.1518:operations relations
 #@+at
 # Function defined over the operation that return boolean values
 #@-at
 #@@c
-#@-node:operations relations
-#@+node:causally-ready
+#@+node:rodrigob.121403173614.1519:causally-ready
 
 def is_causally_ready(t_O, t_site):
     """
@@ -642,8 +640,8 @@ def is_causally_ready(t_O, t_site):
     
     
     return condition1 and condition2
-#@-node:causally-ready
-#@+node:total ordering relation
+#@-node:rodrigob.121403173614.1519:causally-ready
+#@+node:rodrigob.121403173614.1520:total ordering relation
 
 def check_total_ordering(Oa, Ob):
     """
@@ -674,8 +672,8 @@ def check_total_ordering(Oa, Ob):
     condition2 = (sum(SVOa) == sum(SVOb)) and (i < j)
         
     return condition1 or condition2
-#@-node:total ordering relation
-#@+node:dependent or independent
+#@-node:rodrigob.121403173614.1520:total ordering relation
+#@+node:rodrigob.121403173614.1521:dependent or independent
 #@+at
 # Definition 1: Causal ordering relation "->"
 # 
@@ -732,8 +730,9 @@ def are_concurrent(Oa,Ob):
     
     
 are_independent = are_concurrent # just an alias
-#@-node:dependent or independent
-#@+node:GOT
+#@-node:rodrigob.121403173614.1521:dependent or independent
+#@-node:rodrigob.121403173614.1518:operations relations
+#@+node:rodrigob.121403173614.1522:GOT
 
 def GOT( Onew, HB):
     """ 
@@ -786,8 +785,8 @@ def GOT( Onew, HB):
             
     return EOnew
 #@nonl
-#@-node:GOT
-#@+node:Transformations
+#@-node:rodrigob.121403173614.1522:GOT
+#@+node:rodrigob.121403173614.1523:Transformations
 def LIT(O, OL):
     """
     Inclusion transform over a list
@@ -821,8 +820,7 @@ def reverse(in_list):
     
     return t_list
 #@nonl
-#@-node:Transformations
-#@+node:IT
+#@+node:rodrigob.121403173614.1524:IT
 
 def IT (Oa, Ob):
     """
@@ -913,8 +911,8 @@ def IT_DD(Oa, Ob):
 
 
 
-#@-node:IT
-#@+node:ET
+#@-node:rodrigob.121403173614.1524:IT
+#@+node:rodrigob.121403173614.1525:ET
 def ET(Oa, Ob):
     """
     Exclusion Transform.
@@ -1004,8 +1002,9 @@ def ET_DD(Oa, Ob):
                         Op( "Delete", L(Oa) -(P(Ob) - P(Oa)), P(Ob) + L(Ob) ) )
     return Ooa
 
-#@-node:ET
-#@+node:Operation
+#@-node:rodrigob.121403173614.1525:ET
+#@-node:rodrigob.121403173614.1523:Transformations
+#@+node:rodrigob.121403173614.1526:Operation
 class Operation(dict):
     """
     simple object that encapsulate the information and methods related to the operations.
@@ -1154,8 +1153,7 @@ def S(O):
         
     return O["data"]
     
-#@-node:Operation
-#@+node:Splitted
+#@+node:rodrigob.121403173614.1527:Splitted
 
 def Splitted(O1, O2):
     """
@@ -1184,8 +1182,8 @@ def Splitted(O1, O2):
 
 
 
-#@-node:Splitted
-#@+node:Lost Information
+#@-node:rodrigob.121403173614.1527:Splitted
+#@+node:rodrigob.121403173614.1528:Lost Information
 #@+at
 # LI refers to "Lost Information".
 #@-at
@@ -1221,8 +1219,8 @@ def Recover_LI(Oa):
     """
     
     return 	Oa["lost_information"]
-#@-node:Lost Information
-#@+node:Relative Address
+#@-node:rodrigob.121403173614.1528:Lost Information
+#@+node:rodrigob.121403173614.1529:Relative Address
     
 def Check_RA(Oa):
     """
@@ -1269,8 +1267,10 @@ def Convert_AA(Oa, Ob):
     
     return Oaa
 
-#@-node:Relative Address
-#@+node:centralized network
+#@-node:rodrigob.121403173614.1529:Relative Address
+#@-node:rodrigob.121403173614.1526:Operation
+#@-node:rodrigob.121403173614.1508:base implementation
+#@+node:rodrigob.121403173614.1530:centralized network
 #@+at
 # I had a first attemp to create a virtual Server-Client only comunication 
 # between different clients. But this approach seems to have failed.
@@ -1289,8 +1289,7 @@ def Convert_AA(Oa, Ob):
 # client and it do not add any special logic to the base case.
 #@-at
 #@@c
-#@-node:centralized network
-#@+node:ConcurrentEditableServer
+#@+node:rodrigob.121403173614.1531:ConcurrentEditableServer
 class ConcurrentEditableServer(ConcurrentEditable):
     """
     Simple Observer and operations repeater.
@@ -1324,7 +1323,7 @@ class ConcurrentEditableServer(ConcurrentEditable):
     
     
     #@    @+others
-    #@+node:add/del clients
+    #@+node:rodrigob.121403173614.1532:add/del clients
     def add_client(self, client_perspective):
         """
         Register the client to the clients list. 
@@ -1444,8 +1443,8 @@ class ConcurrentEditableServer(ConcurrentEditable):
         
         return self.connected_sites.keys()
     #@nonl
-    #@-node:add/del clients
-    #@+node:receive operation
+    #@-node:rodrigob.121403173614.1532:add/del clients
+    #@+node:rodrigob.121403173614.1533:receive operation
     def receive_operation(self, in_op, *args, **kw):
         """
         adapt the state_vectors lenghts
@@ -1475,8 +1474,8 @@ class ConcurrentEditableServer(ConcurrentEditable):
         return
     
     receive_op = receive_operation # alias
-    #@-node:receive operation
-    #@+node:apply
+    #@-node:rodrigob.121403173614.1533:receive operation
+    #@+node:rodrigob.121403173614.1534:apply
     def apply(self, Onew):
         """
         Send to all the other users and Apply locally .
@@ -1494,8 +1493,8 @@ class ConcurrentEditableServer(ConcurrentEditable):
     
     
     
-    #@-node:apply
-    #@+node:collect_garbage
+    #@-node:rodrigob.121403173614.1534:apply
+    #@+node:rodrigob.121403173614.1535:collect_garbage
     def collect_garbage(self):
         """
         Calls the parent method but we store the base_state_vector.
@@ -1510,8 +1509,8 @@ class ConcurrentEditableServer(ConcurrentEditable):
         return
     
     
-    #@-node:collect_garbage
-    #@+node:base text (<<< it have any sense does)
+    #@-node:rodrigob.121403173614.1535:collect_garbage
+    #@+node:rodrigob.121403173614.1536:base text (<<< it have any sense does)
     def compute_base_text(self):
         """
         The base text is the text underlying the operations in the history buffer. Could be created from the operation cleaned by the garbage collector or is text that persisted from other sessions.
@@ -1526,14 +1525,13 @@ class ConcurrentEditableServer(ConcurrentEditable):
             
         return
     #@nonl
-    #@-node:base text (<<< it have any sense does)
-    #@+node:network methods
+    #@-node:rodrigob.121403173614.1536:base text (<<< it have any sense does)
+    #@+node:rodrigob.121403173614.1537:network methods
     #@+at
     # This method have to be overwritten for network transfers support.
     #@-at
     #@@c
-    #@-node:network methods
-    #@+node:send operation
+    #@+node:rodrigob.121403173614.1538:send operation
     
     def send_operation(self, site_index, t_op):
         """
@@ -1549,8 +1547,8 @@ class ConcurrentEditableServer(ConcurrentEditable):
             sent_test_operations.append(t_op)
             
         return
-    #@-node:send operation
-    #@+node:send text
+    #@-node:rodrigob.121403173614.1538:send operation
+    #@+node:rodrigob.121403173614.1539:send text
     def send_text(self, site_index, new_text):
         """
         This method should be overwritten for a networked implementation.
@@ -1565,11 +1563,12 @@ class ConcurrentEditableServer(ConcurrentEditable):
         
         return
     #@nonl
-    #@-node:send text
+    #@-node:rodrigob.121403173614.1539:send text
+    #@-node:rodrigob.121403173614.1537:network methods
     #@-others
     
-#@-node:ConcurrentEditableServer
-#@+node:ConcurrentEditableClient
+#@-node:rodrigob.121403173614.1531:ConcurrentEditableServer
+#@+node:rodrigob.121403173614.1540:ConcurrentEditableClient
 class ConcurrentEditableClient(ConcurrentEditable):
     """
     Just a normal ConcurrentEditable but with a special garbage collector, because the Server can send operations from the past (normal client are suposed to do not do that). So the Client garbage collector is triggered by the Server.
@@ -1587,13 +1586,12 @@ class ConcurrentEditableClient(ConcurrentEditable):
         return
         
     #@    @+others
-    #@+node:network methods
+    #@+node:rodrigob.121403173614.1541:network methods
     #@+at
     # This method have to be overwritten for network transfers support.
     #@-at
     #@@c
-    #@-node:network methods
-    #@+node:connect to server
+    #@+node:rodrigob.121403173614.1542:connect to server
     def connect_to_server(self, server_reference):
         """
         Connect to the server.
@@ -1614,8 +1612,9 @@ class ConcurrentEditableClient(ConcurrentEditable):
         
         self.connected = 1
         return
-    #@-node:connect to server
-    #@+node:add/del clients
+    #@-node:rodrigob.121403173614.1542:connect to server
+    #@-node:rodrigob.121403173614.1541:network methods
+    #@+node:rodrigob.121403173614.1543:add/del clients
     def add_a_client(self):
         """
         Add one client more
@@ -1722,8 +1721,8 @@ class ConcurrentEditableClient(ConcurrentEditable):
     
     
     
-    #@-node:add/del clients
-    #@+node:receive operation
+    #@-node:rodrigob.121403173614.1543:add/del clients
+    #@+node:rodrigob.121403173614.1544:receive operation
     def receive_operation(self, in_op, *args, **kw):
         """
         check if the operation timestamp correspond to the local num_of_sites
@@ -1767,8 +1766,8 @@ class ConcurrentEditableClient(ConcurrentEditable):
     receive_op = receive_operation # alias
         
     
-    #@-node:receive operation
-    #@+node:generate operations
+    #@-node:rodrigob.121403173614.1544:receive operation
+    #@+node:rodrigob.121403173614.1545:generate operations
     def generate_operation(self, type, pos, data, **kws):
         """
         The site generate an operation, and apply it locally.
@@ -1782,8 +1781,8 @@ class ConcurrentEditableClient(ConcurrentEditable):
         
         return ret_op
     #@nonl
-    #@-node:generate operations
-    #@+node:set text
+    #@-node:rodrigob.121403173614.1545:generate operations
+    #@+node:rodrigob.121403173614.1546:set text
     def set_text(self, new_text):
         """
         Blindly overwrite the text of this site.
@@ -1793,10 +1792,11 @@ class ConcurrentEditableClient(ConcurrentEditable):
         
         return
     #@nonl
-    #@-node:set text
+    #@-node:rodrigob.121403173614.1546:set text
     #@-others
-#@-node:ConcurrentEditableClient
-#@+node:relays network (ConcurrentEditable)
+#@-node:rodrigob.121403173614.1540:ConcurrentEditableClient
+#@-node:rodrigob.121403173614.1530:centralized network
+#@+node:rodrigob.20040121154800:relays network (ConcurrentEditable)
 #@+at
 # The concept behind Chalks. Each node acts as a client and a server. It 
 # connects to, accept editions and incoming connections. Each received 
@@ -1806,8 +1806,7 @@ class ConcurrentEditableClient(ConcurrentEditable):
 #@-at
 #@@c
 #@nonl
-#@-node:relays network (ConcurrentEditable)
-#@+node:ConcurrentEditableNode
+#@+node:rodrigob.20040121155420:ConcurrentEditableNode
 class ConcurrentEditableNode(ConcurrentEditable):
     """
     This is a specialization of ConcurrentEditable. Instead of suposing that each site is reacheable a network is constructed.
@@ -1824,7 +1823,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
     """
             
     #@    @+others
-    #@+node:__init__
+    #@+node:rodrigob.20040128013418:__init__
     def __init__(self, text=u""):
         """
         <<<< EDIT THIS CONTENT
@@ -1852,8 +1851,8 @@ class ConcurrentEditableNode(ConcurrentEditable):
         self.text_buffer = text
             
         return
-    #@-node:__init__
-    #@+node:receive operation
+    #@-node:rodrigob.20040128013418:__init__
+    #@+node:rodrigob.20040128011816:receive operation
     def receive_operation(self, in_op, *args, **kw):
         """
         This the method called when a new operation arive to the local machine (or process).
@@ -1929,8 +1928,8 @@ class ConcurrentEditableNode(ConcurrentEditable):
     
     receive_op = receive_operation # alias
     #@nonl
-    #@-node:receive operation
-    #@+node:add/del site
+    #@-node:rodrigob.20040128011816:receive operation
+    #@+node:rodrigob.20040128011809:add/del site
     #@+at
     # what happen when a new node appear in the network
     # or when we are notified that a node quited it
@@ -1938,7 +1937,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
     #@@c
     
     #@+others
-    #@+node:add site
+    #@+node:rodrigob.20040129165804:add site
     def add_site(self, site_id):
         """
         Add a site to the list of known sites.
@@ -1972,7 +1971,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
             self.site_index = site_index
     
         #@    << expand the vectors and matrices >>
-        #@+node:<< expand the vectors and matrices >>
+        #@+node:rodrigob.20040130122927:<< expand the vectors and matrices >>
         # -------------------------------
         # expand the vectors and matrices 
         extra = [0]
@@ -2007,7 +2006,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
                 t_op["LI_base_op" ].get("timestamp", []).extend(extra)
         
         # end of references expantions -----------
-        #@-node:<< expand the vectors and matrices >>
+        #@-node:rodrigob.20040130122927:<< expand the vectors and matrices >>
         #@nl
         
         if dbg >= 1:
@@ -2017,8 +2016,8 @@ class ConcurrentEditableNode(ConcurrentEditable):
         return
     
     
-    #@-node:add site
-    #@+node:del site
+    #@-node:rodrigob.20040129165804:add site
+    #@+node:rodrigob.20040129165804.1:del site
     def del_site(self, site_id):
         """
         This method is called when we receive a disconnection message
@@ -2079,8 +2078,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
     
     
     
-    #@-node:del site
-    #@+node:del clients (server)
+    #@+node:rodrigob.20040129165804.2:del clients (server)
     def del_client(self, client_perspective):
         """
         The inverse of add_client.
@@ -2103,16 +2101,16 @@ class ConcurrentEditableNode(ConcurrentEditable):
             
         return
     #@nonl
-    #@-node:del clients (server)
+    #@-node:rodrigob.20040129165804.2:del clients (server)
+    #@-node:rodrigob.20040129165804.1:del site
     #@-others
-    #@-node:add/del site
-    #@+node:network methods
+    #@-node:rodrigob.20040128011809:add/del site
+    #@+node:rodrigob.20040128011921:network methods
     #@+at
     # This method have to be overwritten for network transfers support.
     #@-at
     #@@c
-    #@-node:network methods
-    #@+node:connect to parent 
+    #@+node:rodrigob.20040128011921.1:connect to parent 
     def connect_to_parent(self, parent_reference):
         """
         This method only establish the network connection with the parent. After this, 'self.collaborate_in' has to be called to enter into the collaborative edition session.
@@ -2136,8 +2134,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
     
     
     
-    #@-node:connect to parent 
-    #@+node:old
+    #@+node:rodrigob.20040130224144:old
     #@+at
     #     site_index, num_of_sites, base_state_vector, base_text, ops_list = 
     # server_reference.add_client(self)
@@ -2156,8 +2153,8 @@ class ConcurrentEditableNode(ConcurrentEditable):
     #@-at
     #@@c
     #@nonl
-    #@-node:old
-    #@+node:get_data
+    #@-node:rodrigob.20040130224144:old
+    #@+node:rodrigob.20040129181502:get_data
     def get_data(self,): # what and where ?
         """
         """
@@ -2178,8 +2175,9 @@ class ConcurrentEditableNode(ConcurrentEditable):
             print
                 
         return (site_index, len(self.state_vector), self.base_state_vector, self.base_text, ops_list)
-    #@-node:get_data
-    #@+node:disconnect_from_parent
+    #@-node:rodrigob.20040129181502:get_data
+    #@-node:rodrigob.20040128011921.1:connect to parent 
+    #@+node:rodrigob.20040130225705:disconnect_from_parent
     def disconnect_from_parent(self,):
         """
         Close the connection with the parent. This also will kill the conections to the childs, creating a cascade effect in the down side nodes.
@@ -2195,8 +2193,8 @@ class ConcurrentEditableNode(ConcurrentEditable):
     
         return
     #@nonl
-    #@-node:disconnect_from_parent
-    #@+node:collaborate_in
+    #@-node:rodrigob.20040130225705:disconnect_from_parent
+    #@+node:rodrigob.20040130225148:collaborate_in
     def collaborate_in(self,):
         """
         Request the actual state to the parent and install it locally, using 'self.set_state'
@@ -2215,8 +2213,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
         self.receiving_parent_state = 0
         return
     #@nonl
-    #@-node:collaborate_in
-    #@+node:set_state <= THIS IS THE ACTUAL WORK
+    #@+node:rodrigob.20040130225208:set_state <= THIS IS THE ACTUAL WORK
     def set_state(self, state):
         """
         ovewrite all the actual state information to install a new one.
@@ -2241,8 +2238,9 @@ class ConcurrentEditableNode(ConcurrentEditable):
         
         return
     #@nonl
-    #@-node:set_state <= THIS IS THE ACTUAL WORK
-    #@+node:send operation
+    #@-node:rodrigob.20040130225208:set_state <= THIS IS THE ACTUAL WORK
+    #@-node:rodrigob.20040130225148:collaborate_in
+    #@+node:rodrigob.20040128011939:send operation
     def send_operation(self, site_index, t_op):
         """
         This function is called by 'receive operation' when the node repeat the message to his neighbors.
@@ -2260,8 +2258,9 @@ class ConcurrentEditableNode(ConcurrentEditable):
             
         return
     
-    #@-node:send operation
-    #@+node:get_state
+    #@-node:rodrigob.20040128011939:send operation
+    #@-node:rodrigob.20040128011921:network methods
+    #@+node:rodrigob.20040130225148.1:get_state
     def get_state(self,):
         """
         The return all the data required to follow the actual session
@@ -2270,8 +2269,8 @@ class ConcurrentEditableNode(ConcurrentEditable):
         # sites index, SVT, MSV, HB, delayed_operations, text, state_vector
         
         return self.sites_index, self.state_vector_table, self.minimum_state_vector, self.HB, self.delayed_operations, self.text_buffer, self.state_vector
-    #@-node:get_state
-    #@+node:collect_garbage
+    #@-node:rodrigob.20040130225148.1:get_state
+    #@+node:rodrigob.20040128012459:collect_garbage
     def collect_garbage(self):
         """
         Due to the possible appearance of new sites we 'keep alive' the deleted operations.
@@ -2285,8 +2284,8 @@ class ConcurrentEditableNode(ConcurrentEditable):
         return
     
     
-    #@-node:collect_garbage
-    #@+node:generate operations
+    #@-node:rodrigob.20040128012459:collect_garbage
+    #@+node:rodrigob.20040128012627:generate operations
     def generate_operation(self, type, pos, data, **kws):
         """
         The site generate an operation, and apply it locally.
@@ -2297,11 +2296,12 @@ class ConcurrentEditableNode(ConcurrentEditable):
         return Operation(**t_op) # return a copy of the operation
         
     #@nonl
-    #@-node:generate operations
+    #@-node:rodrigob.20040128012627:generate operations
     #@-others
 #@nonl
-#@-node:ConcurrentEditableNode
-#@+node:Tests (ConcurrentEditable)
+#@-node:rodrigob.20040121155420:ConcurrentEditableNode
+#@-node:rodrigob.20040121154800:relays network (ConcurrentEditable)
+#@+node:rodrigob.121403173614.1547:Tests (ConcurrentEditable)
 #@+at
 # The unit tests for concurrent editions.
 #@-at
@@ -2323,8 +2323,7 @@ def get_test_suite():
         
     return TestSuite
 #@nonl
-#@-node:Tests (ConcurrentEditable)
-#@+node:TestConcurrentEditable1
+#@+node:rodrigob.121403173614.1548:TestConcurrentEditable1
 
 def TestConcurrentEditable1():
     """
@@ -2413,8 +2412,8 @@ def TestConcurrentEditable1():
 
     return success
 
-#@-node:TestConcurrentEditable1
-#@+node:TestConcurrentEditable2
+#@-node:rodrigob.121403173614.1548:TestConcurrentEditable1
+#@+node:rodrigob.121403173614.1549:TestConcurrentEditable2
 
 def TestConcurrentEditable2():
     """
@@ -2502,8 +2501,8 @@ def TestConcurrentEditable2():
 
 
     return success
-#@-node:TestConcurrentEditable2
-#@+node:TestConcurrentEditableServer
+#@-node:rodrigob.121403173614.1549:TestConcurrentEditable2
+#@+node:rodrigob.121403173614.1550:TestConcurrentEditableServer
 def TestConcurrentEditableServer():
     """
     Run almost exactly the same case of TestConcurrentEditable1 but using a Star network; with one central server and three clients connecting to it.
@@ -2660,8 +2659,8 @@ def TestConcurrentEditableServer():
 
     return success
 #@nonl
-#@-node:TestConcurrentEditableServer
-#@+node:TestConcurrentEditableNode
+#@-node:rodrigob.121403173614.1550:TestConcurrentEditableServer
+#@+node:rodrigob.20040121155542:TestConcurrentEditableNode
 def TestConcurrentEditableNode():
     """
     Run almost exactly the same case of TestConcurrentEditable1 but using a 'relay network'; with three nodes S1 connect to S2 and S0 connecto to S1.
@@ -2671,8 +2670,7 @@ def TestConcurrentEditableNode():
     
     return
     
-#@-node:TestConcurrentEditableNode
-#@+node:TestConcurrentEditable1
+#@+node:rodrigob.20040128013509:TestConcurrentEditable1
 
 def TestConcurrentEditable1():
     """
@@ -2761,8 +2759,8 @@ def TestConcurrentEditable1():
 
     return success
 
-#@-node:TestConcurrentEditable1
-#@+node:TestConcurrentEditableServer
+#@-node:rodrigob.20040128013509:TestConcurrentEditable1
+#@+node:rodrigob.20040128013523:TestConcurrentEditableServer
 def TestConcurrentEditableServer():
     """
     Run almost exactly the same case of TestConcurrentEditable1 but using a Star network; with one central server and three clients connecting to it.
@@ -2919,7 +2917,9 @@ def TestConcurrentEditableServer():
 
     return success
 #@nonl
-#@-node:TestConcurrentEditableServer
+#@-node:rodrigob.20040128013523:TestConcurrentEditableServer
+#@-node:rodrigob.20040121155542:TestConcurrentEditableNode
+#@-node:rodrigob.121403173614.1547:Tests (ConcurrentEditable)
 #@-others
 
 
@@ -2927,5 +2927,5 @@ if __name__ == "__main__":
 
     unittest.TextTestRunner().run(get_test_suite())
 
-#@-node:@file ConcurrentEditable.py
+#@-node:rodrigob.121403173614.1502:@thin ConcurrentEditable.py
 #@-leo

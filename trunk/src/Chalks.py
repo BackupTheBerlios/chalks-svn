@@ -1,7 +1,7 @@
 #!/usr/bin/env python2.3
 # -*- coding: utf-8 -*-
-#@+leo-ver=4
-#@+node:@file Chalks.py
+#@+leo-ver=4-thin
+#@+node:rodrigob.20040119132914:@thin Chalks.py
 #@@first
 #@@first
 #@@language python
@@ -84,7 +84,7 @@ from twisted.python import failure
 
 
 #@+others
-#@+node:Theorical aspects
+#@+node:rodrigob.20040119133203:Theorical aspects
 #@+at
 # (explain the collaborative edition concept, how it is achieved)
 # (explain how the multi node system is achieved)
@@ -92,7 +92,7 @@ from twisted.python import failure
 #@-at
 #@@c
 #@nonl
-#@+node:network graph (about Server, Client, Children, Parent, and Trees)
+#@+node:rodrigob.20040126020116:network graph (about Server, Client, Children, Parent, and Trees)
 #@+at
 # The network graph is a Tree.
 # The upper node is the first instance, that created the original content.
@@ -101,8 +101,8 @@ from twisted.python import failure
 #@-at
 #@@c
 #@nonl
-#@-node:network graph (about Server, Client, Children, Parent, and Trees)
-#@+node:repetitions (personal note)
+#@-node:rodrigob.20040126020116:network graph (about Server, Client, Children, Parent, and Trees)
+#@+node:rodrigob.20040125194054:repetitions (personal note)
 #@+at
 # We allow nodes to connect to us. We are connected to at most one node.
 # 
@@ -116,16 +116,16 @@ from twisted.python import failure
 #@-at
 #@@c
 #@nonl
-#@-node:repetitions (personal note)
-#@-node:Theorical aspects
-#@+node:helpers
+#@-node:rodrigob.20040125194054:repetitions (personal note)
+#@-node:rodrigob.20040119133203:Theorical aspects
+#@+node:rodrigob.20040129130513:helpers
 #@+at
 # Miscelaneous functions that help doing common actions
 #@-at
 #@@c
 #@nonl
-#@-node:helpers
-#@+node:class Chalks
+#@-node:rodrigob.20040129130513:helpers
+#@+node:rodrigob.20040119152542:class Chalks
 class Chalks:
     """
     Main class that builds the Graphical User Interface and contains other interactive objects, such as the CollaborativeEditableNode.
@@ -133,7 +133,7 @@ class Chalks:
     """
     
     #@    @+others
-    #@+node:__init__
+    #@+node:rodrigob.20040123131236:__init__
     def __init__(self, web_service=1):
         """
         At the instanciation create the gui and install the reactor support
@@ -154,7 +154,7 @@ class Chalks:
         print "Chalks " + self.version + ", started. Licensed under the GNU GPL. Copyright 2004, Chalks Development Team (http://chalks.berlios.de)\n"
         
         #@    << install the web service >>
-        #@+node:<< install the web service >>
+        #@+node:rodrigob.20040125150558:<< install the web service >>
         # install the web service
         if web_service:
             
@@ -174,17 +174,17 @@ class Chalks:
                     
             else: # the range failed
                 self.log_error("Could not find an available port in the range %s to provide webpublishing of the text contents." % [web_portno, web_portno+10])
-        #@-node:<< install the web service >>
+        #@-node:rodrigob.20040125150558:<< install the web service >>
         #@nl
         #@    << install the collaboration service >>
-        #@+node:<< install the collaboration service >>
+        #@+node:rodrigob.20040125153141:<< install the collaboration service >>
         # install the collaboration service 
         
         self.node = ChalksNode(self) # ChalksNode take care of the rest
         
         # local PB classes definitions
         #@+others
-        #@+node:Chalks realm
+        #@+node:rodrigob.20040125200531.1:Chalks realm
         class ChalksRealm:
             """
             Provide access to a ChalksPerspective
@@ -200,8 +200,8 @@ class Chalks:
                 else:
                     raise NotImplementedError("no interface")
         
-        #@-node:Chalks realm
-        #@+node:dummy checker
+        #@-node:rodrigob.20040125200531.1:Chalks realm
+        #@+node:rodrigob.20040125200531:dummy checker
         class DummyChecker:
             """
             give access to everyone
@@ -219,7 +219,7 @@ class Chalks:
                 else:
                     return failure.Failure(error.UnauthorizedLogin("'%s' is not listed in the authorized users list." % credential.username))
         
-        #@-node:dummy checker
+        #@-node:rodrigob.20040125200531:dummy checker
         #@-others
         
         t_portal = portal.Portal(ChalksRealm(self))
@@ -243,10 +243,10 @@ class Chalks:
             self.text_widget["state"] = DISABLED # I said fatal error...
             
         #@nonl
-        #@-node:<< install the collaboration service >>
+        #@-node:rodrigob.20040125153141:<< install the collaboration service >>
         #@nl
         #@    << guess local ip address >>
-        #@+node:<< guess local ip address >>
+        #@+node:niederberger.20040826214344:<< guess local ip address >>
         """this method relies on an external perl script hosted on any cgi-bin environment to guess the correct external ip address.
         This is definitely not needed for NAT'd nodes.
         """
@@ -267,13 +267,13 @@ class Chalks:
         
         from twisted.web.client import getPage
         getPage(t_adr).addCallbacks( callback=ip_callback, errback=ip_errback )
-        #@-node:<< guess local ip address >>
+        #@-node:niederberger.20040826214344:<< guess local ip address >>
         #@nl
         
         return
     
-    #@-node:__init__
-    #@+node:quit
+    #@-node:rodrigob.20040123131236:__init__
+    #@+node:rodrigob.20040123131236.1:quit
     
     def quit(self, *args):
         """
@@ -303,14 +303,14 @@ class Chalks:
         print "Thanks for using Chalks, have a nice day.\n"
         return
             
-    #@-node:quit
-    #@+node:helpers
+    #@-node:rodrigob.20040123131236.1:quit
+    #@+node:rodrigob.20040123142302:helpers
     #@+at
     # Miscelaneous methods and classes that help to do common actions
     #@-at
     #@@c
     #@nonl
-    #@+node:is_firewalled
+    #@+node:niederberger.20040826214731:is_firewalled
     def is_firewalled(self):
         """check if this machine is firewalled or nat'd
         -1 means 'unable to determine with this test'
@@ -375,8 +375,8 @@ class Chalks:
             self.log_error("error while figuring out if local machine is firewalled")
     
         return error
-    #@-node:is_firewalled
-    #@+node:set_encoding
+    #@-node:niederberger.20040826214731:is_firewalled
+    #@+node:rodrigob.20040129131141:set_encoding
     #@+at 
     #@nonl
     # According to Martin v. Löwis, getdefaultlocale() is broken, and cannot 
@@ -408,8 +408,8 @@ class Chalks:
     			
     	color = choose(self.tkEncoding=="ascii","red","blue")
     #@nonl
-    #@-node:set_encoding
-    #@+node:is dirty
+    #@-node:rodrigob.20040129131141:set_encoding
+    #@+node:rodrigob.20040125204408:is dirty
     def is_dirty(self):
         """
         Indicates if the contents of the file have changed since last saved.
@@ -418,9 +418,9 @@ class Chalks:
         
         return self.saved_version_hash != hash(self.text_widget.get("1.0", END))
     #@nonl
-    #@-node:is dirty
-    #@-node:helpers
-    #@+node:log
+    #@-node:rodrigob.20040125204408:is dirty
+    #@-node:rodrigob.20040123142302:helpers
+    #@+node:rodrigob.20040123133012:log
     def log(self, text, tag=None, color=None):
         """
         log some text in the log panel
@@ -452,14 +452,14 @@ class Chalks:
         return
         
     
-    #@+node:log_error
+    #@+node:rodrigob.20040123134959:log_error
     def log_error(self, text):
         """
         log an error
         """ 
         return self.log("<error> %s" % text, tag="error")
-    #@-node:log_error
-    #@+node:exception
+    #@-node:rodrigob.20040123134959:log_error
+    #@+node:rodrigob.20040128005315:exception
     def exception(self, error):
         """
         manage the exceptions
@@ -477,8 +477,8 @@ class Chalks:
     
     
     
-    #@-node:exception
-    #@+node:set_status
+    #@-node:rodrigob.20040128005315:exception
+    #@+node:rodrigob.20040124165851:set_status
     def set_status(self, text):
         """
         set the text of the status bar
@@ -491,9 +491,9 @@ class Chalks:
         t_widget.config(state=DISABLED)
         
         return
-    #@-node:set_status
-    #@-node:log
-    #@+node:body (construct the gui)
+    #@-node:rodrigob.20040124165851:set_status
+    #@-node:rodrigob.20040123133012:log
+    #@+node:rodrigob.20040121151612:body (construct the gui)
     def body(self, base_frame):
         """
         build the body of the dialog window
@@ -503,7 +503,7 @@ class Chalks:
         self.root = root = base_frame    
         
         #@    << create frames >>
-        #@+node:<< create frames >>
+        #@+node:rodrigob.20040122173046:<< create frames >>
         #f = Frame(root,bd=0,relief="flat")
         #f.pack(expand=1,fill="both",pady=1)
         #pane1 = Frame(f)
@@ -513,7 +513,7 @@ class Chalks:
         self.splitVerticalFlag = 1 # self.splitVerticalFlag tells the alignment of the splitter 
         verticalFlag = 1
         #@<< create the splitter >>
-        #@+node:<< create the splitter >>
+        #@+node:rodrigob.20040123123802.1:<< create the splitter >>
         # Create a splitter window and panes into which the caller packs widgets.
         # Returns (f, bar, pane1, pane2) 
         
@@ -534,7 +534,7 @@ class Chalks:
         # Configure and place the frames.
         
         #@<< configure >>
-        #@+node:<< configure >>
+        #@+node:rodrigob.20040123123829:<< configure >>
         #bar, verticalFlag
         
         
@@ -562,10 +562,10 @@ class Chalks:
         
         # bind the bar
         bar.bind("<B1-Motion>", self.onDragSplitBar)
-        #@-node:<< configure >>
+        #@-node:rodrigob.20040123123829:<< configure >>
         #@nl
         #@<< place >>
-        #@+node:<< place >>
+        #@+node:rodrigob.20040123130224.1:<< place >>
         #bar,pane1,pane2,verticalFlag
         
         if verticalFlag:
@@ -581,11 +581,11 @@ class Chalks:
             pane2.place(rely=0.5, relx = 1.0, anchor="e", relheight=1.0, relwidth=1.0-adj)
             bar.place  (rely=0.5, relx = adj, anchor="c", relheight=1.0)
         #@nonl
-        #@-node:<< place >>
+        #@-node:rodrigob.20040123130224.1:<< place >>
         #@nl
         
         #return f, bar, pane1, pane2
-        #@-node:<< create the splitter >>
+        #@-node:rodrigob.20040123123802.1:<< create the splitter >>
         #@nl
         self.split_bar, self.splitPane1, self.splitPane2 = bar, pane1, pane2
         self.resizePanesToRatio(1.0/4)
@@ -594,15 +594,15 @@ class Chalks:
         # create the body and the chat frames
         from ScrolledText import ScrolledText
         #@<< create the log  widget >>
-        #@+node:<< create the log widget >>
+        #@+node:rodrigob.20040125153909:<< create the log widget >>
         self.log_widget  = ScrolledText(pane1, background="white", state=DISABLED)
         self.log_widget["height"] = 1
         self.log_widget.pack(fill=BOTH, expand=1)
         self.log_widget.tag_config("error", foreground="red")
-        #@-node:<< create the log widget >>
+        #@-node:rodrigob.20040125153909:<< create the log widget >>
         #@nl
         #@<< create the text widget >>
-        #@+node:<< create the text widget >>
+        #@+node:rodrigob.20040125153909.1:<< create the text widget >>
         self.text_widget = text_widget = ScrolledText(pane2, background="white", height=0)
         text_widget.pack(fill=BOTH, expand=1)
         
@@ -622,13 +622,13 @@ class Chalks:
         text_widget.bind(virtual_event_name("Copy"), self.onCopy)
         text_widget.bind(virtual_event_name("Paste"), self.onPaste)
         #@nonl
-        #@-node:<< create the text widget >>
+        #@-node:rodrigob.20040125153909.1:<< create the text widget >>
         #@nl
         
-        #@-node:<< create frames >>
+        #@-node:rodrigob.20040122173046:<< create frames >>
         #@nl
         #@    << install the menu >>
-        #@+node:<< install the menu >>
+        #@+node:rodrigob.20040122173046.1:<< install the menu >>
         
         self.menu_bar = Menu(root,)
         
@@ -666,10 +666,10 @@ class Chalks:
         root.bind("<Control-s>", self.onSave)
         root.bind("<Control-q>", self.quit)
         root.bind("<Control-H>", self.onHelp)
-        #@-node:<< install the menu >>
+        #@-node:rodrigob.20040122173046.1:<< install the menu >>
         #@nl
         #@    << install the status bar >>
-        #@+node:<< install the status bar >>
+        #@+node:rodrigob.20040122173046.3:<< install the status bar >>
         #@+others
         #@-others
         
@@ -689,10 +689,10 @@ class Chalks:
         
         #self.status_bar.pack(fill=X, pady=1) # the status bar is pack at onDragSplitBar
         #@nonl
-        #@-node:<< install the status bar >>
+        #@-node:rodrigob.20040122173046.3:<< install the status bar >>
         #@nl
         #@    << install the chat bar >>
-        #@+node:<< install the chat bar >>
+        #@+node:rodrigob.20040122173046.2:<< install the chat bar >>
         #@+at
         # Create the chat_bar widget that is a posteriori inserted or extirped 
         # from the log panel.
@@ -718,7 +718,7 @@ class Chalks:
         
         chat_bar.pack(fill=BOTH)
         #@nonl
-        #@-node:<< install the chat bar >>
+        #@-node:rodrigob.20040122173046.2:<< install the chat bar >>
         #@nl
     
         self.Redirect(self)
@@ -730,13 +730,13 @@ class Chalks:
             
         return
     #@nonl
-    #@+node:helpers
+    #@+node:rodrigob.20040125210836:helpers
     #@+at
     # this code is at the class Chalks level
     #@-at
     #@@c
     #@nonl
-    #@+node:class Redirect
+    #@+node:rodrigob.20040122182446.1:class Redirect
     class Redirect:
         """
         act a proxy for a file
@@ -781,8 +781,8 @@ class Chalks:
                 sys.__stdout__.write(s) # anyway write out (to see the crash errors)
             else: print s # Typically will not happen.
         
-    #@-node:class Redirect
-    #@+node:ask yes no or cancel
+    #@-node:rodrigob.20040122182446.1:class Redirect
+    #@+node:rodrigob.20040123142018:ask yes no or cancel
     def askYesNoCancel(self, title, message):
         """
         helper method to ask yes, no cancel
@@ -800,11 +800,11 @@ class Chalks:
         elif ret == tkMessageBox.NO : return  0
         else:                         return -1
     #@nonl
-    #@-node:ask yes no or cancel
-    #@-node:helpers
-    #@-node:body (construct the gui)
-    #@+node:gui commands/events
-    #@+node:text widget commands
+    #@-node:rodrigob.20040123142018:ask yes no or cancel
+    #@-node:rodrigob.20040125210836:helpers
+    #@-node:rodrigob.20040121151612:body (construct the gui)
+    #@+node:rodrigob.20040123124005:gui commands/events
+    #@+node:rodrigob.20040124184444:text widget commands
     #@+at
     # Hooks related to the text widget
     #@-at
@@ -831,7 +831,7 @@ class Chalks:
     #@@c
     
     #@+others
-    #@+node:onTextKey 
+    #@+node:rodrigob.20040125154636:onTextKey 
     def onTextKey (self,event):
         """
         Handle any key press event in the text pane.
@@ -877,7 +877,7 @@ class Chalks:
         
         return
     
-    #@+node:get text selection
+    #@+node:rodrigob.20040125192325:get text selection
     def get_text_selection (self):
     	"""
         Return a tuple representing the selected range of body text.
@@ -895,9 +895,9 @@ class Chalks:
     		insert = text_widget.index("insert")
     		return insert,insert
     #@nonl
-    #@-node:get text selection
-    #@-node:onTextKey 
-    #@+node:idle_text_key (hook caller of ClientNode.fill_body) (LeoN one)
+    #@-node:rodrigob.20040125192325:get text selection
+    #@-node:rodrigob.20040125154636:onTextKey 
+    #@+node:rodrigob.20040125154657:idle_text_key (hook caller of ClientNode.fill_body) (LeoN one)
     def idle_text_key (self, data):	
         """
         Update the text pane at idle time.
@@ -907,8 +907,8 @@ class Chalks:
         
         return 
     #@nonl
-    #@-node:idle_text_key (hook caller of ClientNode.fill_body) (LeoN one)
-    #@+node:Cut/Copy/Paste
+    #@-node:rodrigob.20040125154657:idle_text_key (hook caller of ClientNode.fill_body) (LeoN one)
+    #@+node:rodrigob.20040125145031:Cut/Copy/Paste
     def onCut (self,event=None):
         """The handler for the virtual Cut event."""
         self.onTextWillChange("Cut")
@@ -938,16 +938,16 @@ class Chalks:
     def onPasteFromMenu (self):
     
         self.root.event_generate(virtual_event_name("Paste"))
-    #@-node:Cut/Copy/Paste
+    #@-node:rodrigob.20040125145031:Cut/Copy/Paste
     #@-others
     #@nonl
-    #@-node:text widget commands
-    #@+node:split bar commands
-    #@+node:resizePanesToRatio
+    #@-node:rodrigob.20040124184444:text widget commands
+    #@+node:rodrigob.20040123130224:split bar commands
+    #@+node:rodrigob.20040121150952.2:resizePanesToRatio
     def resizePanesToRatio(self,ratio):
         self.divideSplitter(self.splitVerticalFlag, ratio)
-    #@-node:resizePanesToRatio
-    #@+node:onDragSplitBar
+    #@-node:rodrigob.20040121150952.2:resizePanesToRatio
+    #@+node:rodrigob.20040121150952.7:onDragSplitBar
     def onDragSplitBar (self, event):
         self.onDragSplitterBar(event,self.splitVerticalFlag)
     
@@ -993,7 +993,7 @@ class Chalks:
         
         
     #@nonl
-    #@+node:divideSplitter
+    #@+node:rodrigob.20040121150952.6:divideSplitter
     # Divides the main or secondary splitter, using the key invariant.
     def divideSplitter (self, verticalFlag, frac):
             self.divideAnySplitter(frac, verticalFlag, self.split_bar, self.splitPane1, self.splitPane2)
@@ -1016,11 +1016,11 @@ class Chalks:
             pane1.place(relwidth=frac)
             pane2.place(relwidth=1-frac)
     #@nonl
-    #@-node:divideSplitter
-    #@-node:onDragSplitBar
-    #@-node:split bar commands
-    #@+node:menu commands
-    #@+node:open
+    #@-node:rodrigob.20040121150952.6:divideSplitter
+    #@-node:rodrigob.20040121150952.7:onDragSplitBar
+    #@-node:rodrigob.20040123130224:split bar commands
+    #@+node:rodrigob.20040122175312:menu commands
+    #@+node:rodrigob.20040123133928:open
     def onOpen(self, event=None):
         """
         """
@@ -1048,8 +1048,8 @@ class Chalks:
         return
         
         
-    #@-node:open
-    #@+node:save
+    #@-node:rodrigob.20040123133928:open
+    #@+node:rodrigob.20040123140212:save
     def onSave(self, event=None):
         """
         Return true if saved, False else.
@@ -1082,7 +1082,7 @@ class Chalks:
                 ret = 1
                 
         return ret 
-    #@+node:save text
+    #@+node:rodrigob.20040125211222:save text
     
     def save_text(self,):
         """
@@ -1099,9 +1099,9 @@ class Chalks:
         
         self.saved_version_hash = hash(text) # used to check later changes
         return
-    #@-node:save text
-    #@-node:save
-    #@+node:connect to
+    #@-node:rodrigob.20040125211222:save text
+    #@-node:rodrigob.20040123140212:save
+    #@+node:rodrigob.20040123134358:connect to
     def onConnectTo(self, event=None):
         """
         Open the connect to dialog
@@ -1161,7 +1161,7 @@ class Chalks:
         button_close.pack(side=RIGHT, padx=10)
         
         #@    << connect to callback >>
-        #@+node:<< connect to callback >>
+        #@+node:rodrigob.20040125213003:<< connect to callback >>
         def connect_to_callback(event=None):
             """
             what happens when the "Connect to" button is pressed
@@ -1195,7 +1195,7 @@ class Chalks:
             # start the connection 
             self.node.connect_to_parent(address, port, nickname)
             return
-        #@-node:<< connect to callback >>
+        #@-node:rodrigob.20040125213003:<< connect to callback >>
         #@nl
         
         button_connect_to = Button(t_frame, text="Connect to", command=connect_to_callback, state=DISABLED, default=ACTIVE)
@@ -1204,7 +1204,7 @@ class Chalks:
         top.bind("<Return>", lambda e: button_connect_to["state"] == NORMAL and connect_to_callback() ) # call the command if the button is enabled
         
         #@    << validation callback>>
-        #@+node:<< validation callback >>
+        #@+node:rodrigob.20040125213003.1:<< validation callback >>
         def validation_callback(event=None):
             """ simple callback that check every 200 ms if the filled data is valid"""
         
@@ -1227,7 +1227,7 @@ class Chalks:
             button_connect_to.after(200, validation_callback) # call each 200 ms
             
             return
-        #@-node:<< validation callback >>
+        #@-node:rodrigob.20040125213003.1:<< validation callback >>
         #@nl
             
         button_connect_to.after(200, validation_callback) # start ciclic calls each 200 ms
@@ -1242,9 +1242,9 @@ class Chalks:
         return
         
     #@nonl
-    #@-node:connect to
-    #@-node:menu commands
-    #@+node:chat bar commands
+    #@-node:rodrigob.20040123134358:connect to
+    #@-node:rodrigob.20040122175312:menu commands
+    #@+node:rodrigob.20040121153312:chat bar commands
     def onChattextEntry(self, event):
         """
         Obtain the last line in the text widget.
@@ -1286,9 +1286,9 @@ class Chalks:
         return
     
     
-    #@-node:chat bar commands
-    #@+node:status bar commands
-    #@+node:updateStatusRowCol
+    #@-node:rodrigob.20040121153312:chat bar commands
+    #@+node:rodrigob.20040124160427:status bar commands
+    #@+node:rodrigob.20040121153834.4:updateStatusRowCol
     def updateStatusRowCol (self):
         
         row, col = tuple(map(int, self.text_widget.index(INSERT).split(".")))
@@ -1302,12 +1302,12 @@ class Chalks:
         
         self.status_bar.after(150, self.updateStatusRowCol)     # Reschedule this routine 150 ms. later.
         
-    #@-node:updateStatusRowCol
-    #@-node:status bar commands
-    #@+node:help command
+    #@-node:rodrigob.20040121153834.4:updateStatusRowCol
+    #@-node:rodrigob.20040124160427:status bar commands
+    #@+node:rodrigob.20040123123802:help command
     # help is defined at the class level; to avoid leo identation problems
     #@<< chalks help >>
-    #@+node:<< chalks help >>
+    #@+node:rodrigob.20040123132311.1:<< chalks help >>
     #@@color
     #@@language python
     # this is the documentation that will be seen by the end user, give a description of the panel and it's usage
@@ -1318,7 +1318,7 @@ class Chalks:
     NOT YET WRITTEN
     
     #@+others
-    #@+node:network graph (about Server, Client, Children, Parent, and Trees)
+    #@+node:rodrigob.20040126020116:network graph (about Server, Client, Children, Parent, and Trees)
     #@+at
     # The network graph is a Tree.
     # The upper node is the first instance, that created the original content.
@@ -1327,12 +1327,12 @@ class Chalks:
     #@-at
     #@@c
     #@nonl
-    #@-node:network graph (about Server, Client, Children, Parent, and Trees)
+    #@-node:rodrigob.20040126020116:network graph (about Server, Client, Children, Parent, and Trees)
     #@-others
     
     """
     
-    #@-node:<< chalks help >>
+    #@-node:rodrigob.20040123132311.1:<< chalks help >>
     #@afterref
  # define 'help' (at the class level)
     
@@ -1364,7 +1364,7 @@ class Chalks:
         
         return
         
-    #@+node:online_homepage
+    #@+node:rodrigob.20040122173128:online_homepage
     
     def online_homepage(self, event=1):
         
@@ -1376,13 +1376,13 @@ class Chalks:
             webbrowser.open_new(url)
         except:
             print "not found: " + url
-    #@-node:online_homepage
-    #@-node:help command
-    #@-node:gui commands/events
+    #@-node:rodrigob.20040122173128:online_homepage
+    #@-node:rodrigob.20040123123802:help command
+    #@-node:rodrigob.20040123124005:gui commands/events
     #@-others
 #@nonl
-#@-node:class Chalks
-#@+node:class ChalksNode
+#@-node:rodrigob.20040119152542:class Chalks
+#@+node:rodrigob.20040125154815.1:class ChalksNode
 from ConcurrentEditable import ConcurrentEditableNode
 
 class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
@@ -1427,7 +1427,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     
     
     #@    @+others
-    #@+node:connect to/disconnect from parent node
+    #@+node:rodrigob.20040125154815.2:connect to/disconnect from parent node
     def connect_to_parent(self, address, port, nickname="No name"):
         """
         Connect as a children to another node
@@ -1526,8 +1526,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     
     
     
-    #@-node:connect to/disconnect from parent node
-    #@+node:edit content
+    #@-node:rodrigob.20040125154815.2:connect to/disconnect from parent node
+    #@+node:rodrigob.20040125154815.3:edit content
     #@+at
     # This methods edit the client node text, presenting the gui results.
     # Essentially this method take care of allowing the user to input text 
@@ -1548,7 +1548,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         
         return
     #@nonl
-    #@+node:set text
+    #@+node:rodrigob.20040125154815.4:set text
     def set_text(self, new_text):
         """
         Blindly overwrite the text of this site. (including the "to_send" elements)
@@ -1569,8 +1569,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     
     
     
-    #@-node:set text
-    #@+node:insert text
+    #@-node:rodrigob.20040125154815.4:set text
+    #@+node:rodrigob.20040125154815.5:insert text
     def insert_text(self, startpos, text, op={}):
         """ 
         Some one insert text on the actual node.
@@ -1639,8 +1639,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         
         return
     
-    #@-node:insert text
-    #@+node:delete text
+    #@-node:rodrigob.20040125154815.5:insert text
+    #@+node:rodrigob.20040125154815.6:delete text
     def delete_text(self, startpos, length, op={}):
         """ 
         Some one delete text on the actual node.
@@ -1716,8 +1716,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         
         return
         
-    #@-node:delete text
-    #@+node:fill body
+    #@-node:rodrigob.20040125154815.6:delete text
+    #@+node:rodrigob.20040125154815.8:fill body
     def fill_body(self, keywords):
         """
         Process each new key received in the body.
@@ -1745,7 +1745,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     
         # some local helpers functions	
         #@    << def index_to_list>>
-        #@+node:<< def index_to_list >>
+        #@+middle:rodrigob.20040125154815.9:helpers functions
+        #@+node:rodrigob.20040125154815.10:<< def index_to_list >>
         def index_to_list(val):
             """
             Convert a Tkinter string index to a list of two integer elements [line, column].
@@ -1761,10 +1762,12 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
             """
             return "%i.%i"%tuple(val)
         #@nonl
-        #@-node:<< def index_to_list >>
+        #@-node:rodrigob.20040125154815.10:<< def index_to_list >>
+        #@-middle:rodrigob.20040125154815.9:helpers functions
         #@nl
         #@    << def in_range>>
-        #@+node:<< def in_range >>
+        #@+middle:rodrigob.20040125154815.9:helpers functions
+        #@+node:rodrigob.20040125154815.11:<< def in_range >>
         def in_range(index, ranges):
             """
             return true if the index is in the range. false else.
@@ -1784,10 +1787,12 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         
             return None # did not found the index in a range
         
-        #@-node:<< def in_range >>
+        #@-node:rodrigob.20040125154815.11:<< def in_range >>
+        #@-middle:rodrigob.20040125154815.9:helpers functions
         #@nl
         #@    << def range_to_pos_and_length >>
-        #@+node:<< def range_to_pos_and_length >>
+        #@+middle:rodrigob.20040125154815.9:helpers functions
+        #@+node:rodrigob.20040125154815.12:<< def range_to_pos_and_length >>
         def range_to_pos_and_length(start, stop, text):
             """
             Convert a Tkinter range to a (length, position) index (used for the Operations definition).
@@ -1811,12 +1816,13 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
             #print "\nrange_to_pos_length(start=%s, stop=%s, some_text) => pos, length == %s, %s"%( start, stop, pos, length) # just for debugging
             
             return pos, length
-        #@-node:<< def range_to_pos_and_length >>
+        #@-node:rodrigob.20040125154815.12:<< def range_to_pos_and_length >>
+        #@-middle:rodrigob.20040125154815.9:helpers functions
         #@nl
         
         if old_sel and old_sel[0] != old_sel[1] and ch: # text was overwritten	(pressed a key while having a non void selection)
             #@        << text was overwritten >>
-            #@+node:<< text was overwritten >>
+            #@+node:rodrigob.20040125154815.13:<< text was overwritten >>
             # (should check which overwritten text was already sent)
             # and should create a sequence of deletion operations
             
@@ -1896,11 +1902,11 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
             # mark the overwriter char					
             if ch not in ['\x7f', '\x08']:
                 self.text_widget.tag_add("to_send",  old_insert)		
-            #@-node:<< text was overwritten >>
+            #@-node:rodrigob.20040125154815.13:<< text was overwritten >>
             #@nl
         elif ch in ['\x7f', '\x08']: 
             #@        << suppression or deletion >>
-            #@+node:<< suppression or deletion >>
+            #@+node:rodrigob.20040125154815.14:<< suppression or deletion >>
             # suppression or deletion 
             # if the operation was applied in a to_send char, we omit it,
             # else we add it to the deletion buffer, that will be latter send over the network.
@@ -1939,7 +1945,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
                 
                 if self.deletion_buffer: # updating a deletion buffer
                     #@        << update the deletion buffer >>
-                    #@+node:<< update the deletion buffer >>
+                    #@+node:rodrigob.20040125154815.15:<< update the deletion buffer >>
                     startpos, t_len = self.deletion_buffer
                     startpos += delta				
                     t_len += 1
@@ -1947,11 +1953,11 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
                     
                     #self.log("fill body: updated the deletion buffer [startpos, len] == %s" % ([startpos, t_len]), color="yellow" ) # just for debugging
                     #@nonl
-                    #@-node:<< update the deletion buffer >>
+                    #@-node:rodrigob.20040125154815.15:<< update the deletion buffer >>
                     #@nl
                 else: # need to create a new deletion buffer
                     #@        << create a new deletion buffer >>
-                    #@+node:<< create a new deletion buffer >>
+                    #@+node:rodrigob.20040125154815.16:<< create a new deletion buffer >>
                     # obtain the startpos; omiting the old_to_send ranges
                     
                     old_insert = index_to_list(old_insert)
@@ -1999,13 +2005,13 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
                     self.deletion_buffer = (startpos, t_len)
                     
                     #self.log("fill body: created a new deletion buffer [startpos, len] == %s"%([startpos, t_len]), color="yellow" ) # just for debugging
-                    #@-node:<< create a new deletion buffer >>
+                    #@-node:rodrigob.20040125154815.16:<< create a new deletion buffer >>
                     #@nl
-            #@-node:<< suppression or deletion >>
+            #@-node:rodrigob.20040125154815.14:<< suppression or deletion >>
             #@nl
         elif undo_type == "Typing" and ch: 
             #@        << "normal" keys>>
-            #@+node:<< "normal" keys >>
+            #@+node:rodrigob.20040125154815.17:<< "normal" keys >>
             # a 'normal' key was typed
             # the flush command is called for every key OnBodyKey1
             # the flush command check the deletion buffer and flush it as necessary
@@ -2018,11 +2024,11 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
             self.text_widget.tag_add("to_send",  old_insert)		
             
             #self.log("%s"%(ch), color="yellow") # just for debugging
-            #@-node:<< "normal" keys >>
+            #@-node:rodrigob.20040125154815.17:<< "normal" keys >>
             #@nl
         elif undo_type == "Paste":
             #@        << text paste >>
-            #@+node:<< text paste >>
+            #@+node:rodrigob.20040125154815.18:<< text paste >>
             
             
             # some text was pasted in the body
@@ -2038,7 +2044,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
             
             # tadaa!
             #@nonl
-            #@-node:<< text paste >>
+            #@-node:rodrigob.20040125154815.18:<< text paste >>
             #@nl
         else: 
             # non text insertion keys (move arrow, page up, etc...)
@@ -2051,10 +2057,10 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         
         return
     #@nonl
-    #@+node:helpers functions
-    #@-node:helpers functions
-    #@-node:fill body
-    #@+node:flush body
+    #@+node:rodrigob.20040125154815.9:helpers functions
+    #@-node:rodrigob.20040125154815.9:helpers functions
+    #@-node:rodrigob.20040125154815.8:fill body
+    #@+node:rodrigob.20040125154815.19:flush body
     def flush_body(self, keywords={}, all=0):
         """
         Send all the "to_send" that acomplish the criteria, send the operation related to the deletion buffer if necessary.
@@ -2137,8 +2143,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
                 self.send_operation("insert_text", startpos, t_text)
                 
         return
-    #@-node:flush body
-    #@+node:send operation
+    #@-node:rodrigob.20040125154815.19:flush body
+    #@+node:rodrigob.20040125154815.7:send operation
     def send_operation(self, op_type, pos, data):
         """
         Apply locally and then send the operation to all the adjacent nodes (upward and downward the tree).
@@ -2172,9 +2178,9 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         
         return
     
-    #@-node:send operation
-    #@-node:edit content
-    #@+node:remote callable methods
+    #@-node:rodrigob.20040125154815.7:send operation
+    #@-node:rodrigob.20040125154815.3:edit content
+    #@+node:rodrigob.20040127182438:remote callable methods
     #@+at
     # The ChalksNode is a referenceable object that is passed at connection, 
     # define what us 'parent' (the node to which we connected) can do on the 
@@ -2182,7 +2188,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     #@-at
     #@@c
     #@nonl
-    #@+node:messages and presence methods
+    #@+node:rodrigob.20040127182530:messages and presence methods
     #@+at
     # <<< EXPLAIN HERE
     # 
@@ -2196,7 +2202,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     
         
     #@nonl
-    #@+node:get users list
+    #@+node:rodrigob.20040127185444:get users list
     def remote_get_users_list(self, ):
         """ 
         Return the dictonary of map node.id -> user_nickname
@@ -2205,8 +2211,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         return {}  #<<<< implement
         
         
-    #@-node:get users list
-    #@+node:send message
+    #@-node:rodrigob.20040127185444:get users list
+    #@+node:rodrigob.20040127184605:send message
     def remote_send_message(self, txt, who=None):
         """ 
         A remote node send a message to us
@@ -2224,8 +2230,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
             if who != t_perspective:
                 t_perspective.callRemote("post_message", self.name, txt).addErrback(lambda _, name: self.log_error("Could not send a message to user %s"), t_perspective.nickname)
         return
-    #@-node:send message
-    #@+node:set presence
+    #@-node:rodrigob.20040127184605:send message
+    #@+node:rodrigob.20040127184605.1:set presence
     def remote_set_presence(self, state):
         """
         Set the presence of one user 
@@ -2238,9 +2244,9 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
                 t_value.mind.callRemote("post_presence", self.name, state).addErrback(raiseLeoError, "could not post your presence to %s"%(t_value.name))
         
         return
-    #@-node:set presence
-    #@-node:messages and presence methods
-    #@+node:insert/delete text
+    #@-node:rodrigob.20040127184605.1:set presence
+    #@-node:rodrigob.20040127182530:messages and presence methods
+    #@+node:rodrigob.20040126020544:insert/delete text
     def remote_insert_text(self, startpos, text, timestamp, who=None):
         """ 
         """
@@ -2285,14 +2291,14 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         
         return
     #@nonl
-    #@+node:check sites
+    #@+node:rodrigob.20040127203753:check sites
     def check_sites(self,):
         # <<<< what is this method supposed to do ?
         pass
     #@nonl
-    #@-node:check sites
-    #@-node:insert/delete text
-    #@-node:remote callable methods
+    #@-node:rodrigob.20040127203753:check sites
+    #@-node:rodrigob.20040126020544:insert/delete text
+    #@-node:rodrigob.20040127182438:remote callable methods
     #@-others
 
 
@@ -2301,8 +2307,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
 
 
 
-#@-node:class ChalksNode
-#@+node:class ChalksPerspective
+#@-node:rodrigob.20040125154815.1:class ChalksNode
+#@+node:rodrigob.20040125194534:class ChalksPerspective
 class ChalksPerspective(pb.Avatar):
     """
     <<<<<<< ADD CONTENT HERE
@@ -2335,7 +2341,7 @@ class ChalksPerspective(pb.Avatar):
 
         
     #@    @+others
-    #@+node:logout
+    #@+node:rodrigob.20040129150513:logout
     def logout(self,):
         """
         """
@@ -2346,8 +2352,8 @@ class ChalksPerspective(pb.Avatar):
         print "User '%s' is quiting the session" % self.nickname
             
         return
-    #@-node:logout
-    #@+node:collaborate in/out
+    #@-node:rodrigob.20040129150513:logout
+    #@+node:rodrigob.20040126020641:collaborate in/out
     # Allow external users to start collaborating
     
     
@@ -2380,8 +2386,8 @@ class ChalksPerspective(pb.Avatar):
     
     
     
-    #@-node:collaborate in/out
-    #@+node:bi directional methods
+    #@-node:rodrigob.20040126020641:collaborate in/out
+    #@+node:rodrigob.20040127190845:bi directional methods
     #@+at
     # this methods are common to both children->parent calls and 
     # parent->childrens calls.
@@ -2390,7 +2396,7 @@ class ChalksPerspective(pb.Avatar):
     #@-at
     #@@c
     #@nonl
-    #@+node:messages and presence methods
+    #@+node:rodrigob.20040125220331:messages and presence methods
     def perspective_get_actual_users_list(self, ):
         """ 
         Return the dictonary of map node.id -> user_nickname
@@ -2412,8 +2418,8 @@ class ChalksPerspective(pb.Avatar):
         return self.node.remote_send_message(to, txt, who=self)
         
     #@nonl
-    #@-node:messages and presence methods
-    #@+node:insert/delete text
+    #@-node:rodrigob.20040125220331:messages and presence methods
+    #@+node:rodrigob.20040127182541:insert/delete text
     def perspective_insert_text(self, startpos, text, timestamp = None):
         """ 
         """
@@ -2425,12 +2431,12 @@ class ChalksPerspective(pb.Avatar):
         """
         return self.node.remote_delete_text(startpos, length, timestamp, who=self)
     
-    #@-node:insert/delete text
-    #@-node:bi directional methods
+    #@-node:rodrigob.20040127182541:insert/delete text
+    #@-node:rodrigob.20040127190845:bi directional methods
     #@-others
 #@nonl
-#@-node:class ChalksPerspective
-#@+node:class FileStack
+#@-node:rodrigob.20040125194534:class ChalksPerspective
+#@+node:rodrigob.20040119132949:class FileStack
 class FileStack:
     """
     Helper class to manage the HB buffer file.
@@ -2498,7 +2504,7 @@ class FileStack:
 
         
 
-#@+node:test_FileStack
+#@+node:rodrigob.20040122143140:test_FileStack
 class S:
         pass
     
@@ -2521,9 +2527,9 @@ def test_FileStack():
     
     return
 #@nonl
-#@-node:test_FileStack
-#@-node:class FileStack
-#@+node:class ChalksError
+#@-node:rodrigob.20040122143140:test_FileStack
+#@-node:rodrigob.20040119132949:class FileStack
+#@+node:rodrigob.20040127180819:class ChalksError
 class ChalksError(pb.Error):
     """
     Own error kind
@@ -2532,8 +2538,8 @@ class ChalksError(pb.Error):
     pass
     
 #@nonl
-#@-node:class ChalksError
-#@+node:Web
+#@-node:rodrigob.20040127180819:class ChalksError
+#@+node:rodrigob.20040125150021:Web
 #@+at
 # This are the class definitions used to render us beauty outline over the 
 # WWW.
@@ -2553,7 +2559,7 @@ class ChalksError(pb.Error):
 #@-at
 #@@c
 #@nonl
-#@+node:Pages classes
+#@+node:rodrigob.20040125152117:Pages classes
 class utf8Page(page.Page):
     """
     """
@@ -2561,8 +2567,8 @@ class utf8Page(page.Page):
     def render(self, request):
         request.setHeader("Content-type", "text/html; charset=utf-8")
         return page.Page.render(self, request)
-#@-node:Pages classes
-#@+node:Chalks model adaptator
+#@-node:rodrigob.20040125152117:Pages classes
+#@+node:rodrigob.20040124181251.3:Chalks model adaptator
 #@+at
 # We define an adaptator to let Woven use the Chalks instance
 #@-at
@@ -2600,17 +2606,17 @@ class ChalksModel(model.MethodModel):
 
 
 components.registerAdapter(ChalksModel, Chalks, interfaces.IModel)
-#@-node:Chalks model adaptator
-#@-node:Web
-#@+node:main
+#@-node:rodrigob.20040124181251.3:Chalks model adaptator
+#@-node:rodrigob.20040125150021:Web
+#@+node:rodrigob.20040130123655:main
 if __name__ == '__main__':
     #test_FileStack()
     app = Chalks()
     reactor.run()
-#@-node:main
+#@-node:rodrigob.20040130123655:main
 #@-others
 
 
 
-#@-node:@file Chalks.py
+#@-node:rodrigob.20040119132914:@thin Chalks.py
 #@-leo

@@ -1,7 +1,7 @@
 #!/usr/bin/env python2.3
 # -*- coding: utf-8 -*-
-#@+leo-ver=4
-#@+node:@file Test_Chalks.py
+#@+leo-ver=4-thin
+#@+node:rodrigob.20040125173910:@thin Test_Chalks.py
 #@@first
 #@@first
 #@@language python
@@ -59,5 +59,5 @@ app3.node.connect_to_parent("127.0.0.1", app1.chalks_service.port, "app3")
 
 reactor.run()
 #@nonl
-#@-node:@file Test_Chalks.py
+#@-node:rodrigob.20040125173910:@thin Test_Chalks.py
 #@-leo

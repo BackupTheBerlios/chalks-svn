@@ -1,3 +1,7 @@
+#@+leo-ver=4-thin
+#@+node:rodrigob.20040826154516:@thin ./src/README
+#@<<legal declaration>>
+#@+node:rodrigob.20040826154830:<<legal declaration>>
 ###############################################################################
 # This program is free software; you can redistribute it and/or modify        #
 # it under the terms of the GNU General Public License as published by        #
@@ -15,6 +19,12 @@
 ###############################################################################
 
 This file is part of Chalks.
+#@nonl
+#@-node:rodrigob.20040826154830:<<legal declaration>>
+#@nl
+
+#@<<what is Chalks ?>>
+#@+node:rodrigob.20040826154614:<<what is Chalks ?>>
 What is Chalks ?
 --------------
 Chalks is a software under development for crossplatform realtime concurrent editing.
@@ -24,13 +34,26 @@ Chalks is written in Python. http://www.python.org
 Chalks requires Twisted, a network module for Python. http://www.twistedmatrix.com
 Chalks, Twisted and Python are open source multiplatform projects.
 
+Chalks 2003, 2004.
+http://chalks.berlios.de
 
 
+#@-node:rodrigob.20040826154614:<<what is Chalks ?>>
+#@nl
+
+#@<<features>>
+#@+node:rodrigob.20040826154614.1:<<features>>
 Features
 --------
 
 - Server/Client architecture, ultra easy usage
 - Full crossplatform (inherited from python, and twisted)
+#@nonl
+#@-node:rodrigob.20040826154614.1:<<features>>
+#@nl
+
+#@<<release status>>
+#@+node:rodrigob.20040826154830.1:<<release status>>
 Release Status
 --------------
 
@@ -39,28 +62,45 @@ Still in planning/design phase
 Know bugs
 ---------
 
+#@-node:rodrigob.20040826154830.1:<<release status>>
+#@nl
 
+#@<<installation instructions>>
+#@+node:rodrigob.20040826154830.2:<<installation instructions>>
 Installing 
 ----------
 
 To install the source package, try running, as root:
 
  $ python setup.py install
+#@nonl
+#@-node:rodrigob.20040826154830.2:<<installation instructions>>
+#@nl
+
+#@<<usage>>
+#@+node:rodrigob.20040826154830.3:<<usage>>
 Using
 -----
 
 To be written
-Credits
--------
+#@nonl
+#@-node:rodrigob.20040826154830.3:<<usage>>
+#@nl
 
-Chalks 2003, 2004.
-http://chalks.berlios.de
+#@<<credits>>
+#@+node:rodrigob.20040826155317:<<credits>>
+                     Chalks authors
+-------------------------------------------------------------
+Rodrigo Benenson Díaz (rodrigob at elo.utfsm.cl)
+Ricardo Niederberger Cabral (ncabral at terra.com.br)
+-------------------------------------------------------------
 
 The collaborative editing code is based research papers of Chengzheng Sun.
-
-Rodrigo Benenson Díaz (rodrigob at elo.utfsm.cl)
-
-Ricardo Niederberger Cabral (ncabral at terra.com.br)
+#@-node:rodrigob.20040826155317:<<credits>>
+#@nl
 
 
 
+
+#@-node:rodrigob.20040826154516:@thin ./src/README
+#@-leo
