@@ -1872,7 +1872,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
         # convert the dictionary timestamp to a normal state vector, if necesary register new sites - ---
         timestamp = in_op.get("timestamp")
         
-        assert type(timestamp) is dict or in_op.get("source_site") == self.site_index, "In ConcurrentEditableNode the transmited time stamps are expected to be dictionaries that map <known_site_id> => <num_of_operations_we_know_he_has_created> OR to be a local state vector timestamp"
+        assert type(timestamp) is dict or in_op.get("source_site") == self.site_index, "In ConcurrentEditableNode the transmited time stamps are expected to be dictionaries that map <known_site_id> => <num_of_operations_we_know_he_has_created> OR to be a local state vector timestamp.\ntype(timestamp) == %s, timestamp == %s" % (type(timestamp), timestamp)
     
     
         if type(timestamp) is dict: # convert the dict timestamp in a normal state vector           

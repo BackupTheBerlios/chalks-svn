@@ -62,7 +62,8 @@ from twisted.cred import checkers, portal, credentials, error
 from twisted.spread import pb
 from twisted.python import failure
 
-
+global dbg
+dbg = 0
 #@+others
 #@+node:rodrigob.20040119133203:Theorical aspects
 #@+at
@@ -929,7 +930,7 @@ class Chalks:
     #@nonl
     #@-node:rodrigob.20040125192325:get text selection
     #@-node:rodrigob.20040125154636:onTextKey
-    #@+node:rodrigob.20040125154657:idle_text_key (hook caller of ClientNode.fill_body) (LeoN one)
+    #@+node:rodrigob.20040125154657:idle_text_key (hook caller of ChalksNode.fill_body) 
     def idle_text_key (self, data):	
         """
         Update the text pane at idle time.
@@ -939,7 +940,7 @@ class Chalks:
         
         return 
     #@nonl
-    #@-node:rodrigob.20040125154657:idle_text_key (hook caller of ClientNode.fill_body) (LeoN one)
+    #@-node:rodrigob.20040125154657:idle_text_key (hook caller of ChalksNode.fill_body) 
     #@+node:rodrigob.20040125145031:Cut/Copy/Paste
     def onCut (self,event=None):
         """The handler for the virtual Cut event."""
@@ -2497,11 +2498,14 @@ class ChalksNode(ConcurrentEditableNode):
         
         
         # send to all the connected sites
-        for perspective in self.connected_sites.values():       
-            # send to the other nodes
-            perspective.callRemote("receive_op", op_type, pos, data, state_vector ).addErrback(self.exception)
+        perspectives = self.childrens_perspectives + [self.parent_perspective]
+        for perspective in perspectives:
+            if perspective:       
+                # send to the other nodes
+                perspective.callRemote("receive_op", op_type, pos, data, state_vector ).addErrback(self.exception)
         
         return
+    
     
     #@-node:rodrigob.20040125154815.7:send operation
     #@-node:rodrigob.20040125154815.3:edit content
@@ -2600,58 +2604,38 @@ class ChalksNode(ConcurrentEditableNode):
         return
     #@-node:rodrigob.20040127184605.1:set presence
     #@-node:rodrigob.20040127182530:messages and presence methods
-    #@+node:rodrigob.20040126020544:insert/delete text
-    def remote_insert_text(self, startpos, text, timestamp, who=None):
-        """ 
+    #@+node:rodrigob.20040920122333:receive operation
+    def remote_receive_operation(self, in_op, *args, **kw):
+        """
+        Receive an operation from a remote location
         """
     
-        self.check_sites(timestamp)    
-            
-        if self.site_index == None:
-            raise ChalksError, "You have not logged in the node, so you are not able to edit it."
-    
-        if type(timestamp) is not dict:
-            raise ChalksError, "Operation 'insert_text' called without a timestamp."
-            
-            
-        # apply		
-        self.receive_operation(ConcurrentEditable.Operation("Insert", startpos, text, timestamp = timestamp, source_site = self.site_index, who= self.nickname))
+        from ConcurrentEditable import Operation # this line should not be at the begining of Chalks.py ?
         
-        # the selected, cnode will propage the event to the related users.
-        # cnode : CollaborativeNode, is a ConcurrentEditableServer
+        # obtain the input operation
+        if not isinstance(in_op, Operation):
+            try:
+                assert len(args) >= 2
+                t_op = Operation(in_op, args[0], args[1])
+                for k in kw:
+                    t_op[k] = kw[k]
+            except:
+                raise "Error on receive_operation arguments (%s, %s, %s)"%(in_op, args, kw)
+        else:
+            t_op =	Operation(**in_op) # copy the operation 
             
-        return
+        if dbg >=1:
+            print "Node applying op %s"%(t_op)
         
+        # ---
         
-    def remote_delete_text(self, startpos, length, timestamp, who=None):
-        """ 
-        """
+        ConcurrentEditableNode.receive_operation(self, t_op) # apply localy
                 
-        if self.site_index == None:
-            raise ChalksError, "You have not logged in the node, so you are not able to edit it."
-            
-        if timestamp == None:
-            raise ChalksError, "Operation 'delete_text' called without a timestamp."
-    
-            
-        if not ( type(startpos) == type(length) and type(startpos) is int):
-            raise ChalksError,  "Type of the arguments for delete text are incorrect. (expected IntType got %s, %s)"%(type(startpos), type(length) ) 
-    
-        # apply		
-        self.receive_operation(ConcurrentEditable.Operation("Delete", startpos, length, timestamp = timestamp, source_site = self.site_index, who= self.nickname))
-        
-        # the selected, cnode will propage the event to the related users.
-        # cnode : CollaborativeNode, is a ConcurrentEditableServer
-        
         return
-    #@nonl
-    #@+node:rodrigob.20040127203753:check sites
-    def check_sites(self,):
-        # <<<< what is this method supposed to do ?
-        pass
-    #@nonl
-    #@-node:rodrigob.20040127203753:check sites
-    #@-node:rodrigob.20040126020544:insert/delete text
+    
+    remote_receive_op = remote_receive_operation # alias
+        
+    #@-node:rodrigob.20040920122333:receive operation
     #@-node:rodrigob.20040127182438:remote callable methods
     #@-others
 #@nonl
@@ -2783,19 +2767,14 @@ class ChalksAvatar(pb.Avatar, pb.Referenceable):
         
     #@nonl
     #@-node:rodrigob.20040915120517.1:messages and presence methods
-    #@+node:rodrigob.20040915120517.2:insert/delete text
-    def perspective_insert_text(self, startpos, text, timestamp = None):
-        """ 
+    #@+node:rodrigob.20040915120517.2:receive operation
+    def perspective_receive_operation(self, in_op, *args, **kw):
         """
-        return self.node.remote_insert_text(self.mind, startpos, text, timestamp)
-        
-        
-    def perspective_delete_text(self, startpos, length, timestamp = None):
-        """ 
         """
-        return self.node.remote_delete_text(self.mind, startpos, length, timestamp)
-    
-    #@-node:rodrigob.20040915120517.2:insert/delete text
+        return self.node.remote_receive_operation(self.mind, in_op, *args, **kw)
+        
+    perspective_receive_op = perspective_receive_operation
+    #@-node:rodrigob.20040915120517.2:receive operation
     #@-node:rodrigob.20040915120517:bi directional methods
     #@-others
 #@nonl

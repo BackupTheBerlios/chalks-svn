@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
-<leo_header file_format="2" tnodes="0" max_tnode_index="2934" clone_windows="0"/>
-<globals body_outline_ratio="0.462411347518">
-	<global_window_position top="0" left="0" height="705" width="1009"/>
+<leo_header file_format="2" tnodes="0" max_tnode_index="2935" clone_windows="0"/>
+<globals body_outline_ratio="0.450381679389">
+	<global_window_position top="10" left="10" height="524" width="800"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -29,6 +29,7 @@
 <v t="rodrigob.20040826155317" a="EM"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
 <v t="rodrigob.20040908003956" a="E"><vh>Latex</vh>
 <v t="rodrigob.20040908003956.1" a="E"
+marks="rodrigob.20040913233519,"
 expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234027,"><vh>@thin doc/design.tex</vh></v>
 <v t="rodrigob.20040908004300"><vh>@read-only doc/Makefile</vh></v>
 </v>
@@ -293,7 +294,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040122143140"><vh>test_FileStack</vh></v>
 </v>
 <v t="rodrigob.121403173614.220"><vh>Old LeoN (to purge) Reference code</vh>
-<v t="rodrigob.121403173614.221"><vh>Deprecated code</vh>
+<v t="rodrigob.121403173614.221" a="E"><vh>Deprecated code</vh>
 <v t="rodrigob.121403173614.222"><vh>file /usr/local/leo/leo_cvs/leo/leon.py</vh>
 <v t="rodrigob.121403173614.223"><vh>&lt;&lt; Import pychecker &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.224"><vh>go</vh></v>
@@ -305,7 +306,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.121403173614.229"><vh>profile</vh></v>
 </v>
-<v t="rodrigob.121403173614.230"><vh>old ConcurrentEditable.py</vh>
+<v t="rodrigob.121403173614.230" a="E"><vh>old ConcurrentEditable.py</vh>
 <v t="rodrigob.121403173614.231" a="E"><vh>&lt;&lt;docs&gt;&gt;</vh>
 <v t="rodrigob.121403173614.232"><vh>About</vh></v>
 <v t="rodrigob.121403173614.233"><vh>Release status</vh></v>
@@ -313,7 +314,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.121403173614.235"><vh>Context (so what?)</vh></v>
 <v t="rodrigob.121403173614.236"><vh>About Client and Server</vh></v>
 </v>
-<v t="rodrigob.121403173614.237"><vh>base implementation</vh>
+<v t="rodrigob.121403173614.237" a="E"><vh>base implementation</vh>
 <v t="rodrigob.121403173614.238" a="E"><vh>ConcurrentEditable</vh>
 <v t="rodrigob.121403173614.239"><vh>receive operation</vh></v>
 <v t="rodrigob.121403173614.240"><vh>apply</vh></v>
@@ -1687,7 +1688,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
 <v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
-<v t="niederberger.20040825222327.1" a="E"><vh>High</vh>
+<v t="niederberger.20040825222327.1" a="ETV"><vh>High</vh>
 <v t="rodrigob.20040915113450"><vh>Code problems</vh></v>
 <v t="rodrigob.20040918192751"><vh>Rendez Vous crash the program if pc is without internet</vh></v>
 </v>
@@ -1699,8 +1700,8 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 </v>
 <v t="rodrigob.20040125160038" a="E"><vh>Code perspectives</vh>
-<v t="rodrigob.20040129141624" a="EM"><vh>network</vh>
-<v t="rodrigob.20040913233519" a="TV"><vh>&lt;&lt;about the connections process&gt;&gt;</vh></v>
+<v t="rodrigob.20040129141624" a="M"><vh>network</vh>
+<v t="rodrigob.20040913233519"><vh>&lt;&lt;about the connections process&gt;&gt;</vh></v>
 <v t="rodrigob.20040125154815.1" a="EM"><vh>class ChalksNode</vh>
 <v t="rodrigob.20040125154815.2" a="EM"><vh>connect to/disconnect from parent node</vh>
 <v t="rodrigob.20040913221730" a="E"><vh>connect</vh>
@@ -1712,7 +1713,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040912225813.1"><vh>add site</vh></v>
 <v t="rodrigob.20040912225813.2"><vh>del site</vh></v>
 </v>
-<v t="rodrigob.20040125154815.3"><vh>edit content</vh>
+<v t="rodrigob.20040125154815.3" a="E"><vh>edit content</vh>
 <v t="rodrigob.20040125154815.4" a="EM"><vh>set text</vh></v>
 <v t="rodrigob.20040125154815.5"><vh>insert text</vh></v>
 <v t="rodrigob.20040125154815.6" a="M"><vh>delete text</vh></v>
@@ -1734,25 +1735,23 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040125154815.7"><vh>send operation</vh></v>
 </v>
 <v t="rodrigob.20040127182438" a="E"><vh>remote callable methods</vh>
-<v t="rodrigob.20040127182530" a="E"><vh>messages and presence methods</vh>
+<v t="rodrigob.20040127182530"><vh>messages and presence methods</vh>
 <v t="rodrigob.20040127184605" a="M"><vh>send message</vh></v>
 <v t="rodrigob.20040127185444" a="M"><vh>get users list</vh></v>
 <v t="rodrigob.20040127184605.1"><vh>set presence</vh></v>
 </v>
-<v t="rodrigob.20040126020544" a="M"><vh>insert/delete text</vh>
-<v t="rodrigob.20040127203753" a="M"><vh>check sites</vh></v>
-</v>
+<v t="rodrigob.20040920122333" a="EM"><vh>receive operation</vh></v>
 </v>
 </v>
 <v t="rodrigob.20040125194534" a="EM"><vh>class ChalksAvatar</vh>
 <v t="rodrigob.20040126020641" a="M"><vh>collaborate in/out</vh></v>
-<v t="rodrigob.20040129150513"><vh>logout</vh></v>
+<v t="rodrigob.20040129150513" a="E"><vh>logout</vh></v>
 <v t="rodrigob.20040915120517" a="E"><vh>bi directional methods</vh>
 <v t="rodrigob.20040915120517.1"><vh>messages and presence methods</vh></v>
-<v t="rodrigob.20040915120517.2"><vh>insert/delete text</vh></v>
+<v t="rodrigob.20040915120517.2"><vh>receive operation</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040121155420" a="M"><vh>ConcurrentEditableNode</vh>
+<v t="rodrigob.20040121155420" a="EM"><vh>ConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013418" a="E"><vh>__init__</vh></v>
 <v t="rodrigob.20040128011816"><vh>receive operation</vh></v>
 <v t="rodrigob.20040128011809" a="E"><vh>add/del site</vh>
@@ -1819,12 +1818,12 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040123142018"><vh>ask yes no or cancel</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040123124005" a="E"><vh>gui commands/events</vh>
-<v t="rodrigob.20040124184444"><vh>text widget commands</vh>
-<v t="rodrigob.20040125154636"><vh>onTextKey</vh>
+<v t="rodrigob.20040123124005"><vh>gui commands/events</vh>
+<v t="rodrigob.20040124184444" a="E"><vh>text widget commands</vh>
+<v t="rodrigob.20040125154636" a="E"><vh>onTextKey</vh>
 <v t="rodrigob.20040125192325"><vh>get text selection</vh></v>
 </v>
-<v t="rodrigob.20040125154657"><vh>idle_text_key (hook caller of ClientNode.fill_body) (LeoN one)</vh></v>
+<v t="rodrigob.20040125154657"><vh>idle_text_key (hook caller of ChalksNode.fill_body) </vh></v>
 <v t="rodrigob.20040125145031"><vh>Cut/Copy/Paste</vh></v>
 </v>
 <v t="rodrigob.20040123130224"><vh>split bar commands</vh>
@@ -1833,7 +1832,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040121150952.6"><vh>divideSplitter</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040122175312" a="E"><vh>menu commands</vh>
+<v t="rodrigob.20040122175312"><vh>menu commands</vh>
 <v t="rodrigob.20040123133928" a="M"><vh>open</vh></v>
 <v t="rodrigob.20040123140212"><vh>save</vh>
 <v t="rodrigob.20040125211222"><vh>save text</vh></v>
@@ -1866,7 +1865,75 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040124165851"><vh>set_status</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040831112258.1"><vh>concurrent edition</vh>
+<v t="rodrigob.20040831112258.1" a="E"><vh>concurrent edition</vh>
+<v t="rodrigob.20040125154815.1" a="E"><vh>class ChalksNode</vh>
+<v t="rodrigob.20040125154815.2" a="EM"><vh>connect to/disconnect from parent node</vh>
+<v t="rodrigob.20040913221730" a="E"><vh>connect</vh>
+<v t="rodrigob.20040909060311" a="M"><vh>start collaborating</vh></v>
+</v>
+<v t="rodrigob.20040913221730.1"><vh>disconnect</vh></v>
+</v>
+<v t="rodrigob.20040912225813" a="E"><vh>add/del sites</vh>
+<v t="rodrigob.20040912225813.1"><vh>add site</vh></v>
+<v t="rodrigob.20040912225813.2"><vh>del site</vh></v>
+</v>
+<v t="rodrigob.20040125154815.3" a="E"><vh>edit content</vh>
+<v t="rodrigob.20040125154815.4" a="EM"><vh>set text</vh></v>
+<v t="rodrigob.20040125154815.5"><vh>insert text</vh></v>
+<v t="rodrigob.20040125154815.6" a="M"><vh>delete text</vh></v>
+<v t="rodrigob.20040125154815.8"><vh>fill body</vh>
+<v t="rodrigob.20040125154815.9" a="E"><vh>helpers functions</vh>
+<v t="rodrigob.20040125154815.10"><vh>&lt;&lt; def index_to_list &gt;&gt;</vh></v>
+<v t="rodrigob.20040125154815.11"><vh>&lt;&lt; def in_range &gt;&gt;</vh></v>
+<v t="rodrigob.20040125154815.12"><vh>&lt;&lt; def range_to_pos_and_length &gt;&gt;</vh></v>
+</v>
+<v t="rodrigob.20040125154815.13"><vh>&lt;&lt; text was overwritten &gt;&gt;</vh></v>
+<v t="rodrigob.20040125154815.14" a="E"><vh>&lt;&lt; suppression or deletion &gt;&gt;</vh>
+<v t="rodrigob.20040125154815.15"><vh>&lt;&lt; update the deletion buffer &gt;&gt;</vh></v>
+<v t="rodrigob.20040125154815.16"><vh>&lt;&lt; create a new deletion buffer &gt;&gt;</vh></v>
+</v>
+<v t="rodrigob.20040125154815.17"><vh>&lt;&lt; "normal" keys &gt;&gt;</vh></v>
+<v t="rodrigob.20040125154815.18"><vh>&lt;&lt; text paste &gt;&gt;</vh></v>
+</v>
+<v t="rodrigob.20040125154815.19"><vh>flush body</vh></v>
+<v t="rodrigob.20040125154815.7"><vh>send operation</vh></v>
+</v>
+<v t="rodrigob.20040127182438" a="E"><vh>remote callable methods</vh>
+<v t="rodrigob.20040127182530"><vh>messages and presence methods</vh>
+<v t="rodrigob.20040127184605" a="M"><vh>send message</vh></v>
+<v t="rodrigob.20040127185444" a="M"><vh>get users list</vh></v>
+<v t="rodrigob.20040127184605.1"><vh>set presence</vh></v>
+</v>
+<v t="rodrigob.20040920122333" a="EM"><vh>receive operation</vh></v>
+</v>
+</v>
+<v t="rodrigob.20040121155420"><vh>ConcurrentEditableNode</vh>
+<v t="rodrigob.20040128013418" a="E"><vh>__init__</vh></v>
+<v t="rodrigob.20040128011816"><vh>receive operation</vh></v>
+<v t="rodrigob.20040128011809" a="E"><vh>add/del site</vh>
+<v t="rodrigob.20040129165804" a="EM"><vh>add site</vh>
+<v t="rodrigob.20040130122927"><vh>&lt;&lt; expand the vectors and matrices &gt;&gt;</vh></v>
+</v>
+<v t="rodrigob.20040129165804.1" a="EM"><vh>del site</vh>
+<v t="rodrigob.20040129165804.2"><vh>del clients (server)</vh></v>
+</v>
+</v>
+<v t="rodrigob.20040128011921"><vh>network methods</vh>
+<v t="rodrigob.20040128011921.1" a="E"><vh>connect to parent </vh>
+<v t="rodrigob.20040130224144" a="M"><vh>old</vh></v>
+<v t="rodrigob.20040129181502"><vh>get_data</vh></v>
+</v>
+<v t="rodrigob.20040130225705"><vh>disconnect_from_parent</vh></v>
+<v t="rodrigob.20040130225148" a="EM"><vh>collaborate_in</vh>
+<v t="rodrigob.20040130225208" a="M"><vh>set_state &lt;= THIS IS THE ACTUAL WORK</vh></v>
+</v>
+<v t="rodrigob.20040128011939"><vh>send operation</vh></v>
+</v>
+<v t="rodrigob.20040130225148.1" a="M"><vh>get_state</vh></v>
+<v t="rodrigob.20040128012459" a="EM"><vh>collect_garbage</vh></v>
+<v t="rodrigob.20040128012627"><vh>generate operations</vh></v>
+<v t="rodrigob.20040909033320"><vh>set text</vh></v>
+</v>
 <v t="rodrigob.121403173614.1509" a="M"><vh>ConcurrentEditable</vh>
 <v t="rodrigob.121403173614.1510"><vh>receive operation</vh></v>
 <v t="rodrigob.121403173614.1511"><vh>apply</vh></v>
@@ -1891,12 +1958,12 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 </v>
 </v>
-<v t="rodrigob.20040119132914" a="E"
-marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040127184605,rodrigob.20040127185444,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040126020641,"
-expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040121150952.7,rodrigob.20040122175312,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040912225813,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
+<v t="rodrigob.20040119132914"
+marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040127184605,rodrigob.20040127185444,rodrigob.20040920122333,rodrigob.20040125194534,rodrigob.20040126020641,"
+expanded="rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040912225813,rodrigob.20040125154815.3,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.121403173614.1502"
 marks="rodrigob.121403173614.1509,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040130224144,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
-expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1516,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040121155420,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040128011921.1,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
+expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1516,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040128011921.1,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
 <v t="rodrigob.20040912220039"
 marks="rodrigob.20040912220039.14,rodrigob.20040912220039.15,rodrigob.20040912220039.16,rodrigob.20040912220039.17,rodrigob.20040912220039.18,rodrigob.20040912220039.19,rodrigob.20040912220039.21,rodrigob.20040912220039.22,rodrigob.20040912220039.23,rodrigob.20040912220039.25,rodrigob.20040912220039.26,rodrigob.20040912220039.27,rodrigob.20040912220039.28,rodrigob.20040912220039.29,rodrigob.20040912220039.30,rodrigob.20040912220039.31,rodrigob.20040912220039.32,rodrigob.20040912220039.33,rodrigob.20040912220039.34,rodrigob.20040912220039.35,rodrigob.20040912220039.37,rodrigob.20040912220039.38,rodrigob.20040912220039.39,rodrigob.20040912220039.40,rodrigob.20040912220039.42,rodrigob.20040912220039.43,rodrigob.20040912220039.44,rodrigob.20040912220039.45,rodrigob.20040912220039.47,rodrigob.20040912220039.48,rodrigob.20040912220039.49,rodrigob.20040912220039.50,rodrigob.20040912220039.52,rodrigob.20040912220039.53,rodrigob.20040912220039.54,rodrigob.20040912220039.55,rodrigob.20040912220039.57,rodrigob.20040912220039.58,rodrigob.20040912220039.59,rodrigob.20040912220039.60,rodrigob.20040912220039.62,rodrigob.20040912220039.63,rodrigob.20040912220039.64,rodrigob.20040912220039.65,rodrigob.20040912220039.66,rodrigob.20040912220039.67,rodrigob.20040912220039.68,rodrigob.20040912220039.69,rodrigob.20040912220039.70,rodrigob.20040912220039.71,rodrigob.20040912220039.72,rodrigob.20040912220039.73,rodrigob.20040912220039.75,rodrigob.20040912220039.76,rodrigob.20040912220039.77,rodrigob.20040912220039.78,rodrigob.20040912220039.79,rodrigob.20040912220039.80,rodrigob.20040912220039.81,rodrigob.20040912220039.82,rodrigob.20040912220039.83,rodrigob.20040912220039.84,rodrigob.20040912220039.85,rodrigob.20040912220039.86,rodrigob.20040912220039.87,rodrigob.20040912220039.88,rodrigob.20040912220039.89,rodrigob.20040912220039.90,rodrigob.20040912220039.92,rodrigob.20040912220039.93,rodrigob.20040912220039.94,rodrigob.20040912220039.95,rodrigob.20040912220039.96,rodrigob.20040912220039.97,rodrigob.20040912220039.98,rodrigob.20040912220039.100,rodrigob.20040912220039.101,rodrigob.20040912220039.102,rodrigob.20040912220039.103,rodrigob.20040912220039.104,rodrigob.20040912220039.105,rodrigob.20040912220039.107,rodrigob.20040912220039.108,rodrigob.20040912220039.110,rodrigob.20040912220039.111,rodrigob.20040912220039.113,rodrigob.20040912220039.114,rodrigob.20040912220039.115,rodrigob.20040912220039.116,rodrigob.20040912220039.118,rodrigob.20040912220039.119,rodrigob.20040912220039.120,rodrigob.20040912220039.121,rodrigob.20040912220039.122,rodrigob.20040912220039.123,rodrigob.20040912220039.124,rodrigob.20040912220039.125,rodrigob.20040912220039.126,rodrigob.20040912220039.127,rodrigob.20040912220039.128,rodrigob.20040912220039.129,rodrigob.20040912220039.130,rodrigob.20040912220039.131,rodrigob.20040912220039.132,rodrigob.20040912220039.133,rodrigob.20040912220039.134,rodrigob.20040912220039.136,rodrigob.20040912220039.137,rodrigob.20040912220039.138,rodrigob.20040912220039.139,rodrigob.20040912220039.140,rodrigob.20040912220039.141,rodrigob.20040912220039.142,rodrigob.20040912220039.143,rodrigob.20040912220039.144,rodrigob.20040912220039.145,rodrigob.20040912220039.146,rodrigob.20040912220039.147,rodrigob.20040912220039.148,rodrigob.20040912220039.149,rodrigob.20040912220039.150,rodrigob.20040912220039.151,rodrigob.20040912220039.152,rodrigob.20040912220039.153,rodrigob.20040912220039.154,"
 expanded="rodrigob.20040912220039.13,"><vh>@thin Rendezvous.py</vh></v>
@@ -3316,7 +3383,8 @@ Example:
 <t tx="niederberger.20040825222327">@language plain
 This node contains reminders and all things left to do in general, grouped by priority.
 Currently they may be related to coding, researching, packaging, everything.</t>
-<t tx="niederberger.20040825222327.1">
+<t tx="niederberger.20040825222327.1">- inspect and make a consistent use of the timestamp (operations creation, emission, reception, application) (&lt;&lt;&lt; the next big thing)
+
 - in Test_Chalks, separate both instance stdout redirection (run in threads ?). Test_Chalks should be reimplemented.
 - why does Test_Chalks is sooo slow to quit ? (seeems to be related with rendez vous, when disabled it quit in a fraction of seconds)
 
@@ -3326,13 +3394,6 @@ Currently they may be related to coding, researching, packaging, everything.</t>
 - solve the code problems
 
 - Work on concurrenteditablenode (make consistent use of the new site_id system)
-
-- Chalks.py", line 1494, in start_collaborating
-    self.receive_operation(Operation(**t_dict))	# instanciate and receive
- ConcurrentEditable.py", line 1880, in receive_operation
-    assert type(timestamp) is dict or in_op.get("source_site") == self.site_index, "In ConcurrentEditableNode the transmited time stamps are expected to be dictionaries that map &lt;known_site_id&gt; =&gt; &lt;num_of_operations_we_know_he_has_created&gt; OR to be a local state vector timestamp"
-exceptions.AssertionError: In ConcurrentEditableNode the transmited time stamps are expected to be dictionaries that map &lt;known_site_id&gt; =&gt; &lt;num_of_operations_we_know_he_has_created&gt; OR to be a local state vector timestamp
-
 
 - the rendezvous system does not seems to be working under linux (aviables servers list appears empty)
 
@@ -30609,11 +30670,14 @@ def set_cursor_position(self, who, pos):
     
     
     # send to all the connected sites
-    for perspective in self.connected_sites.values():       
-        # send to the other nodes
-        perspective.callRemote("receive_op", op_type, pos, data, state_vector ).addErrback(self.exception)
+    perspectives = self.childrens_perspectives + [self.parent_perspective]
+    for perspective in perspectives:
+        if perspective:       
+            # send to the other nodes
+            perspective.callRemote("receive_op", op_type, pos, data, state_vector ).addErrback(self.exception)
     
     return
+
 
 </t>
 <t tx="rodrigob.20040125154815.8">def fill_body(self, keywords):
@@ -31193,49 +31257,6 @@ The upper node is the first instance, that created the original content.
 Down tree we found the other sessions.
 Each node has one parent and possibly many childrens.
 @c</t>
-<t tx="rodrigob.20040126020544">def remote_insert_text(self, startpos, text, timestamp, who=None):
-    """ 
-    """
-
-    self.check_sites(timestamp)    
-        
-    if self.site_index == None:
-        raise ChalksError, "You have not logged in the node, so you are not able to edit it."
-
-    if type(timestamp) is not dict:
-        raise ChalksError, "Operation 'insert_text' called without a timestamp."
-        
-        
-    # apply		
-    self.receive_operation(ConcurrentEditable.Operation("Insert", startpos, text, timestamp = timestamp, source_site = self.site_index, who= self.nickname))
-    
-    # the selected, cnode will propage the event to the related users.
-    # cnode : CollaborativeNode, is a ConcurrentEditableServer
-        
-    return
-    
-    
-def remote_delete_text(self, startpos, length, timestamp, who=None):
-    """ 
-    """
-            
-    if self.site_index == None:
-        raise ChalksError, "You have not logged in the node, so you are not able to edit it."
-        
-    if timestamp == None:
-        raise ChalksError, "Operation 'delete_text' called without a timestamp."
-
-        
-    if not ( type(startpos) == type(length) and type(startpos) is int):
-        raise ChalksError,  "Type of the arguments for delete text are incorrect. (expected IntType got %s, %s)"%(type(startpos), type(length) ) 
-
-    # apply		
-    self.receive_operation(ConcurrentEditable.Operation("Delete", startpos, length, timestamp = timestamp, source_site = self.site_index, who= self.nickname))
-    
-    # the selected, cnode will propage the event to the related users.
-    # cnode : CollaborativeNode, is a ConcurrentEditableServer
-    
-    return</t>
 <t tx="rodrigob.20040126020641"># Allow external users to start collaborating
 def perspective_collaborate_in(self, site_id):
     """
@@ -31304,7 +31325,7 @@ So we use only this implementation. The ChalksAvatar equivalent methods, call th
     perspectives = self.childrens_perspectives + [self.parent_perspective]
 
 @        
-    # diagnose code    
+    # diagnose code
     #print "&lt;%s&gt; %s" %(from_, txt)
     print "received_from %s" % received_from
     #print "perspectives %s" % perspectives
@@ -31347,9 +31368,6 @@ So we use only this implementation. The ChalksAvatar equivalent methods, call th
     
     
 </t>
-<t tx="rodrigob.20040127203753">def check_sites(self,):
-    # &lt;&lt;&lt;&lt; what is this method supposed to do ?
-    pass</t>
 <t tx="rodrigob.20040128005315">def exception(self, error):
     """
     manage the exceptions
@@ -31399,7 +31417,7 @@ or when we are notified that a node quited it
     # convert the dictionary timestamp to a normal state vector, if necesary register new sites - ---
     timestamp = in_op.get("timestamp")
     
-    assert type(timestamp) is dict or in_op.get("source_site") == self.site_index, "In ConcurrentEditableNode the transmited time stamps are expected to be dictionaries that map &lt;known_site_id&gt; =&gt; &lt;num_of_operations_we_know_he_has_created&gt; OR to be a local state vector timestamp"
+    assert type(timestamp) is dict or in_op.get("source_site") == self.site_index, "In ConcurrentEditableNode the transmited time stamps are expected to be dictionaries that map &lt;known_site_id&gt; =&gt; &lt;num_of_operations_we_know_he_has_created&gt; OR to be a local state vector timestamp.\ntype(timestamp) == %s, timestamp == %s" % (type(timestamp), timestamp)
 
 
     if type(timestamp) is dict: # convert the dict timestamp in a normal state vector           
@@ -32880,7 +32898,7 @@ The connection process occurs in this order:
 
 \end{enumerate}
 
-It worth noting that the ChalksNode object keep only \emph{remote references} of the avatars (of the parent and of the children). When a node call a remote method in the called node receive a call from the local Avatar instance. Thus \emph{the mind} of the local Avatar is compared to the childrens and parents remote references. For a clear example look at the {\texttt send\_message} ChalksNode methods.
+It worth noting that the ChalksNode object keep only \emph{remote references} of the avatars (of the parent and of the children). When a node call a remote method in the called node receive a call from the local Avatar instance. Thus \emph{the mind} of the local Avatar is compared to the childrens and parents remote references. For a clear example look at the {\texttt send\_message} ChalksNode method.
 </t>
 <t tx="rodrigob.20040915113450">From: Ricardo Niederberger Cabral &lt;ncabral@terra.com.br&gt;
 To: chalks-devel@lists.berlios.de
@@ -32982,17 +33000,12 @@ def perspective_send_message(self, from_, to, txt):
     """
     return self.node.remote_send_message(self.mind, from_, to, txt)
     </t>
-<t tx="rodrigob.20040915120517.2">def perspective_insert_text(self, startpos, text, timestamp = None):
-    """ 
+<t tx="rodrigob.20040915120517.2">def perspective_receive_operation(self, in_op, *args, **kw):
     """
-    return self.node.remote_insert_text(self.mind, startpos, text, timestamp)
-    
-    
-def perspective_delete_text(self, startpos, length, timestamp = None):
-    """ 
     """
-    return self.node.remote_delete_text(self.mind, startpos, length, timestamp)
-
+    return self.node.remote_receive_operation(self.mind, in_op, *args, **kw)
+    
+perspective_receive_op = perspective_receive_operation
 </t>
 <t tx="rodrigob.20040918184418">19/01/04 Started LeoN spinoff. RodrigoB.
 21/01/04 Minor edits. RodrigoB.
@@ -33041,6 +33054,37 @@ Traceback (most recent call last):
     self.socket.setsockopt(socket.SOL_IP, socket.IP_ADD_MEMBERSHIP, socket.inet_aton(_MDNS_ADDR) + socket.inet_aton('0.0.0.0'))
   File "&lt;string&gt;", line 1, in setsockopt
 socket.error: (19, 'No such device')
+</t>
+<t tx="rodrigob.20040920122333">def remote_receive_operation(self, in_op, *args, **kw):
+    """
+    Receive an operation from a remote location
+    """
+
+    from ConcurrentEditable import Operation # this line should not be at the begining of Chalks.py ?
+    
+    # obtain the input operation
+    if not isinstance(in_op, Operation):
+        try:
+            assert len(args) &gt;= 2
+            t_op = Operation(in_op, args[0], args[1])
+            for k in kw:
+                t_op[k] = kw[k]
+        except:
+            raise "Error on receive_operation arguments (%s, %s, %s)"%(in_op, args, kw)
+    else:
+        t_op =	Operation(**in_op) # copy the operation 
+        
+    if dbg &gt;=1:
+        print "Node applying op %s"%(t_op)
+    
+    # ---
+    
+    ConcurrentEditableNode.receive_operation(self, t_op) # apply localy
+            
+    return
+
+remote_receive_op = remote_receive_operation # alias
+    
 </t>
 </tnodes>
 </leo_file>
