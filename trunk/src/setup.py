@@ -1,3 +1,7 @@
+#@+leo-ver=4-thin
+#@+node:rodrigob.20040831004246:@thin ./src/setup.py
+#@@color
+#@@language python
 #!/usr/bin/env python
 
 try:
@@ -34,3 +38,5 @@ setup(name='Chalks',
       )
 
 
+#@-node:rodrigob.20040831004246:@thin ./src/setup.py
+#@-leo

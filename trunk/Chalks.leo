@@ -12,7 +12,7 @@
 	<change_string></change_string>
 </find_panel_settings>
 <vnodes>
-<v t="rodrigob.20040121154249" a="ETV"><vh>Chalks</vh>
+<v t="rodrigob.20040121154249" a="E"><vh>Chalks</vh>
 <v t="rodrigob.20040824110326"><vh>Introduction (for Chalks newbies)</vh>
 <v t="rodrigob.20040826154614"><vh>&lt;&lt;what is Chalks ?&gt;&gt;</vh></v>
 <v t="rodrigob.20040826154614.1"><vh>&lt;&lt;features&gt;&gt;</vh></v>
@@ -25,7 +25,7 @@
 </v>
 </v>
 </v>
-<v t="rodrigob.20040824110326.1"><vh>Docs</vh>
+<v t="rodrigob.20040824110326.1" a="E"><vh>Docs</vh>
 <v t="rodrigob.20040826155317" a="E"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.9"><vh>Old LeoN (to purge) Docs</vh>
 <v t="rodrigob.121403173614.4" a="E"><vh>&lt;&lt; release status &gt;&gt;</vh></v>
@@ -259,14 +259,15 @@
 </v>
 <v t="rodrigob.123103165427"><vh>GNU GPL</vh></v>
 </v>
-<v t="rodrigob.20040831002540"><vh>Distribution files</vh>
-<v t="rodrigob.20040826154516" a="E"><vh>@thin ./src/README</vh></v>
-<v t="rodrigob.20040831001818" a="E"><vh>@thin ./src/AUTHORS</vh></v>
-<v t="rodrigob.20040831002026"><vh>@thin ./src/COPYING</vh></v>
+<v t="rodrigob.20040831002540" a="TV"><vh>Distribution files</vh>
+<v t="rodrigob.20040826154516"><vh>@thin ./src/README</vh></v>
+<v t="rodrigob.20040831001818"><vh>@thin ./src/AUTHORS</vh></v>
+<v t="rodrigob.20040831002026" a="E"><vh>@thin ./src/COPYING</vh></v>
+<v t="rodrigob.20040831004246"><vh>@thin ./src/setup.py</vh></v>
 <v t="rodrigob.20040831002444"><vh>@thin ./src/setup.cfg</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040824110326.2"><vh>Reference code</vh>
+<v t="rodrigob.20040824110326.2" a="E"><vh>Reference code</vh>
 <v t="rodrigob.121403173614.220" a="E"><vh>Old LeoN (to purge) Reference code</vh>
 <v t="rodrigob.121403173614.221"><vh>Deprecated code</vh>
 <v t="rodrigob.121403173614.222"><vh>file /usr/local/leo/leo_cvs/leo/leon.py</vh>
@@ -1713,7 +1714,7 @@
 <v t="rodrigob.20040127182541"><vh>insert/delete text</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040121155420" a="E"><vh>ConcurrentEditableNode</vh>
+<v t="rodrigob.20040121155420" a="EM"><vh>ConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013418" a="E"><vh>__init__</vh></v>
 <v t="rodrigob.20040128011816" a="E"><vh>receive operation</vh></v>
 <v t="rodrigob.20040128011809" a="E"><vh>add/del site</vh>
@@ -1752,11 +1753,11 @@
 </v>
 <v t="rodrigob.121403173614.1517"><vh>generate operations</vh></v>
 </v>
-<v t="rodrigob.20040121155542"><vh>TestConcurrentEditableNode</vh>
+<v t="rodrigob.20040121155542" a="E"><vh>TestConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013509"><vh>TestConcurrentEditable1</vh></v>
 <v t="rodrigob.20040128013523"><vh>TestConcurrentEditableServer</vh></v>
 </v>
-<v t="rodrigob.20040125153141"><vh>&lt;&lt; install the collaboration service &gt;&gt;</vh>
+<v t="rodrigob.20040125153141" a="EM"><vh>&lt;&lt; install the collaboration service &gt;&gt;</vh>
 <v t="rodrigob.20040125200531.1"><vh>Chalks realm</vh></v>
 <v t="rodrigob.20040125200531" a="M"><vh>dummy checker</vh></v>
 </v>
@@ -1781,7 +1782,7 @@ expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1504,rodrigob.1214031
 <v t="rodrigob.20040129130513.8"><vh>&lt;&lt; define getpreferredencoding for *nix &gt;&gt;</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040123132311.1"><vh>&lt;&lt; chalks help &gt;&gt;</vh>
+<v t="rodrigob.20040123132311.1" a="E"><vh>&lt;&lt; chalks help &gt;&gt;</vh>
 <v t="rodrigob.20040126020116"><vh>network graph (about Server, Client, Children, Parent, and Trees)</vh></v>
 </v>
 <v t="rodrigob.122403220526.1" a="E"><vh>developers docs</vh>
@@ -30809,6 +30810,6 @@ Ideas /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\
 - (this is equal to ask: how to use a Tkinter.Text as a console ?)
 - (could I define a "@console the_command" node ?)
 </t>
-<t tx="rodrigob.20040831002540"></t>
+<t tx="rodrigob.20040831002540">Files involved in the construction of a standard distribution.</t>
 </tnodes>
 </leo_file>
