@@ -204,7 +204,11 @@ Chalks is a software with three aspects. Identifiying these aspects helps unders
   \item Insertion/deletion of new nodes into the network $\leftarrow$ \emph{tricky point}
   \item How to discover Chalks servers on the current local network automatically    
   
-       Figure out local ip address and netmask, then scan ip range for default chalks server port
+       Figure out local ip address and netmask, then scan ip range for default chalks server port. No need to code everything by hand, we will use the project \href{http://sourceforge.net/projects/pyzeroconf}{Multicast DNS Service Discovery for Python}  by Paul Scott-Murphy.  This module seems impressive, since it's compatible (well, claims to be) with Apple's opensource implementation for Darwin which should be pretty much industry standard. 
+       
+       There is preliminary support for multicast DNS on Twisted (http://svn.twistedmatrix.com/cvs/trunk/sandbox/itamar/mdns/?root=Twisted), but right now it's very experimental, only suppports querying  and doesn't seem to be evolving fast enough, so \em{pyzeroconf} seems to be the best option.
+              
+       We also need to think about \href{http://www.iana.org/assignments/port-numbers}{IANA standard port numbers} when coming up with a default server port and registering it on the network with rendezvous.
        
   \item Translation/transport of atomic operations
   \end{itemize}
@@ -307,7 +311,7 @@ Every operation has a specific identifier. This identifier is the number of oper
 
 To simplify the implementation instead of enumerating the sites (as in the paper) the sites are individualized by an unique id (ip+port). Then the operations are tagged with a dictionary of the kind {\texttt {id1: ops\_from\_id1, id2: ops\_from\_id2, ...}} (including site own id).
 
-This approach becames less efficient if many sites just connect once, send an operation and then disconnect, but this is a rare case. This approach is less efficient than using an ordered list, but it is simpler and functional. It is simpler because we do not care about the order of arrival, the disconnections and reconnections, and when new users are added to the session the management becomes trivial.
+This approach becomes less efficient if many sites just connect once, send an operation and then disconnect, but this is a rare case. This approach is less efficient than using an ordered list, but it is simpler and functional. It is simpler because we do not care about the order of arrival, the disconnections and reconnections, and when new users are added to the session the management becomes trivial.
 
 %@+others
 %@+node:rodrigob.20040908012337:Topology
