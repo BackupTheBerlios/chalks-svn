@@ -172,7 +172,7 @@ class Chalks:
                     break # stop creating web services
                     
             else: # the range failed
-                self.log_error("Could not found an aviable port in the range %s to provide webpublishing of the contents." % [web_portno, web_portno+10])
+                self.log_error("Could not find an available port in the range %s to provide webpublishing of the text contents." % [web_portno, web_portno+10])
         #@-node:<< install the web service >>
         #@nl
         #@    << install the collaboration service >>
@@ -216,7 +216,7 @@ class Chalks:
                 if 1:
                     return credential.username
                 else:
-                    return failure.Failure(error.UnauthorizedLogin("%s is not listed in the authorized users." % credential.username))
+                    return failure.Failure(error.UnauthorizedLogin("'%s' is not listed in the authorized users list." % credential.username))
         
         #@-node:dummy checker
         #@-others
@@ -321,7 +321,7 @@ class Chalks:
     #@+node:is dirty
     def is_dirty(self):
         """
-        Indicate if the contents of the file have changed since last saved.
+        Indicates if the contents of the file have changed since last saved.
         Use a hash function
         """
         
@@ -1077,9 +1077,9 @@ class Chalks:
             # if required, request a save as 
             if self.is_dirty():
                 if self.filename: 
-                    message = "File %s contain change not yet saved.\nWhen connecting a new text will be downloaded.\nDo you want to save the file before connecting ?" % self.filename
+                    message = "File %s contains changes not yet saved.\nOnce connected, a new text will be downloaded.\nDo you want to save the current file before connecting ?" % self.filename
                 else:
-                    message = "The text has not been saved.\nWhen connecting a new text will be downloaded.\nSave before connecting ?"
+                    message = "The text has not been saved.\nOnce connected, a new text will be downloaded.\nSave before connecting ?"
             
                 ret = self.askYesNoCancel("Save and connect to ...", message) # ret 1, 0 or -1 for cancel
             
@@ -1099,7 +1099,7 @@ class Chalks:
             nickname = nickname_entry.get()
             
             top.destroy()
-            print "Requesting a connection to 'chalks://%s:%s' as '%s'" % (address, port, nickname) 
+            print "Requesting a connection to 'chalks://%s:%s' as '%s', please wait..." % (address, port, nickname) 
             # start the connection 
             self.node.connect_to_parent(address, port, nickname)
             return
@@ -1246,7 +1246,7 @@ class Chalks:
     
     def onHelp(self, event=None):
         """
-        Show the help of the program
+        Show main help screen
         """
     
         from ScrolledText import ScrolledText
@@ -1255,8 +1255,8 @@ class Chalks:
         t = ScrolledText(top, wrap=WORD, padx=50); t.pack(expand=1, fill=BOTH)
         
         # add apropos
-        t.insert(END, "\nChalks 0.1.0. Rodrigo Benenson, LeoN project 2004.")
-        link_text = " Online homepage"
+        t.insert(END, "\nChalks " + self.version + "\nLicensed under the GNU GPL\nCopyright 2004, Chalks Development Team")
+        link_text = " Project homepage"
         t.insert(END, link_text)
         t.tag_config("hyperlink", underline=1, foreground="blue3")
         t.tag_bind("hyperlink", "<Button>", self.online_homepage)
@@ -1559,7 +1559,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         if op.get("avoid"):
             self.log( "AutoDeletion is avoiyed", color="yellow") # for debugging
             del op["avoid"] # I hope this will edit the operation stored in the HB
-            self.log("HB after operation avoyance %s"% self.HB, color="yellow") # just for debugging
+            self.log("HB after operation avoidance %s"% self.HB, color="yellow") # just for debugging
     
             return
     
@@ -2110,7 +2110,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         Return the dictonary of map node.id -> user_nickname
         """
             
-        return {}
+        return {}  #<<<< implement
         
         
     #@-node:get users list
@@ -2195,6 +2195,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     #@nonl
     #@+node:check sites
     def check_sites(self,):
+        # <<<< what is this method supposed to do ?
         pass
     #@nonl
     #@-node:check sites
