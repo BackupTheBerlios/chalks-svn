@@ -1442,7 +1442,7 @@ class ConcurrentEditableServer(ConcurrentEditable):
     #@+node:rodrigob.121403173614.1533:receive operation
     def receive_operation(self, in_op, *args, **kw):
         """
-        adapt the state_vectors lenghts
+        adapt the state_vectors lengths
         """
     
         timestamp = (isinstance(in_op, Operation) and in_op.get("timestamp") ) or kw.get("timestamp")

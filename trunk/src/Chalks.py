@@ -895,7 +895,7 @@ class Chalks:
                 tags = []
                 for start, stop in self.text_widget.tag_ranges(t_name) :
                     pos = (self.text_widget.get("1.0", start))
-                    lenght = (self.text_widget.get(start, stop))
+                    length = (self.text_widget.get(start, stop))
                     tags.append((pos, length))
             else:
                 tags = self.text_widget.tag_ranges(t_name)
@@ -1005,10 +1005,10 @@ class Chalks:
             wMax	= top.winfo_width()
             offset = float(barRoot) + x - wRoot
     
-        # Adjust the pixels, not the frac.
+        # Adjust the pixels, not the frac
         if offset < 3: offset = 3
         if offset > wMax - 2: offset = wMax - 2
-        # Redraw the splitter as the drag is occuring.
+        # Redraw the splitter as the drag is occuring
         frac = float(offset) / wMax
         # trace(`frac`)
         self.divideSplitter(verticalFlag, frac)
@@ -1658,19 +1658,7 @@ class ChalksNode(ConcurrentEditableNode):
 
         return
 
-        
-    def log(self, text, tag=None, color=None):        
-        """
-        right now it will just forward log message to GUI object
-        """
-        self.chalks_gui.log(text, tag, color)
 
-    def log_error(self, text):
-        """
-        right now it will just forward log message to GUI object
-        """
-        self.chalks_gui.log_error(text)
-    
     #@    @+others
     #@+node:rodrigob.20040125154815.2:connect to/disconnect from parent node
     
@@ -1679,6 +1667,7 @@ class ChalksNode(ConcurrentEditableNode):
     def connect_to_parent(self, address, port, nickname="No name"):
         """
         Connect as a children to a parent node
+        This method overwrite the ConcurrentEditableNode implementation managing the network layer
         """
         print "Requesting a connection to 'chalks://%s:%s' as '%s', please wait..." % (address, port, nickname)
         
@@ -2066,7 +2055,6 @@ class ChalksNode(ConcurrentEditableNode):
     
         #self.log("fill_body keywords %s"%(keywords), color="yellow") # just for debugging
         #trace("onbodykey2 keywords %s"%(keywords)) # just for debugging
-        #if c.undoer.beads: self.log("last bead %s" % c.undoer.beads[c.undoer.bead], color="yellow") # just for debugging
     
     
         # some local helpers functions	
@@ -2136,7 +2124,7 @@ class ChalksNode(ConcurrentEditableNode):
             
             # Tkinter count the lines from 1 to N and the columns from zero to N
             
-            pos    = start[1] + reduce(lambda x,y: len(y) + x, text[:start[0]-1], 0) + (start[0]-1) # columns + rows lenght + "\n" chars
+            pos    = start[1] + reduce(lambda x,y: len(y) + x, text[:start[0]-1], 0) + (start[0]-1) # columns + rows length + "\n" chars
             length = stop [1] - start[1] + reduce(lambda x,y: len(y) + x, text[start[0]-1:stop[0]-1], 0) + (stop[0] - start[0]) # stop columns - start columns + rows length + "\n" chars
             
             #print "\nrange_to_pos_length(start=%s, stop=%s, some_text) => pos, length == %s, %s"%( start, stop, pos, length) # just for debugging
@@ -2152,8 +2140,7 @@ class ChalksNode(ConcurrentEditableNode):
             # (should check which overwritten text was already sent)
             # and should create a sequence of deletion operations
             
-            
-            self.log("text was overwritten %s; c.undoer.oldMiddleLines %s [0]"%(old_sel, c.undoer.oldMiddleLines), color="yellow")
+            self.log("text was overwritten %s;"%(old_sel), color="yellow")
             
             # need to define the lists:
             #	- text_deletion_ranges
@@ -2309,7 +2296,7 @@ class ChalksNode(ConcurrentEditableNode):
                         
                     # now we have the list of "to_send" ranges that are found in the range ["1.0", "insert"]
                     
-                    # we convert it to a [(pos, lenght), (pos, length), ...] form
+                    # we convert it to a [(pos, length), (pos, length), ...] form
                     old_text = old_text.split("\n")
                     t_ranges = []
                     for t_range in ranges:	
@@ -2450,7 +2437,6 @@ class ChalksNode(ConcurrentEditableNode):
                 
             elif all: # if we have to flush every dirty char
                 t_text = text.get(start, stop)
-                self.last_node_dirty_text.append(t_text)
                 
             # check if the conditions trigered some text flushing  -~-~-~-~-~-~-~-~-~-~
     
@@ -2474,6 +2460,7 @@ class ChalksNode(ConcurrentEditableNode):
     def send_operation(self, op_type, pos, data):
         """
         Apply locally and then send the operation to all the adjacent nodes (upward and downward the tree).
+        This method overwrite the ConcurrentEditableNode implementation to take care of the network layer.
         """
         
         if op_type == "insert_text":
@@ -2511,25 +2498,13 @@ class ChalksNode(ConcurrentEditableNode):
     #@-node:rodrigob.20040125154815.3:edit content
     #@+node:rodrigob.20040127182438:remote callable methods
     #@+at
-    # The ChalksNode is a referenceable object that is passed at connection, 
-    # which defines what our 'parent' (the node to which we connected) can do 
-    # on the local node.
-    #@-at
-    #@@c
-    #@nonl
-    #@+node:rodrigob.20040127182530:messages and presence methods
-    #@+at
-    # <<< EXPLAIN HERE
+    # This are the method the Avatars are suposed to access. This are the only 
+    # method that other nodes should be able to call.
     # 
-    # this methods are common to both children->parent calls and 
-    # parent->childrens calls.
-    # So we use only this implementation. The ChalksAvatar equivalent methods, 
-    # call this one.
+    # The ChalksAvatar implementation have to be consistent with this 
+    # ChalksNode methods.
     #@-at
     #@@c
-    
-    
-        
     #@nonl
     #@+node:rodrigob.20040127184605:send message
     def remote_send_message(self, received_from, from_, to, txt):
@@ -2578,32 +2553,6 @@ class ChalksNode(ConcurrentEditableNode):
         
         return
     #@-node:rodrigob.20040127184605:send message
-    #@+node:rodrigob.20040127185444:get users list
-    def remote_get_users_list(self, ):
-        """ 
-        Return the dictonary of map node.site_id -> user_nickname
-        """
-            
-        # do we need this method ?
-        return {}  #<<<< implement
-        
-        
-    #@-node:rodrigob.20040127185444:get users list
-    #@+node:rodrigob.20040127184605.1:set presence
-    def remote_set_presence(self, state):
-        """
-        Set the presence of one user 
-        """
-        
-        self.status = state
-        
-        for t_list in self.Outline.users.values(): # a list of client references
-            for t_value in t_list:
-                t_value.mind.callRemote("post_presence", self.name, state).addErrback(raiseLeoError, "could not post your presence to %s"%(t_value.name))
-        
-        return
-    #@-node:rodrigob.20040127184605.1:set presence
-    #@-node:rodrigob.20040127182530:messages and presence methods
     #@+node:rodrigob.20040920122333:receive operation
     def remote_receive_operation(self, in_op, *args, **kw):
         """
@@ -2744,21 +2693,7 @@ class ChalksAvatar(pb.Avatar, pb.Referenceable):
     #@-at
     #@@c
     #@nonl
-    #@+node:rodrigob.20040915120517.1:messages and presence methods
-    def perspective_get_actual_users_list(self, ):
-        """ 
-        Return the dictonary of map node.id -> user_nickname
-        """    
-        return self.node.perspective_get_actual_users_list(self.mind)
-        
-        
-    def perspective_set_presence(self, state):
-        """
-        Set the presence of one user 
-        """
-        return self.node.remote_set_presence(self.mind,state)
-        
-        
+    #@+node:rodrigob.20040915120517.1:send message
     def perspective_send_message(self, from_, to, txt):
         """ 
         Send a message to
@@ -2766,7 +2701,7 @@ class ChalksAvatar(pb.Avatar, pb.Referenceable):
         return self.node.remote_send_message(self.mind, from_, to, txt)
         
     #@nonl
-    #@-node:rodrigob.20040915120517.1:messages and presence methods
+    #@-node:rodrigob.20040915120517.1:send message
     #@+node:rodrigob.20040915120517.2:receive operation
     def perspective_receive_operation(self, in_op, *args, **kw):
         """

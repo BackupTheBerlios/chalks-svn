@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2935" clone_windows="0"/>
-<globals body_outline_ratio="0.450381679389">
-	<global_window_position top="10" left="10" height="986" width="1280"/>
+<globals body_outline_ratio="0.50572519084">
+	<global_window_position top="10" left="10" height="524" width="800"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -1688,20 +1688,19 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
 <v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
-<v t="niederberger.20040825222327.1" a="E"><vh>High</vh>
+<v t="niederberger.20040825222327.1" a="ETV"><vh>High</vh>
 <v t="niederberger.20040920181441"><vh>Another rendezvous bug</vh></v>
 <v t="niederberger.20040920180258"><vh>Disconnect bug</vh></v>
-<v t="rodrigob.20040915113450"><vh>Code problems</vh></v>
 <v t="rodrigob.20040918192751"><vh>Rendez Vous crash the program if pc is without internet</vh></v>
 </v>
-<v t="niederberger.20040825222327.2" a="ETV"><vh>Medium</vh>
+<v t="niederberger.20040825222327.2" a="E"><vh>Medium</vh>
 <v t="rodrigob.20040918185607" a="E"><vh> Concurrent editable todos</vh></v>
 </v>
-<v t="niederberger.20040825222327.3"><vh>Low</vh>
+<v t="niederberger.20040825222327.3" a="E"><vh>Low</vh>
 <v t="rodrigob.20040125223416" a="E"><vh>hook problem</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040125160038" a="E"><vh>Code perspectives</vh>
+<v t="rodrigob.20040125160038"><vh>Code perspectives</vh>
 <v t="rodrigob.20040129141624" a="EM"><vh>network</vh>
 <v t="rodrigob.20040913233519" a="M"><vh>&lt;&lt;about the connections process&gt;&gt;</vh></v>
 <v t="rodrigob.20040125154815.1" a="EM"><vh>class ChalksNode</vh>
@@ -1712,7 +1711,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040913221730.1"><vh>disconnect</vh></v>
 </v>
 <v t="rodrigob.20040912225813" a="E"><vh>add/del sites</vh>
-<v t="rodrigob.20040912225813.1"><vh>add site</vh></v>
+<v t="rodrigob.20040912225813.1" a="E"><vh>add site</vh></v>
 <v t="rodrigob.20040912225813.2"><vh>del site</vh></v>
 </v>
 <v t="rodrigob.20040125154815.3" a="E"><vh>edit content</vh>
@@ -1733,15 +1732,11 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040125154815.17"><vh>&lt;&lt; "normal" keys &gt;&gt;</vh></v>
 <v t="rodrigob.20040125154815.18"><vh>&lt;&lt; text paste &gt;&gt;</vh></v>
 </v>
-<v t="rodrigob.20040125154815.19"><vh>flush body</vh></v>
+<v t="rodrigob.20040125154815.19" a="M"><vh>flush body</vh></v>
 <v t="rodrigob.20040125154815.7"><vh>send operation</vh></v>
 </v>
 <v t="rodrigob.20040127182438" a="E"><vh>remote callable methods</vh>
-<v t="rodrigob.20040127182530" a="E"><vh>messages and presence methods</vh>
-<v t="rodrigob.20040127184605" a="M"><vh>send message</vh></v>
-<v t="rodrigob.20040127185444" a="M"><vh>get users list</vh></v>
-<v t="rodrigob.20040127184605.1"><vh>set presence</vh></v>
-</v>
+<v t="rodrigob.20040127184605"><vh>send message</vh></v>
 <v t="rodrigob.20040920122333" a="EM"><vh>receive operation</vh></v>
 </v>
 </v>
@@ -1749,7 +1744,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040126020641" a="M"><vh>collaborate in/out</vh></v>
 <v t="rodrigob.20040129150513" a="E"><vh>logout</vh></v>
 <v t="rodrigob.20040915120517" a="E"><vh>bi directional methods</vh>
-<v t="rodrigob.20040915120517.1"><vh>messages and presence methods</vh></v>
+<v t="rodrigob.20040915120517.1"><vh>send message</vh></v>
 <v t="rodrigob.20040915120517.2"><vh>receive operation</vh></v>
 </v>
 </v>
@@ -1828,7 +1823,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040125154657"><vh>idle_text_key (hook caller of ChalksNode.fill_body) </vh></v>
 <v t="rodrigob.20040125145031"><vh>Cut/Copy/Paste</vh></v>
 </v>
-<v t="rodrigob.20040123130224"><vh>split bar commands</vh>
+<v t="rodrigob.20040123130224" a="E"><vh>split bar commands</vh>
 <v t="rodrigob.20040121150952.2"><vh>resizePanesToRatio</vh></v>
 <v t="rodrigob.20040121150952.7" a="E"><vh>onDragSplitBar</vh>
 <v t="rodrigob.20040121150952.6"><vh>divideSplitter</vh></v>
@@ -1876,7 +1871,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040913221730.1"><vh>disconnect</vh></v>
 </v>
 <v t="rodrigob.20040912225813" a="E"><vh>add/del sites</vh>
-<v t="rodrigob.20040912225813.1"><vh>add site</vh></v>
+<v t="rodrigob.20040912225813.1" a="E"><vh>add site</vh></v>
 <v t="rodrigob.20040912225813.2"><vh>del site</vh></v>
 </v>
 <v t="rodrigob.20040125154815.3" a="E"><vh>edit content</vh>
@@ -1897,15 +1892,11 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040125154815.17"><vh>&lt;&lt; "normal" keys &gt;&gt;</vh></v>
 <v t="rodrigob.20040125154815.18"><vh>&lt;&lt; text paste &gt;&gt;</vh></v>
 </v>
-<v t="rodrigob.20040125154815.19"><vh>flush body</vh></v>
+<v t="rodrigob.20040125154815.19" a="M"><vh>flush body</vh></v>
 <v t="rodrigob.20040125154815.7"><vh>send operation</vh></v>
 </v>
 <v t="rodrigob.20040127182438" a="E"><vh>remote callable methods</vh>
-<v t="rodrigob.20040127182530" a="E"><vh>messages and presence methods</vh>
-<v t="rodrigob.20040127184605" a="M"><vh>send message</vh></v>
-<v t="rodrigob.20040127185444" a="M"><vh>get users list</vh></v>
-<v t="rodrigob.20040127184605.1"><vh>set presence</vh></v>
-</v>
+<v t="rodrigob.20040127184605"><vh>send message</vh></v>
 <v t="rodrigob.20040920122333" a="EM"><vh>receive operation</vh></v>
 </v>
 </v>
@@ -1960,9 +1951,9 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 </v>
 </v>
-<v t="rodrigob.20040119132914" a="E"
-marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040127184605,rodrigob.20040127185444,rodrigob.20040920122333,rodrigob.20040125194534,rodrigob.20040126020641,"
-expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040912225813,rodrigob.20040125154815.3,rodrigob.20040125154815.8,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
+<v t="rodrigob.20040119132914"
+marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040125154815.19,rodrigob.20040920122333,rodrigob.20040125194534,rodrigob.20040126020641,"
+expanded="rodrigob.20040119133203,rodrigob.20040119152542,rodrigob.20040125153141,rodrigob.20040123142302,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040123130224,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040912225813,rodrigob.20040125154815.3,rodrigob.20040125154815.8,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.121403173614.1502"
 marks="rodrigob.121403173614.1509,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040130224144,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
 expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1516,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040128011921,rodrigob.20040128011921.1,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
@@ -1984,7 +1975,7 @@ expanded="rodrigob.20040912211426.2,"><vh>@thin Test_ChalksServerMonitor.py</vh>
 </v>
 </v>
 </v>
-<v t="rodrigob.20040129132740" a="E"><vh>docs</vh>
+<v t="rodrigob.20040129132740"><vh>docs</vh>
 <v t="rodrigob.20040129130513.1"><vh>Unicode utils...</vh>
 <v t="rodrigob.20040129130513.2"><vh>isUnicode</vh></v>
 <v t="rodrigob.20040129130513.3"><vh>isValidEncoding</vh></v>
@@ -3393,7 +3384,6 @@ Currently they may be related to coding, researching, packaging, everything.</t>
 
 - Why does site show the insertion point index and the other one does not ? (left of the chat bar) (Test_Chalks exclusive problem, a reason more to rewrite it)
 
-- solve the code problems
 
 - Work on concurrenteditablenode (make consistent use of the new site_id system)
 
@@ -6877,7 +6867,7 @@ receive_op = receive_operation # alias
             result[site_index] += 1 # the client has sent a new operation, so his timestamp side is increased.
             break
         
-        # the local HB use a full lenght timestamps (len(HB[k]["timestamp"])== num_connected_sites)
+        # the local HB use a full length timestamps (len(HB[k]["timestamp"])== num_connected_sites)
         t_state_vector[HB[k]["source_site"]] -=1 # state vector going backward in the time
 
     
@@ -10567,7 +10557,7 @@ def del_client(self, client_perspective):
 <t tx="rodrigob.121403173614.349">
 def receive_operation(self, in_op, *args, **kw):
     """
-    adapt the state_vectors lenghts
+    adapt the state_vectors lengths
     """
 
     timestamp = (isinstance(in_op, Operation) and in_op.get("timestamp") ) or kw.get("timestamp")
@@ -29571,10 +29561,10 @@ def onDragSplitterBar (self, event, verticalFlag):
         wMax	= top.winfo_width()
         offset = float(barRoot) + x - wRoot
 
-    # Adjust the pixels, not the frac.
+    # Adjust the pixels, not the frac
     if offset &lt; 3: offset = 3
     if offset &gt; wMax - 2: offset = wMax - 2
-    # Redraw the splitter as the drag is occuring.
+    # Redraw the splitter as the drag is occuring
     frac = float(offset) / wMax
     # trace(`frac`)
     self.divideSplitter(verticalFlag, frac)
@@ -30410,7 +30400,7 @@ text_widget.bind(virtual_event_name("Paste"), self.onPaste)</t>
             tags = []
             for start, stop in self.text_widget.tag_ranges(t_name) :
                 pos = (self.text_widget.get("1.0", start))
-                lenght = (self.text_widget.get(start, stop))
+                length = (self.text_widget.get(start, stop))
                 tags.append((pos, length))
         else:
             tags = self.text_widget.tag_ranges(t_name)
@@ -30483,19 +30473,7 @@ class ChalksNode(ConcurrentEditableNode):
 
         return
 
-        
-    def log(self, text, tag=None, color=None):        
-        """
-        right now it will just forward log message to GUI object
-        """
-        self.chalks_gui.log(text, tag, color)
 
-    def log_error(self, text):
-        """
-        right now it will just forward log message to GUI object
-        """
-        self.chalks_gui.log_error(text)
-    
     @others</t>
 <t tx="rodrigob.20040125154815.2">
 @others
@@ -30691,6 +30669,7 @@ def set_cursor_position(self, who, pos):
 <t tx="rodrigob.20040125154815.7">def send_operation(self, op_type, pos, data):
     """
     Apply locally and then send the operation to all the adjacent nodes (upward and downward the tree).
+    This method overwrite the ConcurrentEditableNode implementation to take care of the network layer.
     """
     
     if op_type == "insert_text":
@@ -30747,7 +30726,6 @@ def set_cursor_position(self, who, pos):
 
     #self.log("fill_body keywords %s"%(keywords), color="yellow") # just for debugging
     #trace("onbodykey2 keywords %s"%(keywords)) # just for debugging
-    #if c.undoer.beads: self.log("last bead %s" % c.undoer.beads[c.undoer.bead], color="yellow") # just for debugging
 
 
     # some local helpers functions	
@@ -30825,7 +30803,7 @@ def list_to_index(val):
     
     # Tkinter count the lines from 1 to N and the columns from zero to N
     
-    pos    = start[1] + reduce(lambda x,y: len(y) + x, text[:start[0]-1], 0) + (start[0]-1) # columns + rows lenght + "\n" chars
+    pos    = start[1] + reduce(lambda x,y: len(y) + x, text[:start[0]-1], 0) + (start[0]-1) # columns + rows length + "\n" chars
     length = stop [1] - start[1] + reduce(lambda x,y: len(y) + x, text[start[0]-1:stop[0]-1], 0) + (stop[0] - start[0]) # stop columns - start columns + rows length + "\n" chars
     
     #print "\nrange_to_pos_length(start=%s, stop=%s, some_text) =&gt; pos, length == %s, %s"%( start, stop, pos, length) # just for debugging
@@ -30835,8 +30813,7 @@ def list_to_index(val):
 <t tx="rodrigob.20040125154815.13"># (should check which overwritten text was already sent)
 # and should create a sequence of deletion operations
 
-
-self.log("text was overwritten %s; c.undoer.oldMiddleLines %s [0]"%(old_sel, c.undoer.oldMiddleLines), color="yellow")
+self.log("text was overwritten %s;"%(old_sel), color="yellow")
 
 # need to define the lists:
 #	- text_deletion_ranges
@@ -30984,7 +30961,7 @@ else:
     
 # now we have the list of "to_send" ranges that are found in the range ["1.0", "insert"]
 
-# we convert it to a [(pos, lenght), (pos, length), ...] form
+# we convert it to a [(pos, length), (pos, length), ...] form
 old_text = old_text.split("\n")
 t_ranges = []
 for t_range in ranges:	
@@ -31097,7 +31074,6 @@ self.text_widget.tag_add("to_send",  old_paste_start, old_paste_stop)
             
         elif all: # if we have to flush every dirty char
             t_text = text.get(start, stop)
-            self.last_node_dirty_text.append(t_text)
             
         # check if the conditions trigered some text flushing  -~-~-~-~-~-~-~-~-~-~
 
@@ -31339,17 +31315,10 @@ def perspective_collaborate_out(self):
     return
     </t>
 <t tx="rodrigob.20040127182438">@
-The ChalksNode is a referenceable object that is passed at connection, which defines what our 'parent' (the node to which we connected) can do on the local node.
+This are the method the Avatars are suposed to access. This are the only method that other nodes should be able to call.
+
+The ChalksAvatar implementation have to be consistent with this ChalksNode methods.
 @c</t>
-<t tx="rodrigob.20040127182530">@
-&lt;&lt;&lt; EXPLAIN HERE
-
-this methods are common to both children-&gt;parent calls and parent-&gt;childrens calls.
-So we use only this implementation. The ChalksAvatar equivalent methods, call this one.
-@c
-
-
-    </t>
 <t tx="rodrigob.20040127184605">def remote_send_message(self, received_from, from_, to, txt):
     """ 
     received_from: perspective that gave to us the message
@@ -31389,29 +31358,6 @@ So we use only this implementation. The ChalksAvatar equivalent methods, call th
     #print
     
     return
-</t>
-<t tx="rodrigob.20040127184605.1">def remote_set_presence(self, state):
-    """
-    Set the presence of one user 
-    """
-    
-    self.status = state
-    
-    for t_list in self.Outline.users.values(): # a list of client references
-        for t_value in t_list:
-            t_value.mind.callRemote("post_presence", self.name, state).addErrback(raiseLeoError, "could not post your presence to %s"%(t_value.name))
-    
-    return
-</t>
-<t tx="rodrigob.20040127185444">def remote_get_users_list(self, ):
-    """ 
-    Return the dictonary of map node.site_id -&gt; user_nickname
-    """
-        
-    # do we need this method ?
-    return {}  #&lt;&lt;&lt;&lt; implement
-    
-    
 </t>
 <t tx="rodrigob.20040128005315">def exception(self, error):
     """
@@ -32797,6 +32743,7 @@ Register/Unregister childrens in the session</t>
 <t tx="rodrigob.20040913221730">def connect_to_parent(self, address, port, nickname="No name"):
     """
     Connect as a children to a parent node
+    This method overwrite the ConcurrentEditableNode implementation managing the network layer
     """
     print "Requesting a connection to 'chalks://%s:%s' as '%s', please wait..." % (address, port, nickname)
     
@@ -32945,101 +32892,11 @@ The connection process occurs in this order:
 
 It worth noting that the ChalksNode object keep only \emph{remote references} of the avatars (of the parent and of the children). When a node call a remote method in the called node receive a call from the local Avatar instance. Thus \emph{the mind} of the local Avatar is compared to the childrens and parents remote references. For a clear example look at the {\texttt send\_message} ChalksNode method.
 </t>
-<t tx="rodrigob.20040915113450">From: Ricardo Niederberger Cabral &lt;ncabral@terra.com.br&gt;
-To: chalks-devel@lists.berlios.de
-Date: Fri, 10 Sep 2004 20:50:14 -0400
-Subject: [Chalks-devel] code problems
-
-Notes about code problems I detected so we can refer to later
--------------------------------------------------------------
-
-ChalksNode inherits from ConcurrentEditableNode, implementing the method
-connect_to_parent, which is also on the parent class.
-
-Shouldn't ChalksNode.connect_to_parent() also call
-ConcurrentEditableNode.connect_to_parent(self,...) in order to let it's
-parent do whatever it wants to do in order to connect ?
-
-Same argument above for "send_operation()"
-
-Inconsistencies caused by LeoN copy/paste
------------------------------------------
-
-Chalks.py:936: No global (v) found
-Chalks.py:1519
-Chalks.py:1847: No global (c) found
-Chalks.py:2144: No class attribute (last_node_dirty_text) found   (the
-entire method seems to need rework)
-Chalks.py:2248: No class attribute (log_error) found   (we need to add
-self.log and self.log_error to ChalksNode)
-Chalks.py:2259: No class attribute (Outline) found
-Chalks.py:2261: No global (raiseLeoError) found
-E:920:Chalks.OnCutFromMenu: Undefined variable 'virtual_event_name'   (and
-many other occurances)
-ChalksNode.remote_send_message: Access to undefined member 'users' and
-'parent'. Finish implementing
-E:2194:ChalksNode.send_operation: Access to undefined member 'exception'
-E:2248:ChalksNode.remote_send_message: Access to undefined member 'name'
-E:2261:ChalksNode.remote_set_presence: Access to undefined member 'name'
-E:1453:ChalksNode.logged_in: Access to undefined member 'exception'
-
-Chalks.onTextKey() and nearby code has many occurances of the typo
-"lenght" while the function parameter (and the right spelling) is "length"
-
-Our external dependencies
--------------------------
-
-      \-ConcurrentEditable (Chalks)
-      \-Rendezvous (Chalks)
-    twisted
-      \-web
-      | \-client (Chalks)
-      | \-woven
-      | | \-model (Chalks)
-      | | \-interfaces (Chalks)
-      | | \-page (Chalks)
-      | \-server (Chalks)
-      \-python
-      | \-failure (Chalks)
-      | \-components (Chalks)
-      \-application
-      | \-service (Chalks)
-      | \-internet (Chalks)
-      \-spread
-      | \-pb (Chalks)
-      \-internet
-      | \-tksupport (Chalks)
-      \-cred
-        \-credentials (Chalks)
-        \-checkers (Chalks)
-        \-portal (Chalks)
-        \-error (Chalks)
-
-I believe we should comment out all "woven" code and imports, in order to
-make application startup faster and use less memory. And add such feature
-later.
-
---
-Ricardo Niederberger Cabral</t>
 <t tx="rodrigob.20040915120517">@
 this methods are common to both children-&gt;parent calls and parent-&gt;childrens calls.
 So we use only one implementation. ChalksAvatar calls ChalksNode implementation.
 @c</t>
-<t tx="rodrigob.20040915120517.1">def perspective_get_actual_users_list(self, ):
-    """ 
-    Return the dictonary of map node.id -&gt; user_nickname
-    """    
-    return self.node.perspective_get_actual_users_list(self.mind)
-    
-    
-def perspective_set_presence(self, state):
-    """
-    Set the presence of one user 
-    """
-    return self.node.remote_set_presence(self.mind,state)
-    
-    
-def perspective_send_message(self, from_, to, txt):
+<t tx="rodrigob.20040915120517.1">def perspective_send_message(self, from_, to, txt):
     """ 
     Send a message to
     """
