@@ -37,7 +37,7 @@
 
 \title{\large Chalks \\ \huge Design proposal}
 \author{Rodrigo Benenson, Ricardo Niederberger}
-\date{Draft of day\\ \today}
+\date{Technical draft as of\\ \today}
 
                                            
 \begin{document}
@@ -72,7 +72,7 @@
 %@+node:rodrigob.20040908004801:Introduction
 \section{Introduction}
 
-This text cover every defined \href{http://ryalias.freezope.org/Chalks/Aspects}{aspect} and propose a technical solution to implement the \href{http://ryalias.freezope.org/Chalks/ChalksRequirements}{requirements}.
+This text covers every defined \href{http://ryalias.freezope.org/Chalks/Aspects}{aspect} and propose a technical solution to implement the \href{http://ryalias.freezope.org/Chalks/ChalksRequirements}{requirements}.
 This is mostly a documentation of the inicial Chalks design.
 
 
@@ -115,18 +115,18 @@ The {\texttt TextContainer } class is a simple one that contain an unicode strin
 
 The definition and implementation of the networking system is the most difficult aspect of the software. Distributed bugs arises and issues not covered in the papers have to be afronted.
 
-Esentially the network have to take care of three things:
+Essentially the network has to take care of three things:
 \begin{itemize}
 \item Sent operations have to arrive to every connected user
-\item If a new user login, everyone has to know about it
-\item If an user logout, everyone has to know about it
+\item If a new user logs in, everyone has to know about it
+\item If a user logs out, everyone has to know about it
 \end{itemize}
 
-Every operation have a specific identifier. This identifier is the number of operations that the emitter site has received from other sites (including himself). This identifier define without ambiguity the *version* of the document over which the operation was generated.
+Every operation has a specific identifier. This identifier is the number of operations that the emitter site has received from other sites (including himself). This identifier defines without ambiguity the *version* of the document over which the operation was generated.
 
 To simplify the implementation instead of enumerating the sites (as in the paper) the sites are individualized by an unique id (ip+port). Then the operations are tagged with a dictionary of the kind {\texttt {id1: ops\_from\_id1, id2: ops\_from\_id2, ...}} (including site own id).
 
-This approach becames less eficient if many sites just connect once, send an operation and then disconnect, but this is a rare case. This approach is less eficient than using an ordered list, but it is simpler and functional. It is simpler because we do not care about the order of arrival, the disconections and reconections, and when new users are added to the session the management is trivial.
+This approach becames less efficient if many sites just connect once, send an operation and then disconnect, but this is a rare case. This approach is less efficient than using an ordered list, but it is simpler and functional. It is simpler because we do not care about the order of arrival, the disconnections and reconnections, and when new users are added to the session the management becomes trivial.
 
 %@+others
 %@+node:rodrigob.20040908012337:Topology
@@ -146,33 +146,36 @@ The proposal is to use a ``Connect to One, Accept N'' topology, also known as a 
 
 The concept of this topology is, very simple. One user only want to connect himself to one computer, so let's do that. If more than one user want to connect to the same computer let's do that. After the first connection no more connections are made.
 
-This is topology is ineficient. In the figure, when site 4 edit the text, the operation will be relayed by site 0 and site 1, adding inecessary delays. This is true, but this topology is very simple implement. It has also an interesant advantage, it gives to the users the control of the network. In the figure, if sites [0,2,4] are in the same LAN, and sites [1,3], in another one, then the topology is not so bad. Also if an user is working in a slow connection (example, low SNR wireless conneciton), it would prefer to have only one connection to the nearest (in ping measure) machine. Having more than one connection add transfers costs to keep the TCP/IP links alive. If the users control the conection they can choose the computer with overload. A tipical user case will be simply N-to-One (central server receiving all the conections).
+This is topology is inefficient. In the figure, when site 4 edit the text, the operation will be relayed by site 0 and site 1, adding inecessary delays. This is true, but this topology is very simple implement. It has also an interesant advantage, it gives to the users the control of the network. In the figure, if sites [0,2,4] are in the same LAN, and sites [1,3], in another one, then the topology is not so bad. Also if an user is working in a slow connection (example, low SNR wireless conneciton), it would prefer to have only one connection to the nearest (in ping measure) machine. Having more than one connection add transfers costs to keep the TCP/IP links alive. If the users control the conection they can choose the computer with overload. A tipical user case will be simply N-to-One (central server receiving all the conections).
  
 The tree topology is not only simple to implement but also simple to analyse.
     
-When an site receive and operation it apply it locally and spread it to all the other known sites. As the topology is an acyclic graph, no special precautions has to be taken (to avoid repited reception).
+When a site receives an operation it applies it locally and spread it to all the other known sites, excluding the node that sent the operation. As the topology is an acyclic graph, no special precautions has to be taken (to avoid repeated reception).
 
-Let's see what should happen when a user connect himself to a session.
+Let's see what should happen when a user connects himself to a session.
 \begin{itemize}
-\item New user enter in the network
+\item New user enters the network
 
-An user has choosen a machine to enter in. This machine receive a new conection and has to send back, the actual text and the HB. We have to take care  of the new operations that could be generated during the connection process.
+A user has choosen a machine to connect to. This machine receives a new connection and has to send back, the current text and the HB. We have to take care of new operations that could be generated during the connection process.
 
-Chengzheng Sun's algorithm include a purge procedure to avoid to the HB  unnecessarily big.
+Chengzheng Sun's algorithm includes a purge procedure to avoid the HB getting unncessarily big.
 
-At the first text editing the new user will generate an operation with a new entry in the tag. When a site receive it for the first time it will include it in the list of know sites. If a received operation does not include a know site id, obviously the generation has received zero operations from that site.
+This HB purge could be implemented as a method which calls itself repeatedly, using a call like "reactor.callLater(self.HBPurge(), purgeDelay)". This "service method" pattern could repeat a lot on such networked application, especially when using a networking framework like Twisted, with deferred execution.
 
-\item An user quit the network
+Upon the first text editing, the new user will generate an operation with a new entry in the tag. When a site receives it for the first time it will include it in the list of know sites. If a received operation does not include (not a key in it's id->version map) a known site id, obviously this node has received zero operations from that site.
 
-No special precaution has to be taken when an user quit. Simply we have to disconnect from the parent node, and kill the childrens nodes. This will create a cascade that will close adecuatelly the branch.
+
+\item A user quits the network
+
+No special precaution has to be taken when a user quits. We have to simply disconnect from the parent node, and kill all children nodes. This will create a cascade that will close the branch adequately.
 
 
 \fbox{\begin{minipage}[c]{\linewidth}
-\emph{Note}: this could be an inconvenient, depending of the usage scheme. Maybe we could create a transaction system to invite the children nodes to connect themself to the parent node. But synchronisation issues arise (``what if packet arive to the parent while children-childrens are connecting them ?''). This is a non trivial topic that we should check. For a initial implementation branch die seems fine to me, but it is the desired behaviour ? (let's check the requiriment)
+\emph{Note}: this could be an inconvenience, depending of the usage scheme. Maybe we could create a transaction system to invite all children nodes to connect themself to the parent node. But synchronisation issues may arise (``what if a packet arives to the parent while children-childrens are connecting to them ?''). This is a non trivial topic that we should check. For an initial implementation branch die seems fine to me, but is it the desired behaviour ? (let's check the requiriment)
 \end{minipage}}
 
       
-HB purge should also purge sites info. If a site id does not appears more in the HB, then it should be deleted of the known sites list, thus shrinking back the packet sizes when no memory traces are keep in any connected site.
+HB purge should also purge sites info. If a site id does not appear more in the HB, then it should be deleted from the known sites list, thus shrinking back the packet sizes since no memory traces are keep in any connected site.
 \end{itemize}
 %@nonl
 %@-node:rodrigob.20040908012337:Topology
@@ -274,12 +277,16 @@ The number of dialogs is also minimal, and they complexity very low.
     \item Good coloring facilities
     \item Documented, easy API
     \item Full Unicode support
+    \item Stable API
     \end{itemize}
 
 \item [Cons]
     \begin{itemize}
     \item Manage text as a bidimensional object
-    \item The gui is not similar to the OS default one (this may \href{http://tcl.projectforum.com/tk/47}{change} in the future)
+    \item Ugly: The gui is not similar to the OS default one (this may \href{http://tcl.projectforum.com/tk/47}{change} in the future)
+    \item Low mindshare among other programmers, wxPython seems to be the mainstream python gui programming toolkit nowadays
+    \item Increasingly few projects using it and as such there is less people reporting bugs, etc. (development is not too active lately
+    \item But anyway we believe we should keep on using tkinter for the first release and see how things play along. Provided we honour our intent of keeping GUI code clearly separated from concurrent/networking code, we should be safe
     \end{itemize}
 \end{description}
 
