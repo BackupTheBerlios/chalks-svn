@@ -1,0 +1,407 @@
+This is pdfTeX, Version 3.14159-1.10b (Web2C 7.4.5) (format=pdflatex 2004.4.4)  8 SEP 2004 02:02
+**design_proposal.tex
+(./design_proposal.tex{/usr/share/texmf/pdftex/config/pdftex.cfg}
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, s
+panish, nohyphenation, loaded.
+(/usr/share/texmf/tex/latex/base/article.cls
+Document Class: article 2001/04/21 v1.4e Standard LaTeX document class
+(/usr/share/texmf/tex/latex/base/size10.clo
+File: size10.clo 2001/04/21 v1.4e Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf/tex/latex/base/inputenc.sty
+Package: inputenc 2001/07/10 v0.99a Input encoding file 
+
+(/usr/share/texmf/tex/latex/base/utf8.def
+File: utf8.def 2002/10/23 UCS: Input encoding UTF-8
+))
+(/usr/share/texmf/tex/latex/base/ucs.sty
+Package: ucs 2002/10/23 UCS: Unicode input support
+
+(/usr/share/texmf/tex/latex/base/uni-global.def
+File: uni-global.def 2003/05/06 UCS: Unicode global data
+)
+\uc@secondtry=\count87
+\uc@combtoks=\toks14
+\uc@combtoksb=\toks15
+\uc@temptokena=\toks16
+)
+(/usr/share/texmf/tex/generic/babel/babel.sty
+Package: babel 2001/03/01 v3.7h The Babel package
+
+(/usr/share/texmf/tex/generic/babel/english.ldf
+Language: english 2001/04/15 v3.3l English support from the babel system
+
+(/usr/share/texmf/tex/generic/babel/babel.def
+File: babel.def 2001/03/01 v3.7h Babel common definitions
+\babel@savecnt=\count88
+\U@D=\dimen103
+)
+\l@canadian = a dialect from \language\l@english 
+))
+(/usr/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+(/usr/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2001/08/31 v1.1 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 80.
+
+(/usr/share/texmf/tex/latex/graphics/pdftex.def
+File: pdftex.def 2002/06/19 v0.03k graphics/color for pdftex
+\Gread@gobject=\count89
+))
+\Gin@req@height=\dimen104
+\Gin@req@width=\dimen105
+)
+(/usr/share/texmf/tex/latex/tools/verbatim.sty
+Package: verbatim 2001/03/12 v1.5p LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks18
+\verbatim@line=\toks19
+\verbatim@in@stream=\read1
+)
+(/usr/share/texmf/tex/latex/fancyhdr/fancyhdr.sty
+\headwidth=\dimen106
+)
+(/usr/share/texmf/tex/latex/cite/chapterbib.sty
+\c@inputfile=\count90
+Package: chapterbib 2001/09/19  v 1.9
+)
+(/usr/share/texmf/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip43
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/share/texmf/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks20
+\ex@=\dimen107
+))
+(/usr/share/texmf/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen108
+)
+(/usr/share/texmf/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count91
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count92
+\leftroot@=\count93
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count94
+\DOTSCASE@=\count95
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen109
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count96
+\c@MaxMatrixCols=\count97
+\dotsspace@=\muskip10
+\c@parentequation=\count98
+\dspbrk@lvl=\count99
+\tag@help=\toks21
+\row@=\count100
+\column@=\count101
+\maxfields@=\count102
+\andhelp@=\toks22
+\eqnshift@=\dimen110
+\alignsep@=\dimen111
+\tagshift@=\dimen112
+\tagwidth@=\dimen113
+\totwidth@=\dimen114
+\lineht@=\dimen115
+\@envbody=\toks23
+\multlinegap=\skip44
+\multlinetaggap=\skip45
+\mathdisplay@stack=\toks24
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+(/usr/share/texmf/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2003/01/22 v6.73n Hypertext links for LaTeX
+\@linkdim=\dimen116
+\Hy@linkcounter=\count103
+\Hy@pagecounter=\count104
+
+(/usr/share/texmf/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2003/01/22 v6.73n Hyperref: PDFDocEncoding definition (HO)
+)
+(/usr/share/texmf/tex/latex/config/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive and teTeX
+)
+Package hyperref Info: Hyper figures OFF on input line 1792.
+Package hyperref Info: Link nesting OFF on input line 1797.
+Package hyperref Info: Hyper index ON on input line 1800.
+Package hyperref Info: Plain pages ON on input line 1805.
+Package hyperref Info: Backreferencing OFF on input line 1812.
+
+Implicit mode ON; LaTeX internals redefined
+Package hyperref Info: Bookmarks ON on input line 1916.
+(/usr/share/texmf/tex/latex/html/url.sty
+Package: url 1999/03/02  ver 1.4  Verb mode for urls, email addresses, and file
+ names
+)
+LaTeX Info: Redefining \url on input line 2055.
+\Fld@menulength=\count105
+\Field@Width=\dimen117
+\Fld@charsize=\dimen118
+\Choice@toks=\toks25
+\Field@toks=\toks26
+Package hyperref Info: Hyper figures OFF on input line 2513.
+Package hyperref Info: Link nesting OFF on input line 2518.
+Package hyperref Info: Hyper index ON on input line 2521.
+Package hyperref Info: backreferencing OFF on input line 2528.
+Package hyperref Info: Link coloring OFF on input line 2533.
+\c@Item=\count106
+\c@Hfootnote=\count107
+)
+*hyperref using driver hpdftex*
+(/usr/share/texmf/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2003/01/22 v6.73n Hyperref driver for pdfTeX
+
+(/usr/share/texmf/tex/latex/psnfss/pifont.sty
+Package: pifont 2002/09/08 PSNFSS-v9.0a Pi font support (SPQR) 
+LaTeX Font Info:    Try loading font information for U+pzd on input line 62.
+
+(/usr/share/texmf/tex/latex/psnfss/upzd.fd
+File: upzd.fd 2001/06/04 font definitions for U/pzd.
+)
+LaTeX Font Info:    Try loading font information for U+psy on input line 63.
+
+(/usr/share/texmf/tex/latex/psnfss/upsy.fd
+File: upsy.fd 2001/06/04 font definitions for U/psy.
+))
+\Fld@listcount=\count108
+\@outlinefile=\write3
+)
+(/usr/share/texmf/tex/latex/misc/geometry.sty
+Package: geometry 2002/07/08 v3.2 Page Geometry
+\Gm@cnth=\count109
+\Gm@cntv=\count110
+\c@Gm@tempcnt=\count111
+\Gm@bindingoffset=\dimen119
+\Gm@wd@mp=\dimen120
+\Gm@odd@mp=\dimen121
+\Gm@even@mp=\dimen122
+\Gm@dimlist=\toks27
+
+(/usr/share/texmf/tex/latex/config/geometry.cfg
+File: geometry.cfg 2001/06/05 v1.0 teTeX (uncustomised setup)
+)) (./design_proposal.aux)
+\openout1 = `design_proposal.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+
+(/usr/share/texmf/tex/latex/base/ucsencs.def
+File: ucsencs.def 2003/03/13 Fixes to fontencodings LGR, LHE, T3
+)
+(/usr/share/texmf/tex/context/base/supp-pdf.tex
+(/usr/share/texmf/tex/context/base/supp-mis.tex
+loading : Context Support Macros / Missing
+\protectiondepth=\count112
+\scratchcounter=\count113
+\scratchtoks=\toks28
+\scratchdimen=\dimen123
+\scratchskip=\skip46
+\scratchmuskip=\muskip11
+\scratchbox=\box28
+\scratchread=\read2
+\scratchwrite=\write4
+\zeropoint=\dimen124
+\minusone=\count114
+\thousandpoint=\dimen125
+\emptytoks=\toks29
+\nextbox=\box29
+\nextdepth=\dimen126
+\everyline=\toks30
+\!!counta=\count115
+\!!countb=\count116
+\recursecounter=\count117
+)
+loading : Context Support Macros / PDF
+\nofMPsegments=\count118
+\nofMParguments=\count119
+\everyMPtoPDFconversion=\toks31
+)
+
+Package chapterbib Warning: The sectionbib option changes "\section *" to "\sec
+tion *" in \thebibliography on input line 43.
+
+Package hyperref Info: Link coloring OFF on input line 43.
+(/usr/share/texmf/tex/latex/hyperref/nameref.sty
+Package: nameref 2001/01/27 v2.19 Cross-referencing by name of section
+\c@section@level=\count120
+)
+LaTeX Info: Redefining \ref on input line 43.
+LaTeX Info: Redefining \pageref on input line 43.
+ (./design_proposal.out)
+(./design_proposal.out)
+\openout3 = `design_proposal.out'.
+
+-------------------- Geometry parameters
+paper: class default
+landscape: --
+twocolumn: --
+twoside: --
+asymmetric: --
+h-parts: 71.13188pt, 472.03123pt, 71.13188pt
+v-parts: 56.9055pt, 681.15898pt, 56.9055pt
+hmarginratio: --
+vmarginratio: --
+lines: --
+heightrounded: --
+bindingoffset: 0.0pt
+truedimen: --
+includehead: --
+includefoot: --
+includemp: --
+driver: pdftex
+-------------------- Page layout dimensions and switches
+\paperwidth  614.295pt
+\paperheight 794.96999pt
+\textwidth  472.03123pt
+\textheight 681.15898pt
+\oddsidemargin  -1.1381pt
+\evensidemargin -1.1381pt
+\topmargin  -52.36449pt
+\headheight 12.0pt
+\headsep    25.0pt
+\footskip   30.0pt
+\marginparwidth 65.0pt
+\marginparsep   11.0pt
+\columnsep  10.0pt
+\skip\footins  9.0pt plus 4.0pt minus 2.0pt
+\hoffset 0.0pt
+\voffset 0.0pt
+\mag 1000
+
+(1in=72.27pt, 1cm=28.45pt)
+-----------------------
+ <schemas/logo.jpg, id=43, 238.25275pt x 238.25275pt>
+File: schemas/logo.jpg Graphic file (type jpg)
+
+<use schemas/logo.jpg> [1
+
+{/usr/share/texmf/dvips/config/pdftex.map} <./schemas/logo.jpg>] (./design_prop
+osal.toc)
+\tf@toc=\write5
+\openout5 = `design_proposal.toc'.
+
+
+! pdfTeX warning (ext4): destination with the same identifier (name{page.1}) ha
+s been already used, duplicate ignored
+<to be read again> 
+                   \penalty 
+l.61 \newpage
+              [1]
+<schemas/concurrent_editable.png, id=80, 399.6106pt x 303.2506pt>
+File: schemas/concurrent_editable.png Graphic file (type png)
+
+<use schemas/concurrent_editable.png>
+Overfull \hbox (21.79999pt too wide) in paragraph at lines 105--106
+[][] 
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 120.
+
+(/usr/share/texmf/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 120.
+ [2 <./schemas/concurrent_editable.png>] <schemas/connect_to_one_accept_N.png, 
+id=91, 1071.29646pt x 945.17824pt>
+File: schemas/connect_to_one_accept_N.png Graphic file (type png)
+
+<use schemas/connect_to_one_accept_N.png> [3 <./schemas/connect_to_one_accept_N
+.png>]
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 172--173
+[][] 
+ []
+
+<schemas/text_and_chat_area.png, id=101, 634.37pt x 236.885pt>
+File: schemas/text_and_chat_area.png Graphic file (type png)
+
+<use schemas/text_and_chat_area.png> [4]
+<schemas/colapsable_chat_area.png, id=107, 427.5975pt x 200.75pt>
+File: schemas/colapsable_chat_area.png Graphic file (type png)
+
+<use schemas/colapsable_chat_area.png>
+<schemas/collaborating_small_shot.png, id=108, 511.9125pt x 321.2pt>
+File: schemas/collaborating_small_shot.png Graphic file (type png)
+
+<use schemas/collaborating_small_shot.png> [5 <./schemas/text_and_chat_area.png
+> <./schemas/colapsable_chat_area.png> <./schemas/collaborating_small_shot.png>
+] <schemas/simples_menus_and_dialogs.png, id=116, 588.1975pt x 190.7125pt>
+File: schemas/simples_menus_and_dialogs.png Graphic file (type png)
+
+<use schemas/simples_menus_and_dialogs.png>
+Overfull \hbox (21.79999pt too wide) in paragraph at lines 288--292
+[][] 
+ []
+
+[6 <./schemas/simples_menus_and_dialogs.png>] (./design_proposal.aux) ) 
+Here is how much of TeX's memory you used:
+ 4164 strings out of 95433
+ 56054 string characters out of 1190127
+ 126307 words of memory out of 1000001
+ 7073 multiletter control sequences out of 10000+50000
+ 10526 words of font info for 38 fonts, out of 500000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 27i,11n,43p,865b,425s stack positions out of 1500i,500n,5000p,200000b,5000s
+ 124 PDF objects out of 300000
+ 23 named destinations out of 131072
+ 114 words of extra memory for PDF output out of 65536
+{/usr/sh
+are/texmf/dvips/tetex/bbad153f.enc}</usr/share/texmf/fonts/type1/bluesky/cm/cms
+y10.pfb>{/usr/share/texmf/dvips/tetex/09fbbfac.enc}</usr/share/texmf/fonts/type
+1/bluesky/cm/cmtt10.pfb>{/usr/share/texmf/dvips/tetex/f7b6d320.enc}</usr/share/
+texmf/fonts/type1/bluesky/cm/cmbx10.pfb></usr/share/texmf/fonts/type1/bluesky/c
+m/cmbx12.pfb>{/usr/share/texmf/dvips/tetex/74afc74c.enc}</usr/share/texmf/fonts
+/type1/bluesky/cm/cmti10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb
+></usr/share/texmf/fonts/type1/bluesky/cm/cmr17.pfb></usr/share/texmf/fonts/typ
+e1/bluesky/cm/cmr12.pfb>
+Output written on design_proposal.pdf (7 pages, 200625 bytes).

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2926" clone_windows="0"/>
-<globals body_outline_ratio="0.56679389313">
-	<global_window_position top="10" left="10" height="692" width="1024"/>
+<globals body_outline_ratio="0.397163120567">
+	<global_window_position top="0" left="0" height="705" width="1009"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -25,7 +25,7 @@
 </v>
 </v>
 </v>
-<v t="rodrigob.20040824110326.1"><vh>Docs</vh>
+<v t="rodrigob.20040824110326.1" a="E"><vh>Docs</vh>
 <v t="rodrigob.20040826155317" a="E"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
 <v t="rodrigob.20040831002540"><vh>Distribution files</vh>
 <v t="rodrigob.20040826154516"><vh>@thin ./src/README</vh></v>
@@ -33,6 +33,11 @@
 <v t="rodrigob.20040831002026" a="E"><vh>@thin ./src/COPYING</vh></v>
 <v t="rodrigob.20040831004246"><vh>@thin ./src/setup.py</vh></v>
 <v t="rodrigob.20040831002444"><vh>@thin ./src/setup.cfg</vh></v>
+</v>
+<v t="rodrigob.20040908003956" a="E"><vh>Latex</vh>
+<v t="rodrigob.20040908003956.1" a="ETV"
+expanded="rodrigob.20040908010357.1,"><vh>@thin doc/design_proposal.tex</vh></v>
+<v t="rodrigob.20040908004300"><vh>@read-only doc/Makefile</vh></v>
 </v>
 <v t="rodrigob.121403173614.9"><vh>Old LeoN (to purge) Docs</vh>
 <v t="rodrigob.121403173614.4" a="E"><vh>&lt;&lt; release status &gt;&gt;</vh></v>
@@ -478,8 +483,8 @@
 </v>
 <v t="rodrigob.121403173614.1412"><vh>file templates/test.html</vh></v>
 </v>
-<v t="rodrigob.121403173614.383"><vh>old steps</vh>
-<v t="rodrigob.121403173614.384"><vh>step one,   merging</vh>
+<v t="rodrigob.121403173614.383" a="E"><vh>old steps</vh>
+<v t="rodrigob.121403173614.384" a="E"><vh>step one,   merging</vh>
 <v t="rodrigob.121403173614.385" a="E"><vh>file LeoMerge.py</vh></v>
 <v t="rodrigob.121403173614.386"><vh>Pyxi</vh></v>
 <v t="rodrigob.121403173614.387"><vh>leoCompare.py</vh>
@@ -1661,7 +1666,7 @@
 </v>
 </v>
 </v>
-<v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
+<v t="rodrigob.121403173614.1321"><vh>Code</vh>
 <v t="niederberger.20040825222327"><vh>Things left to do</vh>
 <v t="rodrigob.20040826215836" a="E"><vh>Old LeoN todo list (to purge)</vh>
 <v t="rodrigob.20040125223416" a="E"><vh>HOOK PROBLEM</vh></v>
@@ -30817,5 +30822,7 @@ Ideas /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\
 Code related to the graphical user interface</t>
 <t tx="rodrigob.20040831112258.1">@
 code related to the concurrent edition system</t>
+<t tx="rodrigob.20040908003956"></t>
+<t tx="rodrigob.20040908004300"></t>
 </tnodes>
 </leo_file>
