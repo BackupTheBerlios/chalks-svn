@@ -2304,6 +2304,17 @@ class ConcurrentEditableNode(ConcurrentEditable):
         
     #@nonl
     #@-node:rodrigob.20040128012627:generate operations
+    #@+node:rodrigob.20040909033320:set text
+    def set_text(self, new_text):
+        """
+        Blindly overwrite the text of this site.
+        """
+        
+        self.text_buffer = new_text
+        
+        return
+    #@nonl
+    #@-node:rodrigob.20040909033320:set text
     #@-others
 #@nonl
 #@-node:rodrigob.20040121155420:ConcurrentEditableNode

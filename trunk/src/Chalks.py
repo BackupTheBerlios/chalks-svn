@@ -1446,8 +1446,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         self.parent_perspective = parent_perspective
             
         # we obtain us id
-        inet, address, port = self.parent_perspective.broker.transport.getHost()
-        self.id = hash("%s:%i" % (address, port))
+        t_address = self.parent_perspective.broker.transport.getHost()
+        self.id = hash("%s:%i" % (t_address.host, t_address.port))
     
         deferred = self.parent_perspective.callRemote("collaborate_in", self.id)
         deferred.addCallback(self.start_collaborating).addErrback(self.exception)
@@ -1496,9 +1496,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         
         self.text_widget.mark_set("insert", insert_index) # try to keep the insert mark at the same place
         
-        t_vnode = top().currentVnode()
-        t_path  = "%s:%i:%s" % (t_vnode.client.server, t_vnode.client.port, t_vnode.client.get_node_path(t_vnode) )
-        self.log("Connected to '%s' as S%s (num_of_sites %s)"%(t_path, site_index, num_of_sites))
+        t_address = self.parent_perspective.broker.transport.getPeer()
+        self.log("Connected to '%s:%i' as site '%s' (num_of_sites %s)"%(t_address.host, t_address.port, self.id, num_of_sites))
         
         self.log("HB after the connection %s"% self.HB, color="yellow") # just for debugging
         self.log("delayed_operations after the connection %s"% self.delayed_operations, color="yellow") # just for debugging
@@ -1539,7 +1538,6 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     
     
     
-    
     #@-node:rodrigob.20040125154815.2:connect to/disconnect from parent node
     #@+node:rodrigob.20040125154815.3:edit content
     #@+at
@@ -1570,10 +1568,9 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         
         self.log( "Calling set_text '%s'"%(new_text), color="yellow" ) # for debugging
         
-        from ConcurrentEditable import ConcurrentEditableClient
         # maintain an unicode buffer equivalent
-        ConcurrentEditableClient.set_text(self, new_text)
-            
+        ConcurrentEditableNode.set_text(self, new_text)
+                
         # clean up the body
         self.text_widget.delete("1.0", END)
         

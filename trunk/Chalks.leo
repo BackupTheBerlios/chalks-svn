@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
-<leo_header file_format="2" tnodes="0" max_tnode_index="2926" clone_windows="0"/>
-<globals body_outline_ratio="0.278625954198">
+<leo_header file_format="2" tnodes="0" max_tnode_index="2927" clone_windows="0"/>
+<globals body_outline_ratio="0.421755725191">
 	<global_window_position top="10" left="10" height="524" width="800"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
@@ -1677,10 +1677,10 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
 <v t="niederberger.20040825222327.3"><vh>Low</vh></v>
 </v>
-<v t="rodrigob.20040125160038"><vh>Code perspectives</vh>
+<v t="rodrigob.20040125160038" a="E"><vh>Code perspectives</vh>
 <v t="rodrigob.20040129141624" a="EM"><vh>network</vh>
 <v t="rodrigob.20040125154815.1" a="E"><vh>class ChalksNode</vh>
-<v t="rodrigob.20040125154815.2" a="EM"><vh>connect to/disconnect from parent node</vh></v>
+<v t="rodrigob.20040125154815.2" a="EMTV"><vh>connect to/disconnect from parent node</vh></v>
 <v t="rodrigob.20040125154815.3" a="E"><vh>edit content</vh>
 <v t="rodrigob.20040125154815.4" a="E"><vh>set text</vh></v>
 <v t="rodrigob.20040125154815.5"><vh>insert text</vh></v>
@@ -1713,18 +1713,18 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 </v>
 </v>
-<v t="rodrigob.20040125194534" a="EM"><vh>class ChalksPerspective</vh>
+<v t="rodrigob.20040125194534" a="M"><vh>class ChalksPerspective</vh>
 <v t="rodrigob.20040129150513"><vh>logout</vh></v>
 <v t="rodrigob.20040126020641" a="M"><vh>collaborate in/out</vh></v>
-<v t="rodrigob.20040127190845"><vh>bi directional methods</vh>
+<v t="rodrigob.20040127190845" a="E"><vh>bi directional methods</vh>
 <v t="rodrigob.20040125220331"><vh>messages and presence methods</vh></v>
 <v t="rodrigob.20040127182541"><vh>insert/delete text</vh></v>
 </v>
 </v>
 <v t="rodrigob.20040121155420" a="EM"><vh>ConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013418" a="E"><vh>__init__</vh></v>
-<v t="rodrigob.20040128011816" a="E"><vh>receive operation</vh></v>
-<v t="rodrigob.20040128011809" a="E"><vh>add/del site</vh>
+<v t="rodrigob.20040128011816"><vh>receive operation</vh></v>
+<v t="rodrigob.20040128011809"><vh>add/del site</vh>
 <v t="rodrigob.20040129165804" a="EM"><vh>add site</vh>
 <v t="rodrigob.20040130122927"><vh>&lt;&lt; expand the vectors and matrices &gt;&gt;</vh></v>
 </v>
@@ -1732,7 +1732,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040129165804.2"><vh>del clients (server)</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040128011921" a="E"><vh>network methods</vh>
+<v t="rodrigob.20040128011921"><vh>network methods</vh>
 <v t="rodrigob.20040128011921.1" a="E"><vh>connect to parent </vh>
 <v t="rodrigob.20040130224144" a="M"><vh>old</vh></v>
 <v t="rodrigob.20040129181502"><vh>get_data</vh></v>
@@ -1746,6 +1746,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040130225148.1" a="M"><vh>get_state</vh></v>
 <v t="rodrigob.20040128012459" a="M"><vh>collect_garbage</vh></v>
 <v t="rodrigob.20040128012627"><vh>generate operations</vh></v>
+<v t="rodrigob.20040909033320"><vh>set text</vh></v>
 </v>
 <v t="rodrigob.121403173614.1509"><vh>ConcurrentEditable</vh>
 <v t="rodrigob.121403173614.1510"><vh>receive operation</vh></v>
@@ -1756,7 +1757,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 <v t="rodrigob.121403173614.1515"><vh>undo</vh></v>
 <v t="rodrigob.121403173614.1516" a="E"><vh>collect_garbage</vh>
-<v t="rodrigob.20040121161315"><vh>update SVT</vh></v>
+<v t="rodrigob.20040121161315" a="E"><vh>update SVT</vh></v>
 </v>
 <v t="rodrigob.121403173614.1517"><vh>generate operations</vh></v>
 </v>
@@ -1772,14 +1773,14 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040831112258"><vh>gui</vh></v>
 <v t="rodrigob.20040831112258.1"><vh>concurrent edition</vh></v>
 </v>
-<v t="rodrigob.20040119132914" a="EM"
+<v t="rodrigob.20040119132914" a="M"
 marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.2,rodrigob.20040125154815.6,rodrigob.20040127185444,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040126020641,"
-expanded="rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040125154636,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.3,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182530,rodrigob.20040126020544,"><vh>@thin Chalks.py</vh></v>
+expanded="rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040125154636,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.3,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182530,rodrigob.20040126020544,rodrigob.20040127190845,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.20040125173910"><vh>@thin Test_Chalks.py</vh></v>
 <v t="rodrigob.20040125151012"><vh>@thin Chalks.xhtml</vh></v>
 <v t="rodrigob.121403173614.1502"
 marks="rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040130224144,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
-expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1516,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040121155420,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040128011921,rodrigob.20040128011921.1,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
+expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1516,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040128011921.1,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
 <v t="rodrigob.20040129132740"><vh>docs</vh>
 <v t="rodrigob.20040129130513.1"><vh>Unicode utils...</vh>
 <v t="rodrigob.20040129130513.2"><vh>isUnicode</vh></v>
@@ -28879,8 +28880,8 @@ def logged_in(self, parent_perspective):
     self.parent_perspective = parent_perspective
         
     # we obtain us id
-    inet, address, port = self.parent_perspective.broker.transport.getHost()
-    self.id = hash("%s:%i" % (address, port))
+    t_address = self.parent_perspective.broker.transport.getHost()
+    self.id = hash("%s:%i" % (t_address.host, t_address.port))
 
     deferred = self.parent_perspective.callRemote("collaborate_in", self.id)
     deferred.addCallback(self.start_collaborating).addErrback(self.exception)
@@ -28929,9 +28930,8 @@ def start_collaborating(self, ret_tuple):
     
     self.text_widget.mark_set("insert", insert_index) # try to keep the insert mark at the same place
     
-    t_vnode = top().currentVnode()
-    t_path  = "%s:%i:%s" % (t_vnode.client.server, t_vnode.client.port, t_vnode.client.get_node_path(t_vnode) )
-    self.log("Connected to '%s' as S%s (num_of_sites %s)"%(t_path, site_index, num_of_sites))
+    t_address = self.parent_perspective.broker.transport.getPeer()
+    self.log("Connected to '%s:%i' as site '%s' (num_of_sites %s)"%(t_address.host, t_address.port, self.id, num_of_sites))
     
     self.log("HB after the connection %s"% self.HB, color="yellow") # just for debugging
     self.log("delayed_operations after the connection %s"% self.delayed_operations, color="yellow") # just for debugging
@@ -28972,7 +28972,6 @@ def disconnected(self, *args):
 
 
 
-
 </t>
 <t tx="rodrigob.20040125154815.3">@
 This methods edit the client node text, presenting the gui results.
@@ -28997,10 +28996,9 @@ def set_cursor_position(self, who, pos):
     
     self.log( "Calling set_text '%s'"%(new_text), color="yellow" ) # for debugging
     
-    from ConcurrentEditable import ConcurrentEditableClient
     # maintain an unicode buffer equivalent
-    ConcurrentEditableClient.set_text(self, new_text)
-        
+    ConcurrentEditableNode.set_text(self, new_text)
+            
     # clean up the body
     self.text_widget.delete("1.0", END)
     
@@ -30858,5 +30856,13 @@ Code related to the graphical user interface</t>
 code related to the concurrent edition system</t>
 <t tx="rodrigob.20040908003956">Serious documents are wrote in Latex</t>
 <t tx="rodrigob.20040908004300"></t>
+<t tx="rodrigob.20040909033320">def set_text(self, new_text):
+    """
+    Blindly overwrite the text of this site.
+    """
+    
+    self.text_buffer = new_text
+    
+    return</t>
 </tnodes>
 </leo_file>

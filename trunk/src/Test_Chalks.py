@@ -48,14 +48,17 @@ if config['cheap']:
     print "cheap",
 print
 
-print "Creating three Chalks instaces"
+#print "Creating three Chalks instances"
+print "Creating two Chalks instances"
 app1 = Chalks.Chalks()
 app2 = Chalks.Chalks()
-app3 = Chalks.Chalks()
+#app3 = Chalks.Chalks()
 
-print "Connecting app2 and app3 to app1"
+
+print "Connecting app2 to app1"
 app2.node.connect_to_parent("127.0.0.1", app1.chalks_service.port, "app2")
-app3.node.connect_to_parent("127.0.0.1", app1.chalks_service.port, "app3")
+#print "Connecting app3 to app1"
+#app3.node.connect_to_parent("127.0.0.1", app1.chalks_service.port, "app3")
 
 reactor.run()
 #@nonl
