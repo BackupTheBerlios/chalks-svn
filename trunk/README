@@ -95,7 +95,11 @@ Rodrigo Benenson Díaz (rodrigob at elo.utfsm.cl)
 Ricardo Niederberger Cabral (ncabral at terra.com.br)
 -------------------------------------------------------------
 
-The collaborative editing code is based research papers of Chengzheng Sun.
+- The collaborative editing code is based research papers of Chengzheng Sun.
+
+- Rendezvous.py module was written by Paul Scott-Murphy 
+  (http://sourceforge.net/projects/pyzeroconf)
+
 #@-node:rodrigob.20040826155317:<<credits>>
 #@nl
 

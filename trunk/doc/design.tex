@@ -77,20 +77,20 @@ Chalks is a software \emph{under development} for crossplatform realtime concurr
 The primary focus will be ease of use and minimum requirements.
 
 
-Chalks is aviable at \url{http://chalks.berlios.de}
+Chalks is available at \url{http://chalks.berlios.de}
 
 
 %@+others
 %@+node:rodrigob.20040908172407.1:Requirements
 \section{Requirements}
 
-This are the requirements for Chalks:
+These are the requirements for Chalks:
 
 \begin{description}
 
 \item [Realtime Concurrent Edition] \hspace{0cm} \\
     \begin{itemize}
-    \item As defined in Chengzheng Sun's works, see ResearchNotes.
+    \item As defined in Chengzheng Sun's works, see the "Research Notes" chapter.
     \end{itemize}
     
 \item [Easy to install] \hspace{0cm} \\
@@ -257,8 +257,8 @@ For definitions of Real-time Cooperative Editing Systems, and their basic proper
 %@+node:rodrigob.20040908004801:Introduction
 \section{Introduction}
 
-This text covers every defined \href{http://ryalias.freezope.org/Chalks/Aspects}{aspect} and propose a technical solution to implement the \href{http://ryalias.freezope.org/Chalks/ChalksRequirements}{requirements}.
-This is mostly a documentation of the inicial Chalks design.
+This text covers every defined aspect and proposes a technical solution to implement all requirements.
+This is mostly a documentation of the initial Chalks design.
 
 
 Root concept: \emph{Keep It Simple}, minimal complexity to acomplish the strictly necessary requirements.
@@ -270,11 +270,11 @@ Root concept: \emph{Keep It Simple}, minimal complexity to acomplish the strictl
 
 Direct implementation of the linear undo/redo algorithm described in Chengzheng Sun's works. This algorithm is the simpler aviable. It has a good compromise in the memory/cpu usage, with a some charge on the memory. Anyway as the objects managed are strings, the memory rarely grows more than a few tens of megabytes.
 
-Chengzheng Sun's algorithm define three objects: the operations, the history buffer (HB), and the resulting text.
+Chengzheng Sun's algorithm defines three objects: the operations, the history buffer (HB), and the resulting text.
 
-The operations are specific transformation over the text (insertion, deletion) originated from a specific version of the text. The history buffer is a buffer of all the operations applied over the text. And the resulting text is the consecuence of applying all the HB operations over the original text.
+\em{Operations} are specific transformations over the text (insertion, deletion) originated from a specific version of the text. The \em{history buffer} is a buffer of all the operations applied over the text. And the resulting text is the product of applying all the HB operations over the original text.
 
-The concurrent editable algorithm define what to do with an new operations. The processing of the received operations will have effect over the HB and over the original resulting text.
+The concurrent editable algorithm defines what to do with a new operation. The processing of the received operation will have effect over the HB and over the original resulting text.
 
 
 \begin{figure}[htbp]
@@ -289,7 +289,7 @@ The concurrent editable algorithm define what to do with an new operations. The 
 \emph{Note}: the actual WIP version does not separate in a clear enough way the TextContainer from the ConcurrentEditable object. I think this separation should be enforced to ease later integration with GUI
 \end{minipage}}
 
-Using Python power the operations can be easilly represented as objects, following an easy api similar to Chengzheng Sun's notation.
+Using Python power the operations can be easilly represented as objects, following an easy API similar to Chengzheng Sun's notation.
 
 In a similar way the Concurrent Editable algorithm can be implemented as an almost direct translation from the Chengzheng Sun papers to python code.
 
@@ -469,7 +469,7 @@ The number of dialogs is also minimal, and they complexity very low.
     \item Manage text as a bidimensional object
     \item Ugly: The gui is not similar to the OS default one (this may \href{http://tcl.projectforum.com/tk/47}{change} in the future)
     \item Low mindshare among other programmers, wxPython seems to be the mainstream python gui programming toolkit nowadays
-    \item Increasingly few projects using it and as such there is less people reporting bugs, etc. (development is not too active lately
+    \item Increasingly few projects using it and as such there is less people reporting bugs, etc. (development is not too active lately)
     \item But anyway we believe we should keep on using tkinter for the first release and see how things play along. Provided we honour our intent of keeping GUI code clearly separated from concurrent/networking code, we should be safe
     \end{itemize}
 \end{description}
