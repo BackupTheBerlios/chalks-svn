@@ -1254,11 +1254,14 @@ class Chalks:
         
         button_close = Button(t_frame, text="Close", command= top.destroy)
         button_close.pack(side=RIGHT, padx=10)
-    
+        
+        from struct import unpack # used for unpacking IPv4 addresses from zeroconf
+        
         #@    << server list callback >>
         #@+node:niederberger.20040911130819:<< server list callback >>
         def onServerListClick(event=None):
-            assert self.server_listbox.curselection(), 'error on event, there should be a selected index'
+            if not self.server_listbox.curselection():
+                return  # <<< tkinted only seems to consider entries as selected after clicking twice on a listbox
             
             # aargh, Tkinter is disgusting:
             # 1) curselection() returns STRINGS instead of ints when referring to indexes
@@ -1275,11 +1278,12 @@ class Chalks:
             """
             
             server = self.cur_server_list[self.cur_server_list.keys()[int(self.server_listbox.curselection()[0])]]
-            print server # server info is here, now we need to populate entry widgets with this info
-        
+            
+            ipadr = '.'.join(map(lambda x:str(ord(x)),unpack('cccc', server['address'])))
+            address_entry.delete(0, END); address_entry.insert(END, ipadr)
+            
             port_entry.delete(0, END); port_entry.insert(END, str(server['port']))
             
-        #@nonl
         #@-node:niederberger.20040911130819:<< server list callback >>
         #@nl
         self.server_listbox.bind("<Button-1>", onServerListClick)
@@ -1366,12 +1370,13 @@ class Chalks:
                                         'address':     info.getAddress(),
                                       'identifier':  info.getName(),
                                       'port':       
-            """
+            """        
             self.server_listbox.delete(0, END)  # remove all items
             self.cur_server_list = servers # set internal dict of current known servers
             # add all servers
             for server in servers.values():
-                svr_string = server['identifier'] # + ' at ' + str(server['address'])
+                ipadr = '.'.join(map(lambda x:str(ord(x)),unpack('cccc', server['address'])))  # Ahhhhh ! Is this the best way for unpacking 4 bytes on a binary stream ?
+                svr_string = server['identifier'] + ' [%s]' % ipadr
                 print svr_string
                 self.server_listbox.insert(END, svr_string)
         #@nonl

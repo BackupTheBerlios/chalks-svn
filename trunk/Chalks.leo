@@ -2,7 +2,7 @@
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2930" clone_windows="0"/>
 <globals body_outline_ratio="0.564885496183">
-	<global_window_position top="10" left="10" height="524" width="800"/>
+	<global_window_position top="96" left="143" height="524" width="800"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -1686,8 +1686,8 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040826215836"><vh>Old LeoN todo list (to purge)</vh>
 <v t="rodrigob.20040125223416" a="E"><vh>HOOK PROBLEM</vh></v>
 </v>
-<v t="niederberger.20040825222327.1" a="MTV"><vh>High</vh></v>
-<v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
+<v t="niederberger.20040825222327.1" a="M"><vh>High</vh></v>
+<v t="niederberger.20040825222327.2" a="TV"><vh>Medium</vh></v>
 <v t="niederberger.20040825222327.3"><vh>Low</vh></v>
 </v>
 <v t="rodrigob.20040125160038" a="E"><vh>Code perspectives</vh>
@@ -1740,7 +1740,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040127182541"><vh>insert/delete text</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040121155420" a="M"><vh>ConcurrentEditableNode</vh>
+<v t="rodrigob.20040121155420" a="EM"><vh>ConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013418" a="E"><vh>__init__</vh></v>
 <v t="rodrigob.20040128011816"><vh>receive operation</vh></v>
 <v t="rodrigob.20040128011809" a="E"><vh>add/del site</vh>
@@ -1784,7 +1784,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040128013509"><vh>TestConcurrentEditable1</vh></v>
 <v t="rodrigob.20040128013523"><vh>TestConcurrentEditableServer</vh></v>
 </v>
-<v t="rodrigob.20040125153141" a="M"><vh>&lt;&lt; install the collaboration service &gt;&gt;</vh>
+<v t="rodrigob.20040125153141" a="EM"><vh>&lt;&lt; install the collaboration service &gt;&gt;</vh>
 <v t="rodrigob.20040125200531.1"><vh>Chalks realm</vh></v>
 <v t="rodrigob.20040125200531" a="M"><vh>dummy checker</vh></v>
 </v>
@@ -1853,7 +1853,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 </v>
 <v t="rodrigob.20040831112258.1"><vh>concurrent edition</vh>
-<v t="rodrigob.121403173614.1509"><vh>ConcurrentEditable</vh>
+<v t="rodrigob.121403173614.1509" a="M"><vh>ConcurrentEditable</vh>
 <v t="rodrigob.121403173614.1510"><vh>receive operation</vh></v>
 <v t="rodrigob.121403173614.1511"><vh>apply</vh></v>
 <v t="rodrigob.121403173614.1512"><vh>execute</vh>
@@ -3322,9 +3322,7 @@ exceptions.AssertionError: In ConcurrentEditableNode the transmited time stamps 
 
 
   </t>
-<t tx="niederberger.20040825222327.2">- how to obtain the ip of a zeroconf service ?
-
-- we should add to rendezvous published data which filename we are serving, and unregister our server and register it again with the new filename when a new file is opened
+<t tx="niederberger.20040825222327.2">- we should add to rendezvous published data which filename we are serving, and unregister our server and register it again with the new filename when a new file is opened
   currently it registers only once at startup and unregisters on app shutdown. 
   But before all that, implement unRegisterServer() method on ChalksServerMonitor
 </t>
@@ -3399,16 +3397,18 @@ components.registerAdapter(ChalksModel, Chalks, interfaces.IModel)
                                 'address':     info.getAddress(),
                               'identifier':  info.getName(),
                               'port':       
-    """
+    """        
     self.server_listbox.delete(0, END)  # remove all items
     self.cur_server_list = servers # set internal dict of current known servers
     # add all servers
     for server in servers.values():
-        svr_string = server['identifier'] # + ' at ' + str(server['address'])
+        ipadr = '.'.join(map(lambda x:str(ord(x)),unpack('cccc', server['address'])))  # Ahhhhh ! Is this the best way for unpacking 4 bytes on a binary stream ?
+        svr_string = server['identifier'] + ' [%s]' % ipadr
         print svr_string
         self.server_listbox.insert(END, svr_string)</t>
 <t tx="niederberger.20040911130819">def onServerListClick(event=None):
-    assert self.server_listbox.curselection(), 'error on event, there should be a selected index'
+    if not self.server_listbox.curselection():
+        return  # &lt;&lt;&lt; tkinted only seems to consider entries as selected after clicking twice on a listbox
     
     # aargh, Tkinter is disgusting:
     # 1) curselection() returns STRINGS instead of ints when referring to indexes
@@ -3425,10 +3425,13 @@ components.registerAdapter(ChalksModel, Chalks, interfaces.IModel)
     """
     
     server = self.cur_server_list[self.cur_server_list.keys()[int(self.server_listbox.curselection()[0])]]
-    print server # server info is here, now we need to populate entry widgets with this info
-
+    
+    ipadr = '.'.join(map(lambda x:str(ord(x)),unpack('cccc', server['address'])))
+    address_entry.delete(0, END); address_entry.insert(END, ipadr)
+    
     port_entry.delete(0, END); port_entry.insert(END, str(server['port']))
-    </t>
+    
+</t>
 <t tx="rodrigob.010104175231"></t>
 <t tx="rodrigob.010104211709"></t>
 <t tx="rodrigob.010104212717">no real requirement right now, but issues we should think about:
@@ -29934,7 +29937,9 @@ NOT YET WRITTEN
     
     button_close = Button(t_frame, text="Close", command= top.destroy)
     button_close.pack(side=RIGHT, padx=10)
-
+    
+    from struct import unpack # used for unpacking IPv4 addresses from zeroconf
+    
     &lt;&lt; server list callback &gt;&gt;
     self.server_listbox.bind("&lt;Button-1&gt;", onServerListClick)
     
