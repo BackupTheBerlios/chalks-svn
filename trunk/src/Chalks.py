@@ -1029,14 +1029,52 @@ class Chalks:
             
         else:
             pass
-            # check if we have to save the actual content
+            # check if we have to save the current content
+            if self.is_dirty(): # if file is dirty
+                if self.filename: 
+                    message = "File \"%s\" contains changes not yet saved to disk.\nDo you want to save the file before opening a new one ?" % self.filename
+                else:
+                    message = "The text has not been saved. Save before opening a new one ?"
+
+                ret = self.askYesNoCancel("Save before opening", message) # ret 1, 0 or -1 for cancel
+
+                if ret == 1:
+                    # save the file
+                    ret = self.onSave()
+                    if not ret: # did not save
+                        return # do not open
+
+                elif ret == -1:
+                    print "Open cancelled"
+                    return
             
-            # confirm disconnection desire (of our self, and from everyone already connected to us)
-                # if we connected disconnect us self
-        
-            # create a new ChalksNode instance
-            #ChalksNode(base_text)    
+            # confirm disconnection desire (of ourself, and from everyone already connected to us)
+            if self.node.connected:
+                from tkMessageBox import askokcancel
+                ret = askokcancel("Confirm disconnection",
+                                  "You are connected to a remote server. Opening another file will close this connection. Proceed ?")
+
+                if not ret:
+                    print "Open cancelled"
+                    return
+                
+                # disconnect ourself first
+                self.node.disconnect_from_server()
+                
             # open the file content
+            base_text = None
+            try:
+                base_text = t_file.read()
+            except IOError:
+                print 'i/o error opening file %s, aborting' % t_file
+
+            if not base_text:
+                from tkMessageBox import showerror
+                showerror('Error', 'Input/output error opening file %s, aborting.' % t_file)
+                return
+            
+            # create a new ChalksNode instance
+            self.node = ChalksNode(self, base_text)
             
             # update the window
             
@@ -1162,7 +1200,7 @@ class Chalks:
             # if required, request a save as 
             if self.is_dirty():
                 if self.filename: 
-                    message = "File %s contains changes not yet saved.\nOnce connected, a new text will be downloaded.\nDo you want to save the current file before connecting ?" % self.filename
+                    message = "File \"%s\" contains changes not yet saved.\nOnce connected, a new text will be downloaded.\nDo you want to save the current file before connecting ?" % self.filename
                 else:
                     message = "The text has not been saved.\nOnce connected, a new text will be downloaded.\nSave before connecting ?"
             
@@ -1397,15 +1435,15 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         """
         """
         
-        
         ConcurrentEditableNode.__init__(self,) #??
         # local ConcurrentEditable will be initialized during connection process.
-        
+
         # initialize the extra attributes		
         self.chalks_instance  = Chalks_instance # stores a reference to the gui object
-        
+
         self.nickname = None
         self.id = None # id is an unique internet identifier
+        self.connected = 0              # initially we are not connected to anyone
         
         for t_name in ["log", "log_error", "exception", "encoding"]: # attach some attributes and methods
             setattr(self, t_name, getattr(Chalks_instance, t_name))
@@ -1415,8 +1453,22 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         self.text_widget.tag_config("to_send", relief= RAISED, borderwidth=4, background= "beige")# work fine in Linux
             
         self.deletion_buffer = () # helper variable store a cumulative erasure (successive delete or insert commands) in the tuple (startpos, len)
-        
-    
+
+        #<<<<< "text" parameter is not being used. Keep it in mind when fixing this method, as the open dialog will call it with textbase from a local file
+        if text:
+            self.set_text(text)        
+
+    def log(self, text, tag=None, color=None):        
+        """
+        right now it will just forward log message to GUI object
+        """
+        self.chalks_instance.log(text, tag, color)
+
+    def log_error(self, text):
+        """
+        right now it will just forward log message to GUI object
+        """
+        self.chalks_instance.log_error(text)
     
     #@    @+others
     #@+node:rodrigob.20040125154815.2:connect to/disconnect from parent node
@@ -1565,6 +1617,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         """
         Blindly overwrite the text of this site. (including the "to_send" elements)
         """
+        assert new_text, 'you were supposed to send me some text'
         
         self.log( "Calling set_text '%s'"%(new_text), color="yellow" ) # for debugging
         
