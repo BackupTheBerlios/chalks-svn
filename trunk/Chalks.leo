@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
-<leo_header file_format="2" tnodes="0" max_tnode_index="2882" clone_windows="0"/>
+<leo_header file_format="2" tnodes="0" max_tnode_index="2883" clone_windows="0"/>
 <globals body_outline_ratio="0.624113475177">
-	<global_window_position top="10" left="10" height="986" width="1280"/>
+	<global_window_position top="45" left="53" height="784" width="1026"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -33,9 +33,9 @@
 </v>
 </v>
 </v>
-<v t="rodrigob.20040824110326.1"><vh>Docs</vh>
-<v t="rodrigob.20040824112428"><vh>Developers</vh></v>
-<v t="rodrigob.121403173614.9"><vh>Old LeoN (to purge) Docs</vh>
+<v t="rodrigob.20040824110326.1" a="E"><vh>Docs</vh>
+<v t="rodrigob.20040824112428"><vh>Credits</vh></v>
+<v t="rodrigob.121403173614.9" a="E"><vh>Old LeoN (to purge) Docs</vh>
 <v t="rodrigob.121403173614.4" a="E"><vh>&lt;&lt; release status &gt;&gt;</vh></v>
 <v t="rodrigob.122403213028"><vh>&lt;&lt; legal declaration &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.57"><vh>General view of the system</vh>
@@ -59,10 +59,13 @@
 </v>
 </v>
 <v t="rodrigob.122403220526.1"><vh>developers docs</vh>
+<v t="niederberger.20040825214919" a="E"><vh>old (from LeoN)</vh>
+<v t="niederberger.20040825215445" a="E"><vh>About client and server objects</vh></v>
+</v>
 <v t="rodrigob.121403173614.57"><vh>General view of the system</vh>
 <v t="rodrigob.010104211709"><vh>see image misc/leon_scheme.png</vh></v>
 </v>
-<v t="rodrigob.010104212717"><vh>Leo over network requirements</vh>
+<v t="rodrigob.010104212717"><vh>networking requirements</vh>
 <v t="rodrigob.121403173614.21"><vh>Leo over network requirements (original post)</vh>
 <v t="rodrigob.121403173614.22" a="E"><vh>&lt;&lt; Step one, Merging &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.23" a="E"><vh>&lt;&lt; Step two, Publishing &gt;&gt;</vh></v>
@@ -70,7 +73,7 @@
 <v t="rodrigob.121403173614.25" a="E"><vh>&lt;&lt; Step four, Realtime interaction &gt;&gt;</vh></v>
 </v>
 </v>
-<v t="rodrigob.121403173614.58"><vh>Code explanation</vh>
+<v t="rodrigob.121403173614.58" a="E"><vh>Code explanation</vh>
 <v t="rodrigob.010104213529"><vh>&lt;&lt; notation &gt;&gt;</vh></v>
 </v>
 <v t="rodrigob.121403173614.66"><vh>About client and server objects</vh></v>
@@ -264,7 +267,7 @@
 <v t="rodrigob.123103165427"><vh>GNU GPL</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040824110326.2" a="TV"><vh>Reference code</vh>
+<v t="rodrigob.20040824110326.2"><vh>Reference code</vh>
 <v t="rodrigob.121403173614.220"><vh>Old LeoN (to purge) Reference code</vh>
 <v t="rodrigob.121403173614.221"><vh>Deprecated code</vh>
 <v t="rodrigob.121403173614.222"><vh>file /usr/local/leo/leo_cvs/leo/leon.py</vh>
@@ -1753,7 +1756,7 @@
 </v>
 </v>
 </v>
-<v t="rodrigob.20040119132914" a="M" tnodeList="rodrigob.20040119132914,rodrigob.20040119133203,rodrigob.20040126020116,rodrigob.20040125194054,rodrigob.20040129130513,rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531.1,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040123142302,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123133012,rodrigob.20040123134959,rodrigob.20040128005315,rodrigob.20040124165851,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040123123829,rodrigob.20040123130224.1,rodrigob.20040125153909,rodrigob.20040125153909.1,rodrigob.20040122173046.1,rodrigob.20040122173046.3,rodrigob.20040122173046.2,rodrigob.20040125210836,rodrigob.20040122182446.1,rodrigob.20040123142018,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040125192325,rodrigob.20040125154657,rodrigob.20040125145031,rodrigob.20040121150952.2,rodrigob.20040121150952.7,rodrigob.20040121150952.6,rodrigob.20040123133928,rodrigob.20040123140212,rodrigob.20040125211222,rodrigob.20040123134358,rodrigob.20040125213003,rodrigob.20040125213003.1,rodrigob.20040121153312,rodrigob.20040121153834.4,rodrigob.20040123123802,rodrigob.20040123132311.1,rodrigob.20040126020116,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040125154815.3,rodrigob.20040125154815.4,rodrigob.20040125154815.5,rodrigob.20040125154815.6,rodrigob.20040125154815.8,rodrigob.20040125154815.10,rodrigob.20040125154815.11,rodrigob.20040125154815.12,rodrigob.20040125154815.13,rodrigob.20040125154815.14,rodrigob.20040125154815.15,rodrigob.20040125154815.16,rodrigob.20040125154815.17,rodrigob.20040125154815.18,rodrigob.20040125154815.19,rodrigob.20040125154815.7,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040127185444,rodrigob.20040127184605,rodrigob.20040127184605.1,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040129150513,rodrigob.20040126020641,rodrigob.20040127190845,rodrigob.20040125220331,rodrigob.20040127182541,rodrigob.20040119132949,rodrigob.20040122143140,rodrigob.20040127180819,rodrigob.20040125150021,rodrigob.20040125152117,rodrigob.20040124181251.3,rodrigob.20040130123655"><vh>@file Chalks.py</vh>
+<v t="rodrigob.20040119132914" a="M" tnodeList="rodrigob.20040119132914,rodrigob.20040119133203,rodrigob.20040126020116,rodrigob.20040125194054,rodrigob.20040129130513,rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531.1,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040123142302,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123133012,rodrigob.20040123134959,rodrigob.20040128005315,rodrigob.20040124165851,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040123123829,rodrigob.20040123130224.1,rodrigob.20040125153909,rodrigob.20040125153909.1,rodrigob.20040122173046.1,rodrigob.20040122173046.3,rodrigob.20040122173046.2,rodrigob.20040125210836,rodrigob.20040122182446.1,rodrigob.20040123142018,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040125192325,rodrigob.20040125154657,rodrigob.20040125145031,rodrigob.20040123130224,rodrigob.20040121150952.2,rodrigob.20040121150952.7,rodrigob.20040121150952.6,rodrigob.20040122175312,rodrigob.20040123133928,rodrigob.20040123140212,rodrigob.20040125211222,rodrigob.20040123134358,rodrigob.20040125213003,rodrigob.20040125213003.1,rodrigob.20040121153312,rodrigob.20040124160427,rodrigob.20040121153834.4,rodrigob.20040123123802,rodrigob.20040123132311.1,rodrigob.20040126020116,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040125154815.3,rodrigob.20040125154815.4,rodrigob.20040125154815.5,rodrigob.20040125154815.6,rodrigob.20040125154815.8,rodrigob.20040125154815.10,rodrigob.20040125154815.11,rodrigob.20040125154815.12,rodrigob.20040125154815.13,rodrigob.20040125154815.14,rodrigob.20040125154815.15,rodrigob.20040125154815.16,rodrigob.20040125154815.17,rodrigob.20040125154815.18,rodrigob.20040125154815.9,rodrigob.20040125154815.19,rodrigob.20040125154815.7,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040127185444,rodrigob.20040127184605,rodrigob.20040127184605.1,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040129150513,rodrigob.20040126020641,rodrigob.20040127190845,rodrigob.20040125220331,rodrigob.20040127182541,rodrigob.20040119132949,rodrigob.20040122143140,rodrigob.20040127180819,rodrigob.20040125150021,rodrigob.20040125152117,rodrigob.20040124181251.3,rodrigob.20040130123655"><vh>@file Chalks.py</vh>
 <v t="rodrigob.20040119133203"><vh>Theorical aspects</vh>
 <v t="rodrigob.20040126020116"><vh>network graph (about Server, Client, Children, Parent, and Trees)</vh></v>
 <v t="rodrigob.20040125194054"><vh>repetitions (personal note)</vh></v>
@@ -1986,10 +1989,7 @@
 </v>
 </v>
 </v>
-<v t="rodrigob.20040129132740"><vh>other nodes</vh>
-<v t="rodrigob.20040123132311.1"><vh>&lt;&lt; chalks help &gt;&gt;</vh>
-<v t="rodrigob.20040126020116"><vh>network graph (about Server, Client, Children, Parent, and Trees)</vh></v>
-</v>
+<v t="rodrigob.20040129132740" a="E"><vh>other nodes</vh>
 <v t="rodrigob.20040129130513.1"><vh>Unicode utils...</vh>
 <v t="rodrigob.20040129130513.2"><vh>isUnicode</vh></v>
 <v t="rodrigob.20040129130513.3"><vh>isValidEncoding</vh></v>
@@ -2000,11 +2000,17 @@
 <v t="rodrigob.20040129130513.8"><vh>&lt;&lt; define getpreferredencoding for *nix &gt;&gt;</vh></v>
 </v>
 </v>
-<v t="rodrigob.122403220526.1"><vh>developers docs</vh>
+<v t="rodrigob.20040123132311.1"><vh>&lt;&lt; chalks help &gt;&gt;</vh>
+<v t="rodrigob.20040126020116"><vh>network graph (about Server, Client, Children, Parent, and Trees)</vh></v>
+</v>
+<v t="rodrigob.122403220526.1" a="E"><vh>developers docs</vh>
+<v t="niederberger.20040825214919" a="E"><vh>old (from LeoN)</vh>
+<v t="niederberger.20040825215445" a="E"><vh>About client and server objects</vh></v>
+</v>
 <v t="rodrigob.121403173614.57"><vh>General view of the system</vh>
 <v t="rodrigob.010104211709"><vh>see image misc/leon_scheme.png</vh></v>
 </v>
-<v t="rodrigob.010104212717"><vh>Leo over network requirements</vh>
+<v t="rodrigob.010104212717" a="TV"><vh>networking requirements</vh>
 <v t="rodrigob.121403173614.21"><vh>Leo over network requirements (original post)</vh>
 <v t="rodrigob.121403173614.22" a="E"><vh>&lt;&lt; Step one, Merging &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.23" a="E"><vh>&lt;&lt; Step two, Publishing &gt;&gt;</vh></v>
@@ -2012,7 +2018,7 @@
 <v t="rodrigob.121403173614.25" a="E"><vh>&lt;&lt; Step four, Realtime interaction &gt;&gt;</vh></v>
 </v>
 </v>
-<v t="rodrigob.121403173614.58"><vh>Code explanation</vh>
+<v t="rodrigob.121403173614.58" a="E"><vh>Code explanation</vh>
 <v t="rodrigob.010104213529"><vh>&lt;&lt; notation &gt;&gt;</vh></v>
 </v>
 <v t="rodrigob.121403173614.66"><vh>About client and server objects</vh></v>
@@ -2082,6 +2088,29 @@
 </v>
 </vnodes>
 <tnodes>
+<t tx="niederberger.20040825214919"></t>
+<t tx="niederberger.20040825215445">This node provide a little overview of the classes instances and they hierarchy.
+Superior lines include inferior (lower level) items.
+
+Client Machine
+has a Leo process 
+    has a LeoN Plugin (that install a twisted reactor under the hood of the Leo process)
+        has a LeoClient class instance (one per @leoServer outlines)
+            after connection LeoClient has a RemoteReference of the OutlinePerspective instance on the server (attribute .perspective)
+                after connection to a collaboration node, 
+                LeoClient instance get an instance of the ClientNode class (subclass of ConcurrentEditableClient) (.client_node attribute)
+
+
+Server Machine
+has a LeoNServer process
+    has a service.Application class instance
+        has a CollaborativeOutline class instance (is a Realm too (provide LeoAvatars))
+            has a LeoChecker instance
+            has a CollaborativeNode class instances (and childrens are linked to him)
+                is a ConcurrentEditableServer subclass
+        has a LeoServerWeb instance
+
+Each Leo client connection on the server create a LeoAvatar. LeoAvatar provide access to OutlinePerspective and AdminOutlinePerspective. This two perspectives centralize all the comunication between clients and the server.</t>
 <t tx="rodrigob.010104175231"></t>
 <t tx="rodrigob.010104180917">Read the Admin Gui help to get more information about the permissions system of LeoN.
 The security is based on password access. 
@@ -2091,27 +2120,24 @@ Be aware that the data is transmited in a non encripted binary format. Do not ma
 
 </t>
 <t tx="rodrigob.010104211709"></t>
-<t tx="rodrigob.010104212717">(no real document exits, look a the forums post. This is a ridicule draft)
+<t tx="rodrigob.010104212717">no real requirement right now, but issues we should think about:
 
-- Smooth Leo integration
-- Easy to use
-- Little or no dependencies for the installation
-
-- Allow managing online and offline data
-- Allow collaborative concurrent text edition
-- Provide web publishing
-- Manage users permissions
-- Allow chatting
-</t>
+- users behind very tight proxies/firewalls (perhaps there won't be much to do about them, since http through port 80 is the only traffic they can get)
+- latency of twisted's tcp connections, since tcp is the only protocol we use as opposed to udp. But I also think there isn't much to be done here, as we heavily rely on twisted spread/pb for all our networking needs.
+- do we really need web publishing using Woven as LeoN had ?</t>
 <t tx="rodrigob.010104213529">Notation:
 
-Leo has his notation, Twisted has his notation and I have my notation. I tried to keep the notation of the frontier consistent (Twisted plugins use Twisted notation, Leo plugin use Leo notation and LeoN use the vocabulary of both, but his self notation).
+We should try adhering to Twisted Matrix's coding conventions [1], which encompasses most conventions found on PEPs blessed by the python community.
+
+[1]http://twistedmatrix.com/documents/howto/coding-standard
+
+But some are important enough to get mentioned here:
 
 this_is_variable
 ThisIsAClass
 this_is_a_function_or_method
 
-t_* denotes Temporal variables</t>
+t_* denotes temporary variables</t>
 <t tx="rodrigob.010104213829">distro .leo files MaJusCuLe inconsistence
 
 
@@ -3183,23 +3209,19 @@ Actually LeoN is getting near and near to the Non Return Line (an amount of code
 To my eyes there are three dangers:
 - PB will overload the bandwith
 - Problems during adaptation of ConcurrentTextEdition for concurrent outline edition.</t>
-<t tx="rodrigob.121403173614.37">LeoN.leo
+<t tx="rodrigob.121403173614.37">Binary package:
+
+Source package:
+
+Chalks.leo
 README
 
-leo_plugin/
-    mod_LeoN.py
-    /LeoN/
-        *.py
-        LeoNtest.leo
-        /templates/
-            *.xhtml # for testing
-    
-leon_server/
-    {start;stop}_LeoServer.{bat;sh}
-    LeoServer.tac
-    LeoServer-shutdown.tap
-    /templates/
-        *.xhtml</t>
+src/
+    Chalks.py
+    Chalks.xhtml
+    *.py
+    Test_*.py
+</t>
 <t tx="rodrigob.121403173614.38">Having done a Concurrent Text Edition system how to implement a Conccurrent Outline Edition system ?
 
 Need a smart mapping between outline data and text data; and between outline operations and text operations.
@@ -3859,28 +3881,7 @@ CollaborativeOutline is a collaborative outline and is a Realm and has a LeoChec
     return pb.IPerspective, avatar , avatar.logout # implemented interface reference, interface instance, logout method
 
 </t>
-<t tx="rodrigob.121403173614.66">This node provide a little overview of the classes instances and they hierarchy.
-Superior lines include inferior (lower level) items.
-
-Client Machine
-has a Leo process 
-    has a LeoN Plugin (that install a twisted reactor under the hood of the Leo process)
-        has a LeoClient class instance (one per @leoServer outlines)
-            after connection LeoClient has a RemoteReference of the OutlinePerspective instance on the server (attribute .perspective)
-                after connection to a collaboration node, 
-                LeoClient instance get an instance of the ClientNode class (subclass of ConcurrentEditableClient) (.client_node attribute)
-
-
-Server Machine
-has a LeoNServer process
-    has a service.Application class instance
-        has a CollaborativeOutline class instance (is a Realm too (provide LeoAvatars))
-            has a LeoChecker instance
-            has a CollaborativeNode class instances (and childrens are linked to him)
-                is a ConcurrentEditableServer subclass
-        has a LeoServerWeb instance
-
-Each Leo client connection on the server create a LeoAvatar. LeoAvatar provide access to OutlinePerspective and AdminOutlinePerspective. This two perspectives centralize all the comunication between clients and the server.</t>
+<t tx="rodrigob.121403173614.66"></t>
 <t tx="rodrigob.121403173614.67">@color
 @language python
 # this is the documentation that will see the end user, give a description of the panel and his usage
@@ -26726,7 +26727,7 @@ Ideas /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\
 
 @color
 @language python
-@path ./dev/
+@path ./src/
 
 </t>
 <t tx="rodrigob.121403173614.1324">@
@@ -29937,11 +29938,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 <t tx="rodrigob.122403220526.1">@language plain
 @nocolor
 
-This nodes are supposed to be read by the curious hacker, and by people interested in understanding the LeoN internals (and probably help with his development)
+These nodes are supposed to be read by curious hackers and by people interested in understanding Chalks internals (and probably help with development)
 
-LeoN docs make some references to the excellent Twisted Documentation. The twisted documentation can be found at the http://www.twistedmatrix.com webpage.
+Chalks docs make some references to the excellent Twisted Documentation, which can be found at the http://www.twistedmatrix.com webpage.
 
-The code and his outline contain many (hopefully usefull) comments. Look at the related code perspectives and code sections to get more low level details (as usual).</t>
+The code and this outline contain many (hopefully useful) comments. Look at the related code perspectives and code sections to get more low level details (as usual).</t>
 <t tx="rodrigob.122403220526.2"></t>
 <t tx="rodrigob.122503213200">if there is no plugin using the toolbar, the toolbar should not appeard at all, it is a non sense anoyance
 
@@ -31270,12 +31271,12 @@ def quit(self, *args):
 </t>
 <t tx="rodrigob.20040123132311.1">@color
 @language python
-# this is the documentation that will see the end user, give a description of the panel and his usage
-# this is part of the code, do not delete the "help" definition and the """ elements.
+# this is the documentation that will be seen by the end user, give a description of the panel and it's usage
+# this is part of the code, so do not delete the "help" definition and the """ elements.
 help = \
 """
 
-NOT YET WROTE
+NOT YET WRITTEN
 
 @others
 
@@ -33881,12 +33882,12 @@ Remember: Open Source is no sense if code is no usable nor reusable. To be usabl
 <t tx="rodrigob.20040824110326.2">@nocolor
 
 Code from other sources that I needed to have under my eyes.
-Not interesant (mostly used in first development stages, now almost everything is in my mind or in the code  and his comments).
+Not interesting (mostly used in first development stages, now almost everything is in my mind or in the code and his comments).
 
 @color
 @language python</t>
-<t tx="rodrigob.20040824112428">Rodrigo Benenson Díaz rodrigob@elo.utfsm.cl
+<t tx="rodrigob.20040824112428">Rodrigo Benenson Díaz (rodrigob at elo.utfsm.cl)
 
-Ricardo Niederberger Cabral rcabral@terra.com.br</t>
+Ricardo Niederberger Cabral (ncabral at terra.com.br)</t>
 </tnodes>
 </leo_file>

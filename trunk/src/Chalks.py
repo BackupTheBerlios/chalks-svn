@@ -90,7 +90,6 @@ from twisted.python import failure
 #@-at
 #@@c
 #@nonl
-#@-node:Theorical aspects
 #@+node:network graph (about Server, Client, Children, Parent, and Trees)
 #@+at
 # The network graph is a Tree.
@@ -116,6 +115,7 @@ from twisted.python import failure
 #@@c
 #@nonl
 #@-node:repetitions (personal note)
+#@-node:Theorical aspects
 #@+node:helpers
 #@+at
 # Miscelaneous functions that help to do common actions
@@ -283,7 +283,6 @@ class Chalks:
     #@-at
     #@@c
     #@nonl
-    #@-node:helpers
     #@+node:set_encoding
     #@+at 
     #@nonl
@@ -327,6 +326,7 @@ class Chalks:
         return self.saved_version_hash != hash(self.text_widget.get("1.0", END))
     #@nonl
     #@-node:is dirty
+    #@-node:helpers
     #@+node:log
     def log(self, text, tag=None, color=None):
         """
@@ -359,7 +359,6 @@ class Chalks:
         return
         
     
-    #@-node:log
     #@+node:log_error
     def log_error(self, text):
         """
@@ -400,6 +399,7 @@ class Chalks:
         
         return
     #@-node:set_status
+    #@-node:log
     #@+node:body (construct the gui)
     def body(self, base_frame):
         """
@@ -636,14 +636,12 @@ class Chalks:
             
         return
     #@nonl
-    #@-node:body (construct the gui)
     #@+node:helpers
     #@+at
     # this code is at the class Chalks level
     #@-at
     #@@c
     #@nonl
-    #@-node:helpers
     #@+node:class Redirect
     class Redirect:
         """
@@ -709,6 +707,9 @@ class Chalks:
         else:                         return -1
     #@nonl
     #@-node:ask yes no or cancel
+    #@-node:helpers
+    #@-node:body (construct the gui)
+    #@+node:gui commands/events
     #@+node:text widget commands
     #@+at
     # Hooks related to the text widget
@@ -782,7 +783,6 @@ class Chalks:
         
         return
     
-    #@-node:onTextKey 
     #@+node:get text selection
     def get_text_selection (self):
     	"""
@@ -802,6 +802,7 @@ class Chalks:
     		return insert,insert
     #@nonl
     #@-node:get text selection
+    #@-node:onTextKey 
     #@+node:idle_text_key (hook caller of ClientNode.fill_body) (LeoN one)
     def idle_text_key (self, data):	
         """
@@ -847,6 +848,7 @@ class Chalks:
     #@-others
     #@nonl
     #@-node:text widget commands
+    #@+node:split bar commands
     #@+node:resizePanesToRatio
     def resizePanesToRatio(self,ratio):
         self.divideSplitter(self.splitVerticalFlag, ratio)
@@ -897,7 +899,6 @@ class Chalks:
         
         
     #@nonl
-    #@-node:onDragSplitBar
     #@+node:divideSplitter
     # Divides the main or secondary splitter, using the key invariant.
     def divideSplitter (self, verticalFlag, frac):
@@ -922,6 +923,9 @@ class Chalks:
             pane2.place(relwidth=1-frac)
     #@nonl
     #@-node:divideSplitter
+    #@-node:onDragSplitBar
+    #@-node:split bar commands
+    #@+node:menu commands
     #@+node:open
     def onOpen(self, event=None):
         """
@@ -984,7 +988,6 @@ class Chalks:
                 ret = 1
                 
         return ret 
-    #@-node:save
     #@+node:save text
     
     def save_text(self,):
@@ -1003,6 +1006,7 @@ class Chalks:
         self.saved_version_hash = hash(text) # used to check later changes
         return
     #@-node:save text
+    #@-node:save
     #@+node:connect to
     def onConnectTo(self, event=None):
         """
@@ -1145,6 +1149,7 @@ class Chalks:
         
     #@nonl
     #@-node:connect to
+    #@-node:menu commands
     #@+node:chat bar commands
     def onChattextEntry(self, event):
         """
@@ -1188,6 +1193,7 @@ class Chalks:
     
     
     #@-node:chat bar commands
+    #@+node:status bar commands
     #@+node:updateStatusRowCol
     def updateStatusRowCol (self):
         
@@ -1203,18 +1209,19 @@ class Chalks:
         self.status_bar.after(150, self.updateStatusRowCol)     # Reschedule this routine 150 ms. later.
         
     #@-node:updateStatusRowCol
+    #@-node:status bar commands
     #@+node:help command
     # help is defined at the class level; to avoid leo identation problems
     #@<< chalks help >>
     #@+node:<< chalks help >>
     #@@color
     #@@language python
-    # this is the documentation that will see the end user, give a description of the panel and his usage
-    # this is part of the code, do not delete the "help" definition and the """ elements.
+    # this is the documentation that will be seen by the end user, give a description of the panel and it's usage
+    # this is part of the code, so do not delete the "help" definition and the """ elements.
     help = \
     """
     
-    NOT YET WROTE
+    NOT YET WRITTEN
     
     #@+others
     #@+node:network graph (about Server, Client, Children, Parent, and Trees)
@@ -1263,7 +1270,6 @@ class Chalks:
         
         return
         
-    #@-node:help command
     #@+node:online_homepage
     
     def online_homepage(self, event=1):
@@ -1277,6 +1283,8 @@ class Chalks:
         except:
             print "not found: " + url
     #@-node:online_homepage
+    #@-node:help command
+    #@-node:gui commands/events
     #@-others
 #@nonl
 #@-node:class Chalks
@@ -1446,7 +1454,6 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         
         return
     #@nonl
-    #@-node:edit content
     #@+node:set text
     def set_text(self, new_text):
         """
@@ -1950,6 +1957,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         
         return
     #@nonl
+    #@+node:helpers functions
+    #@-node:helpers functions
     #@-node:fill body
     #@+node:flush body
     def flush_body(self, keywords={}, all=0):
@@ -2070,6 +2079,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         return
     
     #@-node:send operation
+    #@-node:edit content
     #@+node:remote callable methods
     #@+at
     # The ChalksNode is a referenceable object that is passed at connection, 
@@ -2078,7 +2088,6 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     #@-at
     #@@c
     #@nonl
-    #@-node:remote callable methods
     #@+node:messages and presence methods
     #@+at
     # <<< EXPLAIN HERE
@@ -2093,7 +2102,6 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     
         
     #@nonl
-    #@-node:messages and presence methods
     #@+node:get users list
     def remote_get_users_list(self, ):
         """ 
@@ -2137,6 +2145,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         
         return
     #@-node:set presence
+    #@-node:messages and presence methods
     #@+node:insert/delete text
     def remote_insert_text(self, startpos, text, timestamp, who=None):
         """ 
@@ -2182,12 +2191,13 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         
         return
     #@nonl
-    #@-node:insert/delete text
     #@+node:check sites
     def check_sites(self,):
         pass
     #@nonl
     #@-node:check sites
+    #@-node:insert/delete text
+    #@-node:remote callable methods
     #@-others
 
 
@@ -2285,7 +2295,6 @@ class ChalksPerspective(pb.Avatar):
     #@-at
     #@@c
     #@nonl
-    #@-node:bi directional methods
     #@+node:messages and presence methods
     def perspective_get_actual_users_list(self, ):
         """ 
@@ -2322,6 +2331,7 @@ class ChalksPerspective(pb.Avatar):
         return self.node.remote_delete_text(startpos, length, timestamp, who=self)
     
     #@-node:insert/delete text
+    #@-node:bi directional methods
     #@-others
 #@nonl
 #@-node:class ChalksPerspective
@@ -2393,7 +2403,6 @@ class FileStack:
 
         
 
-#@-node:class FileStack
 #@+node:test_FileStack
 class S:
         pass
@@ -2418,6 +2427,7 @@ def test_FileStack():
     return
 #@nonl
 #@-node:test_FileStack
+#@-node:class FileStack
 #@+node:class ChalksError
 class ChalksError(pb.Error):
     """
@@ -2448,7 +2458,6 @@ class ChalksError(pb.Error):
 #@-at
 #@@c
 #@nonl
-#@-node:Web
 #@+node:Pages classes
 class utf8Page(page.Page):
     """
@@ -2497,6 +2506,7 @@ class ChalksModel(model.MethodModel):
 
 components.registerAdapter(ChalksModel, Chalks, interfaces.IModel)
 #@-node:Chalks model adaptator
+#@-node:Web
 #@+node:main
 if __name__ == '__main__':
     #test_FileStack()
