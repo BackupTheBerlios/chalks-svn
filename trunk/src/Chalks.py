@@ -433,7 +433,7 @@ class Chalks:
         import Tkinter as Tk
         
         # Create the frames.
-        f = Tk.Frame(parent,bd=0,relief="flat")
+        f = Tk.Frame(parent,bd=0,relief="flat",width=640,height=480) # without forcing width/height, the frame starts up with a really small dimension on win32 (almost iconic)
         f.pack(expand=1,fill="both",pady=1)
         pane1 = Tk.Frame(f)
         pane2 = Tk.Frame(f)
