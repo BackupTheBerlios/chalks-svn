@@ -28,38 +28,17 @@
 # 19/02/04 Debugging. RodrigoB.
 # 
 # 25/08/04 Project ressurected. Ricardo Niederberger Cabral joined development 
-# efforts.
+# efforts. Logs are now keept in the svn server.
 # 
-# Todo
-# ----
-# 
-# - need to make congruent the def start_collaborating(self, ret_tuple): 
-# expected data, and the ConcurrentEditableNode.get_state return tuple
-# 
-# - work on ConcurrentEditableNode, ChalksNode
-# - ChalksNode should be the Chalks realm
-# 
-# - create the base network class
-# - how to obtain TCP connections IPs
-#     perspective.broker.transport
-#     => getPeer() address to which we connect
-#     => getHost() address from where we connect
-# 
-# 
-# - Connect To dialog should show default values !! (implement the options 
-# persistence system, using ConfigParser.ConfigParser, add_section, write, 
-# set(section, option, value), get(section, option))
-# - parse argv options (using twisted options system) to allow disabling web 
-# service
-# 
-# - implement the file open complications
-# - document the system internals, add docustrings for the methods
-# - clean up the "self.splitVerticalFlag" / "verticalFlag"  usage
-# - create a circle similar configuration file system
-# - when connected, the "connect to" menu should become a "Disconnect" option
-# - write the help text
 #@-at
 #@@c
+
+from twisted import copyright
+
+if int(copyright.version.split('.')[1]) < 3:
+    print "Chalks require Twisted 1.3 or superior. Download it from http://www.twistedmatrix.com"
+    from sys import exit
+    exit(0)
 
 # Tkinter Imports
 from Tkinter import *
@@ -685,7 +664,7 @@ class Chalks:
         
         # File, Save, Open, Connect to; Help, about, help, online homepage
         
-        file_menu = Menu(self.menu_bar,)
+        self.file_menu = file_menu = Menu(self.menu_bar,)
         
         file_menu.add_command(label="Connect to", underline=0, accelerator="Ctrl+T", command= self.onConnectTo)
         file_menu.add_separator()
@@ -1397,8 +1376,29 @@ class Chalks:
         
     #@nonl
     #@-node:rodrigob.20040123134358:connect to
+    #@+node:rodrigob.20040913224357:disconnect
+    def onDisconnect(self, event=None):
+        """
+        Disconnect dialog
+        """
+        
+        from tkMessageBox import askokcancel
+        ret = askokcancel("Confirm disconnection",
+                          "You are connected to a remote server. Opening another file will close this connection. Proceed ?")
+    
+        if not ret:
+            print "Disconnection cancelled"
+            return
+        else:
+            print "Starting disconnection"           
+            
+        # disconnect ourself from the network
+        self.node.disconnect_from_server()
+        
+        return
+    #@-node:rodrigob.20040913224357:disconnect
     #@-node:rodrigob.20040122175312:menu commands
-    #@+node:rodrigob.20040121153312:chat bar commands
+    #@+node:rodrigob.20040121153312:chat bar commands (on chat text entry)
     def onChattextEntry(self, event):
         """
         Obtain the last line in the text widget.
@@ -1437,7 +1437,7 @@ class Chalks:
         else:
             t_from = self.node.nickname
             t_to = None # to everyone
-            self.node.remote_send_message(t_from, t_to, txt, self.node)
+            self.node.remote_send_message(self.node, t_from, t_to, txt)
         
         return
     
@@ -1465,7 +1465,7 @@ class Chalks:
         return
     #@nonl
     #@-node:rodrigob.20040912221032:enable/disable Chat
-    #@-node:rodrigob.20040121153312:chat bar commands
+    #@-node:rodrigob.20040121153312:chat bar commands (on chat text entry)
     #@+node:rodrigob.20040124160427:status bar commands
     #@+node:rodrigob.20040121153834.4:updateStatusRowCol
     def updateStatusRowCol (self):
@@ -1557,6 +1557,41 @@ class Chalks:
             print "not found: " + url
     #@-node:rodrigob.20040122173128:online_homepage
     #@-node:rodrigob.20040123123802:help command
+    #@+node:rodrigob.20040913232538:set/clear connected
+    # where to place this node ?
+    
+    def set_connected(self,):
+        """
+        Set the connected flag and conmute the asociated gui elements
+        """
+        
+        # upon connection we need to enable the chat system 
+        self.enableChat()
+            
+        # update the menu bar
+        self.file_menu.entryconfig(1, label="Disconnect", command = self.onDisconnect)
+        #file_menu.add_command(label="Connect to", underline=0, accelerator="Ctrl+T", command= self.onConnectTo)
+        
+        self.connected = 1
+        return
+        
+    def clear_connected(self,):
+        """
+        Clear the connected flag and conmute the asociated gui elements
+        """
+        
+        # upon connection we need to enable the chat system 
+        self.disableChat()
+                    
+        # update the menu bar
+        self.file_menu.entryconfig(1, label="Connect to", command = self.onConnectTo)
+        #self.file_menu.entryconfig(1, label="Disconnect", command = self.onDisconnect)
+        #file_menu.add_command(label="Connect to", underline=0, accelerator="Ctrl+T", command= self.onConnectTo)
+        
+        self.connected = 0
+        return
+    #@nonl
+    #@-node:rodrigob.20040913232538:set/clear connected
     #@-node:rodrigob.20040123124005:gui commands/events
     #@-others
 #@nonl
@@ -1565,7 +1600,7 @@ class Chalks:
 from ConcurrentEditable import ConcurrentEditableNode
 from ConcurrentEditable import ConcurrentEditable # needed by remote_delete_text()
         
-class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
+class ChalksNode(ConcurrentEditableNode, pb.Viewable):
     """
     This is the local instance that take care of the collaborative edition and the network layers.
     This is the core object under the GUI.
@@ -1600,6 +1635,14 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
             setattr(self, t_name, getattr(Chalks_instance, t_name))
         self.log = lambda text, *args, **kws: Chalks_instance.log("\n%s" % text) # dummy trick
         
+        # rename every remote_ method in view_ method
+        remote_methods = ['_'.join(x.split('_')[1:]) for x in dir(self) if x.split('_')[0] == "remote"] # ugly hack
+        print "remote_methods", remote_methods
+        for t_name in remote_methods:
+            setattr(self, "view_"+t_name, getattr(self, "remote_"+t_name))
+            print "Add method %s to ChalksNode class"%("view_"+t_name)
+
+        
         self.text_widget = Chalks_instance.text_widget
         self.text_widget.tag_config("to_send", relief= RAISED, borderwidth=4, background= "beige")# work fine in Linux
             
@@ -1626,6 +1669,9 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     
     #@    @+others
     #@+node:rodrigob.20040125154815.2:connect to/disconnect from parent node
+    
+    #@+others
+    #@+node:rodrigob.20040913221730:connect
     def connect_to_parent(self, address, port, nickname="No name"):
         """
         Connect as a children to a parent node
@@ -1641,22 +1687,21 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     
         return
         
-    def logged_in(self, parent_perspective):
+    def logged_in(self, avatar):
         """
         Start collaborating with the parent
         """
     
-        self.parent_perspective = parent_perspective
+        self.avatar = avatar
             
         # we obtain us site_id
-        t_address = self.parent_perspective.broker.transport.getHost()
+        t_address = self.avatar.broker.transport.getHost()
         self.site_id = hash("%s:%i" % (t_address.host, t_address.port))
     
-        deferred = self.parent_perspective.callRemote("collaborate_in", self.site_id)
+        deferred = self.avatar.callRemote("collaborate_in", self.site_id)
         deferred.addCallback(self.start_collaborating).addErrback(self.exception)
                                 
         return
-    
     
     #@+others
     #@+node:rodrigob.20040909060311:start collaborating
@@ -1664,6 +1709,12 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         """
         Callback for the connection procedure.        
         """
+    
+        parent_node_perspective, ret_tuple  = ret_tuple
+        # receive the parent ChalksNode reference
+        self.parent_perspective = parent_node_perspective
+    
+    
         insert_index = self.text_widget.index("insert")
         
         assert len(ret_tuple) == 7, 'wrong number of state parameters received'
@@ -1707,24 +1758,23 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         self.log("delayed_operations after the connection %s"% self.delayed_operations, color="yellow") # just for debugging
         self.log("self.state_vector %s" % self.state_vector, color="yellow") # just for debugging
     
-        # upon connection we need to enable the chat system 
-        self.chalks_instance.enableChat()
-        
-        self.connected = 1 # indicate the success
+    
+        self.chalks_instance.set_connected() # set up the flag and reflect in the gui
         return
         
-    #@nonl
     #@-node:rodrigob.20040909060311:start collaborating
     #@-others
-    
+    #@nonl
+    #@-node:rodrigob.20040913221730:connect
+    #@+node:rodrigob.20040913221730.1:disconnect
     def disconnect_from_server(self):
         """
         Disconnect from the server.
         """
     
-        deferred = self.server_perspective.callRemote("collaborate_out")
+        deferred = self.avatar.callRemote("collaborate_out")
         deferred.addCallback(self.disconnected)
-        #deferred.addErrback(self.leo_client.exception)   ## <<< commented because leo_client doesn't exist
+        deferred.addErrback(self.exception)
         
         return
     
@@ -1732,14 +1782,18 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         """
         Actions to be done by the ClientNode after his disconnection.
         """
-        
-        self.connected = 0 # indicate the end of the connection
-        
+    
+        self.chalks_instance.clear_connected() # reflect in the gui the end of the connection
+            
         # what should I do here ?, do I need to do something ?
         self.log("Disconnected from the old node.", color="gray") # just to do something
         
         return
     
+    
+    
+    #@-node:rodrigob.20040913221730.1:disconnect
+    #@-others
     
     
     
@@ -1760,9 +1814,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         """
         
         if not self.connected:
-            self.connected = 1
-            # upon connection we need to enable the chat system 
-            self.chalks_instance.enableChat()
+            self.chalks_instance.set_connected()
+            
         
         print "User %s %s is starting to collaborate" % (site_perspective.nickname, site_perspective)
         self.childrens_perspectives.append(site_perspective)
@@ -2464,38 +2517,47 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     
         
     #@nonl
-    #@+node:rodrigob.20040127185444:get users list
-    def remote_get_users_list(self, ):
-        """ 
-        Return the dictonary of map node.site_id -> user_nickname
-        """
-            
-        return {}  #<<<< implement
-        
-        
-    #@-node:rodrigob.20040127185444:get users list
     #@+node:rodrigob.20040127184605:send message
-    def remote_send_message(self, from_, to, txt, received_from):
+    def remote_send_message(self, received_from, from_, to, txt):
         """ 
+        received_from: perspective that gave to us the message
         from: string, nickname of the emitter
         to: string, nickname of the receiver
         txt: the message
-        received_from: perspective that give to us the message
         
         A remote node send a message to us
         we repeat it to every known node except from the one that gived the message to us
         if to is None, the message will be spread to all, else it will be sent only to the users named like to
         """
     
-        if (not to) or (to == self.nickname):    
-            self.log("<%s> %s" %(from_, txt) )
-        
+        #if (not to) or (to == self.nickname):    
+        #    self.log("<%s> %s" %(from_, txt) )
+        #self.log("<%s> %s" %(from_, txt) )
+            
         perspectives = self.childrens_perspectives + [self.parent_perspective]
+        
+        print "<%s> %s" %(from_, txt)
+        print "received_from",  received_from
+        print "perspectives", perspectives
+        print 
+        return # to avoid horrible loop
+        
         for t_perspective in perspectives:
-            if t_perspective and received_from!= t_perspective:
-                t_perspective.callRemote("send_message", from_, to, txt, self).addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
+            if t_perspective and received_from != t_perspective:
+                t_perspective.callRemote("send_message", from_, to, txt).addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
         return
     #@-node:rodrigob.20040127184605:send message
+    #@+node:rodrigob.20040127185444:get users list
+    def remote_get_users_list(self, ):
+        """ 
+        Return the dictonary of map node.site_id -> user_nickname
+        """
+            
+        # do we need this method ?
+        return {}  #<<<< implement
+        
+        
+    #@-node:rodrigob.20040127185444:get users list
     #@+node:rodrigob.20040127184605.1:set presence
     def remote_set_presence(self, state):
         """
@@ -2565,6 +2627,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     #@-node:rodrigob.20040126020544:insert/delete text
     #@-node:rodrigob.20040127182438:remote callable methods
     #@-others
+#@nonl
 #@-node:rodrigob.20040125154815.1:class ChalksNode
 #@+node:rodrigob.20040125194534:class ChalksAvatar
 class ChalksAvatar(pb.Avatar):
@@ -2594,18 +2657,6 @@ class ChalksAvatar(pb.Avatar):
         return
         
     #@    @+others
-    #@+node:rodrigob.20040129150513:logout
-    def logout(self,):
-        """
-        """
-        
-        # <<<< EDIT CODE # has to generate the propagation of a disconnection notification to all the other nodes....
-        
-        print "Avatar is login out self.avatarId == %s" % self.avatarId # just for debugging
-        print "User '%s' is quiting the session" % self.nickname
-            
-        return
-    #@-node:rodrigob.20040129150513:logout
     #@+node:rodrigob.20040126020641:collaborate in/out
     # Allow external users to start collaborating
     def perspective_collaborate_in(self, site_id):
@@ -2623,7 +2674,9 @@ class ChalksAvatar(pb.Avatar):
         t_state = self.node.get_state(); t_state = list(t_state);
         # Convert HB Operation objects to diccionaries
         t_HB = t_state[3]; t_HB = map(dict, t_HB); t_state[3] = t_HB;
-        return t_state
+        
+        # return the parent ChalksNode reference, and the data necesarry to start the collaboration
+        return (self.node, t_state)
         
     
     def perspective_collaborate_out(self):
@@ -2638,57 +2691,20 @@ class ChalksAvatar(pb.Avatar):
         
         return
         
-    
-    
+    #@nonl
     #@-node:rodrigob.20040126020641:collaborate in/out
-    #@+node:rodrigob.20040127190845:bi directional methods
-    #@+at
-    # this methods are common to both children->parent calls and 
-    # parent->childrens calls.
-    # So we use only one implementation. ChalksAvatar calls ChalksNode 
-    # implementation.
-    #@-at
-    #@@c
-    #@nonl
-    #@+node:rodrigob.20040125220331:messages and presence methods
-    def perspective_get_actual_users_list(self, ):
-        """ 
-        Return the dictonary of map node.site_id -> user_nickname
-        """    
-        return self.node.perspective_get_actual_users_list(who=self)
-        
-        
-    def perspective_set_presence(self, state):
+    #@+node:rodrigob.20040129150513:logout
+    def logout(self,):
         """
-        Set the presence of one user 
-        """
-        return self.node.remote_set_presence(state, who=self)
-        
-        
-    def perspective_send_message(self, from_, to, txt, received_from):
-        """ 
-        Send a message to
         """
         
-        assert received_from == self # this paremeter exist just to solve a simmetry issue
-        return self.node.remote_send_message(from_, to, txt, self)
+        # <<<< EDIT CODE # has to generate the propagation of a disconnection notification to all the other nodes....
         
-    #@nonl
-    #@-node:rodrigob.20040125220331:messages and presence methods
-    #@+node:rodrigob.20040127182541:insert/delete text
-    def perspective_insert_text(self, startpos, text, timestamp = None):
-        """ 
-        """
-        return self.node.remote_insert_text(startpos, text, timestamp, who=self)
-        
-        
-    def perspective_delete_text(self, startpos, length, timestamp = None):
-        """ 
-        """
-        return self.node.remote_delete_text(startpos, length, timestamp, who=self)
-    
-    #@-node:rodrigob.20040127182541:insert/delete text
-    #@-node:rodrigob.20040127190845:bi directional methods
+        print "Avatar is login out self.avatarId == %s" % self.avatarId # just for debugging
+        print "User '%s' is quiting the session" % self.nickname
+            
+        return
+    #@-node:rodrigob.20040129150513:logout
     #@-others
 #@nonl
 #@-node:rodrigob.20040125194534:class ChalksAvatar

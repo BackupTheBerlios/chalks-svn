@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
-<leo_header file_format="2" tnodes="0" max_tnode_index="2930" clone_windows="0"/>
-<globals body_outline_ratio="0.564885496183">
-	<global_window_position top="96" left="143" height="524" width="800"/>
+<leo_header file_format="2" tnodes="0" max_tnode_index="2931" clone_windows="0"/>
+<globals body_outline_ratio="0.462411347518">
+	<global_window_position top="0" left="0" height="705" width="1009"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -27,9 +27,9 @@
 </v>
 <v t="rodrigob.20040824110326.1"><vh>Docs</vh>
 <v t="rodrigob.20040826155317" a="EM"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
-<v t="rodrigob.20040908003956"><vh>Latex</vh>
+<v t="rodrigob.20040908003956" a="E"><vh>Latex</vh>
 <v t="rodrigob.20040908003956.1" a="E"
-expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010357.1,"><vh>@thin doc/design.tex</vh></v>
+expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234027,"><vh>@thin doc/design.tex</vh></v>
 <v t="rodrigob.20040908004300"><vh>@read-only doc/Makefile</vh></v>
 </v>
 <v t="rodrigob.20040831002540"><vh>Distribution files</vh>
@@ -1686,17 +1686,22 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040826215836"><vh>Old LeoN todo list (to purge)</vh>
 <v t="rodrigob.20040125223416" a="E"><vh>HOOK PROBLEM</vh></v>
 </v>
+<v t="rodrigob.20040913221406"><vh>Old Chalks todo list (to purge)</vh></v>
 <v t="niederberger.20040825222327.1" a="M"><vh>High</vh></v>
-<v t="niederberger.20040825222327.2" a="TV"><vh>Medium</vh></v>
+<v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
 <v t="niederberger.20040825222327.3"><vh>Low</vh></v>
 </v>
 <v t="rodrigob.20040125160038" a="E"><vh>Code perspectives</vh>
 <v t="rodrigob.20040129141624" a="EM"><vh>network</vh>
+<v t="rodrigob.20040913233519"><vh>&lt;&lt;about the connections process&gt;&gt;</vh></v>
 <v t="rodrigob.20040125154815.1" a="EM"><vh>class ChalksNode</vh>
 <v t="rodrigob.20040125154815.2" a="EM"><vh>connect to/disconnect from parent node</vh>
+<v t="rodrigob.20040913221730" a="E"><vh>connect</vh>
 <v t="rodrigob.20040909060311" a="EM"><vh>start collaborating</vh></v>
 </v>
-<v t="rodrigob.20040912225813" a="E"><vh>add/del sites</vh>
+<v t="rodrigob.20040913221730.1"><vh>disconnect</vh></v>
+</v>
+<v t="rodrigob.20040912225813"><vh>add/del sites</vh>
 <v t="rodrigob.20040912225813.1"><vh>add site</vh></v>
 <v t="rodrigob.20040912225813.2"><vh>del site</vh></v>
 </v>
@@ -1723,24 +1728,20 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 <v t="rodrigob.20040127182438" a="E"><vh>remote callable methods</vh>
 <v t="rodrigob.20040127182530" a="E"><vh>messages and presence methods</vh>
+<v t="rodrigob.20040127184605" a="MTV"><vh>send message</vh></v>
 <v t="rodrigob.20040127185444" a="M"><vh>get users list</vh></v>
-<v t="rodrigob.20040127184605"><vh>send message</vh></v>
 <v t="rodrigob.20040127184605.1"><vh>set presence</vh></v>
 </v>
-<v t="rodrigob.20040126020544" a="EM"><vh>insert/delete text</vh>
+<v t="rodrigob.20040126020544" a="M"><vh>insert/delete text</vh>
 <v t="rodrigob.20040127203753" a="M"><vh>check sites</vh></v>
 </v>
 </v>
 </v>
 <v t="rodrigob.20040125194534" a="EM"><vh>class ChalksAvatar</vh>
-<v t="rodrigob.20040129150513"><vh>logout</vh></v>
 <v t="rodrigob.20040126020641" a="M"><vh>collaborate in/out</vh></v>
-<v t="rodrigob.20040127190845" a="E"><vh>bi directional methods</vh>
-<v t="rodrigob.20040125220331"><vh>messages and presence methods</vh></v>
-<v t="rodrigob.20040127182541"><vh>insert/delete text</vh></v>
+<v t="rodrigob.20040129150513"><vh>logout</vh></v>
 </v>
-</v>
-<v t="rodrigob.20040121155420" a="EM"><vh>ConcurrentEditableNode</vh>
+<v t="rodrigob.20040121155420" a="M"><vh>ConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013418" a="E"><vh>__init__</vh></v>
 <v t="rodrigob.20040128011816"><vh>receive operation</vh></v>
 <v t="rodrigob.20040128011809" a="E"><vh>add/del site</vh>
@@ -1821,7 +1822,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040121150952.6"><vh>divideSplitter</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040122175312" a="E"><vh>menu commands</vh>
+<v t="rodrigob.20040122175312"><vh>menu commands</vh>
 <v t="rodrigob.20040123133928" a="M"><vh>open</vh></v>
 <v t="rodrigob.20040123140212"><vh>save</vh>
 <v t="rodrigob.20040125211222"><vh>save text</vh></v>
@@ -1832,19 +1833,21 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040125213003.1"><vh>&lt;&lt; validation callback &gt;&gt;</vh></v>
 <v t="niederberger.20040911120126"><vh>&lt;&lt; server monitor callback &gt;&gt;</vh></v>
 </v>
+<v t="rodrigob.20040913224357"><vh>disconnect</vh></v>
 </v>
-<v t="rodrigob.20040121153312" a="E"><vh>chat bar commands</vh>
+<v t="rodrigob.20040121153312" a="E"><vh>chat bar commands (on chat text entry)</vh>
 <v t="rodrigob.20040912221032" a="E"><vh>enable/disable Chat</vh></v>
 </v>
-<v t="rodrigob.20040124160427" a="E"><vh>status bar commands</vh>
+<v t="rodrigob.20040124160427"><vh>status bar commands</vh>
 <v t="rodrigob.20040121153834.4"><vh>updateStatusRowCol</vh></v>
 </v>
-<v t="rodrigob.20040123123802" a="EM"><vh>help command</vh>
+<v t="rodrigob.20040123123802" a="M"><vh>help command</vh>
 <v t="rodrigob.20040123132311.1" a="E"><vh>&lt;&lt; chalks help &gt;&gt;</vh>
 <v t="rodrigob.20040126020116"><vh>network graph (about Server, Client, Children, Parent, and Trees)</vh></v>
 </v>
 <v t="rodrigob.20040122173128" a="M"><vh>online_homepage</vh></v>
 </v>
+<v t="rodrigob.20040913232538"><vh>set/clear connected</vh></v>
 </v>
 <v t="rodrigob.20040123133012"><vh>log</vh>
 <v t="rodrigob.20040123134959"><vh>log_error</vh></v>
@@ -1877,9 +1880,9 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 </v>
 </v>
-<v t="rodrigob.20040119132914" a="E"
-marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040127185444,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040126020641,"
-expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040121150952.7,rodrigob.20040122175312,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040124160427,rodrigob.20040123123802,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040912225813,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040126020544,rodrigob.20040125194534,rodrigob.20040127190845,"><vh>@thin Chalks.py</vh></v>
+<v t="rodrigob.20040119132914"
+marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040127184605,rodrigob.20040127185444,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040126020641,"
+expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040125194534,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.20040125151012"><vh>@thin Chalks.xhtml</vh></v>
 <v t="rodrigob.121403173614.1502"
 marks="rodrigob.121403173614.1509,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040130224144,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
@@ -1887,7 +1890,7 @@ expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.1214031
 <v t="rodrigob.20040912220039"
 marks="rodrigob.20040912220039.14,rodrigob.20040912220039.15,rodrigob.20040912220039.16,rodrigob.20040912220039.17,rodrigob.20040912220039.18,rodrigob.20040912220039.19,rodrigob.20040912220039.21,rodrigob.20040912220039.22,rodrigob.20040912220039.23,rodrigob.20040912220039.25,rodrigob.20040912220039.26,rodrigob.20040912220039.27,rodrigob.20040912220039.28,rodrigob.20040912220039.29,rodrigob.20040912220039.30,rodrigob.20040912220039.31,rodrigob.20040912220039.32,rodrigob.20040912220039.33,rodrigob.20040912220039.34,rodrigob.20040912220039.35,rodrigob.20040912220039.37,rodrigob.20040912220039.38,rodrigob.20040912220039.39,rodrigob.20040912220039.40,rodrigob.20040912220039.42,rodrigob.20040912220039.43,rodrigob.20040912220039.44,rodrigob.20040912220039.45,rodrigob.20040912220039.47,rodrigob.20040912220039.48,rodrigob.20040912220039.49,rodrigob.20040912220039.50,rodrigob.20040912220039.52,rodrigob.20040912220039.53,rodrigob.20040912220039.54,rodrigob.20040912220039.55,rodrigob.20040912220039.57,rodrigob.20040912220039.58,rodrigob.20040912220039.59,rodrigob.20040912220039.60,rodrigob.20040912220039.62,rodrigob.20040912220039.63,rodrigob.20040912220039.64,rodrigob.20040912220039.65,rodrigob.20040912220039.66,rodrigob.20040912220039.67,rodrigob.20040912220039.68,rodrigob.20040912220039.69,rodrigob.20040912220039.70,rodrigob.20040912220039.71,rodrigob.20040912220039.72,rodrigob.20040912220039.73,rodrigob.20040912220039.75,rodrigob.20040912220039.76,rodrigob.20040912220039.77,rodrigob.20040912220039.78,rodrigob.20040912220039.79,rodrigob.20040912220039.80,rodrigob.20040912220039.81,rodrigob.20040912220039.82,rodrigob.20040912220039.83,rodrigob.20040912220039.84,rodrigob.20040912220039.85,rodrigob.20040912220039.86,rodrigob.20040912220039.87,rodrigob.20040912220039.88,rodrigob.20040912220039.89,rodrigob.20040912220039.90,rodrigob.20040912220039.92,rodrigob.20040912220039.93,rodrigob.20040912220039.94,rodrigob.20040912220039.95,rodrigob.20040912220039.96,rodrigob.20040912220039.97,rodrigob.20040912220039.98,rodrigob.20040912220039.100,rodrigob.20040912220039.101,rodrigob.20040912220039.102,rodrigob.20040912220039.103,rodrigob.20040912220039.104,rodrigob.20040912220039.105,rodrigob.20040912220039.107,rodrigob.20040912220039.108,rodrigob.20040912220039.110,rodrigob.20040912220039.111,rodrigob.20040912220039.113,rodrigob.20040912220039.114,rodrigob.20040912220039.115,rodrigob.20040912220039.116,rodrigob.20040912220039.118,rodrigob.20040912220039.119,rodrigob.20040912220039.120,rodrigob.20040912220039.121,rodrigob.20040912220039.122,rodrigob.20040912220039.123,rodrigob.20040912220039.124,rodrigob.20040912220039.125,rodrigob.20040912220039.126,rodrigob.20040912220039.127,rodrigob.20040912220039.128,rodrigob.20040912220039.129,rodrigob.20040912220039.130,rodrigob.20040912220039.131,rodrigob.20040912220039.132,rodrigob.20040912220039.133,rodrigob.20040912220039.134,rodrigob.20040912220039.136,rodrigob.20040912220039.137,rodrigob.20040912220039.138,rodrigob.20040912220039.139,rodrigob.20040912220039.140,rodrigob.20040912220039.141,rodrigob.20040912220039.142,rodrigob.20040912220039.143,rodrigob.20040912220039.144,rodrigob.20040912220039.145,rodrigob.20040912220039.146,rodrigob.20040912220039.147,rodrigob.20040912220039.148,rodrigob.20040912220039.149,rodrigob.20040912220039.150,rodrigob.20040912220039.151,rodrigob.20040912220039.152,rodrigob.20040912220039.153,rodrigob.20040912220039.154,"
 expanded="rodrigob.20040912220039.13,"><vh>@thin Rendezvous.py</vh></v>
-<v t="rodrigob.20040912211519" a="E"><vh>Tests</vh>
+<v t="rodrigob.20040912211519"><vh>Tests</vh>
 <v t="rodrigob.20040125173910"><vh>@thin Test_Chalks.py</vh></v>
 <v t="rodrigob.20040912211426"
 expanded="rodrigob.20040912211426.2,"><vh>@thin Test_ChalksServerMonitor.py</vh></v>
@@ -3302,13 +3305,11 @@ Example:
 <t tx="niederberger.20040825222327">@language plain
 This node contains reminders and all things left to do in general, grouped by priority.
 Currently they may be related to coding, researching, packaging, everything.</t>
-<t tx="niederberger.20040825222327.1">- I'm tired there is a problem in the management of the perspective. The Children perspective is not simetric to the parent perspective.
-Childrens call parents's remote_send_message but parents call children's perspective_send_message.
-Arrrgghhh got a mess with Perspectives, Pb.Referenceable and callRemote, need to sleep.
-
+<t tx="niederberger.20040825222327.1">- Arrrgghhh now Chat messages generate an horrible network packet loop !!! (read &lt;about the connections process&gt;)
 
 - Get chat working
 
+- why does Test_Chalks is sooo slow to quit ?
 
 - Why does site show the insertion point index and the other one does not ? (left of the chat bar)
 
@@ -3321,12 +3322,23 @@ Arrrgghhh got a mess with Perspectives, Pb.Referenceable and callRemote, need to
 exceptions.AssertionError: In ConcurrentEditableNode the transmited time stamps are expected to be dictionaries that map &lt;known_site_id&gt; =&gt; &lt;num_of_operations_we_know_he_has_created&gt; OR to be a local state vector timestamp
 
 
-  </t>
+- in Test_Chalks, separete both instance stdout redirection (run in threads ?)
+
+</t>
 <t tx="niederberger.20040825222327.2">- we should add to rendezvous published data which filename we are serving, and unregister our server and register it again with the new filename when a new file is opened
   currently it registers only once at startup and unregisters on app shutdown. 
   But before all that, implement unRegisterServer() method on ChalksServerMonitor
+  
+
+- should rename self.chalks_instance as self.chalks_gui  (I think it is a more explicit name)
+
+
+- the rendezvous system does not seems to be working under linux
 </t>
-<t tx="niederberger.20040825222327.3">- Implement a LiveEvil nevow web front end to the chat sessions, will be so cool.</t>
+<t tx="niederberger.20040825222327.3">- Implement a LiveEvil nevow web front end to the chat sessions, will be so cool.
+
+
+- implement a persistence system for the user options (using python default tools) (need to save the nickname... last edited files... and ?)</t>
 <t tx="niederberger.20040906222819">Components of Chalks are Python, Twisted, ConcurrentEditable and Tkinter.
 
 &gt;&gt; improve it later and actually give a general view of how parts fit together &lt;&lt;
@@ -27694,7 +27706,7 @@ P.S.: linux users, I recommend to take a look at another great open source proje
 28/01/04 Doing some GC tests, debuging. RodrigoB.
 
 24/08/04 Separating Chalks from LeoN. LeoN has died, long live to Chalks !. RodrigoB.
-??/08/04 Working. RodrigoB &amp; RicardoN.
+??/0?/04 Working. RodrigoB &amp; RicardoN. Logs are keept in the svn server.
 
 
 /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
@@ -29430,7 +29442,7 @@ def onDragSplitterBar (self, event, verticalFlag):
     else:
         t_from = self.node.nickname
         t_to = None # to everyone
-        self.node.remote_send_message(t_from, t_to, txt, self.node)
+        self.node.remote_send_message(self.node, t_from, t_to, txt)
     
     return
 
@@ -29528,7 +29540,7 @@ self.menu_bar = Menu(root,)
 
 # File, Save, Open, Connect to; Help, about, help, online homepage
 
-file_menu = Menu(self.menu_bar,)
+self.file_menu = file_menu = Menu(self.menu_bar,)
 
 file_menu.add_command(label="Connect to", underline=0, accelerator="Ctrl+T", command= self.onConnectTo)
 file_menu.add_separator()
@@ -30197,7 +30209,7 @@ text_widget.bind(virtual_event_name("Paste"), self.onPaste)</t>
 <t tx="rodrigob.20040125154815.1">from ConcurrentEditable import ConcurrentEditableNode
 from ConcurrentEditable import ConcurrentEditable # needed by remote_delete_text()
         
-class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
+class ChalksNode(ConcurrentEditableNode, pb.Viewable):
     """
     This is the local instance that take care of the collaborative edition and the network layers.
     This is the core object under the GUI.
@@ -30232,6 +30244,14 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
             setattr(self, t_name, getattr(Chalks_instance, t_name))
         self.log = lambda text, *args, **kws: Chalks_instance.log("\n%s" % text) # dummy trick
         
+        # rename every remote_ method in view_ method
+        remote_methods = ['_'.join(x.split('_')[1:]) for x in dir(self) if x.split('_')[0] == "remote"] # ugly hack
+        print "remote_methods", remote_methods
+        for t_name in remote_methods:
+            setattr(self, "view_"+t_name, getattr(self, "remote_"+t_name))
+            print "Add method %s to ChalksNode class"%("view_"+t_name)
+
+        
         self.text_widget = Chalks_instance.text_widget
         self.text_widget.tag_config("to_send", relief= RAISED, borderwidth=4, background= "beige")# work fine in Linux
             
@@ -30256,65 +30276,9 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         """
         self.chalks_instance.log_error(text)
     
-    @others
-</t>
-<t tx="rodrigob.20040125154815.2">def connect_to_parent(self, address, port, nickname="No name"):
-    """
-    Connect as a children to a parent node
-    """
-    print "Requesting a connection to 'chalks://%s:%s' as '%s', please wait..." % (address, port, nickname)
-    
-    assert isinstance(port, int), 'port must be integer'
-    self.nickname = nickname    
-    
-    factory = pb.PBClientFactory()
-    reactor.connectTCP(address, port, factory)
-    factory.login(credentials.UsernamePassword(nickname, "guest"), client=self).addCallbacks(self.logged_in, self.exception)
-
-    return
-    
-def logged_in(self, parent_perspective):
-    """
-    Start collaborating with the parent
-    """
-
-    self.parent_perspective = parent_perspective
-        
-    # we obtain us site_id
-    t_address = self.parent_perspective.broker.transport.getHost()
-    self.site_id = hash("%s:%i" % (t_address.host, t_address.port))
-
-    deferred = self.parent_perspective.callRemote("collaborate_in", self.site_id)
-    deferred.addCallback(self.start_collaborating).addErrback(self.exception)
-                            
-    return
-
-
+    @others</t>
+<t tx="rodrigob.20040125154815.2">
 @others
-
-def disconnect_from_server(self):
-    """
-    Disconnect from the server.
-    """
-
-    deferred = self.server_perspective.callRemote("collaborate_out")
-    deferred.addCallback(self.disconnected)
-    #deferred.addErrback(self.leo_client.exception)   ## &lt;&lt;&lt; commented because leo_client doesn't exist
-    
-    return
-
-def disconnected(self, *args):
-    """
-    Actions to be done by the ClientNode after his disconnection.
-    """
-    
-    self.connected = 0 # indicate the end of the connection
-    
-    # what should I do here ?, do I need to do something ?
-    self.log("Disconnected from the old node.", color="gray") # just to do something
-    
-    return
-
 
 
 
@@ -31089,28 +31053,6 @@ def save_text(self,):
     
     return
 </t>
-<t tx="rodrigob.20040125220331">def perspective_get_actual_users_list(self, ):
-    """ 
-    Return the dictonary of map node.site_id -&gt; user_nickname
-    """    
-    return self.node.perspective_get_actual_users_list(who=self)
-    
-    
-def perspective_set_presence(self, state):
-    """
-    Set the presence of one user 
-    """
-    return self.node.remote_set_presence(state, who=self)
-    
-    
-def perspective_send_message(self, from_, to, txt, received_from):
-    """ 
-    Send a message to
-    """
-    
-    assert received_from == self # this paremeter exist just to solve a simmetry issue
-    return self.node.remote_send_message(from_, to, txt, self)
-    </t>
 <t tx="rodrigob.20040125223416">@
 what if text is inserted while a char as typed but not yet marked by the "after_idle". That would cause a 'one char' fatal error !!!
 Chars marking has to be done as soon as the char is aviable; OR the text insertion have to be done when we are sure that not pending makring exist...</t>
@@ -31179,7 +31121,9 @@ def perspective_collaborate_in(self, site_id):
     t_state = self.node.get_state(); t_state = list(t_state);
     # Convert HB Operation objects to diccionaries
     t_HB = t_state[3]; t_HB = map(dict, t_HB); t_state[3] = t_HB;
-    return t_state
+    
+    # return the parent ChalksNode reference, and the data necesarry to start the collaboration
+    return (self.node, t_state)
     
 
 def perspective_collaborate_out(self):
@@ -31193,10 +31137,7 @@ def perspective_collaborate_out(self):
     self.site_id = None
     
     return
-    
-
-
-</t>
+    </t>
 <t tx="rodrigob.20040127182438">@
 The ChalksNode is a referenceable object that is passed at connection, define what us 'parent' (the node to which we connected) can do on the local node.
 @c</t>
@@ -31209,37 +31150,33 @@ So we use only this implementation. The ChalksAvatar equivalent methods, call th
 
 
     </t>
-<t tx="rodrigob.20040127182541">def perspective_insert_text(self, startpos, text, timestamp = None):
+<t tx="rodrigob.20040127184605">def remote_send_message(self, received_from, from_, to, txt):
     """ 
-    """
-    return self.node.remote_insert_text(startpos, text, timestamp, who=self)
-    
-    
-def perspective_delete_text(self, startpos, length, timestamp = None):
-    """ 
-    """
-    return self.node.remote_delete_text(startpos, length, timestamp, who=self)
-
-</t>
-<t tx="rodrigob.20040127184605">def remote_send_message(self, from_, to, txt, received_from):
-    """ 
+    received_from: perspective that gave to us the message
     from: string, nickname of the emitter
     to: string, nickname of the receiver
     txt: the message
-    received_from: perspective that give to us the message
     
     A remote node send a message to us
     we repeat it to every known node except from the one that gived the message to us
     if to is None, the message will be spread to all, else it will be sent only to the users named like to
     """
 
-    if (not to) or (to == self.nickname):    
-        self.log("&lt;%s&gt; %s" %(from_, txt) )
-    
+    #if (not to) or (to == self.nickname):    
+    #    self.log("&lt;%s&gt; %s" %(from_, txt) )
+    #self.log("&lt;%s&gt; %s" %(from_, txt) )
+        
     perspectives = self.childrens_perspectives + [self.parent_perspective]
+    
+    print "&lt;%s&gt; %s" %(from_, txt)
+    print "received_from",  received_from
+    print "perspectives", perspectives
+    print 
+    return # to avoid horrible loop
+    
     for t_perspective in perspectives:
-        if t_perspective and received_from!= t_perspective:
-            t_perspective.callRemote("send_message", from_, to, txt, self).addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
+        if t_perspective and received_from != t_perspective:
+            t_perspective.callRemote("send_message", from_, to, txt).addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
     return
 </t>
 <t tx="rodrigob.20040127184605.1">def remote_set_presence(self, state):
@@ -31260,14 +31197,11 @@ def perspective_delete_text(self, startpos, length, timestamp = None):
     Return the dictonary of map node.site_id -&gt; user_nickname
     """
         
+    # do we need this method ?
     return {}  #&lt;&lt;&lt;&lt; implement
     
     
 </t>
-<t tx="rodrigob.20040127190845">@
-this methods are common to both children-&gt;parent calls and parent-&gt;childrens calls.
-So we use only one implementation. ChalksAvatar calls ChalksNode implementation.
-@c</t>
 <t tx="rodrigob.20040127203753">def check_sites(self,):
     # &lt;&lt;&lt;&lt; what is this method supposed to do ?
     pass</t>
@@ -32712,6 +32646,12 @@ code related to the concurrent edition system</t>
     """
     Callback for the connection procedure.        
     """
+
+    parent_node_perspective, ret_tuple  = ret_tuple
+    # receive the parent ChalksNode reference
+    self.parent_perspective = parent_node_perspective
+
+
     insert_index = self.text_widget.index("insert")
     
     assert len(ret_tuple) == 7, 'wrong number of state parameters received'
@@ -32755,12 +32695,11 @@ code related to the concurrent edition system</t>
     self.log("delayed_operations after the connection %s"% self.delayed_operations, color="yellow") # just for debugging
     self.log("self.state_vector %s" % self.state_vector, color="yellow") # just for debugging
 
-    # upon connection we need to enable the chat system 
-    self.chalks_instance.enableChat()
-    
-    self.connected = 1 # indicate the success
+
+    self.chalks_instance.set_connected() # set up the flag and reflect in the gui
     return
-    </t>
+    
+</t>
 <t tx="rodrigob.20040912211519"></t>
 <t tx="rodrigob.20040912221032">def enableChat(self):    
     """
@@ -32790,9 +32729,8 @@ Register/Unregister childrens in the session</t>
     """
     
     if not self.connected:
-        self.connected = 1
-        # upon connection we need to enable the chat system 
-        self.chalks_instance.enableChat()
+        self.chalks_instance.set_connected()
+        
     
     print "User %s %s is starting to collaborate" % (site_perspective.nickname, site_perspective)
     self.childrens_perspectives.append(site_perspective)
@@ -32814,5 +32752,154 @@ Register/Unregister childrens in the session</t>
         self.chalks_instance.disableChat()
     return
     </t>
+<t tx="rodrigob.20040913221406">Todo
+----
+
+- need to make congruent the def start_collaborating(self, ret_tuple): expected data, and the ConcurrentEditableNode.get_state return tuple
+
+- work on ConcurrentEditableNode, ChalksNode
+- ChalksNode should be the Chalks realm
+
+- create the base network class
+- how to obtain TCP connections IPs
+    perspective.broker.transport
+    =&gt; getPeer() address to which we connect
+    =&gt; getHost() address from where we connect
+
+
+- Connect To dialog should show default values !! (implement the options persistence system, using ConfigParser.ConfigParser, add_section, write, set(section, option, value), get(section, option))
+- parse argv options (using twisted options system) to allow disabling web service
+
+- implement the file open complications
+- document the system internals, add docustrings for the methods
+- clean up the "self.splitVerticalFlag" / "verticalFlag"  usage
+- create a circle similar configuration file system
+- when connected, the "connect to" menu should become a "Disconnect" option
+- write the help text
+</t>
+<t tx="rodrigob.20040913221730">def connect_to_parent(self, address, port, nickname="No name"):
+    """
+    Connect as a children to a parent node
+    """
+    print "Requesting a connection to 'chalks://%s:%s' as '%s', please wait..." % (address, port, nickname)
+    
+    assert isinstance(port, int), 'port must be integer'
+    self.nickname = nickname    
+    
+    factory = pb.PBClientFactory()
+    reactor.connectTCP(address, port, factory)
+    factory.login(credentials.UsernamePassword(nickname, "guest"), client=self).addCallbacks(self.logged_in, self.exception)
+
+    return
+    
+def logged_in(self, avatar):
+    """
+    Start collaborating with the parent
+    """
+
+    self.avatar = avatar
+        
+    # we obtain us site_id
+    t_address = self.avatar.broker.transport.getHost()
+    self.site_id = hash("%s:%i" % (t_address.host, t_address.port))
+
+    deferred = self.avatar.callRemote("collaborate_in", self.site_id)
+    deferred.addCallback(self.start_collaborating).addErrback(self.exception)
+                            
+    return
+
+@others</t>
+<t tx="rodrigob.20040913221730.1">def disconnect_from_server(self):
+    """
+    Disconnect from the server.
+    """
+
+    deferred = self.avatar.callRemote("collaborate_out")
+    deferred.addCallback(self.disconnected)
+    deferred.addErrback(self.exception)
+    
+    return
+
+def disconnected(self, *args):
+    """
+    Actions to be done by the ClientNode after his disconnection.
+    """
+
+    self.chalks_instance.clear_connected() # reflect in the gui the end of the connection
+        
+    # what should I do here ?, do I need to do something ?
+    self.log("Disconnected from the old node.", color="gray") # just to do something
+    
+    return
+
+
+
+</t>
+<t tx="rodrigob.20040913224357">def onDisconnect(self, event=None):
+    """
+    Disconnect dialog
+    """
+    
+    from tkMessageBox import askokcancel
+    ret = askokcancel("Confirm disconnection",
+                      "You are connected to a remote server. Opening another file will close this connection. Proceed ?")
+
+    if not ret:
+        print "Disconnection cancelled"
+        return
+    else:
+        print "Starting disconnection"           
+        
+    # disconnect ourself from the network
+    self.node.disconnect_from_server()
+    
+    return
+</t>
+<t tx="rodrigob.20040913232538"># where to place this node ?
+
+def set_connected(self,):
+    """
+    Set the connected flag and conmute the asociated gui elements
+    """
+    
+    # upon connection we need to enable the chat system 
+    self.enableChat()
+        
+    # update the menu bar
+    self.file_menu.entryconfig(1, label="Disconnect", command = self.onDisconnect)
+    #file_menu.add_command(label="Connect to", underline=0, accelerator="Ctrl+T", command= self.onConnectTo)
+    
+    self.connected = 1
+    return
+    
+def clear_connected(self,):
+    """
+    Clear the connected flag and conmute the asociated gui elements
+    """
+    
+    # upon connection we need to enable the chat system 
+    self.disableChat()
+                
+    # update the menu bar
+    self.file_menu.entryconfig(1, label="Connect to", command = self.onConnectTo)
+    #self.file_menu.entryconfig(1, label="Disconnect", command = self.onDisconnect)
+    #file_menu.add_command(label="Connect to", underline=0, accelerator="Ctrl+T", command= self.onConnectTo)
+    
+    self.connected = 0
+    return</t>
+<t tx="rodrigob.20040913233519">@language latex
+@color
+\section{About the connections process}
+
+The Children start a connection. The ChalksNode object request a connection to the parent. 
+
+The parent receive access to the children as a reference to ChalksNode and the children gets access to the parent obtaining access to a ChalksAvatar instance created in the parent side.
+
+ChalksNode can receive calls to the remote\_ (view\_ ) methods.
+ChalksAvatar can receive calls to the perspective\_ methods.
+
+We want the childrens able to call the ChalksNode methods. Thus when the Childrens call the collaborate\_in using his avatar on the parent side, he receive back (in a huge list of params) the parents ChalksNode reference.
+
+</t>
 </tnodes>
 </leo_file>

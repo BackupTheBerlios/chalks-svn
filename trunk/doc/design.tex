@@ -482,6 +482,32 @@ The number of dialogs is also minimal, and they complexity very low.
 %@-others
 %@nonl
 %@-node:rodrigob.20040908172407.2:Design Proposal
+%@+node:rodrigob.20040913234027:Notes
+\chapter{Notes}
+
+Misceleanous notes about sections or aspects of the code.
+
+%@<<about the connections process>>
+%@+node:rodrigob.20040913233519:<<about the connections process>>
+%@@language latex
+%@@color
+\section{About the connections process}
+
+The Children start a connection. The ChalksNode object request a connection to the parent. 
+
+The parent receive access to the children as a reference to ChalksNode and the children gets access to the parent obtaining access to a ChalksAvatar instance created in the parent side.
+
+ChalksNode can receive calls to the remote\_ (view\_ ) methods.
+ChalksAvatar can receive calls to the perspective\_ methods.
+
+We want the childrens able to call the ChalksNode methods. Thus when the Childrens call the collaborate\_in using his avatar on the parent side, he receive back (in a huge list of params) the parents ChalksNode reference.
+
+%@-node:rodrigob.20040913233519:<<about the connections process>>
+%@nl
+%@+others
+%@-others
+%@nonl
+%@-node:rodrigob.20040913234027:Notes
 %@-others
 
 \end{document}
