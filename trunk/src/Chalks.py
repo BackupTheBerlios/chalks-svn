@@ -2494,11 +2494,32 @@ class ChalksServerMonitor(object):
         return self.servers
         
     def startListening(self):
-        from Rendezvous import Rendezvous, ServiceBrowser        # <<< will need to be updated if module location changes
+        from Rendezvous import Rendezvous, ServiceBrowser
         print "Started listening local network for Chalks servers ..."
         r = Rendezvous()
         type = "_chalks._tcp.local."
         browser = ServiceBrowser(r, type, self)
+    
+    def registerService(self, name, host, port, owner = "unknown", private = 0):
+        """ 
+        Registers a service provider with the supplied parameters on mDNS records.  Parameter examples:
+
+        host = "10.64.97.7"
+        port = 9870
+        name = "My test CHalks server"
+        owner = "John Smith"
+        private = 0    # 0 or 1, if it requires a key to join
+        
+        """
+        from Rendezvous import Rendezvous, ServiceInfo
+        print "Registering your server with rendezvous ..."        
+        # register record with Rendezvous
+        r = Rendezvous()
+        desc = {'owner':owner,
+                'private':private,
+                }
+        info = ServiceInfo("_chalks._tcp.local.", name + "._chalks._tcp.local.", socket.inet_aton(host), port, 0, 0, desc)
+        r.registerService(info)
 
 #@-node:niederberger.20040909124137:class ChalksServerMonitor
 #@+node:rodrigob.20040119132949:class FileStack

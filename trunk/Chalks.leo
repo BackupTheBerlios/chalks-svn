@@ -2,7 +2,7 @@
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2927" clone_windows="0"/>
 <globals body_outline_ratio="0.33475177305">
-	<global_window_position top="0" left="0" height="705" width="1009"/>
+	<global_window_position top="10" left="10" height="986" width="1280"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -32,9 +32,11 @@
 expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010357.1,"><vh>@thin doc/design.tex</vh></v>
 <v t="rodrigob.20040908004300"><vh>@read-only doc/Makefile</vh></v>
 </v>
-<v t="rodrigob.20040831002540"><vh>Distribution files</vh>
-<v t="rodrigob.20040826154516"><vh>@thin README</vh></v>
-<v t="rodrigob.20040831001818"><vh>@thin AUTHORS</vh></v>
+<v t="rodrigob.20040831002540" a="E"><vh>Distribution files</vh>
+<v t="rodrigob.20040826154516" a="E"
+marks="rodrigob.20040826155317,"><vh>@thin README</vh></v>
+<v t="rodrigob.20040831001818" a="E"
+marks="rodrigob.20040826155317,"><vh>@thin AUTHORS</vh></v>
 <v t="rodrigob.20040831002026" a="E"><vh>@thin COPYING</vh></v>
 <v t="rodrigob.20040831004246"><vh>@thin ./src/setup.py</vh></v>
 <v t="rodrigob.20040831002444"><vh>@thin ./src/setup.cfg</vh></v>
@@ -30644,7 +30646,10 @@ Rodrigo Benenson Díaz (rodrigob at elo.utfsm.cl)
 Ricardo Niederberger Cabral (ncabral at terra.com.br)
 -------------------------------------------------------------
 
-The collaborative editing code is based research papers of Chengzheng Sun.
+- The collaborative editing code is based research papers of Chengzheng Sun.
+
+- Rendezvous.py module was written by Paul Scott-Murphy 
+  (http://sourceforge.net/projects/pyzeroconf)
 </t>
 <t tx="rodrigob.20040826215836">Todo /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
 
