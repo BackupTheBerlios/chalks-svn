@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2930" clone_windows="0"/>
-<globals body_outline_ratio="0.33475177305">
-	<global_window_position top="39" left="-60" height="986" width="1280"/>
+<globals body_outline_ratio="0.429006085193">
+	<global_window_position top="32" left="4" height="986" width="1280"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -1686,7 +1686,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040826215836"><vh>Old LeoN todo list (to purge)</vh>
 <v t="rodrigob.20040125223416" a="E"><vh>HOOK PROBLEM</vh></v>
 </v>
-<v t="niederberger.20040825222327.1" a="MTV"><vh>High</vh></v>
+<v t="niederberger.20040825222327.1" a="M"><vh>High</vh></v>
 <v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
 <v t="niederberger.20040825222327.3"><vh>Low</vh></v>
 </v>
@@ -1694,9 +1694,9 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040129141624" a="M"><vh>network</vh>
 <v t="rodrigob.20040125154815.1" a="EM"><vh>class ChalksNode</vh>
 <v t="rodrigob.20040125154815.2" a="EM"><vh>connect to/disconnect from parent node</vh>
-<v t="rodrigob.20040909060311" a="M"><vh>start collaborating</vh></v>
+<v t="rodrigob.20040909060311" a="EM"><vh>start collaborating</vh></v>
 </v>
-<v t="rodrigob.20040125154815.3" a="E"><vh>edit content</vh>
+<v t="rodrigob.20040125154815.3"><vh>edit content</vh>
 <v t="rodrigob.20040125154815.4" a="EM"><vh>set text</vh></v>
 <v t="rodrigob.20040125154815.5"><vh>insert text</vh></v>
 <v t="rodrigob.20040125154815.6" a="M"><vh>delete text</vh></v>
@@ -1790,7 +1790,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 <v t="rodrigob.20040119132914" a="EM"
 marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040127185444,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040126020641,"
-expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040123133012,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040121150952.7,rodrigob.20040122175312,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.2,rodrigob.20040125154815.3,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040126020544,rodrigob.20040127190845,"><vh>@thin Chalks.py</vh></v>
+expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040123133012,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040126020544,rodrigob.20040125194534,rodrigob.20040127190845,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.20040125173910"><vh>@thin Test_Chalks.py</vh></v>
 <v t="rodrigob.20040125151012"><vh>@thin Chalks.xhtml</vh></v>
 <v t="rodrigob.121403173614.1502"
@@ -29039,9 +29039,7 @@ def set_cursor_position(self, who, pos):
 <t tx="rodrigob.20040125154815.4">def set_text(self, new_text):
     """
     Blindly overwrite the text of this site. (including the "to_send" elements)
-    """
-    assert new_text, 'you were supposed to send me some text'
-    
+    """    
     self.log( "Calling set_text '%s'"%(new_text), color="yellow" ) # for debugging
     
     # maintain an unicode buffer equivalent
@@ -29848,7 +29846,7 @@ def perspective_delete_text(self, startpos, length, timestamp = None):
 
     self.log("&lt;%s&gt; %s" %(who.nickname, txt) )
     
-    for t_perspective in self.users.values():
+    for t_perspective in self.users.values():  # self.users doesn't exist, so chat won't work until all this code is fixed.
         if who != t_perspective:
             t_perspective.callRemote("post_message", self.name, txt).addErrback(lambda _, name: self.log_error("Could not send a message to user %s"), t_perspective.nickname)
     return
@@ -31349,7 +31347,7 @@ code related to the concurrent edition system</t>
     self.log("self.state_vector %s" % self.state_vector, color="yellow") # just for debugging
 
     # upon connection we need to enable the chat system 
-    # &lt;&lt;&lt;&lt; EDIT CODE HERE
+    self.chalks_instance.enableChat()
     
     self.connected = 1 # indicate the success
     return

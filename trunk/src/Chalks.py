@@ -748,13 +748,13 @@ class Chalks:
         parent = pane1
         self.chat_bar = chat_bar = Frame( parent, borderwidth=1,relief=SUNKEN)
         
-        self.rowcol_label = Label(chat_bar, textvariable=self.rowcol_stringvar, anchor=W)
+        self.rowcol_label = Label(chat_bar, textvariable=self.rowcol_stringvar, anchor=W)   
         self.rowcol_label.pack(side=LEFT, padx=1)
         
         # the entry is a text widget of fixed heigth 1. The '\n' keystroke is related to a function call. then users can send lines, and have an history.
         
         log = self.log_widget
-        text = Text(chat_bar, height=1, background = log["background"], font = log["font"])
+        self.chat_text_entry = text = Text(chat_bar, height=1, background = log["background"], font = log["font"])
         text.pack(side=RIGHT, fill=BOTH, expand=1)
         text.bind("<Return>", self.onChattextEntry )
         
@@ -1415,11 +1415,17 @@ class Chalks:
                 cmd = txt.split(' ')[0]
                 self.log_error("Unknown command '%s'; message not sent.\nUse '/help' to get some guidance."%(cmd))	
         else:
-            self.perspective.callRemote("send_message", txt).addErrback(self.exception)
+            #self.node.parent_perspective.callRemote("send_message", txt).addErrback(self.exception)
+            self.node.remote_send_message(txt, self.node)
         
         return
     
-    
+    def enableChat(self):    
+        """
+        enables chat text entry widget
+        """    
+        self.chat_text_entry["state"] = NORMAL    
+        
     #@-node:rodrigob.20040121153312:chat bar commands
     #@+node:rodrigob.20040124160427:status bar commands
     #@+node:rodrigob.20040121153834.4:updateStatusRowCol
@@ -1656,7 +1662,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         self.log("self.state_vector %s" % self.state_vector, color="yellow") # just for debugging
     
         # upon connection we need to enable the chat system 
-        # <<<< EDIT CODE HERE
+        self.chalks_instance.enableChat()
         
         self.connected = 1 # indicate the success
         return
@@ -1720,9 +1726,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     def set_text(self, new_text):
         """
         Blindly overwrite the text of this site. (including the "to_send" elements)
-        """
-        assert new_text, 'you were supposed to send me some text'
-        
+        """    
         self.log( "Calling set_text '%s'"%(new_text), color="yellow" ) # for debugging
         
         # maintain an unicode buffer equivalent
@@ -2395,7 +2399,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     
         self.log("<%s> %s" %(who.nickname, txt) )
         
-        for t_perspective in self.users.values():
+        for t_perspective in self.users.values():  # self.users doesn't exist, so chat won't work until all this code is fixed.
             if who != t_perspective:
                 t_perspective.callRemote("post_message", self.name, txt).addErrback(lambda _, name: self.log_error("Could not send a message to user %s"), t_perspective.nickname)
         return
