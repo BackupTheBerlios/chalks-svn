@@ -7,8 +7,8 @@
 #@@language python
 
 #@+at
-# Chalks is a simplified LeoN application. Pretend to give ultra easy usage to 
-# allow massive usage of this tecnology.
+# Chalks is a simplified LeoN application. Intended to give ultra easy usage in order to 
+# allow massive employment of this technology.
 # This program is one pure python package. Most of the code is derived from 
 # LeoN and Leo base code.
 # http://souvenirs.sf.net
@@ -26,10 +26,11 @@
 # 03/02/04 Working. RodrigoB.
 # 12/02/04 Minor bugfix. RodrigoB.
 # 19/02/04 Debugging. RodrigoB.
+#
+# 25/08/04 Project ressurected. Ricardo Niederberger Cabral joined development efforts.
 # 
 # Todo
 # ----
-# 
 # 
 # - need to make congruent the def start_collaborating(self, ret_tuple): 
 # expected data, and the ConcurrentEditableNode.get_state return tuple
@@ -62,7 +63,7 @@
 from Tkinter import *
 from Tkconstants import *
 
-# the first thing that we need to do is to install us in the Tkinter loop.
+# the first thing that we need to do is to install the Tkinter loop.
 from twisted.internet import tksupport
 from twisted.internet import reactor
 
@@ -126,8 +127,8 @@ from twisted.python import failure
 #@+node:class Chalks
 class Chalks:
     """
-    Main class that construct the Graphical User Interface and contain other interactive objects, as the CollaborativeEditableNode.
-    This class take care principaly of the Gui, the other tasks are delegated (components architecture, has-a architecture).
+    Main class that builds the Graphical User Interface and contains other interactive objects, such as the CollaborativeEditableNode.
+    This class takes care mainly of the GUI. Other tasks are delegated (components architecture, has-a architecture).
     """
     
     #@    @+others
@@ -142,13 +143,14 @@ class Chalks:
         self.body(root) # build the gui
        
         self.encoding = "utf-8" # is this standard, sustainable ?
+        self.version = '0.0.1'
         
         
         self.file     = None # will keep the file instance
         self.filename = None # will keep the filename
         self.saved_version_hash = hash("\n") # used to check changes in the file
         
-        print "Chalks 0.1.0, started. GNU GPL. Rodrigo Benenson, LeoN project 2004.\n"
+        print "Chalks " + self.version + ", started. Licensed under the GNU GPL. Copyright 2004, Chalks Development Team (http://chalks.berlios.de)\n"
         
         #@    << install the web service >>
         #@+node:<< install the web service >>
@@ -209,7 +211,7 @@ class Chalks:
         
             def requestAvatarId(self, credential):		
                 """
-                give access to every one that request it
+                give access to everyone that requests it
                 """
                 if 1:
                     return credential.username
@@ -230,12 +232,12 @@ class Chalks:
                 continue
             else: # got it
                 print "Starting Chalks service at chalks://localhost:%i" % port
-                print "Knowing your internet address (i.e. your IP) other users can connect themself to your session using the port %i." % port
+                print "Knowing your internet address (i.e. your IP) other users can connect themself to your session using the port %i." % port  #<<<<< this should be replaced by a friendlier popup or message
                 self.chalks_service = pb_service
                 break # stop creating web services
                 
         else: # the range failed
-            self.log_error("Could not found an aviable port in the range %s to provide the chalks service." % [pb.portno, pb.portno+10] )
+            self.log_error("Unable to find an available port in the range %s to provide the chalks service." % [pb.portno, pb.portno+10] )
             self.log_error("This is a fatal error")
             self.text_widget["state"] = DISABLED # I said fatal error...
             
@@ -255,7 +257,7 @@ class Chalks:
         
         if self.is_dirty(): # if file is dirty
             if self.filename: 
-                message = "File %s contain change not yet saved.\nDo you want to save the file before quitting ?" % self.filename
+                message = "File %s contains changes not yet saved to disk.\nDo you want to save the file before quiting ?" % self.filename
             else:
                 message = "The text has not been saved. Save before exit ?"
             
@@ -1249,7 +1251,7 @@ class Chalks:
     
         from ScrolledText import ScrolledText
         top = Toplevel(self.root)
-        top.title("Help about the Admin Window")
+        top.title("Help")
         t = ScrolledText(top, wrap=WORD, padx=50); t.pack(expand=1, fill=BOTH)
         
         # add apropos
@@ -1276,7 +1278,7 @@ class Chalks:
         
         import webbrowser
     
-        url = "http://souvenirs.sf.net"
+        url = "http://chalks.berlios.de"
         
         try:
             webbrowser.open_new(url)
