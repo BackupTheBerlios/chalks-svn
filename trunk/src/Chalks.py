@@ -372,7 +372,7 @@ class Chalks:
                         if list[gateway_column][:len(prefix)] == prefix:
                             error = 1
         except:
-            logging.exception("while figuring out if local machine is firewalled")
+            self.log_error("error while figuring out if local machine is firewalled")
     
         return error
     #@-node:is_firewalled

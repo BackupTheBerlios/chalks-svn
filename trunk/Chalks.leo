@@ -2,7 +2,7 @@
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2926" clone_windows="0"/>
 <globals body_outline_ratio="0.619858156028">
-	<global_window_position top="82" left="7" height="705" width="1009"/>
+	<global_window_position top="82" left="10" height="986" width="1280"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -1664,7 +1664,7 @@
 <v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
 <v t="niederberger.20040825222327.3"><vh>Low</vh></v>
 </v>
-<v t="rodrigob.20040125223416"><vh>HOOK PROBLEM</vh></v>
+<v t="rodrigob.20040125223416" a="E"><vh>HOOK PROBLEM</vh></v>
 <v t="rodrigob.20040125160038"><vh>Code perspectives</vh>
 <v t="rodrigob.20040129141624" a="M"><vh>network stuff</vh>
 <v t="rodrigob.20040125154815.1" a="E"><vh>class ChalksNode</vh>
@@ -1766,7 +1766,7 @@
 <v t="rodrigob.20040129130513" a="E"><vh>helpers</vh></v>
 <v t="rodrigob.20040119152542" a="EM"><vh>class Chalks</vh>
 <v t="rodrigob.20040123131236" a="EM"><vh>__init__</vh>
-<v t="niederberger.20040826214344" a="ETV"><vh>&lt;&lt; guess local ip address &gt;&gt;</vh></v>
+<v t="niederberger.20040826214344" a="E"><vh>&lt;&lt; guess local ip address &gt;&gt;</vh></v>
 <v t="rodrigob.20040125150558" a="EM"><vh>&lt;&lt; install the web service &gt;&gt;</vh></v>
 <v t="rodrigob.20040125153141" a="EM"><vh>&lt;&lt; install the collaboration service &gt;&gt;</vh>
 <v t="rodrigob.20040125200531.1"><vh>Chalks realm</vh></v>
@@ -1775,7 +1775,7 @@
 </v>
 <v t="rodrigob.20040123131236.1" a="EM"><vh>quit</vh></v>
 <v t="rodrigob.20040123142302" a="E"><vh>helpers</vh>
-<v t="niederberger.20040826214731"><vh>is_firewalled</vh></v>
+<v t="niederberger.20040826214731" a="TV"><vh>is_firewalled</vh></v>
 <v t="rodrigob.20040129131141" a="M"><vh>set_encoding</vh></v>
 <v t="rodrigob.20040125204408" a="M"><vh>is dirty</vh></v>
 </v>
@@ -3477,7 +3477,7 @@ getPage(t_adr).addCallbacks( callback=ip_callback, errback=ip_errback )
                     if list[gateway_column][:len(prefix)] == prefix:
                         error = 1
     except:
-        logging.exception("while figuring out if local machine is firewalled")
+        self.log_error("error while figuring out if local machine is firewalled")
 
     return error
 </t>
