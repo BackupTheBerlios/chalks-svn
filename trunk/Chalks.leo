@@ -2,7 +2,7 @@
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2931" clone_windows="0"/>
 <globals body_outline_ratio="0.462411347518">
-	<global_window_position top="0" left="0" height="705" width="1009"/>
+	<global_window_position top="10" left="10" height="524" width="800"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -1687,7 +1687,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040125223416" a="E"><vh>HOOK PROBLEM</vh></v>
 </v>
 <v t="rodrigob.20040913221406"><vh>Old Chalks todo list (to purge)</vh></v>
-<v t="niederberger.20040825222327.1" a="M"><vh>High</vh></v>
+<v t="niederberger.20040825222327.1" a="MTV"><vh>High</vh></v>
 <v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
 <v t="niederberger.20040825222327.3"><vh>Low</vh></v>
 </v>
@@ -1728,7 +1728,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.20040127182438" a="E"><vh>remote callable methods</vh>
 <v t="rodrigob.20040127182530" a="E"><vh>messages and presence methods</vh>
-<v t="rodrigob.20040127184605" a="MTV"><vh>send message</vh></v>
+<v t="rodrigob.20040127184605" a="M"><vh>send message</vh></v>
 <v t="rodrigob.20040127185444" a="M"><vh>get users list</vh></v>
 <v t="rodrigob.20040127184605.1"><vh>set presence</vh></v>
 </v>
@@ -1741,7 +1741,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040126020641" a="M"><vh>collaborate in/out</vh></v>
 <v t="rodrigob.20040129150513"><vh>logout</vh></v>
 </v>
-<v t="rodrigob.20040121155420" a="M"><vh>ConcurrentEditableNode</vh>
+<v t="rodrigob.20040121155420" a="EM"><vh>ConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013418" a="E"><vh>__init__</vh></v>
 <v t="rodrigob.20040128011816"><vh>receive operation</vh></v>
 <v t="rodrigob.20040128011809" a="E"><vh>add/del site</vh>
@@ -1828,7 +1828,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040125211222"><vh>save text</vh></v>
 </v>
 <v t="rodrigob.20040123134358" a="E"><vh>connect to</vh>
-<v t="niederberger.20040911130819"><vh>&lt;&lt; server list callback &gt;&gt;</vh></v>
+<v t="niederberger.20040911130819" a="M"><vh>&lt;&lt; server list callback &gt;&gt;</vh></v>
 <v t="rodrigob.20040125213003" a="M"><vh>&lt;&lt; connect to callback &gt;&gt;</vh></v>
 <v t="rodrigob.20040125213003.1"><vh>&lt;&lt; validation callback &gt;&gt;</vh></v>
 <v t="niederberger.20040911120126"><vh>&lt;&lt; server monitor callback &gt;&gt;</vh></v>
@@ -1881,7 +1881,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 </v>
 <v t="rodrigob.20040119132914"
-marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040127184605,rodrigob.20040127185444,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040126020641,"
+marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040127184605,rodrigob.20040127185444,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040126020641,"
 expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040125194534,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.20040125151012"><vh>@thin Chalks.xhtml</vh></v>
 <v t="rodrigob.121403173614.1502"
@@ -3305,13 +3305,13 @@ Example:
 <t tx="niederberger.20040825222327">@language plain
 This node contains reminders and all things left to do in general, grouped by priority.
 Currently they may be related to coding, researching, packaging, everything.</t>
-<t tx="niederberger.20040825222327.1">- Arrrgghhh now Chat messages generate an horrible network packet loop !!! (read &lt;about the connections process&gt;)
-
+<t tx="niederberger.20040825222327.1">- Solve the network objects references conflicts
 - Get chat working
 
 - why does Test_Chalks is sooo slow to quit ?
+- in Test_Chalks, separete both instance stdout redirection (run in threads ?). Test_Chalks should be reimplemented.
 
-- Why does site show the insertion point index and the other one does not ? (left of the chat bar)
+- Why does site show the insertion point index and the other one does not ? (left of the chat bar) (Test_Chalks exclusive problem, a reason more to rewrite it)
 
 - Work on concurrenteditablenode (make consistent use of the new site_id system)
 
@@ -3322,7 +3322,7 @@ Currently they may be related to coding, researching, packaging, everything.</t>
 exceptions.AssertionError: In ConcurrentEditableNode the transmited time stamps are expected to be dictionaries that map &lt;known_site_id&gt; =&gt; &lt;num_of_operations_we_know_he_has_created&gt; OR to be a local state vector timestamp
 
 
-- in Test_Chalks, separete both instance stdout redirection (run in threads ?)
+
 
 </t>
 <t tx="niederberger.20040825222327.2">- we should add to rendezvous published data which filename we are serving, and unregister our server and register it again with the new filename when a new file is opened
@@ -3422,25 +3422,24 @@ components.registerAdapter(ChalksModel, Chalks, interfaces.IModel)
     if not self.server_listbox.curselection():
         return  # &lt;&lt;&lt; tkinted only seems to consider entries as selected after clicking twice on a listbox
     
-    # aargh, Tkinter is disgusting:
-    # 1) curselection() returns STRINGS instead of ints when referring to indexes
-    # 2) curselection() only returns something after you click TWICE on the list box. After that, it starts working as expected
-    # 3) how do I set an Entry widget text ??? Do I really have to change a lot of code in order to make it use a Tkinter "textvariable" (StringVar) ?
-    # 4) Listbox has no scrollbar, we have to set it up manually with:
+@ aargh, Tkinter is disgusting:
+1) curselection() returns STRINGS instead of ints when referring to indexes
+2) curselection() only returns something after you click TWICE on the list box. After that, it starts working as expected
+3) how do I set an Entry widget text ??? Do I really have to change a lot of code in order to make it use a Tkinter "textvariable" (StringVar) ?
+4) Listbox has no scrollbar, we have to set it up manually with:
     """
     frame = Frame(master)
     scrollbar = Scrollbar(frame, orient=VERTICAL)
     listbox = Listbox(frame, yscrollcommand=scrollbar.set)
     scrollbar.config(command=listbox.yview)
     scrollbar.pack(side=RIGHT, fill=Y)
-    listbox.pack(side=LEFT, fill=BOTH, expand=1)    
+    listbox.pack(side=LEFT, fill=BOTH, expand=1)
     """
-    
+@c    
     server = self.cur_server_list[self.cur_server_list.keys()[int(self.server_listbox.curselection()[0])]]
     
     ipadr = '.'.join(map(lambda x:str(ord(x)),unpack('cccc', server['address'])))
     address_entry.delete(0, END); address_entry.insert(END, ipadr)
-    
     port_entry.delete(0, END); port_entry.insert(END, str(server['port']))
     
 </t>
@@ -31162,16 +31161,20 @@ So we use only this implementation. The ChalksAvatar equivalent methods, call th
     if to is None, the message will be spread to all, else it will be sent only to the users named like to
     """
 
+
     #if (not to) or (to == self.nickname):    
     #    self.log("&lt;%s&gt; %s" %(from_, txt) )
     #self.log("&lt;%s&gt; %s" %(from_, txt) )
         
+    # &lt;&lt;&lt; diagnose code    
     perspectives = self.childrens_perspectives + [self.parent_perspective]
     
     print "&lt;%s&gt; %s" %(from_, txt)
-    print "received_from",  received_from
-    print "perspectives", perspectives
+    print "received_from %s" % received_from
+    print "perspectives %s" % perspectives
+    print "[x==%s for x in %s] == %s" %(received_from, perspectives, [x==received_from for x in perspectives])
     print 
+    if self.parent_perspective: self.parent_perspective.callRemote("send_message", from_, to, txt).addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
     return # to avoid horrible loop
     
     for t_perspective in perspectives:

@@ -1242,25 +1242,31 @@ class Chalks:
             if not self.server_listbox.curselection():
                 return  # <<< tkinted only seems to consider entries as selected after clicking twice on a listbox
             
-            # aargh, Tkinter is disgusting:
-            # 1) curselection() returns STRINGS instead of ints when referring to indexes
-            # 2) curselection() only returns something after you click TWICE on the list box. After that, it starts working as expected
-            # 3) how do I set an Entry widget text ??? Do I really have to change a lot of code in order to make it use a Tkinter "textvariable" (StringVar) ?
-            # 4) Listbox has no scrollbar, we have to set it up manually with:
-            """
-            frame = Frame(master)
-            scrollbar = Scrollbar(frame, orient=VERTICAL)
-            listbox = Listbox(frame, yscrollcommand=scrollbar.set)
-            scrollbar.config(command=listbox.yview)
-            scrollbar.pack(side=RIGHT, fill=Y)
-            listbox.pack(side=LEFT, fill=BOTH, expand=1)    
-            """
-            
+        #@+at 
+        #@nonl
+        # aargh, Tkinter is disgusting:
+        # 1) curselection() returns STRINGS instead of ints when referring to 
+        # indexes
+        # 2) curselection() only returns something after you click TWICE on 
+        # the list box. After that, it starts working as expected
+        # 3) how do I set an Entry widget text ??? Do I really have to change 
+        # a lot of code in order to make it use a Tkinter "textvariable" 
+        # (StringVar) ?
+        # 4) Listbox has no scrollbar, we have to set it up manually with:
+        #     """
+        #     frame = Frame(master)
+        #     scrollbar = Scrollbar(frame, orient=VERTICAL)
+        #     listbox = Listbox(frame, yscrollcommand=scrollbar.set)
+        #     scrollbar.config(command=listbox.yview)
+        #     scrollbar.pack(side=RIGHT, fill=Y)
+        #     listbox.pack(side=LEFT, fill=BOTH, expand=1)
+        #     """
+        #@-at
+        #@@c    
             server = self.cur_server_list[self.cur_server_list.keys()[int(self.server_listbox.curselection()[0])]]
             
             ipadr = '.'.join(map(lambda x:str(ord(x)),unpack('cccc', server['address'])))
             address_entry.delete(0, END); address_entry.insert(END, ipadr)
-            
             port_entry.delete(0, END); port_entry.insert(END, str(server['port']))
             
         #@-node:niederberger.20040911130819:<< server list callback >>
@@ -2530,16 +2536,20 @@ class ChalksNode(ConcurrentEditableNode, pb.Viewable):
         if to is None, the message will be spread to all, else it will be sent only to the users named like to
         """
     
+    
         #if (not to) or (to == self.nickname):    
         #    self.log("<%s> %s" %(from_, txt) )
         #self.log("<%s> %s" %(from_, txt) )
             
+        # <<< diagnose code    
         perspectives = self.childrens_perspectives + [self.parent_perspective]
         
         print "<%s> %s" %(from_, txt)
-        print "received_from",  received_from
-        print "perspectives", perspectives
+        print "received_from %s" % received_from
+        print "perspectives %s" % perspectives
+        print "[x==%s for x in %s] == %s" %(received_from, perspectives, [x==received_from for x in perspectives])
         print 
+        if self.parent_perspective: self.parent_perspective.callRemote("send_message", from_, to, txt).addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
         return # to avoid horrible loop
         
         for t_perspective in perspectives:
