@@ -522,6 +522,7 @@ class Chalks:
         # require parent, verticalFlag
         
         import Tkinter as Tk
+        root.iconbitmap(bitmap="chalks.ico")  # set application icon
         
         # Create the frames.
         f = Tk.Frame(parent,bd=0,relief="flat",width=640,height=480) # without forcing width/height, the frame starts up with a really small dimension on win32 (almost iconic)
