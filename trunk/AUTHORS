@@ -1,5 +1,5 @@
 #@+leo-ver=4-thin
-#@+node:rodrigob.20040831001818:@thin ./src/AUTHORS
+#@+node:rodrigob.20040831001818:@thin AUTHORS
 #@@color
 #@<< credits >>
 #@+node:rodrigob.20040826155317:<<credits>>
@@ -12,5 +12,5 @@ Ricardo Niederberger Cabral (ncabral at terra.com.br)
 The collaborative editing code is based research papers of Chengzheng Sun.
 #@-node:rodrigob.20040826155317:<<credits>>
 #@nl
-#@-node:rodrigob.20040831001818:@thin ./src/AUTHORS
+#@-node:rodrigob.20040831001818:@thin AUTHORS
 #@-leo

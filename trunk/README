@@ -1,5 +1,5 @@
 #@+leo-ver=4-thin
-#@+node:rodrigob.20040826154516:@thin ./src/README
+#@+node:rodrigob.20040826154516:@thin README
 #@<<legal declaration>>
 #@+node:rodrigob.20040826154830:<<legal declaration>>
 ###############################################################################
@@ -102,5 +102,5 @@ The collaborative editing code is based research papers of Chengzheng Sun.
 
 
 
-#@-node:rodrigob.20040826154516:@thin ./src/README
+#@-node:rodrigob.20040826154516:@thin README
 #@-leo
