@@ -27,7 +27,7 @@
 # 12/02/04 Minor bugfix. RodrigoB.
 # 19/02/04 Debugging. RodrigoB.
 #
-# 25/08/04 Project ressurected. Ricardo Niederberger Cabral joined development efforts.
+# 25/08/04 Project resurrected. Ricardo Niederberger Cabral joined development efforts.
 # 
 # Todo
 # ----
@@ -60,6 +60,7 @@
 #@-at
 #@@c
 
+# Tkinter imports
 from Tkinter import *
 from Tkconstants import *
 
@@ -179,7 +180,7 @@ class Chalks:
         #@+node:<< install the collaboration service >>
         # install the collaboration service 
         
-        self.node = ChalksNode(self) # ChalksNode take care of the rest
+        self.node = ChalksNode(self) # ChalksNode should take care of the rest
         
         # local PB classes definitions
         #@+others
@@ -1019,11 +1020,9 @@ class Chalks:
         top = Toplevel(self.root)
         top.title("Connect to ...")
     
-        t_text = Label(top, text="fill all the entry spaces,")
-        t_text.pack()
-    
         #|-|-|
-        t_frame = Frame(top, borderwidth=2, relief=GROOVE)
+        
+        t_frame = LabelFrame(top, text="Enter remote server info", padx=5, pady=5)#Frame(top, borderwidth=2, relief=GROOVE)
         
         t_text = Label(t_frame, text="Address:")
         t_text.grid(row=0, column=0, pady=5)
@@ -1045,7 +1044,7 @@ class Chalks:
         t_text.grid(row=1, column=2, columnspan=2, sticky=E)
         
         #-|-|-
-        tt_frame = Frame(t_frame) 
+        tt_frame = LabelFrame(top, text="Identify yourself", padx=5, pady=5)#Frame(top, borderwidth=2, relief=GROOVE)#Frame(t_frame) 
         
         t_text = Label(tt_frame, text="Nickname:")
         t_text.grid(row=2, column=0)
@@ -1057,10 +1056,9 @@ class Chalks:
         t_text = Label(tt_frame, text="e.g. : mike")
         t_text.grid(row=3, column=0, columnspan=2, sticky=E)
         
-        tt_frame.grid(row=2, column=0, columnspan=2, sticky=W, pady=5)
         #-|-|-
-        
-        t_frame.pack(ipadx= 5)    
+        t_frame.pack(ipadx = 5)
+        tt_frame.pack(ipadx = 5)        
         #|-|-|
         
         t_frame = Frame(top)
@@ -1222,22 +1220,7 @@ class Chalks:
     # this is part of the code, so do not delete the "help" definition and the """ elements.
     help = \
     """
-    
     NOT YET WRITTEN
-    
-    #@+others
-    #@+node:network graph (about Server, Client, Children, Parent, and Trees)
-    #@+at
-    # The network graph is a Tree.
-    # The upper node is the first instance, that created the original content.
-    # Down tree we found the other sessions.
-    # Each node has one parent and possibly many childrens.
-    #@-at
-    #@@c
-    #@nonl
-    #@-node:network graph (about Server, Client, Children, Parent, and Trees)
-    #@-others
-    
     """
     
     #@-node:<< chalks help >>
@@ -2117,10 +2100,10 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     #@+node:send message
     def remote_send_message(self, txt, who=None):
         """ 
-        A remote node send a message to us
-        we repeat it to every known node except from the one that gived the message to us
+        A remote node sends a message to us
+        we repeat it to every known node except from the one that gave the message to us
         
-        (this method is used to manage both parent and children remote calls (childrens access to an avatar that call this method))
+        (this method is used to manage both parent and children remote calls (children access to an avatar calling this method))
         """
         
         if not who:
