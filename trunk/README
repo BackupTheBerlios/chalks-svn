@@ -1,5 +1,3 @@
-
-
 ###############################################################################
 # This program is free software; you can redistribute it and/or modify        #
 # it under the terms of the GNU General Public License as published by        #
@@ -17,14 +15,15 @@
 ###############################################################################
 
 This file is part of Chalks.
-
 What is Chalks ?
 --------------
-Chalks is a software under development for crossplatform realtime concurrent editing. The primary focus will be ease of use and minimum requirements.
+Chalks is a software under development for crossplatform realtime concurrent editing.
+The primary focus will be ease of use and minimum requirements.
 
 Chalks is written in Python. http://www.python.org
 Chalks requires Twisted, a network module for Python. http://www.twistedmatrix.com
 Chalks, Twisted and Python are open source multiplatform projects.
+
 
 
 Features
@@ -51,6 +50,17 @@ Using
 -----
 
 To be written
+Credits
+-------
+
+Chalks 2003, 2004.
+http://chalks.berlios.de
+
+The collaborative editing code is based research papers of Chengzheng Sun.
+
+Rodrigo Benenson Díaz (rodrigob at elo.utfsm.cl)
+
+Ricardo Niederberger Cabral (ncabral at terra.com.br)
 
 
 

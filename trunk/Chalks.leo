@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2926" clone_windows="0"/>
-<globals body_outline_ratio="0.619858156028">
-	<global_window_position top="82" left="10" height="986" width="1280"/>
+<globals body_outline_ratio="0.45815602836879432">
+	<global_window_position top="10" left="10" height="705" width="1009"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -13,8 +13,8 @@
 </find_panel_settings>
 <vnodes>
 <v t="rodrigob.20040121154249" a="E"><vh>Chalks</vh>
-<v t="rodrigob.20040824110326" a="E"><vh>Introduction (for Chalks newbies)</vh>
-<v t="rodrigob.20040826154516" a="E" tnodeList="rodrigob.20040826154516,rodrigob.20040826154830,rodrigob.20040826154614,rodrigob.20040826154614.1,rodrigob.20040826154830.1,rodrigob.20040826154830.2,rodrigob.20040826154830.3"><vh>@nosentinelsfile README</vh>
+<v t="rodrigob.20040824110326"><vh>Introduction (for Chalks newbies)</vh>
+<v t="rodrigob.20040826154516" a="E" tnodeList="rodrigob.20040826154516,rodrigob.20040826154830,rodrigob.20040826154614,rodrigob.20040826154614.1,rodrigob.20040826154830.1,rodrigob.20040826154830.2,rodrigob.20040826154830.3,rodrigob.20040826155317"><vh>@nosentinelsfile README</vh>
 <v t="rodrigob.20040826154830"><vh>&lt;&lt;legal declaration&gt;&gt;</vh></v>
 <v t="rodrigob.20040826154614"><vh>&lt;&lt;what is Chalks ?&gt;&gt;</vh></v>
 <v t="rodrigob.20040826154614.1"><vh>&lt;&lt;features&gt;&gt;</vh></v>
@@ -1660,11 +1660,13 @@
 </v>
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
 <v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
+<v t="rodrigob.20040826215836" a="E"><vh>Old LeoN todo list (to purge)</vh>
+<v t="rodrigob.20040125223416" a="ETV"><vh>HOOK PROBLEM</vh></v>
+</v>
 <v t="niederberger.20040825222327.1"><vh>High</vh></v>
 <v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
 <v t="niederberger.20040825222327.3"><vh>Low</vh></v>
 </v>
-<v t="rodrigob.20040125223416" a="E"><vh>HOOK PROBLEM</vh></v>
 <v t="rodrigob.20040125160038"><vh>Code perspectives</vh>
 <v t="rodrigob.20040129141624" a="M"><vh>network stuff</vh>
 <v t="rodrigob.20040125154815.1" a="E"><vh>class ChalksNode</vh>
@@ -1775,7 +1777,7 @@
 </v>
 <v t="rodrigob.20040123131236.1" a="EM"><vh>quit</vh></v>
 <v t="rodrigob.20040123142302" a="E"><vh>helpers</vh>
-<v t="niederberger.20040826214731" a="TV"><vh>is_firewalled</vh></v>
+<v t="niederberger.20040826214731"><vh>is_firewalled</vh></v>
 <v t="rodrigob.20040129131141" a="M"><vh>set_encoding</vh></v>
 <v t="rodrigob.20040125204408" a="M"><vh>is dirty</vh></v>
 </v>
@@ -3390,7 +3392,8 @@ Example:
     'LeoNtest.py 1 save_tap'
 """
 </t>
-<t tx="niederberger.20040825222327">This node contains reminders and all things left to do in general, grouped by priority.
+<t tx="niederberger.20040825222327">@language plain
+This node contains reminders and all things left to do in general, grouped by priority.
 Currently they may be related to coding, researching, packaging, everything.</t>
 <t tx="niederberger.20040825222327.1"></t>
 <t tx="niederberger.20040825222327.2"></t>
@@ -27743,169 +27746,8 @@ P.S.: linux users, I recommend to take a look at another great open source proje
 28/01/04 Doing some GC tests, debuging. RodrigoB.
 
 24/08/04 Separating Chalks from LeoN. LeoN has died, long live to Chalks !. RodrigoB.
+??/08/04 Working. RodrigoB &amp; RicardoN.
 
-
-Todo /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
-
-- Purge LeoN todos and write Chalks todos &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
-
-
-
-
-
-- when pressing the first key at connection a flush_body call generate an operation to send. First key should not generate a send operation...
-
-Exception in Tkinter callback
-Traceback (most recent call last):
-  File "/usr/local/lib/python2.3/lib-tk/Tkinter.py", line 1345, in __call__
-    return self.func(*args)
-  File "/usr/local/lib/python2.3/lib-tk/Tkinter.py", line 456, in callit
-    func(*args)
-  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/LeoClient.py", line 336, in idle_body_key
-    v.client.client_node.fill_body(k)
-  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/LeoClient.py", line 2550, in fill_body
-    self.flush_body(keywords) # send the unsent data and clean up what is necesarry.
-  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/LeoClient.py", line 2645, in flush_body
-    self.send_operation("insert_text", startpos, t_text)
-  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/LeoClient.py", line 2209, in send_operation
-    self.gen_op(op_type, pos, data, avoid=1) # will avoid the effects the first time.
-  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/ConcurrentEditable.py", line 595, in gen_op
-    return self.generate_operation(type, pos, data, **kws)
-  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/ConcurrentEditable.py", line 1779, in generate_operation
-    t_op = ConcurrentEditable.generate_operation(self, type, pos, data, **kws)
-  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/ConcurrentEditable.py", line 576, in generate_operation
-    t_SV = list(self.state_vector) # copy the list
-AttributeError: ClientNode instance has no attribute 'state_vector'
-
-
-For release 0.1.1 beta,
-    - solve/reimplement the base state vector issues
-    - solve the 'no state_vector' bug
-    - include a pruned twisted in the release
-    - allow an ultra easy install (rewrite the instalation instructions) &lt;= test the new start/stop system
-
-- when and why the "concurrent_editable_server.base_text" method is used ?
-- solve the base_EO management
-- implement/check the base_state_vector usage, etc...&lt;&lt;&lt; absolute priority
-
-- base text is used for: at connection we receive base text and then we apply all the HB operations.
-    =&gt; is this necesarry ? could we not just set the text, set the HB and calculate the adecuate State Vector (probably can be deduced from the last HB EO timestamp...)
-
-- what I thinked was a -1 usage, was a None usage. Site_index = None
-
-
-- copy/paste still bugy.  at paste: ERROR old_sel["newsel"][0] =&gt; unsupscritable object !
-
-- do edition tests with the "delayed line"
-
-- when and why the remote host traceback is unaviable ?
-- outlines move get sometimes weird (position reference special), will wait bugs report
-- yan2 has a problem, the other nodes do not ... weird...
-- obtain new screenshots (clones support)
-
-
-- will implement the Chalks application (spin off)
-
-Test /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
-
-- test the fill_body routine. 
-- adapt the tests to have user1 and user2 in very different access points (idealy under clones elements, jejej)
-- implement some tests that should generate errors (permissions deny, etc...)
-
-- unit for test node operations (delete text, create, move, delete node, passing from relative to absolute paths and back again)
-- unittests: test move operations propagation (with different users with diferents view (delete, insert, move))
-
-- why the test wait one second before disconnection ? real usage conditions will be not as easy.
-
-
-Server /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
-
-- users should be aware of collaborate out (verbose the message) (outline perspecitve/etdit nodes/collaborate in in/out)
-
-- delete_account should delete users nodes permissions too (else there will be false permissions if a new user with same nick is created.) (create an iterator object and apply for each node in the outline)
-- data&lt;-&gt;outline methods, are not secure, should check first for user permissions (or, simply not ?) (the user will not be able to edit the data anyway) (node data (get_text()) download should be strictly restricted...)
-
-- solve the '///' behaviour (related to .split('/') )
-new_parent t_dic {'///test_node1': [&lt;LeoServer.OutlinePerspective instance at 0xbf0b978c&gt;, &lt;LeoServer.OutlinePerspective instance at 0xbf0b902c&gt;]}
-new_view_dic {&lt;LeoServer.OutlinePerspective instance at 0xbf0b902c&gt;: '///test_node1', &lt;LeoServer.OutlinePerspective instance at 0xbf0b978c&gt;: '///test_node1'}
-
-- does "stop_LeoServer.bat" work on windows ? &lt;&lt;&lt; easy and important (how to stop a server process in window ?)
-
-- Refine server side persistence (allow bigger outlines? save using the xml leo format ?)
-
-- implement a real usage checker (filepasswordDB implementation  with addUser). Important.
-
-- implement the stale broker auto-cleaning up system, urgently !
-- when the server call " raise DeadReferenceError("Calling Stale Broker") twisted.spread.pb.DeadReferenceError: Calling Stale Broker", it should delete this reference (as if the user had disconnected by itself)
-
-- how to change the "No Such resource" web server error page ?
-- the administrator should be able to set which page to publish and wich page to do not (define a _webserver user ?)
-- how to implement better links to parents of a clone ? (it is possible ?)
-- how to link a css file to a web template in a clean way?
-
-Client /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
-
-- pasting text into an outline does not make it start the collaboration mode
-
-- nodes waiting for event propagation should be marked as dirty (to ensure the users)
-- the client code should manage online nodes dirtiness, (at text retrieve, text editing,at outlines moves, etc...)
-
-- when aviable test using "draw-outline-text-box" hook instead of the ugly drawText manual overwrite.
-- enhance that so ugly hoooks methods !!
-
-- at "Tree sync broken" redownload the outline
-- outline moves operations has to be processed in a similar fashion of text deletion, the user start the moves but the final network action is only sent when the user has finished to move the node (when he select another one, or the tree pane lose his focus) (specially for move{up, down, left, rigth})
-
-- does the password entries have unicode issues (should convert from tkencoding to utf-8 ?) (admingui topic)
-
-- leo should not save the v.client outlines (how to implement this ?)
-- could change the @leoServer usage by "@url leo://localhost:8787" and use "t_node == v.client.root_node" instead of "startswith("@leoServer")"
-
-- If the user is a monkey and start double clicking like a fool, sometimes the Client connects to the Server more than once.
-
-Code /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
-
-
-- use server side objects ID for paths constructions. (nodes renaming would be a special event, or a special argument of the move event (kw renamed_as = new_name )) (solve the issue but debugging become much more difficult, name paths was a good kis).
-  As a start define a use the .id node attribute for path construction and deconstruction.
-
-- when selecting a node, it could be fine to see who is there (or at least how many persons are there, and to have a command to list them ("/who"))
-- users should see who generate outlines events (add a user=None param to the outline edition online methods)
-
-- does the data_send crash should be so ugly ?
-- WHAT IS THE , the client cannot connect
-&lt;Error!&gt; Got a remote Exception
-&lt;twisted.spread.pb.CopiedFailure&gt;&lt;twisted.spread.pb.DeadReferenceError&gt; Calling Stale Broker 
-&lt;Debug&gt; [Failure instance: Traceback from remote host -- Traceback unavailable] ?
-- what does means "Calling Stale Broker" &lt;= important, common problem. twisted.spread.pb.DeadReferenceError: Calling Stale Broker
-- Check what is that "Calling Stale Broker" error (closed clients to not detach themself?)
-
-- How about the 'anonymous'/'guest' users management ?
-
-- create a periodic server side backup system (sob, IPersisted, per.save method (how to manage connected clients ? does the tap file can be reconstructed if ephemeral objects are reconstructed ?))
-- create a versioning system (the users control file freezing)
-
-- implement file upload (througth @binary only nodes) (remember to enforce at least client side size limitations) (is this a good idea ?)
-
-- create an All in One file release (LeoN+Twisted+Leo)
-
-Concurrent Editable /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
-
-- the base_state_vector is wrongly implemented. &lt;= DRAMA
-- a posteriori connections to do not work due to error in base_state_vector and garbage collector errors! &lt;= DRAMA
-=&gt; the base_text has an associated base state_vector. So we have to overwrite the system with some base state vector !
-
-- Find a good TestConcurrentEditable2 to test LostInformation cases
-
-- LI is absolutelly not verified
-- Find the Recover_LI specifications.
-- Find a better way to quit the ambiguities on the 'if else {}' operation pertenence. (save_RA, save_LI conditions ?)
-
-Ideas /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
-
-- the log text redirection plugin should be bidirectional (in order to be able to use the pdb debuger directly)
-- (this is equal to ask: how to use a Tkinter.Text as a console ?)
-- (could I define a "@console the_command" node ?)
 
 /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
 
@@ -34013,37 +33855,41 @@ Not interesting (mostly used in first development stages, now almost everything 
 
 @color
 @language python</t>
-<t tx="rodrigob.20040826154516">
-&lt;&lt;legal declaration&gt;&gt;
+<t tx="rodrigob.20040826154516">&lt;&lt;legal declaration&gt;&gt;
+
 &lt;&lt;what is Chalks ?&gt;&gt;
+
 &lt;&lt;features&gt;&gt;
+
 &lt;&lt;release status&gt;&gt;
+
 &lt;&lt;installation instructions&gt;&gt;
+
 &lt;&lt;usage&gt;&gt;
+
+&lt;&lt;credits&gt;&gt;
 
 
 
 
 </t>
-<t tx="rodrigob.20040826154614">
-
-What is Chalks ?
+<t tx="rodrigob.20040826154614">What is Chalks ?
 --------------
-Chalks is a software under development for crossplatform realtime concurrent editing. The primary focus will be ease of use and minimum requirements.
+Chalks is a software under development for crossplatform realtime concurrent editing.
+The primary focus will be ease of use and minimum requirements.
 
 Chalks is written in Python. http://www.python.org
 Chalks requires Twisted, a network module for Python. http://www.twistedmatrix.com
 Chalks, Twisted and Python are open source multiplatform projects.
 
+
 </t>
-<t tx="rodrigob.20040826154614.1">
-Features
+<t tx="rodrigob.20040826154614.1">Features
 --------
 
 - Server/Client architecture, ultra easy usage
 - Full crossplatform (inherited from python, and twisted)</t>
-<t tx="rodrigob.20040826154830">
-###############################################################################
+<t tx="rodrigob.20040826154830">###############################################################################
 # This program is free software; you can redistribute it and/or modify        #
 # it under the terms of the GNU General Public License as published by        #
 # the Free Software Foundation; either version 2 of the License, or           #
@@ -34060,8 +33906,7 @@ Features
 ###############################################################################
 
 This file is part of Chalks.</t>
-<t tx="rodrigob.20040826154830.1">
-Release Status
+<t tx="rodrigob.20040826154830.1">Release Status
 --------------
 
 Still in planning/design phase
@@ -34070,19 +33915,20 @@ Know bugs
 ---------
 
 </t>
-<t tx="rodrigob.20040826154830.2">
-Installing 
+<t tx="rodrigob.20040826154830.2">Installing 
 ----------
 
 To install the source package, try running, as root:
 
  $ python setup.py install</t>
-<t tx="rodrigob.20040826154830.3">
-Using
+<t tx="rodrigob.20040826154830.3">Using
 -----
 
 To be written</t>
-<t tx="rodrigob.20040826155317">Chalks 2003, 2004.
+<t tx="rodrigob.20040826155317">Credits
+-------
+
+Chalks 2003, 2004.
 http://chalks.berlios.de
 
 The collaborative editing code is based research papers of Chengzheng Sun.
@@ -34090,5 +33936,167 @@ The collaborative editing code is based research papers of Chengzheng Sun.
 Rodrigo Benenson Díaz (rodrigob at elo.utfsm.cl)
 
 Ricardo Niederberger Cabral (ncabral at terra.com.br)</t>
+<t tx="rodrigob.20040826215836">Todo /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
+
+- Purge LeoN todos and write Chalks todos &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+
+
+
+
+
+- when pressing the first key at connection a flush_body call generate an operation to send. First key should not generate a send operation...
+
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.3/lib-tk/Tkinter.py", line 1345, in __call__
+    return self.func(*args)
+  File "/usr/local/lib/python2.3/lib-tk/Tkinter.py", line 456, in callit
+    func(*args)
+  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/LeoClient.py", line 336, in idle_body_key
+    v.client.client_node.fill_body(k)
+  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/LeoClient.py", line 2550, in fill_body
+    self.flush_body(keywords) # send the unsent data and clean up what is necesarry.
+  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/LeoClient.py", line 2645, in flush_body
+    self.send_operation("insert_text", startpos, t_text)
+  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/LeoClient.py", line 2209, in send_operation
+    self.gen_op(op_type, pos, data, avoid=1) # will avoid the effects the first time.
+  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/ConcurrentEditable.py", line 595, in gen_op
+    return self.generate_operation(type, pos, data, **kws)
+  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/ConcurrentEditable.py", line 1779, in generate_operation
+    t_op = ConcurrentEditable.generate_operation(self, type, pos, data, **kws)
+  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/ConcurrentEditable.py", line 576, in generate_operation
+    t_SV = list(self.state_vector) # copy the list
+AttributeError: ClientNode instance has no attribute 'state_vector'
+
+
+For release 0.1.1 beta,
+    - solve/reimplement the base state vector issues
+    - solve the 'no state_vector' bug
+    - include a pruned twisted in the release
+    - allow an ultra easy install (rewrite the instalation instructions) &lt;= test the new start/stop system
+
+- when and why the "concurrent_editable_server.base_text" method is used ?
+- solve the base_EO management
+- implement/check the base_state_vector usage, etc...&lt;&lt;&lt; absolute priority
+
+- base text is used for: at connection we receive base text and then we apply all the HB operations.
+    =&gt; is this necesarry ? could we not just set the text, set the HB and calculate the adecuate State Vector (probably can be deduced from the last HB EO timestamp...)
+
+- what I thinked was a -1 usage, was a None usage. Site_index = None
+
+
+- copy/paste still bugy.  at paste: ERROR old_sel["newsel"][0] =&gt; unsupscritable object !
+
+- do edition tests with the "delayed line"
+
+- when and why the remote host traceback is unaviable ?
+- outlines move get sometimes weird (position reference special), will wait bugs report
+- yan2 has a problem, the other nodes do not ... weird...
+- obtain new screenshots (clones support)
+
+
+- will implement the Chalks application (spin off)
+
+Test /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
+
+- test the fill_body routine. 
+- adapt the tests to have user1 and user2 in very different access points (idealy under clones elements, jejej)
+- implement some tests that should generate errors (permissions deny, etc...)
+
+- unit for test node operations (delete text, create, move, delete node, passing from relative to absolute paths and back again)
+- unittests: test move operations propagation (with different users with diferents view (delete, insert, move))
+
+- why the test wait one second before disconnection ? real usage conditions will be not as easy.
+
+
+Server /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
+
+- users should be aware of collaborate out (verbose the message) (outline perspecitve/etdit nodes/collaborate in in/out)
+
+- delete_account should delete users nodes permissions too (else there will be false permissions if a new user with same nick is created.) (create an iterator object and apply for each node in the outline)
+- data&lt;-&gt;outline methods, are not secure, should check first for user permissions (or, simply not ?) (the user will not be able to edit the data anyway) (node data (get_text()) download should be strictly restricted...)
+
+- solve the '///' behaviour (related to .split('/') )
+new_parent t_dic {'///test_node1': [&lt;LeoServer.OutlinePerspective instance at 0xbf0b978c&gt;, &lt;LeoServer.OutlinePerspective instance at 0xbf0b902c&gt;]}
+new_view_dic {&lt;LeoServer.OutlinePerspective instance at 0xbf0b902c&gt;: '///test_node1', &lt;LeoServer.OutlinePerspective instance at 0xbf0b978c&gt;: '///test_node1'}
+
+- does "stop_LeoServer.bat" work on windows ? &lt;&lt;&lt; easy and important (how to stop a server process in window ?)
+
+- Refine server side persistence (allow bigger outlines? save using the xml leo format ?)
+
+- implement a real usage checker (filepasswordDB implementation  with addUser). Important.
+
+- implement the stale broker auto-cleaning up system, urgently !
+- when the server call " raise DeadReferenceError("Calling Stale Broker") twisted.spread.pb.DeadReferenceError: Calling Stale Broker", it should delete this reference (as if the user had disconnected by itself)
+
+- how to change the "No Such resource" web server error page ?
+- the administrator should be able to set which page to publish and wich page to do not (define a _webserver user ?)
+- how to implement better links to parents of a clone ? (it is possible ?)
+- how to link a css file to a web template in a clean way?
+
+Client /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
+
+- pasting text into an outline does not make it start the collaboration mode
+
+- nodes waiting for event propagation should be marked as dirty (to ensure the users)
+- the client code should manage online nodes dirtiness, (at text retrieve, text editing,at outlines moves, etc...)
+
+- when aviable test using "draw-outline-text-box" hook instead of the ugly drawText manual overwrite.
+- enhance that so ugly hoooks methods !!
+
+- at "Tree sync broken" redownload the outline
+- outline moves operations has to be processed in a similar fashion of text deletion, the user start the moves but the final network action is only sent when the user has finished to move the node (when he select another one, or the tree pane lose his focus) (specially for move{up, down, left, rigth})
+
+- does the password entries have unicode issues (should convert from tkencoding to utf-8 ?) (admingui topic)
+
+- leo should not save the v.client outlines (how to implement this ?)
+- could change the @leoServer usage by "@url leo://localhost:8787" and use "t_node == v.client.root_node" instead of "startswith("@leoServer")"
+
+- If the user is a monkey and start double clicking like a fool, sometimes the Client connects to the Server more than once.
+
+Code /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
+
+
+- use server side objects ID for paths constructions. (nodes renaming would be a special event, or a special argument of the move event (kw renamed_as = new_name )) (solve the issue but debugging become much more difficult, name paths was a good kis).
+  As a start define a use the .id node attribute for path construction and deconstruction.
+
+- when selecting a node, it could be fine to see who is there (or at least how many persons are there, and to have a command to list them ("/who"))
+- users should see who generate outlines events (add a user=None param to the outline edition online methods)
+
+- does the data_send crash should be so ugly ?
+- WHAT IS THE , the client cannot connect
+&lt;Error!&gt; Got a remote Exception
+&lt;twisted.spread.pb.CopiedFailure&gt;&lt;twisted.spread.pb.DeadReferenceError&gt; Calling Stale Broker 
+&lt;Debug&gt; [Failure instance: Traceback from remote host -- Traceback unavailable] ?
+- what does means "Calling Stale Broker" &lt;= important, common problem. twisted.spread.pb.DeadReferenceError: Calling Stale Broker
+- Check what is that "Calling Stale Broker" error (closed clients to not detach themself?)
+
+- How about the 'anonymous'/'guest' users management ?
+
+- create a periodic server side backup system (sob, IPersisted, per.save method (how to manage connected clients ? does the tap file can be reconstructed if ephemeral objects are reconstructed ?))
+- create a versioning system (the users control file freezing)
+
+- implement file upload (througth @binary only nodes) (remember to enforce at least client side size limitations) (is this a good idea ?)
+
+- create an All in One file release (LeoN+Twisted+Leo)
+
+Concurrent Editable /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
+
+- the base_state_vector is wrongly implemented. &lt;= DRAMA
+- a posteriori connections to do not work due to error in base_state_vector and garbage collector errors! &lt;= DRAMA
+=&gt; the base_text has an associated base state_vector. So we have to overwrite the system with some base state vector !
+
+- Find a good TestConcurrentEditable2 to test LostInformation cases
+
+- LI is absolutelly not verified
+- Find the Recover_LI specifications.
+- Find a better way to quit the ambiguities on the 'if else {}' operation pertenence. (save_RA, save_LI conditions ?)
+
+Ideas /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
+
+- the log text redirection plugin should be bidirectional (in order to be able to use the pdb debuger directly)
+- (this is equal to ask: how to use a Tkinter.Text as a console ?)
+- (could I define a "@console the_command" node ?)
+</t>
 </tnodes>
 </leo_file>
