@@ -1612,6 +1612,8 @@ class Chalks:
 #@+node:rodrigob.20040125154815.1:class ChalksNode
 from ConcurrentEditable import ConcurrentEditableNode
 from ConcurrentEditable import ConcurrentEditable # needed by remote_delete_text()
+
+from twisted.internet.defer import DeferredList
         
 class ChalksNode(ConcurrentEditableNode):
     """
@@ -1772,15 +1774,16 @@ class ChalksNode(ConcurrentEditableNode):
         Disconnect from the server. Also warn all my children about my disconnection
         """    
         perspectives = self.childrens_perspectives + [self.parent_perspective]
-    
+        deferredList = []
         for t_perspective in perspectives:
             if not t_perspective: # skip Null perspective, probably my parent_perspective when I'm not connected to a parent
                 continue
             t_deferred = t_perspective.callRemote("collaborate_out")
-            #t_deferred.addCallback(self.disconnected)
             t_deferred.addErrback(self.exception)
+            deferredList.append(t_deferred)
     
-        self.disconnected()
+        dl = DeferredList(deferredList)
+        dl.addCallback(self.disconnected)
     
     def disconnected(self, *args):
         """

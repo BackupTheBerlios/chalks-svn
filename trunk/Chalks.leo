@@ -1688,7 +1688,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
 <v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
-<v t="niederberger.20040825222327.1" a="ETV"><vh>High</vh></v>
+<v t="niederberger.20040825222327.1" a="E"><vh>High</vh></v>
 <v t="niederberger.20040825222327.2" a="E"><vh>Medium</vh>
 <v t="niederberger.20040922110026" a="E"><vh>pyzeroconf problems</vh>
 <v t="niederberger.20040922111043"><vh>Another rendezvous bug</vh></v>
@@ -1710,11 +1710,11 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.20040913221730.1"><vh>disconnect</vh></v>
 </v>
-<v t="rodrigob.20040912225813" a="E"><vh>add/del sites</vh>
+<v t="rodrigob.20040912225813"><vh>add/del sites</vh>
 <v t="rodrigob.20040912225813.1" a="E"><vh>add site</vh></v>
 <v t="rodrigob.20040912225813.2"><vh>del site</vh></v>
 </v>
-<v t="rodrigob.20040125154815.3" a="E"><vh>edit content</vh>
+<v t="rodrigob.20040125154815.3"><vh>edit content</vh>
 <v t="rodrigob.20040125154815.4" a="EM"><vh>set text</vh></v>
 <v t="rodrigob.20040125154815.5"><vh>insert text</vh></v>
 <v t="rodrigob.20040125154815.6" a="M"><vh>delete text</vh></v>
@@ -1870,11 +1870,11 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.20040913221730.1"><vh>disconnect</vh></v>
 </v>
-<v t="rodrigob.20040912225813" a="E"><vh>add/del sites</vh>
+<v t="rodrigob.20040912225813"><vh>add/del sites</vh>
 <v t="rodrigob.20040912225813.1" a="E"><vh>add site</vh></v>
 <v t="rodrigob.20040912225813.2"><vh>del site</vh></v>
 </v>
-<v t="rodrigob.20040125154815.3" a="E"><vh>edit content</vh>
+<v t="rodrigob.20040125154815.3"><vh>edit content</vh>
 <v t="rodrigob.20040125154815.4" a="EM"><vh>set text</vh></v>
 <v t="rodrigob.20040125154815.5"><vh>insert text</vh></v>
 <v t="rodrigob.20040125154815.6" a="M"><vh>delete text</vh></v>
@@ -1953,7 +1953,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.20040119132914" a="E"
 marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040125154815.19,rodrigob.20040920122333,rodrigob.20040125194534,rodrigob.20040126020641,"
-expanded="rodrigob.20040119133203,rodrigob.20040119152542,rodrigob.20040125153141,rodrigob.20040123142302,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040123130224,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040912225813,rodrigob.20040125154815.3,rodrigob.20040125154815.8,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
+expanded="rodrigob.20040119133203,rodrigob.20040119152542,rodrigob.20040125153141,rodrigob.20040123142302,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040123130224,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040125154815.8,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.121403173614.1502"
 marks="rodrigob.121403173614.1509,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040130224144,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
 expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1516,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040128011921,rodrigob.20040128011921.1,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
@@ -3389,10 +3389,7 @@ Currently they may be related to coding, researching, packaging, everything.</t>
   currently it registers only once at startup and unregisters on app shutdown. 
   But before all that, implement unRegisterServer() method on ChalksServerMonitor
   
-
-- connect_to_parent -&gt; logged_in -&gt; start_colaborating are unnecesarry. The node can start collaborating when just connecting.
-
-
+- connect_to_parent -&gt; logged_in -&gt; start_colaborating are unnecessary. The node can start collaborating when just connecting.
 
 - work on ConcurrentEditableNode, ChalksNode
 
@@ -3400,7 +3397,9 @@ Currently they may be related to coding, researching, packaging, everything.</t>
 - document the system internals, add docustrings for the methods
 - clean up the "self.splitVerticalFlag" / "verticalFlag"  usage
 
-- should not allow a connection to the same instance, on localhost. Chat behaves strangely on such connections. (different instances serving on different ports is ok, for tests). </t>
+- should not allow a connection to the same instance, on localhost. Chat behaves strangely on such connections. (different instances serving on different ports is ok, for tests). 
+
+- catch DeadReferenceError exceptions when doing callRemote() on a broken connection. Warn user, trigger disconnection process (disable chat bar, etc)</t>
 <t tx="niederberger.20040825222327.3">- test the fill_body routine. 
 
 - do edition tests with the "delayed line"
@@ -30443,6 +30442,8 @@ text_widget.bind(virtual_event_name("Paste"), self.onPaste)</t>
     return </t>
 <t tx="rodrigob.20040125154815.1">from ConcurrentEditable import ConcurrentEditableNode
 from ConcurrentEditable import ConcurrentEditable # needed by remote_delete_text()
+
+from twisted.internet.defer import DeferredList
         
 class ChalksNode(ConcurrentEditableNode):
     """
@@ -32806,15 +32807,16 @@ def logged_in(self, avatar):
     Disconnect from the server. Also warn all my children about my disconnection
     """    
     perspectives = self.childrens_perspectives + [self.parent_perspective]
-
+    deferredList = []
     for t_perspective in perspectives:
         if not t_perspective: # skip Null perspective, probably my parent_perspective when I'm not connected to a parent
             continue
         t_deferred = t_perspective.callRemote("collaborate_out")
-        #t_deferred.addCallback(self.disconnected)
         t_deferred.addErrback(self.exception)
+        deferredList.append(t_deferred)
 
-    self.disconnected()
+    dl = DeferredList(deferredList)
+    dl.addCallback(self.disconnected)
 
 def disconnected(self, *args):
     """
