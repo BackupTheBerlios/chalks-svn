@@ -188,11 +188,11 @@ class Chalks:
             """
             __implements__ = portal.IRealm
                                              
-            def __init__(self, Chalks_instance):
-                self.chalks_instance = Chalks_instance                                                                                                                             
+            def __init__(self, chalks_gui):
+                self.chalks_gui = chalks_gui                                                                                                                             
             def requestAvatar(self, avatarId, mind, *interfaces):
                 if pb.IPerspective in interfaces:
-                    avatar = ChalksAvatar(avatarId, mind, self.chalks_instance)
+                    avatar = ChalksAvatar(avatarId, mind, self.chalks_gui)
                     return pb.IPerspective, avatar, avatar.logout
                 else:
                     raise NotImplementedError("no interface")
@@ -1621,7 +1621,7 @@ class ChalksNode(ConcurrentEditableNode):
     This is the class that generate all the operations to be sent to the server, and it the the one that process the received operations.
     """
     
-    def __init__(self, Chalks_instance, text=""):
+    def __init__(self, chalks_gui, text=""):
         """
         """
         
@@ -1629,7 +1629,7 @@ class ChalksNode(ConcurrentEditableNode):
         # local ConcurrentEditable will be initialized during connection process.
 
         # initialize the extra attributes		
-        self.chalks_instance  = Chalks_instance # stores a reference to the gui object
+        self.chalks_gui  = chalks_gui # stores a reference to the gui object
 
         self.nickname = None
         self.site_id = None # site_id is an unique internet identifier
@@ -1641,10 +1641,10 @@ class ChalksNode(ConcurrentEditableNode):
         
         # attach some attributes and methods
         for t_name in ["log", "log_error", "exception", "encoding"]: 
-            setattr(self, t_name, getattr(Chalks_instance, t_name))
-        self.log = lambda text, *args, **kws: Chalks_instance.log("\n%s" % text) # dummy trick
+            setattr(self, t_name, getattr(chalks_gui, t_name))
+        self.log = lambda text, *args, **kws: chalks_gui.log("\n%s" % text) # dummy trick
                 
-        self.text_widget = Chalks_instance.text_widget
+        self.text_widget = chalks_gui.text_widget
         self.text_widget.tag_config("to_send", relief= RAISED, borderwidth=4, background= "beige")# work fine in Linux
             
         self.deletion_buffer = () # helper variable store a cumulative erasure (successive delete or insert commands) in the tuple (startpos, len)
@@ -1660,13 +1660,13 @@ class ChalksNode(ConcurrentEditableNode):
         """
         right now it will just forward log message to GUI object
         """
-        self.chalks_instance.log(text, tag, color)
+        self.chalks_gui.log(text, tag, color)
 
     def log_error(self, text):
         """
         right now it will just forward log message to GUI object
         """
-        self.chalks_instance.log_error(text)
+        self.chalks_gui.log_error(text)
     
     #@    @+others
     #@+node:rodrigob.20040125154815.2:connect to/disconnect from parent node
@@ -1685,7 +1685,7 @@ class ChalksNode(ConcurrentEditableNode):
         # we will give to the parent access to a local avatar
         parent_nickname = None
         parent_mind = None
-        parent_avatar = ChalksAvatar(parent_nickname, parent_mind, self.chalks_instance)
+        parent_avatar = ChalksAvatar(parent_nickname, parent_mind, self.chalks_gui)
         self.parent_avatar = parent_avatar
         
         factory = pb.PBClientFactory()
@@ -1767,7 +1767,7 @@ class ChalksNode(ConcurrentEditableNode):
         self.log("self.state_vector %s" % self.state_vector, color="yellow") # just for debugging
     
     
-        self.chalks_instance.set_connected() # set up the flag and reflect in the gui
+        self.chalks_gui.set_connected() # set up the flag and reflect in the gui
         return
         
     #@-node:rodrigob.20040909060311:start collaborating
@@ -1791,7 +1791,7 @@ class ChalksNode(ConcurrentEditableNode):
         Actions to be done by the ClientNode after his disconnection.
         """
     
-        self.chalks_instance.clear_connected() # reflect in the gui the end of the connection
+        self.chalks_gui.clear_connected() # reflect in the gui the end of the connection
             
         # what should I do here ?, do I need to do something ?
         self.log("Disconnected from the old node.", color="gray") # just to do something
@@ -1822,7 +1822,7 @@ class ChalksNode(ConcurrentEditableNode):
         """
         
         if not self.connected:
-            self.chalks_instance.set_connected()
+            self.chalks_gui.set_connected()
             
         
         print "User %s %s is starting to collaborate" % (site_perspective.nickname, site_perspective)
@@ -1845,7 +1845,7 @@ class ChalksNode(ConcurrentEditableNode):
         
         if not self.childrens_perspectives and not self.parent_perspective:
             self.connected = 0 
-            self.chalks_instance.disableChat()
+            self.chalks_gui.disableChat()
         return
         
     #@nonl
@@ -2659,13 +2659,13 @@ class ChalksAvatar(pb.Avatar, pb.Referenceable):
     There is one avatar instance per client connection to the server
     """
     
-    def __init__(self, avatarId, mind, chalks_instance = None):
+    def __init__(self, avatarId, mind, chalks_gui = None):
         """
         """
         
-        assert chalks_instance
-        self.chalks_instance = chalks_instance
-        self.node = chalks_instance.node
+        assert chalks_gui
+        self.chalks_gui = chalks_gui
+        self.node = chalks_gui.node
         
         self.mind = mind # store it for later use # mind is a perspective of the client that is connecting to use
         self.avatarId = self.nickname = avatarId

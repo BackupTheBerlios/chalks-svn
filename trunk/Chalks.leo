@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2934" clone_windows="0"/>
-<globals body_outline_ratio="0.43320610687">
-	<global_window_position top="10" left="10" height="986" width="1280"/>
+<globals body_outline_ratio="0.522900763359">
+	<global_window_position top="10" left="10" height="524" width="800"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -1683,19 +1683,19 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
 <v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
-<v t="niederberger.20040825222327.1" a="EMTV"><vh>High</vh>
+<v t="niederberger.20040825222327.1" a="E"><vh>High</vh>
 <v t="rodrigob.20040913221406"><vh>Old Chalks todo list (to purge)</vh></v>
 </v>
 <v t="niederberger.20040825222327.2" a="E"><vh>Medium</vh>
 <v t="rodrigob.20040915113450"><vh>Code problems</vh></v>
 </v>
-<v t="niederberger.20040825222327.3"><vh>Low</vh>
+<v t="niederberger.20040825222327.3" a="E"><vh>Low</vh>
 <v t="rodrigob.20040826215836"><vh>Old LeoN todo list (to purge)</vh>
 <v t="rodrigob.20040125223416" a="E"><vh>HOOK PROBLEM</vh></v>
 </v>
 </v>
 </v>
-<v t="rodrigob.20040125160038" a="E"><vh>Code perspectives</vh>
+<v t="rodrigob.20040125160038"><vh>Code perspectives</vh>
 <v t="rodrigob.20040129141624" a="EM"><vh>network</vh>
 <v t="rodrigob.20040913233519"><vh>&lt;&lt;about the connections process&gt;&gt;</vh></v>
 <v t="rodrigob.20040125154815.1" a="EM"><vh>class ChalksNode</vh>
@@ -1705,7 +1705,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.20040913221730.1"><vh>disconnect</vh></v>
 </v>
-<v t="rodrigob.20040912225813"><vh>add/del sites</vh>
+<v t="rodrigob.20040912225813" a="E"><vh>add/del sites</vh>
 <v t="rodrigob.20040912225813.1"><vh>add site</vh></v>
 <v t="rodrigob.20040912225813.2"><vh>del site</vh></v>
 </v>
@@ -1888,16 +1888,16 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 </v>
 </v>
-<v t="rodrigob.20040119132914" a="E"
+<v t="rodrigob.20040119132914" a="TV"
 marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040127184605,rodrigob.20040127185444,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040126020641,"
-expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040121150952.7,rodrigob.20040122175312,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
-<v t="rodrigob.20040125151012"><vh>@thin Chalks.xhtml</vh></v>
+expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040121150952.7,rodrigob.20040122175312,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040912225813,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.121403173614.1502"
 marks="rodrigob.121403173614.1509,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040130224144,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
 expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1516,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040121155420,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040128011921.1,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
 <v t="rodrigob.20040912220039"
 marks="rodrigob.20040912220039.14,rodrigob.20040912220039.15,rodrigob.20040912220039.16,rodrigob.20040912220039.17,rodrigob.20040912220039.18,rodrigob.20040912220039.19,rodrigob.20040912220039.21,rodrigob.20040912220039.22,rodrigob.20040912220039.23,rodrigob.20040912220039.25,rodrigob.20040912220039.26,rodrigob.20040912220039.27,rodrigob.20040912220039.28,rodrigob.20040912220039.29,rodrigob.20040912220039.30,rodrigob.20040912220039.31,rodrigob.20040912220039.32,rodrigob.20040912220039.33,rodrigob.20040912220039.34,rodrigob.20040912220039.35,rodrigob.20040912220039.37,rodrigob.20040912220039.38,rodrigob.20040912220039.39,rodrigob.20040912220039.40,rodrigob.20040912220039.42,rodrigob.20040912220039.43,rodrigob.20040912220039.44,rodrigob.20040912220039.45,rodrigob.20040912220039.47,rodrigob.20040912220039.48,rodrigob.20040912220039.49,rodrigob.20040912220039.50,rodrigob.20040912220039.52,rodrigob.20040912220039.53,rodrigob.20040912220039.54,rodrigob.20040912220039.55,rodrigob.20040912220039.57,rodrigob.20040912220039.58,rodrigob.20040912220039.59,rodrigob.20040912220039.60,rodrigob.20040912220039.62,rodrigob.20040912220039.63,rodrigob.20040912220039.64,rodrigob.20040912220039.65,rodrigob.20040912220039.66,rodrigob.20040912220039.67,rodrigob.20040912220039.68,rodrigob.20040912220039.69,rodrigob.20040912220039.70,rodrigob.20040912220039.71,rodrigob.20040912220039.72,rodrigob.20040912220039.73,rodrigob.20040912220039.75,rodrigob.20040912220039.76,rodrigob.20040912220039.77,rodrigob.20040912220039.78,rodrigob.20040912220039.79,rodrigob.20040912220039.80,rodrigob.20040912220039.81,rodrigob.20040912220039.82,rodrigob.20040912220039.83,rodrigob.20040912220039.84,rodrigob.20040912220039.85,rodrigob.20040912220039.86,rodrigob.20040912220039.87,rodrigob.20040912220039.88,rodrigob.20040912220039.89,rodrigob.20040912220039.90,rodrigob.20040912220039.92,rodrigob.20040912220039.93,rodrigob.20040912220039.94,rodrigob.20040912220039.95,rodrigob.20040912220039.96,rodrigob.20040912220039.97,rodrigob.20040912220039.98,rodrigob.20040912220039.100,rodrigob.20040912220039.101,rodrigob.20040912220039.102,rodrigob.20040912220039.103,rodrigob.20040912220039.104,rodrigob.20040912220039.105,rodrigob.20040912220039.107,rodrigob.20040912220039.108,rodrigob.20040912220039.110,rodrigob.20040912220039.111,rodrigob.20040912220039.113,rodrigob.20040912220039.114,rodrigob.20040912220039.115,rodrigob.20040912220039.116,rodrigob.20040912220039.118,rodrigob.20040912220039.119,rodrigob.20040912220039.120,rodrigob.20040912220039.121,rodrigob.20040912220039.122,rodrigob.20040912220039.123,rodrigob.20040912220039.124,rodrigob.20040912220039.125,rodrigob.20040912220039.126,rodrigob.20040912220039.127,rodrigob.20040912220039.128,rodrigob.20040912220039.129,rodrigob.20040912220039.130,rodrigob.20040912220039.131,rodrigob.20040912220039.132,rodrigob.20040912220039.133,rodrigob.20040912220039.134,rodrigob.20040912220039.136,rodrigob.20040912220039.137,rodrigob.20040912220039.138,rodrigob.20040912220039.139,rodrigob.20040912220039.140,rodrigob.20040912220039.141,rodrigob.20040912220039.142,rodrigob.20040912220039.143,rodrigob.20040912220039.144,rodrigob.20040912220039.145,rodrigob.20040912220039.146,rodrigob.20040912220039.147,rodrigob.20040912220039.148,rodrigob.20040912220039.149,rodrigob.20040912220039.150,rodrigob.20040912220039.151,rodrigob.20040912220039.152,rodrigob.20040912220039.153,rodrigob.20040912220039.154,"
 expanded="rodrigob.20040912220039.13,"><vh>@thin Rendezvous.py</vh></v>
+<v t="rodrigob.20040125151012"><vh>@thin Chalks.xhtml</vh></v>
 <v t="rodrigob.20040912211519"><vh>Tests</vh>
 <v t="rodrigob.20040125173910"><vh>@thin Test_Chalks.py</vh></v>
 <v t="rodrigob.20040912211426"
@@ -3340,16 +3340,17 @@ exceptions.AssertionError: In ConcurrentEditableNode the transmited time stamps 
   But before all that, implement unRegisterServer() method on ChalksServerMonitor
   
 
-- should rename self.chalks_instance as self.chalks_gui  (I think it is a more explicit name)
-
-
 - the rendezvous system does not seems to be working under linux
 
 - connect_to_parent -&gt; logged_in -&gt; start_colaborating are unnecesarry. The node can start collaborating when just connecting.</t>
 <t tx="niederberger.20040825222327.3">- Implement a LiveEvil nevow web front end to the chat sessions, will be so cool.
 
 
-- implement a persistence system for the user options (using python default tools) (need to save the nickname... last edited files... and ?)</t>
+- implement a persistence system for the user options (using python default tools) (need to save the nickname... last edited files... and ?)
+
+- To enhance Gui separation should create a ChalksGui Interface and make Chalks implement it trough a TkChalks method
+http://www.twistedmatrix.com/documents/current/howto/components
+ChalksGui code should be in Chalks.py, TkChalks code should be in TkChalks.py</t>
 <t tx="niederberger.20040906222819">Components of Chalks are Python, Twisted, ConcurrentEditable and Tkinter.
 
 &gt;&gt; improve it later and actually give a general view of how parts fit together &lt;&lt;
@@ -30235,7 +30236,7 @@ class ChalksNode(ConcurrentEditableNode):
     This is the class that generate all the operations to be sent to the server, and it the the one that process the received operations.
     """
     
-    def __init__(self, Chalks_instance, text=""):
+    def __init__(self, chalks_gui, text=""):
         """
         """
         
@@ -30243,7 +30244,7 @@ class ChalksNode(ConcurrentEditableNode):
         # local ConcurrentEditable will be initialized during connection process.
 
         # initialize the extra attributes		
-        self.chalks_instance  = Chalks_instance # stores a reference to the gui object
+        self.chalks_gui  = chalks_gui # stores a reference to the gui object
 
         self.nickname = None
         self.site_id = None # site_id is an unique internet identifier
@@ -30255,10 +30256,10 @@ class ChalksNode(ConcurrentEditableNode):
         
         # attach some attributes and methods
         for t_name in ["log", "log_error", "exception", "encoding"]: 
-            setattr(self, t_name, getattr(Chalks_instance, t_name))
-        self.log = lambda text, *args, **kws: Chalks_instance.log("\n%s" % text) # dummy trick
+            setattr(self, t_name, getattr(chalks_gui, t_name))
+        self.log = lambda text, *args, **kws: chalks_gui.log("\n%s" % text) # dummy trick
                 
-        self.text_widget = Chalks_instance.text_widget
+        self.text_widget = chalks_gui.text_widget
         self.text_widget.tag_config("to_send", relief= RAISED, borderwidth=4, background= "beige")# work fine in Linux
             
         self.deletion_buffer = () # helper variable store a cumulative erasure (successive delete or insert commands) in the tuple (startpos, len)
@@ -30274,13 +30275,13 @@ class ChalksNode(ConcurrentEditableNode):
         """
         right now it will just forward log message to GUI object
         """
-        self.chalks_instance.log(text, tag, color)
+        self.chalks_gui.log(text, tag, color)
 
     def log_error(self, text):
         """
         right now it will just forward log message to GUI object
         """
-        self.chalks_instance.log_error(text)
+        self.chalks_gui.log_error(text)
     
     @others</t>
 <t tx="rodrigob.20040125154815.2">
@@ -30933,13 +30934,13 @@ For more information about the code read the "LeoN.leo/Docs/developers docs/Code
     There is one avatar instance per client connection to the server
     """
     
-    def __init__(self, avatarId, mind, chalks_instance = None):
+    def __init__(self, avatarId, mind, chalks_gui = None):
         """
         """
         
-        assert chalks_instance
-        self.chalks_instance = chalks_instance
-        self.node = chalks_instance.node
+        assert chalks_gui
+        self.chalks_gui = chalks_gui
+        self.node = chalks_gui.node
         
         self.mind = mind # store it for later use # mind is a perspective of the client that is connecting to use
         self.avatarId = self.nickname = avatarId
@@ -30986,11 +30987,11 @@ For more information about the code read the "LeoN.leo/Docs/developers docs/Code
     """
     __implements__ = portal.IRealm
                                      
-    def __init__(self, Chalks_instance):
-        self.chalks_instance = Chalks_instance                                                                                                                             
+    def __init__(self, chalks_gui):
+        self.chalks_gui = chalks_gui                                                                                                                             
     def requestAvatar(self, avatarId, mind, *interfaces):
         if pb.IPerspective in interfaces:
-            avatar = ChalksAvatar(avatarId, mind, self.chalks_instance)
+            avatar = ChalksAvatar(avatarId, mind, self.chalks_gui)
             return pb.IPerspective, avatar, avatar.logout
         else:
             raise NotImplementedError("no interface")
@@ -32721,7 +32722,7 @@ code related to the concurrent edition system</t>
     self.log("self.state_vector %s" % self.state_vector, color="yellow") # just for debugging
 
 
-    self.chalks_instance.set_connected() # set up the flag and reflect in the gui
+    self.chalks_gui.set_connected() # set up the flag and reflect in the gui
     return
     
 </t>
@@ -32754,7 +32755,7 @@ Register/Unregister childrens in the session</t>
     """
     
     if not self.connected:
-        self.chalks_instance.set_connected()
+        self.chalks_gui.set_connected()
         
     
     print "User %s %s is starting to collaborate" % (site_perspective.nickname, site_perspective)
@@ -32774,7 +32775,7 @@ Register/Unregister childrens in the session</t>
     
     if not self.childrens_perspectives and not self.parent_perspective:
         self.connected = 0 
-        self.chalks_instance.disableChat()
+        self.chalks_gui.disableChat()
     return
     </t>
 <t tx="rodrigob.20040913221406">Todo
@@ -32811,7 +32812,7 @@ Register/Unregister childrens in the session</t>
     # we will give to the parent access to a local avatar
     parent_nickname = None
     parent_mind = None
-    parent_avatar = ChalksAvatar(parent_nickname, parent_mind, self.chalks_instance)
+    parent_avatar = ChalksAvatar(parent_nickname, parent_mind, self.chalks_gui)
     self.parent_avatar = parent_avatar
     
     factory = pb.PBClientFactory()
@@ -32854,7 +32855,7 @@ def disconnected(self, *args):
     Actions to be done by the ClientNode after his disconnection.
     """
 
-    self.chalks_instance.clear_connected() # reflect in the gui the end of the connection
+    self.chalks_gui.clear_connected() # reflect in the gui the end of the connection
         
     # what should I do here ?, do I need to do something ?
     self.log("Disconnected from the old node.", color="gray") # just to do something
