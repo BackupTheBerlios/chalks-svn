@@ -2,7 +2,7 @@
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2935" clone_windows="0"/>
 <globals body_outline_ratio="0.450381679389">
-	<global_window_position top="10" left="10" height="524" width="800"/>
+	<global_window_position top="10" left="10" height="986" width="1280"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -1701,7 +1701,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.20040125160038" a="E"><vh>Code perspectives</vh>
 <v t="rodrigob.20040129141624" a="M"><vh>network</vh>
-<v t="rodrigob.20040913233519"><vh>&lt;&lt;about the connections process&gt;&gt;</vh></v>
+<v t="rodrigob.20040913233519" a="M"><vh>&lt;&lt;about the connections process&gt;&gt;</vh></v>
 <v t="rodrigob.20040125154815.1" a="EM"><vh>class ChalksNode</vh>
 <v t="rodrigob.20040125154815.2" a="EM"><vh>connect to/disconnect from parent node</vh>
 <v t="rodrigob.20040913221730" a="E"><vh>connect</vh>
@@ -1818,7 +1818,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040123142018"><vh>ask yes no or cancel</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040123124005"><vh>gui commands/events</vh>
+<v t="rodrigob.20040123124005" a="E"><vh>gui commands/events</vh>
 <v t="rodrigob.20040124184444" a="E"><vh>text widget commands</vh>
 <v t="rodrigob.20040125154636" a="E"><vh>onTextKey</vh>
 <v t="rodrigob.20040125192325"><vh>get text selection</vh></v>
@@ -1866,7 +1866,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 </v>
 <v t="rodrigob.20040831112258.1" a="E"><vh>concurrent edition</vh>
-<v t="rodrigob.20040125154815.1" a="E"><vh>class ChalksNode</vh>
+<v t="rodrigob.20040125154815.1" a="EM"><vh>class ChalksNode</vh>
 <v t="rodrigob.20040125154815.2" a="EM"><vh>connect to/disconnect from parent node</vh>
 <v t="rodrigob.20040913221730" a="E"><vh>connect</vh>
 <v t="rodrigob.20040909060311" a="M"><vh>start collaborating</vh></v>
@@ -1907,7 +1907,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040920122333" a="EM"><vh>receive operation</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040121155420"><vh>ConcurrentEditableNode</vh>
+<v t="rodrigob.20040121155420" a="M"><vh>ConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013418" a="E"><vh>__init__</vh></v>
 <v t="rodrigob.20040128011816"><vh>receive operation</vh></v>
 <v t="rodrigob.20040128011809" a="E"><vh>add/del site</vh>
@@ -3386,8 +3386,8 @@ Currently they may be related to coding, researching, packaging, everything.</t>
 <t tx="niederberger.20040825222327.1">- inspect and make a consistent use of the timestamp (operations creation, emission, reception, application) (&lt;&lt;&lt; the next big thing)
 
 - in Test_Chalks, separate both instance stdout redirection (run in threads ?). Test_Chalks should be reimplemented.
-- why does Test_Chalks is sooo slow to quit ? (seeems to be related with rendez vous, when disabled it quit in a fraction of seconds)
 
+- why does Test_Chalks is sooo slow to quit ? (seeems to be related with rendez vous, when disabled it quit in a fraction of seconds)
 
 - Why does site show the insertion point index and the other one does not ? (left of the chat bar) (Test_Chalks exclusive problem, a reason more to rewrite it)
 
@@ -3395,7 +3395,7 @@ Currently they may be related to coding, researching, packaging, everything.</t>
 
 - Work on concurrenteditablenode (make consistent use of the new site_id system)
 
-- the rendezvous system does not seems to be working under linux (aviables servers list appears empty)
+- the rendezvous system does not seem to be working under linux (available servers list is empty)
 
 </t>
 <t tx="niederberger.20040825222327.2">- we should add to rendezvous published data which filename we are serving, and unregister our server and register it again with the new filename when a new file is opened
