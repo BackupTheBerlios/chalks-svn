@@ -25,7 +25,7 @@
 </v>
 </v>
 </v>
-<v t="rodrigob.20040824110326.1" a="E"><vh>Docs</vh>
+<v t="rodrigob.20040824110326.1"><vh>Docs</vh>
 <v t="rodrigob.20040826155317" a="EM"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
 <v t="rodrigob.20040908003956"><vh>Latex</vh>
 <v t="rodrigob.20040908003956.1" a="E"
@@ -50,7 +50,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040831004246"><vh>@thin ./src/setup.py</vh></v>
 <v t="rodrigob.20040831002444"><vh>@thin ./src/setup.cfg</vh></v>
 </v>
-<v t="rodrigob.121403173614.10" a="E"><vh>logs</vh>
+<v t="rodrigob.121403173614.10"><vh>logs</vh>
 <v t="rodrigob.121403173614.11" a="E"><vh>LeoN release '0**0'</vh></v>
 <v t="rodrigob.123103131341"><vh>LeoN release 0.1.0</vh></v>
 <v t="rodrigob.20040918184418"><vh>Chalks initial logs</vh></v>
@@ -285,7 +285,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.123103165427"><vh>GNU GPL</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040824110326.2" a="E"><vh>Reference code</vh>
+<v t="rodrigob.20040824110326.2"><vh>Reference code</vh>
 <v t="niederberger.20040911012711"><vh>Web</vh>
 <v t="niederberger.20040911012711.1"><vh>Pages classes</vh></v>
 <v t="niederberger.20040911012711.2"><vh>Chalks model adaptator</vh></v>
@@ -1694,7 +1694,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040915113450"><vh>Code problems</vh></v>
 <v t="rodrigob.20040918192751"><vh>Rendez Vous crash the program if pc is without internet</vh></v>
 </v>
-<v t="niederberger.20040825222327.2" a="E"><vh>Medium</vh>
+<v t="niederberger.20040825222327.2" a="ETV"><vh>Medium</vh>
 <v t="rodrigob.20040918185607" a="E"><vh> Concurrent editable todos</vh></v>
 </v>
 <v t="niederberger.20040825222327.3"><vh>Low</vh>
@@ -2071,7 +2071,7 @@ expanded="rodrigob.20040912211426.2,"><vh>@thin Test_ChalksServerMonitor.py</vh>
 <v t="rodrigob.121403173614.25" a="E"><vh>&lt;&lt; Step four, Realtime interaction &gt;&gt;</vh></v>
 </v>
 </v>
-<v t="rodrigob.121403173614.58" a="TV"><vh>Code explanation</vh>
+<v t="rodrigob.121403173614.58"><vh>Code explanation</vh>
 <v t="rodrigob.010104213529"><vh>&lt;&lt; notation &gt;&gt;</vh></v>
 </v>
 <v t="niederberger.20040906222819"><vh>General view of the system</vh></v>
@@ -3414,7 +3414,8 @@ Currently they may be related to coding, researching, packaging, everything.</t>
 - implement the file open complications
 - document the system internals, add docustrings for the methods
 - clean up the "self.splitVerticalFlag" / "verticalFlag"  usage
-</t>
+
+- should not allow a connection to the same instance, on localhost. Chat behaves strangely on such connections. (different instances serving on different ports is ok, for tests). </t>
 <t tx="niederberger.20040825222327.3">- test the fill_body routine. 
 
 - do edition tests with the "delayed line"
