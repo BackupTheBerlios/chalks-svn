@@ -1957,7 +1957,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
     
         # assign a site index    
         c = 0
-        keys = self.sites_index.keys
+        keys = self.sites_index.keys()
         for c in xrange(len(keys)):
             if keys[c] > site_id:
                 break
