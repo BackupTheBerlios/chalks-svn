@@ -1411,7 +1411,7 @@ class Chalks:
         return
     #@-node:rodrigob.20040913224357:disconnect
     #@-node:rodrigob.20040122175312:menu commands
-    #@+node:rodrigob.20040121153312:chat bar commands (on chat text entry)
+    #@+node:rodrigob.20040121153312:chat bar commands (onChatTextEntry)
     def onChattextEntry(self, event):
         """
         Obtain the last line in the text widget.
@@ -1424,13 +1424,13 @@ class Chalks:
         text = event.widget
     
         txt = text.get("insert linestart", "insert lineend")  # extract the actual line
-        #self.log("Try of txt : '%s'"%(txt), color="yellow")
+        if len(txt) == 0: # return immediately on blank input text
+            return
     
         # ensure that the cursor is on the last line, and that there is only one blank line at the end (new entry...)
         text.mark_set("insert", "end")	
         if text.get("insert - 1 chars") == '\n':
             text.delete("insert - 1 chars")
-        
         
         if txt[0] == '/': # manage commands
             if txt.startswith("/presence"):
@@ -1478,7 +1478,7 @@ class Chalks:
         return
     #@nonl
     #@-node:rodrigob.20040912221032:enable/disable Chat
-    #@-node:rodrigob.20040121153312:chat bar commands (on chat text entry)
+    #@-node:rodrigob.20040121153312:chat bar commands (onChatTextEntry)
     #@+node:rodrigob.20040124160427:status bar commands
     #@+node:rodrigob.20040121153834.4:updateStatusRowCol
     def updateStatusRowCol (self):
