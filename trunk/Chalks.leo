@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
-<leo_header file_format="2" tnodes="0" max_tnode_index="2925" clone_windows="0"/>
+<leo_header file_format="2" tnodes="0" max_tnode_index="2926" clone_windows="0"/>
 <globals body_outline_ratio="0.624113475177">
 	<global_window_position top="45" left="53" height="986" width="1280"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
@@ -12,7 +12,7 @@
 	<change_string></change_string>
 </find_panel_settings>
 <vnodes>
-<v t="rodrigob.20040121154249" a="E"><vh>Chalks</vh>
+<v t="rodrigob.20040121154249" a="TV"><vh>Chalks</vh>
 <v t="rodrigob.20040824110326"><vh>Introduction (for Chalks newbies)</vh>
 <v t="rodrigob.121403173614.1"><vh>Old LeoN (to purge) Introduction (for LeoN newbies)</vh>
 <v t="rodrigob.121403173614.2" a="E" tnodeList="rodrigob.121403173614.2,rodrigob.121403173614.3,rodrigob.123103123958,rodrigob.121403173614.4,rodrigob.121403173614.5,rodrigob.121403173614.6,rodrigob.123103162446,rodrigob.123103162446.1,rodrigob.123103162446.2,rodrigob.123103162446.3,rodrigob.122403213028"><vh>@nosentinelsfile README</vh>
@@ -34,8 +34,13 @@
 </v>
 </v>
 <v t="rodrigob.20040824110326.1" a="E"><vh>Docs</vh>
+<v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
+<v t="niederberger.20040825222327.1"><vh>High</vh></v>
+<v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
+<v t="niederberger.20040825222327.3"><vh>Low</vh></v>
+</v>
 <v t="rodrigob.20040824112428"><vh>Credits</vh></v>
-<v t="rodrigob.121403173614.9" a="E"><vh>Old LeoN (to purge) Docs</vh>
+<v t="rodrigob.121403173614.9"><vh>Old LeoN (to purge) Docs</vh>
 <v t="rodrigob.121403173614.4" a="E"><vh>&lt;&lt; release status &gt;&gt;</vh></v>
 <v t="rodrigob.122403213028"><vh>&lt;&lt; legal declaration &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.57"><vh>General view of the system</vh>
@@ -143,7 +148,7 @@
 <v t="rodrigob.121403173614.11"><vh>release '0**0'</vh></v>
 <v t="rodrigob.123103131341"><vh>release 0.1.0</vh></v>
 </v>
-<v t="rodrigob.121403173614.20" a="TV"><vh>forum/mail_list posts</vh>
+<v t="rodrigob.121403173614.20"><vh>forum/mail_list posts</vh>
 <v t="rodrigob.121403173614.21"><vh>Leo over network requirements (original post)</vh>
 <v t="rodrigob.121403173614.22" a="E"><vh>&lt;&lt; Step one, Merging &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.23" a="E"><vh>&lt;&lt; Step two, Publishing &gt;&gt;</vh></v>
@@ -2004,7 +2009,7 @@
 <v t="rodrigob.20040123132311.1"><vh>&lt;&lt; chalks help &gt;&gt;</vh>
 <v t="rodrigob.20040126020116"><vh>network graph (about Server, Client, Children, Parent, and Trees)</vh></v>
 </v>
-<v t="rodrigob.122403220526.1"><vh>developers docs</vh>
+<v t="rodrigob.122403220526.1" a="E"><vh>developers docs</vh>
 <v t="niederberger.20040825214919"><vh>old (from LeoN)</vh>
 <v t="niederberger.20040825221501"><vh>&lt;&lt; LeoNtest docs &gt;&gt; (about LeoN tests)</vh>
 <v t="niederberger.20040825221501.1"><vh>&lt;&lt; usage &gt;&gt;</vh></v>
@@ -3387,6 +3392,10 @@ Example:
     'LeoNtest.py 1 save_tap'
 """
 </t>
+<t tx="niederberger.20040825222327"></t>
+<t tx="niederberger.20040825222327.1"></t>
+<t tx="niederberger.20040825222327.2"></t>
+<t tx="niederberger.20040825222327.3"></t>
 <t tx="rodrigob.010104175231"></t>
 <t tx="rodrigob.010104211709"></t>
 <t tx="rodrigob.010104212717">no real requirement right now, but issues we should think about:
