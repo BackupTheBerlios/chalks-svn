@@ -34,19 +34,22 @@ except usage.UsageError, errortext:
     print '%s: Try --help for usage details.' % (sys.argv[0])
     sys.exit(1)
 
-if config['user'] is not None:
-    print "Hello", config['user']
-
-if len(config): # more than one option
-    print "So, you want it:"
-
-if config['fast']:
-    print "fast",
-if config['good']:
-    print "good",
-if config['cheap']:
-    print "cheap",
-print
+#@+at
+# if config['user'] is not None:
+#     print "Hello", config['user']
+# 
+# if len(config): # more than one option
+#     print "So, you want it:"
+# 
+# if config['fast']:
+#     print "fast",
+# if config['good']:
+#     print "good",
+# if config['cheap']:
+#     print "cheap",
+# print
+#@-at
+#@@c
 
 #print "Creating three Chalks instances"
 print "Creating two Chalks instances"
@@ -56,7 +59,8 @@ app2 = Chalks.Chalks()
 
 
 print "Connecting app2 to app1"
-app2.node.connect_to_parent("127.0.0.1", app1.chalks_service.port, "app2")
+app2.node.connect_to_parent("127.0.0.1", app1.chalks_service.port, "app2") 
+# has the same effect of using the 'connect to' dialog
 #print "Connecting app3 to app1"
 #app3.node.connect_to_parent("127.0.0.1", app1.chalks_service.port, "app3")
 

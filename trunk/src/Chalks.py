@@ -70,11 +70,15 @@ from twisted.internet import tksupport # the first thing that we need to do is t
 from twisted.internet import reactor
 from twisted.python import components
 
-# Woven imports  # THIS IS CURRENTLY DISABLED
-"""
-from twisted.web.woven import page, interfaces, model
-from twisted.web import server
-"""
+  
+#@+at 
+#@nonl
+# # THIS IS CURRENTLY DISABLED
+# # Woven imports
+# from twisted.web.woven import page, interfaces, model
+# from twisted.web import server
+#@-at
+#@@c
 
 # Twisted Applications imports
 from twisted.application import service, internet
@@ -159,27 +163,28 @@ class Chalks:
         #@+node:rodrigob.20040125150558:<< install the web service >>
         # install the web service
         #NOTE: this is currently disabled
-        """
-        if 0 and web_service: 
-            
-            site = server.Site(utf8Page(interfaces.IModel(self), templateFile="Chalks.xhtml", templateDirectory="./"))        
-            
-            web_portno = pb.portno + 1
-            for port in xrange(web_portno, web_portno+10):
-                try:
-                    web_service = reactor.listenTCP(port, site) #internet.TCPServer(port, site).setParentApp(app)
-                except: # failed
-                    continue
-                else: # got it
-                    print "Starting web service at http://localhost:%i" % port
-                    #print "%s %s" % (web_service, dir(web_service))
-                    self.web_service = web_service
-                    break # stop creating web services
-                    
-            else: # the range failed
-                self.log_error("Could not find an available port in the range %s to provide webpublishing of the text contents." % [web_portno, web_portno+10])
-                
-        """
+        #@+at
+        # if 0 and web_service:
+        #     site = server.Site(utf8Page(interfaces.IModel(self), 
+        # templateFile="Chalks.xhtml", templateDirectory="./"))
+        #     web_portno = pb.portno + 1
+        #     for port in xrange(web_portno, web_portno+10):
+        #         try:
+        #             web_service = reactor.listenTCP(port, site) 
+        # #internet.TCPServer(port, site).setParentApp(app)
+        #         except: # failed
+        #             continue
+        #         else: # got it
+        #             print "Starting web service at http://localhost:%i" % 
+        # port
+        #             #print "%s %s" % (web_service, dir(web_service))
+        #             self.web_service = web_service
+        #             break # stop creating web services
+        #     else: # the range failed
+        #         self.log_error("Could not find an available port in the 
+        # range %s to provide webpublishing of the text contents." % 
+        # [web_portno, web_portno+10])
+        #@-at
         #@nonl
         #@-node:rodrigob.20040125150558:<< install the web service >>
         #@nl
@@ -194,7 +199,7 @@ class Chalks:
         #@+node:rodrigob.20040125200531.1:Chalks realm
         class ChalksRealm:
             """
-            Provide access to a ChalksPerspective
+            Provide access to a ChalksAvatar
             """
             __implements__ = portal.IRealm
                                              
@@ -202,7 +207,7 @@ class Chalks:
                 self.chalks_instance = Chalks_instance                                                                                                                             
             def requestAvatar(self, avatarId, mind, *interfaces):
                 if pb.IPerspective in interfaces:
-                    avatar = ChalksPerspective(avatarId, mind, self.chalks_instance)
+                    avatar = ChalksAvatar(avatarId, mind, self.chalks_instance)
                     return pb.IPerspective, avatar, avatar.logout
                 else:
                     raise NotImplementedError("no interface")
@@ -257,12 +262,12 @@ class Chalks:
         #@nl
         #@    << guess local ip address >>
         #@+node:niederberger.20040826214344:<< guess local ip address >>
-        """this method relies on an external perl script hosted on any cgi-bin environment to guess the correct external ip address.
-        This is definitely not needed for NAT'd nodes.
-        """
-        #### To force an ip and speed up start up:  
-        #self.opts['ip'] = "200.165.227.174"
-        #return
+        #@+at
+        # this method relies on an external perl script hosted on any cgi-bin 
+        # environment to guess the correct external ip address.
+        # This is definitely not needed for NAT'd nodes.
+        #@-at
+        #@@c
         
         self.log("Guessing your IP address...\n")
         
@@ -270,10 +275,10 @@ class Chalks:
         t_adr = "http://imgseek.sourceforge.net/cgi-bin/getMyAddress.pl"
         
         def ip_callback(value):
-            self.log("Your external IP address is '%s'\n"%value)
+            print "Your external IP address is '%s'"%value
             
         def ip_errback(error):
-            self.log("Unable to determine IP address. Setting to '%s'\n" % t_onError)
+            print "Unable to determine IP address. Setting to '%s'" % t_onError
         
         from twisted.web.client import getPage
         getPage(t_adr).addCallbacks( callback=ip_callback, errback=ip_errback )
@@ -296,18 +301,19 @@ class Chalks:
             self.server_address = socket.gethostbyname(socket.gethostname())
         
             # now advertise
-            user_name = socket.gethostname() # this should use some OS specific way for determining current user name. 
-                                             # For Win32 systems, that would demand installing/including python win32 extensions (win32api module)
-                                             # http://starship.python.net/crew/mhammond/win32/Downloads.html and code snippet from
-                                             # http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/265858
-                                             # On *NIX I guess this could be determined from a system environment variable
+            from os import getenv
+            user_name = str(getenv("username")) +'@'+ socket.gethostname() 
+            # this should use some OS specific way for determining current user name. 
+            # For Win32 systems, that would demand installing/including python win32 extensions (win32api module)
+            # http://starship.python.net/crew/mhammond/win32/Downloads.html and code snippet from
+            # http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/265858
+            # On *NIX I guess this could be determined from a system environment variable
             
             # the service name should be "<file name> at <machine name>", but at this point we have no file name, so just name it something random
             import random
             service_name = user_name + ' Chalks server ' + str(random.randint(1,100000))
             
             self.server_monitor.registerService(service_name, self.server_address, self.server_port, user_name)
-        
         #@-node:niederberger.20040911111958:<< advertise local server >>
         #@nl
     
@@ -433,7 +439,7 @@ class Chalks:
         #<<<<< finish
         raise NotImplementedError
     
-    	for (encoding,src) in (
+        for (encoding,src) in (
             ("utf-8","default")
             (self.config.tkEncoding,"config"),
             #(locale.getdefaultlocale()[1],"locale"),
@@ -923,9 +929,9 @@ class Chalks:
     
     #@+node:rodrigob.20040125192325:get text selection
     def get_text_selection (self):
-    	"""
+        """
         Return a tuple representing the selected range of body text.
-    	Return a tuple giving the insertion point if no range of text is selected.
+        Return a tuple giving the insertion point if no range of text is selected.
         """
     
         text_widget = self.text_widget
@@ -1194,7 +1200,7 @@ class Chalks:
         self.server_listbox = Listbox(ttt_frame, width=46)    
         self.server_listbox.grid(row=0, column=0, pady=5)
     
-        t_text = Label(ttt_frame, text="Double click a server to connect")
+        t_text = Label(ttt_frame, text="Select a server and enter a nickname to connect")
         t_text.grid(row=1, column=0)
         
         #|-|-|
@@ -1205,7 +1211,8 @@ class Chalks:
     
         address_entry = t_entry = Entry(t_frame, width=16, background="white")
         t_entry.grid(row=0, column=1, sticky=W)
-        
+        t_entry.insert(END, "127.0.0.1")
+            
         t_text = Label(t_frame, text="e.g. : 181.0.24.5")
         t_text.grid(row=1, column=0, columnspan=2, sticky=E)
     
@@ -1213,8 +1220,8 @@ class Chalks:
         t_text.grid(row=0, column=2)
     
         port_entry = t_entry = Entry(t_frame, width=5,  background="white")
-        t_entry.insert(END, "8787")
         t_entry.grid(row=0, column=3, sticky=W)
+        t_entry.insert(END, "8787")
         
         t_text = Label(t_frame, text="e.g. : 4321")
         t_text.grid(row=1, column=2, columnspan=2, sticky=E)
@@ -1224,9 +1231,14 @@ class Chalks:
         
         t_text = Label(tt_frame, text="Nickname:")
         t_text.grid(row=2, column=0)
-    
+        
         nickname_entry = t_entry = Entry(tt_frame, width=8, background="white")
         t_entry.grid(row=2, column=1, sticky=W)
+        # guess the username
+        from os import getenv
+        t_username = str(getenv("username"))
+        t_entry.insert(END, t_username)
+        
         # see binding below...
             
         t_text = Label(tt_frame, text="e.g. : mike")
@@ -1264,6 +1276,10 @@ class Chalks:
             
             server = self.cur_server_list[self.cur_server_list.keys()[int(self.server_listbox.curselection()[0])]]
             print server # server info is here, now we need to populate entry widgets with this info
+        
+            port_entry.delete(0, END); port_entry.insert(END, str(server['port']))
+            
+        #@nonl
         #@-node:niederberger.20040911130819:<< server list callback >>
         #@nl
         self.server_listbox.bind("<Button-1>", onServerListClick)
@@ -1297,8 +1313,7 @@ class Chalks:
             address  = address_entry.get()  
             nickname = nickname_entry.get()
             
-            top.destroy()
-            print "Requesting a connection to 'chalks://%s:%s' as '%s', please wait..." % (address, port, nickname) 
+            top.destroy() 
             # start the connection 
             self.node.connect_to_parent(address, port, nickname)
             return
@@ -1415,17 +1430,36 @@ class Chalks:
                 cmd = txt.split(' ')[0]
                 self.log_error("Unknown command '%s'; message not sent.\nUse '/help' to get some guidance."%(cmd))	
         else:
-            #self.node.parent_perspective.callRemote("send_message", txt).addErrback(self.exception)
-            self.node.remote_send_message(txt, self.node)
+            t_from = self.node.nickname
+            t_to = None # to everyone
+            self.node.remote_send_message(t_from, t_to, txt, self.node)
         
         return
     
+    
+    #@+node:rodrigob.20040912221032:enable/disable Chat
     def enableChat(self):    
         """
         enables chat text entry widget
         """    
         self.chat_text_entry["state"] = NORMAL    
+        self.chat_text_entry.delete('1.0', END);  
+        #self.chat_text_entry.insert(END, "Enter chat text here");
+        print "Chat bar now enabled"
+        return
         
+    def disableChat(self):    
+        """
+        disable chat text entry widget
+        """    
+        self.chat_text_entry.delete('1.0', END);  
+        self.chat_text_entry.insert(END, "The chat bar is disabled until someone connects to you or you connect to someone.");
+        self.chat_text_entry["state"] = DISABLED
+        print "Chat bar now disabled"
+        
+        return
+    #@nonl
+    #@-node:rodrigob.20040912221032:enable/disable Chat
     #@-node:rodrigob.20040121153312:chat bar commands
     #@+node:rodrigob.20040124160427:status bar commands
     #@+node:rodrigob.20040121153834.4:updateStatusRowCol
@@ -1528,17 +1562,14 @@ from ConcurrentEditable import ConcurrentEditable # needed by remote_delete_text
         
 class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     """
-    <<< EDIT THIS CONTENT !!
-    Specialized to manage the Tk widget and to be in a Tree like network.
+    This is the local instance that take care of the collaborative edition and the network layers.
+    This is the core object under the GUI.
     
-    The client side of the selected node.
-    This is a dynamic component.
+    A Chalks node is part of a tree network, it can have one parent and N childrens.
+    A node connect once to his parent and can receive N childrens connections.
     
-    This class is instanciated when the user start to collaborate in a node. 
-    It manage all the ConcurrentEdition Logic. 
-    This is the class that concentrate the LeoN interaction with the panel body. The implementation is dependent of the Gui system.
+    All messages that arrive to a node has to be repeated to the other nodes.
     This is the class that generate all the operations to be sent to the server, and it the the one that process the received operations.
-    As this is a child class, most of the ConcurrentEditable logic is not here but in the parents. This class overwrite and extend his parent with Gui dependents methods.
     """
     
     def __init__(self, Chalks_instance, text=""):
@@ -1552,10 +1583,15 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         self.chalks_instance  = Chalks_instance # stores a reference to the gui object
 
         self.nickname = None
-        self.id = None # id is an unique internet identifier
+        self.site_id = None # site_id is an unique internet identifier
         self.connected = 0              # initially we are not connected to anyone
         
-        for t_name in ["log", "log_error", "exception", "encoding"]: # attach some attributes and methods
+        # perspectives of the adjacent nodes in the network
+        self.parent_perspective = None
+        self.childrens_perspectives = []
+        
+        # attach some attributes and methods
+        for t_name in ["log", "log_error", "exception", "encoding"]: 
             setattr(self, t_name, getattr(Chalks_instance, t_name))
         self.log = lambda text, *args, **kws: Chalks_instance.log("\n%s" % text) # dummy trick
         
@@ -1568,6 +1604,9 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         if text:
             self.set_text(text)        
 
+        return
+
+        
     def log(self, text, tag=None, color=None):        
         """
         right now it will just forward log message to GUI object
@@ -1584,8 +1623,10 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     #@+node:rodrigob.20040125154815.2:connect to/disconnect from parent node
     def connect_to_parent(self, address, port, nickname="No name"):
         """
-        Connect as a children to another node
+        Connect as a children to a parent node
         """
+        print "Requesting a connection to 'chalks://%s:%s' as '%s', please wait..." % (address, port, nickname)
+        
         assert isinstance(port, int), 'port must be integer'
         self.nickname = nickname    
         
@@ -1602,11 +1643,11 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     
         self.parent_perspective = parent_perspective
             
-        # we obtain us id
+        # we obtain us site_id
         t_address = self.parent_perspective.broker.transport.getHost()
-        self.id = hash("%s:%i" % (t_address.host, t_address.port))
+        self.site_id = hash("%s:%i" % (t_address.host, t_address.port))
     
-        deferred = self.parent_perspective.callRemote("collaborate_in", self.id)
+        deferred = self.parent_perspective.callRemote("collaborate_in", self.site_id)
         deferred.addCallback(self.start_collaborating).addErrback(self.exception)
                                 
         return
@@ -1655,7 +1696,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         self.text_widget.mark_set("insert", insert_index) # try to keep the insert mark at the same place
         
         t_address = self.parent_perspective.broker.transport.getPeer()
-        self.log("Connected to '%s:%i' as site '%s' (num_of_sites %s)"%(t_address.host, t_address.port, self.id, num_of_sites))
+        self.log("Connected to '%s:%i' as site '%s' (num_of_sites %s)"%(t_address.host, t_address.port, self.site_id, num_of_sites))
         
         self.log("HB after the connection %s"% self.HB, color="yellow") # just for debugging
         self.log("delayed_operations after the connection %s"% self.delayed_operations, color="yellow") # just for debugging
@@ -1700,7 +1741,50 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     
     
     
+    
     #@-node:rodrigob.20040125154815.2:connect to/disconnect from parent node
+    #@+node:rodrigob.20040912225813:add/del sites
+    #@+at
+    # Register/Unregister childrens in the session
+    #@-at
+    #@nonl
+    #@+node:rodrigob.20040912225813.1:add site
+    def add_site(self, site_perspective):
+        """
+        Add a new children to the local node
+        """
+        
+        if not self.connected:
+            self.connected = 1
+            # upon connection we need to enable the chat system 
+            self.chalks_instance.enableChat()
+        
+        print "User %s %s is starting to collaborate" % (site_perspective.nickname, site_perspective)
+        self.childrens_perspectives.append(site_perspective)
+        ConcurrentEditableNode.add_site(self, site_perspective.site_id)
+        
+        return
+        
+    #@nonl
+    #@-node:rodrigob.20040912225813.1:add site
+    #@+node:rodrigob.20040912225813.2:del site
+    def del_site(self, site_perspective):
+        """
+        Delete a children from the local node
+        """
+    
+        print "User %s %s is quiting" % (site_perspective.nickname, site_perspective.mind)
+        self.childrens_perspectives.remove(site_perspective)
+        ConcurrentEditableNode.add_site(self, site_perspective.site_id)
+        
+        if not self.childrens_perspectives and not self.parent_perspective:
+            self.connected = 0 
+            self.chalks_instance.disableChat()
+        return
+        
+    #@nonl
+    #@-node:rodrigob.20040912225813.2:del site
+    #@-node:rodrigob.20040912225813:add/del sites
     #@+node:rodrigob.20040125154815.3:edit content
     #@+at
     # This methods edit the client node text, presenting the gui results.
@@ -2367,8 +2451,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     # 
     # this methods are common to both children->parent calls and 
     # parent->childrens calls.
-    # So we use only this implementation. The ChalksPerspective equivalent 
-    # methods, call this one.
+    # So we use only this implementation. The ChalksAvatar equivalent methods, 
+    # call this one.
     #@-at
     #@@c
     
@@ -2378,7 +2462,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     #@+node:rodrigob.20040127185444:get users list
     def remote_get_users_list(self, ):
         """ 
-        Return the dictonary of map node.id -> user_nickname
+        Return the dictonary of map node.site_id -> user_nickname
         """
             
         return {}  #<<<< implement
@@ -2386,22 +2470,25 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         
     #@-node:rodrigob.20040127185444:get users list
     #@+node:rodrigob.20040127184605:send message
-    def remote_send_message(self, txt, who=None):
+    def remote_send_message(self, from_, to, txt, received_from):
         """ 
+        from: string, nickname of the emitter
+        to: string, nickname of the receiver
+        txt: the message
+        received_from: perspective that give to us the message
+        
         A remote node send a message to us
         we repeat it to every known node except from the one that gived the message to us
-        
-        (this method is used to manage both parent and children remote calls (childrens access to an avatar that call this method))
+        if to is None, the message will be spread to all, else it will be sent only to the users named like to
         """
-        
-        if not who:
-            who = self.parent
     
-        self.log("<%s> %s" %(who.nickname, txt) )
+        if (not to) or (to == self.nickname):    
+            self.log("<%s> %s" %(from_, txt) )
         
-        for t_perspective in self.users.values():  # self.users doesn't exist, so chat won't work until all this code is fixed.
-            if who != t_perspective:
-                t_perspective.callRemote("post_message", self.name, txt).addErrback(lambda _, name: self.log_error("Could not send a message to user %s"), t_perspective.nickname)
+        perspectives = self.childrens_perspectives + [self.parent_perspective]
+        for t_perspective in perspectives:
+            if t_perspective and received_from!= t_perspective:
+                t_perspective.callRemote("send_message", from_, to, txt, self).addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
         return
     #@-node:rodrigob.20040127184605:send message
     #@+node:rodrigob.20040127184605.1:set presence
@@ -2473,16 +2560,9 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     #@-node:rodrigob.20040126020544:insert/delete text
     #@-node:rodrigob.20040127182438:remote callable methods
     #@-others
-
-
-
-
-
-
-
 #@-node:rodrigob.20040125154815.1:class ChalksNode
-#@+node:rodrigob.20040125194534:class ChalksPerspective
-class ChalksPerspective(pb.Avatar):
+#@+node:rodrigob.20040125194534:class ChalksAvatar
+class ChalksAvatar(pb.Avatar):
     """
     <<<<<<< ADD CONTENT HERE
     what other users (childrens) can do here (at the parent). 
@@ -2501,15 +2581,12 @@ class ChalksPerspective(pb.Avatar):
         
         self.mind = mind # store it for later use # mind is a perspective of the client that is connecting to use
         self.avatarId = avatarId
-        self.nickname = avatarId
+        self.nickname = self.mind.nickname = avatarId
         
         assert mind, ChalksError("Chalks strictly require references to the client connecting.")
         
         #pb.Avatar.__init__(self, avatarId, mind) # pb.Avatar has no __init__ method.
-        
-    
-
-
+        return
         
     #@    @+others
     #@+node:rodrigob.20040129150513:logout
@@ -2526,18 +2603,16 @@ class ChalksPerspective(pb.Avatar):
     #@-node:rodrigob.20040129150513:logout
     #@+node:rodrigob.20040126020641:collaborate in/out
     # Allow external users to start collaborating
-    
-    
-    def perspective_collaborate_in(self, id):
+    def perspective_collaborate_in(self, site_id):
         """
         Start collaborating with the node
         proceeds with site registration and returns the necessary data to configure the client (children)
-        the id is a unique identifier of the client (child) process
+        the site_id is a unique identifier of the client (child) process
         """
+            
+        self.site_id = self.mind.site_id = site_id
         
-        self.id = id
-        
-        self.node.add_site(id) # we register us in the parent
+        self.node.add_site(self.mind) # we register us perspective in the parent
         
         # we obtain and return the required data to start the session in the child
         t_state = self.node.get_state(); t_state = list(t_state);
@@ -2554,12 +2629,10 @@ class ChalksPerspective(pb.Avatar):
         # logout of the Collaborative Node
         self.node.del_client(self)
         
-        self.site_index = None
+        self.site_id = None
         
         return
         
-        
-    
     
     
     #@-node:rodrigob.20040126020641:collaborate in/out
@@ -2567,7 +2640,7 @@ class ChalksPerspective(pb.Avatar):
     #@+at
     # this methods are common to both children->parent calls and 
     # parent->childrens calls.
-    # So we use only one implementation. ChalksPerspective calls ChalksNode 
+    # So we use only one implementation. ChalksAvatar calls ChalksNode 
     # implementation.
     #@-at
     #@@c
@@ -2575,7 +2648,7 @@ class ChalksPerspective(pb.Avatar):
     #@+node:rodrigob.20040125220331:messages and presence methods
     def perspective_get_actual_users_list(self, ):
         """ 
-        Return the dictonary of map node.id -> user_nickname
+        Return the dictonary of map node.site_id -> user_nickname
         """    
         return self.node.perspective_get_actual_users_list(who=self)
         
@@ -2587,11 +2660,13 @@ class ChalksPerspective(pb.Avatar):
         return self.node.remote_set_presence(state, who=self)
         
         
-    def perspective_send_message(self, to, txt):
+    def perspective_send_message(self, from_, to, txt, received_from):
         """ 
         Send a message to
         """
-        return self.node.remote_send_message(to, txt, who=self)
+        
+        assert received_from == self # this paremeter exist just to solve a simmetry issue
+        return self.node.remote_send_message(from_, to, txt, self)
         
     #@nonl
     #@-node:rodrigob.20040125220331:messages and presence methods
@@ -2611,7 +2686,7 @@ class ChalksPerspective(pb.Avatar):
     #@-node:rodrigob.20040127190845:bi directional methods
     #@-others
 #@nonl
-#@-node:rodrigob.20040125194534:class ChalksPerspective
+#@-node:rodrigob.20040125194534:class ChalksAvatar
 #@+node:niederberger.20040909124137:class ChalksServerMonitor
 class ChalksServerMonitor(object):
     """ 
@@ -2691,7 +2766,7 @@ class ChalksServerMonitor(object):
         assert self.browser, 'you should only call stop() when there is a browser/rendevzvous threads running'
         self.browser.cancel()
         self.rendezvous.close()
-        print "Stopping service browser..."
+        print "Stopping RendezVous service browser..."
             
     def registerService(self, name, host, port, owner = "unknown", private = 0):
         """ 
