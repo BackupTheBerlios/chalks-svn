@@ -895,7 +895,19 @@ class Listener(object):
 		self.rendezvous.engine.addReader(self, self.rendezvous.socket)
 
 	def handle_read(self):
-		data, (addr, port) = self.rendezvous.socket.recvfrom(_MAX_MSG_ABSOLUTE)
+		"""          
+# this try/except hack had to be done in order to avoid an error raised whenever the application is closed. Apparently the stop() method closes sockets still used by other threads.
+
+  File "C:\prj\chalks\src\Rendezvous.py", line 898, in handle_read
+    data, (addr, port) = self.rendezvous.socket.recvfrom(_MAX_MSG_ABSOLUTE)
+  File "c:\python23\lib\socket.py", line 143, in _dummy
+    raise error(EBADF, 'Bad file descriptor')
+error: (9, 'Bad file descriptor')                
+		"""                
+		try:  
+			data, (addr, port) = self.rendezvous.socket.recvfrom(_MAX_MSG_ABSOLUTE)
+		except:
+			return                  
 		self.data = data
 		msg = DNSIncoming(data)
 		if msg.isQuery():

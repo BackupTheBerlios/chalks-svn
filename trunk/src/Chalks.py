@@ -229,6 +229,8 @@ class Chalks:
         #@-node:rodrigob.20040125200531:dummy checker
         #@-others
         
+        self.server_port = None # initially we don't know which port we are serving at
+        
         t_portal = portal.Portal(ChalksRealm(self))
         t_portal.registerChecker(DummyChecker())
         pb_factory = pb.PBServerFactory(t_portal)
@@ -239,6 +241,7 @@ class Chalks:
             except: # failed
                 continue
             else: # got it
+                self.server_port = port
                 print "Starting Chalks service at chalks://localhost:%i" % port
                 print "Knowing your internet address (i.e. your IP) other users can connect themself to your session using the port %i." % port  #<<<<< this should be replaced by a friendlier popup or message
                 self.chalks_service = pb_service
@@ -267,16 +270,46 @@ class Chalks:
         t_adr = "http://imgseek.sourceforge.net/cgi-bin/getMyAddress.pl"
         
         def ip_callback(value):
-            self.log("Your local IP address is '%s'\n"%value)
-        
+            self.log("Your external IP address is '%s'\n"%value)
+            
         def ip_errback(error):
             self.log("Unable to determine IP address. Setting to '%s'\n" % t_onError)
         
         from twisted.web.client import getPage
         getPage(t_adr).addCallbacks( callback=ip_callback, errback=ip_errback )
+        
         #@-node:niederberger.20040826214344:<< guess local ip address >>
         #@nl
-    
+        #@    << install server monitor >>
+        #@+node:niederberger.20040911103457:<< install server monitor >>
+        """
+        install server monitor and advertise this Chalks server
+        """
+        self.server_monitor = ChalksServerMonitor()
+        #@-node:niederberger.20040911103457:<< install server monitor >>
+        #@nl
+        #@    << advertise local server >>
+        #@+node:niederberger.20040911111958:<< advertise local server >>
+        if self.server_port: #only if we actually started serving
+            # first determine local ip address
+            import socket
+            self.server_address = socket.gethostbyname(socket.gethostname())
+        
+            # now advertise
+            user_name = socket.gethostname() # this should use some OS specific way for determining current user name. 
+                                             # For Win32 systems, that would demand installing/including python win32 extensions (win32api module)
+                                             # http://starship.python.net/crew/mhammond/win32/Downloads.html and code snippet from
+                                             # http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/265858
+                                             # On *NIX I guess this could be determined from a system environment variable
+            
+            # the service name should be "<file name> at <machine name>", but at this point we have no file name, so just name it something random
+            import random
+            service_name = user_name + ' Chalks server ' + str(random.randint(1,100000))
+            
+            self.server_monitor.registerService(service_name, self.server_address, self.server_port, user_name)
+        
+        #@-node:niederberger.20040911111958:<< advertise local server >>
+        #@nl
     
     #@-node:rodrigob.20040123131236:__init__
     #@+node:rodrigob.20040123131236.1:quit
@@ -304,11 +337,15 @@ class Chalks:
                 print "you canceled"
                 return
                 
+        # shutdown Server Monitos
+        self.server_monitor.stop()
+        
         # non return point, the app will quit
         reactor.stop()
         print "Thanks for using Chalks, have a nice day.\n"
         return
             
+    
     #@-node:rodrigob.20040123131236.1:quit
     #@+node:rodrigob.20040123142302:helpers
     #@+at
@@ -449,6 +486,8 @@ class Chalks:
             self.log_widget.insert(END, text)
             
         self.log_widget.config(state=DISABLED)
+        
+        self.log_widget.yview(END) # makes sure the bottom is visible
         
         # we also keep the last message in the status bar
         self.set_status(text)
@@ -1147,14 +1186,19 @@ class Chalks:
         """
         Open the connect to dialog
         """
-        
-       
         top = Toplevel(self.root)
         top.title("Connect to ...")
-    
-        #|-|-|
         
-        t_frame = LabelFrame(top, text="Enter remote server info", padx=5, pady=5)#Frame(top, borderwidth=2, relief=GROOVE)
+        #|-|-|
+        ttt_frame = LabelFrame(top, text="Available servers", padx=5, pady=5)
+        self.server_listbox = Listbox(ttt_frame, width=46)    
+        self.server_listbox.grid(row=0, column=0, pady=5)
+    
+        t_text = Label(ttt_frame, text="Double click a server to connect")
+        t_text.grid(row=1, column=0)
+        
+        #|-|-|
+        t_frame = LabelFrame(top, text="Enter remote server info", padx=5, pady=5)
         
         t_text = Label(t_frame, text="Address:")
         t_text.grid(row=0, column=0, pady=5)
@@ -1176,7 +1220,7 @@ class Chalks:
         t_text.grid(row=1, column=2, columnspan=2, sticky=E)
         
         #-|-|-
-        tt_frame = LabelFrame(top, text="Identify yourself", padx=5, pady=5)#Frame(top, borderwidth=2, relief=GROOVE)#Frame(t_frame) 
+        tt_frame = LabelFrame(top, text="Identify yourself", padx=5, pady=5)
         
         t_text = Label(tt_frame, text="Nickname:")
         t_text.grid(row=2, column=0)
@@ -1189,6 +1233,7 @@ class Chalks:
         t_text.grid(row=3, column=0, columnspan=2, sticky=E)
         
         #-|-|-
+        ttt_frame.pack(ipadx = 5)    
         t_frame.pack(ipadx = 5)
         tt_frame.pack(ipadx = 5)        
         #|-|-|
@@ -1198,6 +1243,30 @@ class Chalks:
         button_close = Button(t_frame, text="Close", command= top.destroy)
         button_close.pack(side=RIGHT, padx=10)
     
+        #@    << server list callback >>
+        #@+node:niederberger.20040911130819:<< server list callback >>
+        def onServerListClick(event=None):
+            assert self.server_listbox.curselection(), 'error on event, there should be a selected index'
+            
+            # aargh, Tkinter is disgusting:
+            # 1) curselection() returns STRINGS instead of ints when referring to indexes
+            # 2) curselection() only returns something after you click TWICE on the list box. After that, it starts working as expected
+            # 3) how do I set an Entry widget text ??? Do I really have to change a lot of code in order to make it use a Tkinter "textvariable" (StringVar) ?
+            # 4) Listbox has no scrollbar, we have to set it up manually with:
+            """
+            frame = Frame(master)
+            scrollbar = Scrollbar(frame, orient=VERTICAL)
+            listbox = Listbox(frame, yscrollcommand=scrollbar.set)
+            scrollbar.config(command=listbox.yview)
+            scrollbar.pack(side=RIGHT, fill=Y)
+            listbox.pack(side=LEFT, fill=BOTH, expand=1)    
+            """
+            
+            server = self.cur_server_list[self.cur_server_list.keys()[int(self.server_listbox.curselection()[0])]]
+            print server # server info is here, now we need to populate entry widgets with this info
+        #@-node:niederberger.20040911130819:<< server list callback >>
+        #@nl
+        self.server_listbox.bind("<Button-1>", onServerListClick)
         
         #@    << connect to callback >>
         #@+node:rodrigob.20040125213003:<< connect to callback >>
@@ -1275,7 +1344,34 @@ class Chalks:
         
         top.protocol("WM_DELETE_WINDOW", top.destroy)
     
+        #@    << server monitor callback >>
+        #@+node:niederberger.20040911120126:<< server monitor callback >>
+        def server_monitor_callback(servers):    
+            """
+                                        'address':     info.getAddress(),
+                                      'identifier':  info.getName(),
+                                      'port':       
+            """
+            self.server_listbox.delete(0, END)  # remove all items
+            self.cur_server_list = servers # set internal dict of current known servers
+            # add all servers
+            for server in servers.values():
+                svr_string = server['identifier'] # + ' at ' + str(server['address'])
+                print svr_string
+                self.server_listbox.insert(END, svr_string)
+        #@nonl
+        #@-node:niederberger.20040911120126:<< server monitor callback >>
+        #@nl
+        
+        # register callback with serverMonitor object
+        self.server_monitor.addCallbackListener(server_monitor_callback)
+        # populate it for the first time
+        server_monitor_callback(self.server_monitor.getServers())
+        
         self.root.wait_window(top) # show
+    
+        # unregister callback with serverMonitor object
+        self.server_monitor.removeCallbackListener(server_monitor_callback)
         
         return
         
@@ -2517,18 +2613,20 @@ class ChalksServerMonitor(object):
     """ 
     This class provides removeService and addService methods for Rendezvous module's ServiceBrowser().
     The one responsible for creating this object should call self.stop() when not using it any more.
+    Ins tead of calling getServers() every once in a while, you can register your callback funcion with addCallbackListener()
     Users of this class should only call the getServers() method, which should return a dict of known local servers, keyed by server name. Each entry is a server, 
     represented as a dictionary with the following keys:
         "address": ip address
         "identifier": user supplied string identifier for this service
         "port": integer port
-   
+
     """
     def __init__(self):
         self.servers =  {} # known servers
         self.rendezvous = None # the one and only Rendezvous instance
         self.browser = None # the one and only Service browser
-        self.startListening()  # make it active
+        self.cb_listeners = [] # list of callback functions
+        self.startListening()  # make it active        
 
     def removeService(self, rendezvous, type, name):
         """ this is a callback method and should not be called externally
@@ -2538,20 +2636,42 @@ class ChalksServerMonitor(object):
             del self.servers[name]
         except KeyError:
             print "attempt to remove unknown server"
+            
+        # invoke callback functions
+        for t_cb in self.cb_listeners:
+            t_cb(self.getServers())            
 
     def addService(self, rendezvous, type, name):
         """ this is a callback method and should not be called externally
         """        
         info = rendezvous.getServiceInfo(type, name)
         
-        print "Server", name, "added"
-        print "   \-- ", info
+        #print 'New server', name, info
         
         self.servers[name] = {'address':     info.getAddress(),
                               'identifier':  info.getName(),
                               'port':        info.getPort(),
                               }                              
+
+        # invoke callback functions
+        for t_cb in self.cb_listeners:
+            t_cb(self.getServers())
+
+    def addCallbackListener(self, cbFcn):
+        """
+        call this to register your callback function called whenever a server is detected/removed. This function should accept the server list as a parameter
+        """
+        self.cb_listeners.append(cbFcn)
         
+    def removeCallbackListener(self, cbFcn):
+        """
+        call this to unregister your callback function
+        """
+        try:
+            self.cb_listeners.remove(cbFcn)
+        except ValueError:
+            print 'attempt to remove callback not found on callback list'
+
     def getServers(self):
         return self.servers
         
@@ -2567,7 +2687,7 @@ class ChalksServerMonitor(object):
         assert self.browser, 'you should only call stop() when there is a browser/rendevzvous threads running'
         self.browser.cancel()
         self.rendezvous.close()
-        print "Stopped service browser."
+        print "Stopping service browser..."
             
     def registerService(self, name, host, port, owner = "unknown", private = 0):
         """ 
@@ -2590,7 +2710,6 @@ class ChalksServerMonitor(object):
                 }
         info = ServiceInfo("_chalks._tcp.local.", name + "._chalks._tcp.local.", socket.inet_aton(host), port, 0, 0, desc)
         r.registerService(info)
-
 #@-node:niederberger.20040909124137:class ChalksServerMonitor
 #@+node:rodrigob.20040119132949:class FileStack
 class FileStack:

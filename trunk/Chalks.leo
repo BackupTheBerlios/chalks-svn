@@ -2,7 +2,7 @@
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2930" clone_windows="0"/>
 <globals body_outline_ratio="0.33475177305">
-	<global_window_position top="10" left="10" height="986" width="1270"/>
+	<global_window_position top="39" left="-60" height="986" width="1280"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -25,7 +25,7 @@
 </v>
 </v>
 </v>
-<v t="rodrigob.20040824110326.1" a="E"><vh>Docs</vh>
+<v t="rodrigob.20040824110326.1"><vh>Docs</vh>
 <v t="rodrigob.20040826155317" a="EM"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
 <v t="rodrigob.20040908003956"><vh>Latex</vh>
 <v t="rodrigob.20040908003956.1" a="E"
@@ -283,10 +283,10 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.123103165427"><vh>GNU GPL</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040824110326.2" a="E"><vh>Reference code</vh>
-<v t="niederberger.20040911012711" a="E"><vh>Web</vh>
+<v t="rodrigob.20040824110326.2"><vh>Reference code</vh>
+<v t="niederberger.20040911012711"><vh>Web</vh>
 <v t="niederberger.20040911012711.1"><vh>Pages classes</vh></v>
-<v t="niederberger.20040911012711.2" a="TV"><vh>Chalks model adaptator</vh></v>
+<v t="niederberger.20040911012711.2"><vh>Chalks model adaptator</vh></v>
 </v>
 <v t="rodrigob.121403173614.220"><vh>Old LeoN (to purge) Reference code</vh>
 <v t="rodrigob.121403173614.221"><vh>Deprecated code</vh>
@@ -1686,12 +1686,12 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040826215836"><vh>Old LeoN todo list (to purge)</vh>
 <v t="rodrigob.20040125223416" a="E"><vh>HOOK PROBLEM</vh></v>
 </v>
-<v t="niederberger.20040825222327.1" a="M"><vh>High</vh></v>
+<v t="niederberger.20040825222327.1" a="MTV"><vh>High</vh></v>
 <v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
 <v t="niederberger.20040825222327.3"><vh>Low</vh></v>
 </v>
-<v t="rodrigob.20040125160038" a="E"><vh>Code perspectives</vh>
-<v t="rodrigob.20040129141624" a="EM"><vh>network</vh>
+<v t="rodrigob.20040125160038"><vh>Code perspectives</vh>
+<v t="rodrigob.20040129141624" a="M"><vh>network</vh>
 <v t="rodrigob.20040125154815.1" a="EM"><vh>class ChalksNode</vh>
 <v t="rodrigob.20040125154815.2" a="EM"><vh>connect to/disconnect from parent node</vh>
 <v t="rodrigob.20040909060311" a="M"><vh>start collaborating</vh></v>
@@ -1790,13 +1790,13 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 <v t="rodrigob.20040119132914" a="EM"
 marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040127185444,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040126020641,"
-expanded="rodrigob.20040123131236,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040125154636,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.2,rodrigob.20040125154815.3,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040126020544,rodrigob.20040127190845,"><vh>@thin Chalks.py</vh></v>
+expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040123133012,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040121150952.7,rodrigob.20040122175312,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.2,rodrigob.20040125154815.3,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040126020544,rodrigob.20040127190845,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.20040125173910"><vh>@thin Test_Chalks.py</vh></v>
 <v t="rodrigob.20040125151012"><vh>@thin Chalks.xhtml</vh></v>
 <v t="rodrigob.121403173614.1502"
 marks="rodrigob.121403173614.1509,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040130224144,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
 expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1516,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040128011921.1,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
-<v t="rodrigob.20040129132740" a="E"><vh>docs</vh>
+<v t="rodrigob.20040129132740"><vh>docs</vh>
 <v t="rodrigob.20040129130513.1"><vh>Unicode utils...</vh>
 <v t="rodrigob.20040129130513.2"><vh>isUnicode</vh></v>
 <v t="rodrigob.20040129130513.3"><vh>isValidEncoding</vh></v>
@@ -3202,7 +3202,12 @@ Currently they may be related to coding, researching, packaging, everything.</t>
  ConcurrentEditable.py", line 1880, in receive_operation
     assert type(timestamp) is dict or in_op.get("source_site") == self.site_index, "In ConcurrentEditableNode the transmited time stamps are expected to be dictionaries that map &lt;known_site_id&gt; =&gt; &lt;num_of_operations_we_know_he_has_created&gt; OR to be a local state vector timestamp"
 exceptions.AssertionError: In ConcurrentEditableNode the transmited time stamps are expected to be dictionaries that map &lt;known_site_id&gt; =&gt; &lt;num_of_operations_we_know_he_has_created&gt; OR to be a local state vector timestamp
-</t>
+
+
+- we should add to rendezvous published data which filename we are serving, and unregister our server and register it again with the new filename when a new file is opened
+  currently it registers only once at startup and unregisters on app shutdown. 
+  But before all that, implement unRegisterServer() method on ChalksServerMonitor
+  </t>
 <t tx="niederberger.20040825222327.2"></t>
 <t tx="niederberger.20040825222327.3"></t>
 <t tx="niederberger.20040906222819">Components of Chalks are Python, Twisted, ConcurrentEditable and Tkinter.
@@ -28864,6 +28869,8 @@ self.node = ChalksNode(self) # ChalksNode takes care of the rest
 # local PB classes definitions
 @others
 
+self.server_port = None # initially we don't know which port we are serving at
+
 t_portal = portal.Portal(ChalksRealm(self))
 t_portal.registerChecker(DummyChecker())
 pb_factory = pb.PBServerFactory(t_portal)
@@ -28874,6 +28881,7 @@ for port in xrange(pb.portno, pb.portno+10):
     except: # failed
         continue
     else: # got it
+        self.server_port = port
         print "Starting Chalks service at chalks://localhost:%i" % port
         print "Knowing your internet address (i.e. your IP) other users can connect themself to your session using the port %i." % port  #&lt;&lt;&lt;&lt;&lt; this should be replaced by a friendlier popup or message
         self.chalks_service = pb_service
