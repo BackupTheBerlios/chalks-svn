@@ -2,7 +2,7 @@
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2926" clone_windows="0"/>
 <globals body_outline_ratio="0.56679389313">
-	<global_window_position top="10" left="10" height="524" width="800"/>
+	<global_window_position top="10" left="10" height="692" width="1024"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -25,8 +25,15 @@
 </v>
 </v>
 </v>
-<v t="rodrigob.20040824110326.1" a="E"><vh>Docs</vh>
+<v t="rodrigob.20040824110326.1"><vh>Docs</vh>
 <v t="rodrigob.20040826155317" a="E"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
+<v t="rodrigob.20040831002540"><vh>Distribution files</vh>
+<v t="rodrigob.20040826154516"><vh>@thin ./src/README</vh></v>
+<v t="rodrigob.20040831001818"><vh>@thin ./src/AUTHORS</vh></v>
+<v t="rodrigob.20040831002026" a="E"><vh>@thin ./src/COPYING</vh></v>
+<v t="rodrigob.20040831004246"><vh>@thin ./src/setup.py</vh></v>
+<v t="rodrigob.20040831002444"><vh>@thin ./src/setup.cfg</vh></v>
+</v>
 <v t="rodrigob.121403173614.9"><vh>Old LeoN (to purge) Docs</vh>
 <v t="rodrigob.121403173614.4" a="E"><vh>&lt;&lt; release status &gt;&gt;</vh></v>
 <v t="rodrigob.122403213028"><vh>&lt;&lt; legal declaration &gt;&gt;</vh></v>
@@ -259,16 +266,9 @@
 </v>
 <v t="rodrigob.123103165427"><vh>GNU GPL</vh></v>
 </v>
-<v t="rodrigob.20040831002540" a="TV"><vh>Distribution files</vh>
-<v t="rodrigob.20040826154516"><vh>@thin ./src/README</vh></v>
-<v t="rodrigob.20040831001818"><vh>@thin ./src/AUTHORS</vh></v>
-<v t="rodrigob.20040831002026" a="E"><vh>@thin ./src/COPYING</vh></v>
-<v t="rodrigob.20040831004246"><vh>@thin ./src/setup.py</vh></v>
-<v t="rodrigob.20040831002444"><vh>@thin ./src/setup.cfg</vh></v>
 </v>
-</v>
-<v t="rodrigob.20040824110326.2" a="E"><vh>Reference code</vh>
-<v t="rodrigob.121403173614.220" a="E"><vh>Old LeoN (to purge) Reference code</vh>
+<v t="rodrigob.20040824110326.2"><vh>Reference code</vh>
+<v t="rodrigob.121403173614.220"><vh>Old LeoN (to purge) Reference code</vh>
 <v t="rodrigob.121403173614.221"><vh>Deprecated code</vh>
 <v t="rodrigob.121403173614.222"><vh>file /usr/local/leo/leo_cvs/leo/leon.py</vh>
 <v t="rodrigob.121403173614.223"><vh>&lt;&lt; Import pychecker &gt;&gt;</vh></v>
@@ -1671,7 +1671,7 @@
 <v t="niederberger.20040825222327.3"><vh>Low</vh></v>
 </v>
 <v t="rodrigob.20040125160038" a="E"><vh>Code perspectives</vh>
-<v t="rodrigob.20040129141624" a="EM"><vh>network stuff</vh>
+<v t="rodrigob.20040129141624" a="M"><vh>network</vh>
 <v t="rodrigob.20040125154815.1" a="E"><vh>class ChalksNode</vh>
 <v t="rodrigob.20040125154815.2" a="E"><vh>connect to/disconnect from parent node</vh></v>
 <v t="rodrigob.20040125154815.3"><vh>edit content</vh>
@@ -1762,8 +1762,10 @@
 <v t="rodrigob.20040125200531" a="M"><vh>dummy checker</vh></v>
 </v>
 </v>
+<v t="rodrigob.20040831112258"><vh>gui</vh></v>
+<v t="rodrigob.20040831112258.1"><vh>concurrent edition</vh></v>
 </v>
-<v t="rodrigob.20040119132914" a="M"
+<v t="rodrigob.20040119132914" a="EM"
 marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.6,rodrigob.20040127185444,rodrigob.20040127203753,"
 expanded="rodrigob.20040119133203,rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040123142302,rodrigob.20040123133012,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040125154636,rodrigob.20040121150952.7,rodrigob.20040122175312,rodrigob.20040123134358,rodrigob.20040124160427,rodrigob.20040123123802,rodrigob.20040123132311.1,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040126020544,rodrigob.20040127190845,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.20040125173910"><vh>@thin Test_Chalks.py</vh></v>
@@ -30811,5 +30813,9 @@ Ideas /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\
 - (could I define a "@console the_command" node ?)
 </t>
 <t tx="rodrigob.20040831002540">Files involved in the construction of a standard distribution.</t>
+<t tx="rodrigob.20040831112258">@
+Code related to the graphical user interface</t>
+<t tx="rodrigob.20040831112258.1">@
+code related to the concurrent edition system</t>
 </tnodes>
 </leo_file>

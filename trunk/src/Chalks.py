@@ -254,16 +254,16 @@ class Chalks:
         #self.opts['ip'] = "200.165.227.174"
         #return
         
-        self.log("Guessing your IP address...")
+        self.log("Guessing your IP address...\n")
         
         t_onError='127.0.0.1'
         t_adr = "http://imgseek.sourceforge.net/cgi-bin/getMyAddress.pl"
         
         def ip_callback(value):
-            self.log("Your local IP address is '%s'"%value)
+            self.log("Your local IP address is '%s'\n"%value)
         
         def ip_errback(error):
-            self.log("Unable to determine IP address. Setting to '%s'" % t_onError)
+            self.log("Unable to determine IP address. Setting to '%s'\n" % t_onError)
         
         from twisted.web.client import getPage
         getPage(t_adr).addCallbacks( callback=ip_callback, errback=ip_errback )
@@ -831,7 +831,7 @@ class Chalks:
     #@@c
     
     #@+others
-    #@+node:rodrigob.20040125154636:onTextKey 
+    #@+node:rodrigob.20040125154636:onTextKey
     def onTextKey (self,event):
         """
         Handle any key press event in the text pane.
@@ -896,7 +896,7 @@ class Chalks:
     		return insert,insert
     #@nonl
     #@-node:rodrigob.20040125192325:get text selection
-    #@-node:rodrigob.20040125154636:onTextKey 
+    #@-node:rodrigob.20040125154636:onTextKey
     #@+node:rodrigob.20040125154657:idle_text_key (hook caller of ClientNode.fill_body) (LeoN one)
     def idle_text_key (self, data):	
         """
