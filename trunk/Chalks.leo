@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
-<leo_header file_format="2" tnodes="0" max_tnode_index="2883" clone_windows="0"/>
+<leo_header file_format="2" tnodes="0" max_tnode_index="2925" clone_windows="0"/>
 <globals body_outline_ratio="0.624113475177">
-	<global_window_position top="45" left="53" height="784" width="1026"/>
+	<global_window_position top="45" left="53" height="986" width="1280"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -59,9 +59,67 @@
 </v>
 </v>
 <v t="rodrigob.122403220526.1"><vh>developers docs</vh>
-<v t="niederberger.20040825214919" a="E"><vh>old (from LeoN)</vh>
+<v t="niederberger.20040825214919"><vh>old (from LeoN)</vh>
+<v t="niederberger.20040825221501"><vh>&lt;&lt; LeoNtest docs &gt;&gt; (about LeoN tests)</vh>
+<v t="niederberger.20040825221501.1"><vh>&lt;&lt; usage &gt;&gt;</vh></v>
+</v>
+<v t="niederberger.20040825221453" a="E"><vh>About security and permissions</vh>
+<v t="niederberger.20040825221453.1"><vh>&lt;&lt; admingui help &gt;&gt; (for administrators)</vh>
+<v t="niederberger.20040825221453.2"><vh>see image misc/admin_gui.png</vh></v>
+</v>
+</v>
+<v t="niederberger.20040825221442"><vh>Outline transfer format</vh></v>
+<v t="niederberger.20040825221401"><vh>About the LeoChecker, LeoAvatar, and where is the Realm hidden</vh>
+<v t="niederberger.20040825221401.1" a="E"><vh>Server login (server side login classes)</vh>
+<v t="niederberger.20040825221401.2"><vh>class LeoChecker</vh></v>
+<v t="niederberger.20040825221401.3"><vh>class LeoAvatar</vh></v>
+<v t="niederberger.20040825221401.4"><vh>requestAvatar (CollaborativeOutline.requestAvatar)</vh></v>
+<v t="niederberger.20040825221401.5"><vh>Perspectives</vh>
+<v t="niederberger.20040825221401.6" a="E"><vh>class OutlinePerspective</vh>
+<v t="niederberger.20040825221401.7"><vh>Own account editing</vh></v>
+<v t="niederberger.20040825221401.8"><vh>Messages and presence methods</vh></v>
+<v t="niederberger.20040825221401.9"><vh>Outline editing methods</vh>
+<v t="niederberger.20040825221401.10"><vh>helpers functions (data&lt;-&gt;outline)</vh>
+<v t="niederberger.20040825221401.11"><vh>outline_to_data</vh></v>
+<v t="niederberger.20040825221401.12"><vh>data_to_outline</vh></v>
+</v>
+<v t="niederberger.20040825221401.13"><vh>get outline</vh></v>
+<v t="niederberger.20040825221401.14"><vh>select node</vh></v>
+<v t="niederberger.20040825221401.15"><vh>Edit tree (class OutlinePerspective)</vh>
+<v t="niederberger.20040825221401.16"><vh>base operations</vh>
+<v t="niederberger.20040825221401.17"><vh>create_node</vh></v>
+<v t="niederberger.20040825221401.18"><vh>create_clone</vh></v>
+<v t="niederberger.20040825221401.19"><vh>delete_node</vh></v>
+<v t="niederberger.20040825221401.20"><vh>move_node</vh>
+<v t="niederberger.20040825221401.21"><vh>&lt;&lt; check permissions &gt;&gt;</vh></v>
+<v t="niederberger.20040825221401.22"><vh>&lt;&lt; check locks &gt;&gt;</vh></v>
+<v t="niederberger.20040825221401.23"><vh>&lt;&lt; apply &gt;&gt;</vh></v>
+<v t="niederberger.20040825221401.24"><vh>&lt;&lt; propagate &gt;&gt;</vh></v>
+</v>
+</v>
+<v t="niederberger.20040825221401.25"><vh>upload outline</vh></v>
+<v t="niederberger.20040825221401.26"><vh>download outline</vh></v>
+</v>
+<v t="niederberger.20040825221401.27"><vh>Edit nodes</vh>
+<v t="niederberger.20040825221401.28"><vh>lock/unlock</vh></v>
+<v t="niederberger.20040825221401.29"><vh>update node</vh></v>
+<v t="niederberger.20040825221401.30"><vh>collaborate in/out</vh></v>
+<v t="niederberger.20040825221401.31"><vh>receive_op</vh>
+<v t="niederberger.20040825221401.32"><vh>insert/delete text</vh></v>
+</v>
+</v>
+</v>
+</v>
+<v t="niederberger.20040825221401.33"><vh>class AdminOutlinePerspective</vh>
+<v t="niederberger.20040825221401.34"><vh>accounts</vh></v>
+<v t="niederberger.20040825221401.35"><vh>permissions</vh></v>
+</v>
+</v>
+</v>
+</v>
 <v t="niederberger.20040825215445" a="E"><vh>About client and server objects</vh></v>
 </v>
+<v t="niederberger.20040825221442.1"><vh>text difference transfer format</vh></v>
 <v t="rodrigob.121403173614.57"><vh>General view of the system</vh>
 <v t="rodrigob.010104211709"><vh>see image misc/leon_scheme.png</vh></v>
 </v>
@@ -79,77 +137,20 @@
 <v t="rodrigob.121403173614.66"><vh>About client and server objects</vh></v>
 <v t="rodrigob.121403173614.1506"><vh>ConcurrentEditable algorithm explanation</vh></v>
 <v t="rodrigob.121403173614.60"><vh>About ConcurrentEditableClient and ConcurrentEditableServer</vh></v>
-<v t="rodrigob.121403173614.61"><vh>About the LeoChecker, LeoAvatar, and where is the Realm hidden</vh>
-<v t="rodrigob.121403173614.62"><vh>Server login (server side login classes)</vh>
-<v t="rodrigob.121403173614.63"><vh>class LeoChecker</vh></v>
-<v t="rodrigob.121403173614.64"><vh>class LeoAvatar</vh></v>
-<v t="rodrigob.121403173614.65"><vh>requestAvatar (CollaborativeOutline.requestAvatar)</vh></v>
-<v t="rodrigob.121603125712"><vh>Perspectives</vh>
-<v t="rodrigob.121403173614.1426"><vh>class OutlinePerspective</vh>
-<v t="rodrigob.121403173614.1427"><vh>Own account editing</vh></v>
-<v t="rodrigob.121403173614.1428"><vh>Messages and presence methods</vh></v>
-<v t="rodrigob.121403173614.1429"><vh>Outline editing methods</vh>
-<v t="rodrigob.121403173614.1379"><vh>helpers functions (data&lt;-&gt;outline)</vh>
-<v t="rodrigob.121403173614.1380"><vh>outline_to_data</vh></v>
-<v t="rodrigob.121403173614.1381"><vh>data_to_outline</vh></v>
-</v>
-<v t="rodrigob.121403173614.1382"><vh>get outline</vh></v>
-<v t="rodrigob.121403173614.1430"><vh>select node</vh></v>
-<v t="rodrigob.121403173614.1385"><vh>Edit tree (class OutlinePerspective)</vh>
-<v t="rodrigob.121403173614.1386"><vh>base operations</vh>
-<v t="rodrigob.121403173614.1387"><vh>create_node</vh></v>
-<v t="rodrigob.121403173614.1388"><vh>create_clone</vh></v>
-<v t="rodrigob.121403173614.1389"><vh>delete_node</vh></v>
-<v t="rodrigob.121403173614.1390"><vh>move_node</vh>
-<v t="rodrigob.121403173614.1391"><vh>&lt;&lt; check permissions &gt;&gt;</vh></v>
-<v t="rodrigob.121403173614.1392"><vh>&lt;&lt; check locks &gt;&gt;</vh></v>
-<v t="rodrigob.121403173614.1393"><vh>&lt;&lt; apply &gt;&gt;</vh></v>
-<v t="rodrigob.121403173614.1394"><vh>&lt;&lt; propagate &gt;&gt;</vh></v>
-</v>
-</v>
-<v t="rodrigob.121403173614.1384"><vh>upload outline</vh></v>
-<v t="rodrigob.121403173614.1383"><vh>download outline</vh></v>
-</v>
-<v t="rodrigob.121403173614.1431"><vh>Edit nodes</vh>
-<v t="rodrigob.121403173614.1432"><vh>lock/unlock</vh></v>
-<v t="rodrigob.121403173614.1433"><vh>update node</vh></v>
-<v t="rodrigob.121403173614.1434"><vh>collaborate in/out</vh></v>
-<v t="rodrigob.121403173614.1435"><vh>receive_op</vh>
-<v t="rodrigob.121403173614.1436"><vh>insert/delete text</vh></v>
-</v>
-</v>
-</v>
-</v>
-<v t="rodrigob.121403173614.1324"><vh>class AdminOutlinePerspective</vh>
-<v t="rodrigob.121403173614.1325"><vh>accounts</vh></v>
-<v t="rodrigob.121403173614.1326"><vh>permissions</vh></v>
-</v>
-</v>
-</v>
-</v>
-<v t="rodrigob.121403173614.68"><vh>Outline transfer format</vh></v>
-<v t="rodrigob.010104180917"><vh>About security and permissions</vh>
-<v t="rodrigob.121403173614.67"><vh>&lt;&lt; admingui help &gt;&gt; (for administrators)</vh>
-<v t="rodrigob.123103123839"><vh>see image misc/admin_gui.png</vh></v>
-</v>
-</v>
-<v t="rodrigob.122403135941"><vh>&lt;&lt; LeoNtest docs &gt;&gt; (about LeoN tests)</vh>
-<v t="rodrigob.122403135941.1"><vh>&lt;&lt; usage &gt;&gt;</vh></v>
-</v>
 <v t="rodrigob.121403173614.37"><vh>Release file tree</vh></v>
 </v>
 <v t="rodrigob.121403173614.10"><vh>logs</vh>
 <v t="rodrigob.121403173614.11"><vh>release '0**0'</vh></v>
 <v t="rodrigob.123103131341"><vh>release 0.1.0</vh></v>
 </v>
-<v t="rodrigob.121403173614.20"><vh>forum/mail_list posts</vh>
+<v t="rodrigob.121403173614.20" a="TV"><vh>forum/mail_list posts</vh>
 <v t="rodrigob.121403173614.21"><vh>Leo over network requirements (original post)</vh>
 <v t="rodrigob.121403173614.22" a="E"><vh>&lt;&lt; Step one, Merging &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.23" a="E"><vh>&lt;&lt; Step two, Publishing &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.24" a="E"><vh>&lt;&lt; Step three, Interacting by turns &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.25" a="E"><vh>&lt;&lt; Step four, Realtime interaction &gt;&gt;</vh></v>
 </v>
-<v t="rodrigob.121403173614.26" a="E"><vh>LeoN development status</vh>
+<v t="rodrigob.121403173614.26"><vh>LeoN development status</vh>
 <v t="rodrigob.121403173614.27"><vh>LeoN development status</vh></v>
 <v t="rodrigob.121403173614.28"><vh>LeoN development status II</vh></v>
 <v t="rodrigob.121403173614.29"><vh>LeoN development status III</vh></v>
@@ -158,10 +159,10 @@
 <v t="rodrigob.121403173614.32"><vh>LeoN release '0**0' (zero power zero)</vh></v>
 <v t="rodrigob.121403173614.1320" a="E"><vh>LeoN development status VIII</vh></v>
 </v>
-<v t="rodrigob.121403173614.33" a="E"><vh>LeoN hooks requirements</vh>
+<v t="rodrigob.121403173614.33"><vh>LeoN hooks requirements</vh>
 <v t="rodrigob.121403173614.34"><vh>leo 3.12 Start problem</vh></v>
 </v>
-<v t="rodrigob.122403125851" a="E"><vh>leo bugs reports</vh>
+<v t="rodrigob.122403125851"><vh>leo bugs reports</vh>
 <v t="rodrigob.121403173614.13"><vh>crash_report.txt</vh></v>
 <v t="rodrigob.122203065507"><vh>post file cloning double messages</vh></v>
 <v t="rodrigob.122403141856"><vh>post why copy of big headline freeze ?</vh></v>
@@ -177,7 +178,7 @@
 <v t="rodrigob.123103130342"><vh>twisted</vh>
 <v t="rodrigob.123003164537"><vh>post twisted unicode failure bug</vh></v>
 </v>
-<v t="rodrigob.123103132025" a="E"><vh>readme versions (not a post, but)</vh>
+<v t="rodrigob.123103132025"><vh>readme versions (not a post, but)</vh>
 <v t="rodrigob.121403173614.15" a="E"><vh>README-LeoN 0power0</vh>
 <v t="rodrigob.121403173614.16"><vh>&lt;&lt; What is LeoN? &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.17"><vh>&lt;&lt; Status &gt;&gt;</vh></v>
@@ -194,7 +195,7 @@
 <v t="rodrigob.121403173614.24" a="E"><vh>&lt;&lt; Step three, Interacting by turns &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.25" a="E"><vh>&lt;&lt; Step four, Realtime interaction &gt;&gt;</vh></v>
 </v>
-<v t="rodrigob.121403173614.26" a="E"><vh>LeoN development status</vh>
+<v t="rodrigob.121403173614.26"><vh>LeoN development status</vh>
 <v t="rodrigob.121403173614.27"><vh>LeoN development status</vh></v>
 <v t="rodrigob.121403173614.28"><vh>LeoN development status II</vh></v>
 <v t="rodrigob.121403173614.29"><vh>LeoN development status III</vh></v>
@@ -203,10 +204,10 @@
 <v t="rodrigob.121403173614.32"><vh>LeoN release '0**0' (zero power zero)</vh></v>
 <v t="rodrigob.121403173614.1320" a="E"><vh>LeoN development status VIII</vh></v>
 </v>
-<v t="rodrigob.121403173614.33" a="E"><vh>LeoN hooks requirements</vh>
+<v t="rodrigob.121403173614.33"><vh>LeoN hooks requirements</vh>
 <v t="rodrigob.121403173614.34"><vh>leo 3.12 Start problem</vh></v>
 </v>
-<v t="rodrigob.122403125851" a="E"><vh>leo bugs reports</vh>
+<v t="rodrigob.122403125851"><vh>leo bugs reports</vh>
 <v t="rodrigob.121403173614.13"><vh>crash_report.txt</vh></v>
 <v t="rodrigob.122203065507"><vh>post file cloning double messages</vh></v>
 <v t="rodrigob.122403141856"><vh>post why copy of big headline freeze ?</vh></v>
@@ -222,7 +223,7 @@
 <v t="rodrigob.123103130342"><vh>twisted</vh>
 <v t="rodrigob.123003164537"><vh>post twisted unicode failure bug</vh></v>
 </v>
-<v t="rodrigob.123103132025" a="E"><vh>readme versions (not a post, but)</vh>
+<v t="rodrigob.123103132025"><vh>readme versions (not a post, but)</vh>
 <v t="rodrigob.121403173614.15" a="E"><vh>README-LeoN 0power0</vh>
 <v t="rodrigob.121403173614.16"><vh>&lt;&lt; What is LeoN? &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.17"><vh>&lt;&lt; Status &gt;&gt;</vh></v>
@@ -1989,7 +1990,7 @@
 </v>
 </v>
 </v>
-<v t="rodrigob.20040129132740" a="E"><vh>other nodes</vh>
+<v t="rodrigob.20040129132740" a="E"><vh>docs</vh>
 <v t="rodrigob.20040129130513.1"><vh>Unicode utils...</vh>
 <v t="rodrigob.20040129130513.2"><vh>isUnicode</vh></v>
 <v t="rodrigob.20040129130513.3"><vh>isValidEncoding</vh></v>
@@ -2003,14 +2004,72 @@
 <v t="rodrigob.20040123132311.1"><vh>&lt;&lt; chalks help &gt;&gt;</vh>
 <v t="rodrigob.20040126020116"><vh>network graph (about Server, Client, Children, Parent, and Trees)</vh></v>
 </v>
-<v t="rodrigob.122403220526.1" a="E"><vh>developers docs</vh>
-<v t="niederberger.20040825214919" a="E"><vh>old (from LeoN)</vh>
+<v t="rodrigob.122403220526.1"><vh>developers docs</vh>
+<v t="niederberger.20040825214919"><vh>old (from LeoN)</vh>
+<v t="niederberger.20040825221501"><vh>&lt;&lt; LeoNtest docs &gt;&gt; (about LeoN tests)</vh>
+<v t="niederberger.20040825221501.1"><vh>&lt;&lt; usage &gt;&gt;</vh></v>
+</v>
+<v t="niederberger.20040825221453" a="E"><vh>About security and permissions</vh>
+<v t="niederberger.20040825221453.1"><vh>&lt;&lt; admingui help &gt;&gt; (for administrators)</vh>
+<v t="niederberger.20040825221453.2"><vh>see image misc/admin_gui.png</vh></v>
+</v>
+</v>
+<v t="niederberger.20040825221442"><vh>Outline transfer format</vh></v>
+<v t="niederberger.20040825221401"><vh>About the LeoChecker, LeoAvatar, and where is the Realm hidden</vh>
+<v t="niederberger.20040825221401.1" a="E"><vh>Server login (server side login classes)</vh>
+<v t="niederberger.20040825221401.2"><vh>class LeoChecker</vh></v>
+<v t="niederberger.20040825221401.3"><vh>class LeoAvatar</vh></v>
+<v t="niederberger.20040825221401.4"><vh>requestAvatar (CollaborativeOutline.requestAvatar)</vh></v>
+<v t="niederberger.20040825221401.5"><vh>Perspectives</vh>
+<v t="niederberger.20040825221401.6" a="E"><vh>class OutlinePerspective</vh>
+<v t="niederberger.20040825221401.7"><vh>Own account editing</vh></v>
+<v t="niederberger.20040825221401.8"><vh>Messages and presence methods</vh></v>
+<v t="niederberger.20040825221401.9"><vh>Outline editing methods</vh>
+<v t="niederberger.20040825221401.10"><vh>helpers functions (data&lt;-&gt;outline)</vh>
+<v t="niederberger.20040825221401.11"><vh>outline_to_data</vh></v>
+<v t="niederberger.20040825221401.12"><vh>data_to_outline</vh></v>
+</v>
+<v t="niederberger.20040825221401.13"><vh>get outline</vh></v>
+<v t="niederberger.20040825221401.14"><vh>select node</vh></v>
+<v t="niederberger.20040825221401.15"><vh>Edit tree (class OutlinePerspective)</vh>
+<v t="niederberger.20040825221401.16"><vh>base operations</vh>
+<v t="niederberger.20040825221401.17"><vh>create_node</vh></v>
+<v t="niederberger.20040825221401.18"><vh>create_clone</vh></v>
+<v t="niederberger.20040825221401.19"><vh>delete_node</vh></v>
+<v t="niederberger.20040825221401.20"><vh>move_node</vh>
+<v t="niederberger.20040825221401.21"><vh>&lt;&lt; check permissions &gt;&gt;</vh></v>
+<v t="niederberger.20040825221401.22"><vh>&lt;&lt; check locks &gt;&gt;</vh></v>
+<v t="niederberger.20040825221401.23"><vh>&lt;&lt; apply &gt;&gt;</vh></v>
+<v t="niederberger.20040825221401.24"><vh>&lt;&lt; propagate &gt;&gt;</vh></v>
+</v>
+</v>
+<v t="niederberger.20040825221401.25"><vh>upload outline</vh></v>
+<v t="niederberger.20040825221401.26"><vh>download outline</vh></v>
+</v>
+<v t="niederberger.20040825221401.27"><vh>Edit nodes</vh>
+<v t="niederberger.20040825221401.28"><vh>lock/unlock</vh></v>
+<v t="niederberger.20040825221401.29"><vh>update node</vh></v>
+<v t="niederberger.20040825221401.30"><vh>collaborate in/out</vh></v>
+<v t="niederberger.20040825221401.31"><vh>receive_op</vh>
+<v t="niederberger.20040825221401.32"><vh>insert/delete text</vh></v>
+</v>
+</v>
+</v>
+</v>
+<v t="niederberger.20040825221401.33"><vh>class AdminOutlinePerspective</vh>
+<v t="niederberger.20040825221401.34"><vh>accounts</vh></v>
+<v t="niederberger.20040825221401.35"><vh>permissions</vh></v>
+</v>
+</v>
+</v>
+</v>
 <v t="niederberger.20040825215445" a="E"><vh>About client and server objects</vh></v>
 </v>
+<v t="niederberger.20040825221442.1"><vh>text difference transfer format</vh></v>
 <v t="rodrigob.121403173614.57"><vh>General view of the system</vh>
 <v t="rodrigob.010104211709"><vh>see image misc/leon_scheme.png</vh></v>
 </v>
-<v t="rodrigob.010104212717" a="TV"><vh>networking requirements</vh>
+<v t="rodrigob.010104212717"><vh>networking requirements</vh>
 <v t="rodrigob.121403173614.21"><vh>Leo over network requirements (original post)</vh>
 <v t="rodrigob.121403173614.22" a="E"><vh>&lt;&lt; Step one, Merging &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.23" a="E"><vh>&lt;&lt; Step two, Publishing &gt;&gt;</vh></v>
@@ -2024,63 +2083,6 @@
 <v t="rodrigob.121403173614.66"><vh>About client and server objects</vh></v>
 <v t="rodrigob.121403173614.1506"><vh>ConcurrentEditable algorithm explanation</vh></v>
 <v t="rodrigob.121403173614.60"><vh>About ConcurrentEditableClient and ConcurrentEditableServer</vh></v>
-<v t="rodrigob.121403173614.61"><vh>About the LeoChecker, LeoAvatar, and where is the Realm hidden</vh>
-<v t="rodrigob.121403173614.62"><vh>Server login (server side login classes)</vh>
-<v t="rodrigob.121403173614.63"><vh>class LeoChecker</vh></v>
-<v t="rodrigob.121403173614.64"><vh>class LeoAvatar</vh></v>
-<v t="rodrigob.121403173614.65"><vh>requestAvatar (CollaborativeOutline.requestAvatar)</vh></v>
-<v t="rodrigob.121603125712"><vh>Perspectives</vh>
-<v t="rodrigob.121403173614.1426"><vh>class OutlinePerspective</vh>
-<v t="rodrigob.121403173614.1427"><vh>Own account editing</vh></v>
-<v t="rodrigob.121403173614.1428"><vh>Messages and presence methods</vh></v>
-<v t="rodrigob.121403173614.1429"><vh>Outline editing methods</vh>
-<v t="rodrigob.121403173614.1379"><vh>helpers functions (data&lt;-&gt;outline)</vh>
-<v t="rodrigob.121403173614.1380"><vh>outline_to_data</vh></v>
-<v t="rodrigob.121403173614.1381"><vh>data_to_outline</vh></v>
-</v>
-<v t="rodrigob.121403173614.1382"><vh>get outline</vh></v>
-<v t="rodrigob.121403173614.1430"><vh>select node</vh></v>
-<v t="rodrigob.121403173614.1385"><vh>Edit tree (class OutlinePerspective)</vh>
-<v t="rodrigob.121403173614.1386"><vh>base operations</vh>
-<v t="rodrigob.121403173614.1387"><vh>create_node</vh></v>
-<v t="rodrigob.121403173614.1388"><vh>create_clone</vh></v>
-<v t="rodrigob.121403173614.1389"><vh>delete_node</vh></v>
-<v t="rodrigob.121403173614.1390"><vh>move_node</vh>
-<v t="rodrigob.121403173614.1391"><vh>&lt;&lt; check permissions &gt;&gt;</vh></v>
-<v t="rodrigob.121403173614.1392"><vh>&lt;&lt; check locks &gt;&gt;</vh></v>
-<v t="rodrigob.121403173614.1393"><vh>&lt;&lt; apply &gt;&gt;</vh></v>
-<v t="rodrigob.121403173614.1394"><vh>&lt;&lt; propagate &gt;&gt;</vh></v>
-</v>
-</v>
-<v t="rodrigob.121403173614.1384"><vh>upload outline</vh></v>
-<v t="rodrigob.121403173614.1383"><vh>download outline</vh></v>
-</v>
-<v t="rodrigob.121403173614.1431"><vh>Edit nodes</vh>
-<v t="rodrigob.121403173614.1432"><vh>lock/unlock</vh></v>
-<v t="rodrigob.121403173614.1433"><vh>update node</vh></v>
-<v t="rodrigob.121403173614.1434"><vh>collaborate in/out</vh></v>
-<v t="rodrigob.121403173614.1435"><vh>receive_op</vh>
-<v t="rodrigob.121403173614.1436"><vh>insert/delete text</vh></v>
-</v>
-</v>
-</v>
-</v>
-<v t="rodrigob.121403173614.1324"><vh>class AdminOutlinePerspective</vh>
-<v t="rodrigob.121403173614.1325"><vh>accounts</vh></v>
-<v t="rodrigob.121403173614.1326"><vh>permissions</vh></v>
-</v>
-</v>
-</v>
-</v>
-<v t="rodrigob.121403173614.68"><vh>Outline transfer format</vh></v>
-<v t="rodrigob.010104180917"><vh>About security and permissions</vh>
-<v t="rodrigob.121403173614.67"><vh>&lt;&lt; admingui help &gt;&gt; (for administrators)</vh>
-<v t="rodrigob.123103123839"><vh>see image misc/admin_gui.png</vh></v>
-</v>
-</v>
-<v t="rodrigob.122403135941"><vh>&lt;&lt; LeoNtest docs &gt;&gt; (about LeoN tests)</vh>
-<v t="rodrigob.122403135941.1"><vh>&lt;&lt; usage &gt;&gt;</vh></v>
-</v>
 <v t="rodrigob.121403173614.37"><vh>Release file tree</vh></v>
 </v>
 </v>
@@ -2111,14 +2113,1281 @@ has a LeoNServer process
         has a LeoServerWeb instance
 
 Each Leo client connection on the server create a LeoAvatar. LeoAvatar provide access to OutlinePerspective and AdminOutlinePerspective. This two perspectives centralize all the comunication between clients and the server.</t>
-<t tx="rodrigob.010104175231"></t>
-<t tx="rodrigob.010104180917">Read the Admin Gui help to get more information about the permissions system of LeoN.
+<t tx="niederberger.20040825221401">Look at the "Server login" code perspective body.</t>
+<t tx="niederberger.20040825221401.1">@
+In this perspective you will find the Server Login classes and methods.
+
+The server login system use the Twisted Cred system. Look at the twisted documentation for the Cred HowTo, the documentation explain in detail the concepts, relations and possiblities.
+
+Essencially the login is composed of three elements, the Realm that provide Avatars after checking the autorization. The Checker is an autenthifiaction object. An the Avatar is a remote perspective of the server (the client possibilities in the server space).
+
+Being smart, and to avoid to many short classes, the Realm is embedded in the CollaborativeOutline server structure.
+To persist his data and to maintain a logic object hierarchy the CollaborativeOutline instance "has-a" .checker instance.
+
+CollaborativeOutline is a collaborative outline and is a Realm and has a LeoChecker.
+@c</t>
+<t tx="niederberger.20040825221401.2">class LeoChecker:
+    """
+    An ultra simple Leo checker.
+    Implement management methods.
+    
+    (should be edited in order to be able to persist)
+    """
+    # look at ./twisted/test/test_newcred.py for hash usage examples
+    
+    __implements__ = checkers.ICredentialsChecker
+
+    credentialInterfaces = (credentials.IUsernamePassword, credentials.IUsernameHashedPassword)
+
+    def __init__(self, **users):
+        self.users = users # users is a dictionary of username-&gt;password mapping
+        return
+
+    def userExist(self, username):
+        return self.users.has_key(username)
+        
+    def addUser(self, username, password):
+        self.users[username] = password
+        
+    def delUser(self, username):
+        del self.users[username]
+        
+    def setPassword(self, username, password):
+        self.users[username] = password
+
+    def _cbPasswordMatch(self, matched, username):
+        if matched:
+            return username
+        else:
+            return failure.Failure(error.UnauthorizedLogin("The password of %s did not matched with database." % username))
+
+    def requestAvatarId(self, credential):		
+        if credential.username in self.users:
+            return defer.maybeDeferred(credential.checkPassword, self.users[credential.username]).addCallback(self._cbPasswordMatch, credential.username)
+        else:
+            return failure.Failure(error.UnauthorizedLogin("%s is not listed in the authorized users." % credential.username))
+</t>
+<t tx="niederberger.20040825221401.3">class LeoAvatar(pb.Avatar):
+    """
+    The server side representation of the user.
+    There is one avatar instance per client connection to the server
+    """
+    
+    def __init__(self, avatarId, mind, outline=None):
+        
+        self.Outline = outline # the outline contain a .checker attribute
+        self.perspectives = []
+        self.mind = mind # store it for later use
+        self.avatarId = avatarId
+        
+        assert mind, LeoError("LeoN strictly require references to the client connecting.")
+        
+        #pb.Avatar.__init__(self, avatarId, mind) # pb.Avatar has no __init__ method.
+        
+        return  
+    
+    def perspective_get_perspective(self, kind, base_node_url):
+        """
+        """
+        perspective = None
+        
+        if kind == "outline":
+            perspective = OutlinePerspective(self.avatarId, base_node_url, self.Outline, self.mind)
+           
+        elif kind == "admin_outline":
+            perspective = AdminOutlinePerspective(self.avatarId, base_node_url, self.Outline, self.mind)
+            
+        else:
+            raiseLeoError("unknown perspective requested")
+        
+        if perspective:
+            self.perspectives.append(perspective) # are there really more than one perspective per avatar ?
+        
+        return perspective
+        
+        
+    def logout(self,):
+        """
+        Detach the requested perspectives.
+        """
+        
+        #print "Avatar is login out self.avatarId == %s" % self.avatarId # just for debugging
+        
+        for t_perspective in self.perspectives:
+            t_perspective.logout()
+        
+        del self.perspectives
+            
+        return
+
+    
+    
+    
+
+
+
+</t>
+<t tx="niederberger.20040825221401.4">def requestAvatar(self, avatarId, mind, *interfaces):
+    """
+    The user have been authenticated and it is requesting an Avatar.
+    """
+    if pb.IPerspective not in interfaces:
+        raise NotImplementedError	
+    
+    avatar = LeoAvatar(avatarId, mind, self) # one avatar instance per conection
+
+    return pb.IPerspective, avatar , avatar.logout # implemented interface reference, interface instance, logout method
+
+</t>
+<t tx="niederberger.20040825221401.5"></t>
+<t tx="niederberger.20040825221401.6">class OutlinePerspective(pb.Referenceable):
+    """
+    This class present a external access to an outline branch.
+    This are the method that the client can access in the server space.
+    The OutlinePerspective attach itself to the outline
+    """
+    
+    # __init__ is a merge of old init and attach
+
+    def __init__(self, name, base_node_url, outline, clientref):
+        #pb.Referenceable.__init__(self) # pb.Referenceable  has no __init__ method
+                
+        self.Outline  = outline	# the internal Outline is capitalized because it make reference at the Server instance. (so ?)
+        if not self.Outline:
+            raise LeoError("Cannot attach a client if no CollaborativeOutline instance is attached to the Perpective (bug of the Service).")
+
+        # store the perspective reference Node. Once logged we only have access to the Downside nodes.
+        self.base_path = base_node_url
+        self.base_node = self.Outline.get_node(base_node_url)
+        assert self.base_node, LeoError("Could not found the reference node (base_node_url '%s')"% base_node_url)
+        
+        self.selected_node  = None
+        self.selected_node_path = base_node_url
+        self.local_permissions = [] # the permissions associated to the local nodes
+        
+
+        self.name     = name
+        self.client   = clientref
+        self.status   = "online"
+        
+        # attach to the CollaborativeOutline
+        if self.Outline.users.has_key(self.name):
+            self.Outline.users[self.name].append(self)
+        else:
+            self.Outline.users[self.name]= [ self ] # important, the outline manage a dictionary of lists of users perspective (an user user can be logged more than once at different point with one or more clients.)
+            
+        
+        # attach us to the base node        
+        if self.base_node.base_node_of.has_key(self.name):
+            self.base_node.base_node_of[self.name].append(self)
+        else:
+            self.base_node.base_node_of[self.name] = [self]
+        
+        
+        # attach us to the selected node
+        self.selected_node = self.Outline.get_node(self.base_path)
+                
+        if self.selected_node.users.has_key(self.name):
+            self.selected_node.users[self.name].append(self)
+        else:
+            self.selected_node.users[self.name] = [self]
+            
+            
+
+        # set presence
+        self.remote_set_presence("online")
+        
+        
+        self.client.callRemote("post_message", "LeoServer", 
+                                           "%s, you are welcome to the system."%(self.name.capitalize())).addErrback(raiseMessageError, self.name)
+    
+        return
+
+        
+    def logout(self,):
+        """
+        A client is closing his relation with this perspective (i.e. this outline).
+        """
+        
+        print "%s at %s is login out." % (self.name, self.base_path)
+        
+        self.remote_collaborate_out() # collaborate_out (will do nothing if was not collaborating)
+            
+        #  dettach us from the selected node        
+        self.selected_node.users[self.name].remove(self)
+        if not self.selected_node.users[self.name]: # if there are no more clients connected
+            del self.selected_node.users[self.name]  # forget us name
+            
+        # dettach from the CollaborativeOutline
+        self.Outline.users[self.name].remove(self)
+        if not self.Outline.users[self.name]: # if there are no more clients connected
+            del self.Outline.users[self.name]  # forget us name
+            
+        #  dettach us from the base node        
+        if self.base_node.base_node_of.has_key(self.name):
+            self.base_node.base_node_of[self.name].remove(self)
+        if not self.base_node.base_node_of[self.name]:
+            del self.base_node.base_node_of[self.name]
+        
+
+        
+        return
+        
+
+    @others
+
+</t>
+<t tx="niederberger.20040825221401.7">def remote_change_password(self, newpassword):
+    """
+    Let the users change they password.
+    """
+    
+    self.Outline.checker.setPassword(self.name, newpassword)
+
+    self.client.callRemote("post_message", "LeoServer", "Own password; updated.").addErrback(raiseMessageError, self.name)		
+    return</t>
+<t tx="niederberger.20040825221401.8">
+def remote_get_actual_users_list(self, ):
+    """ 
+    Return the list of the logged users and they state.
+    """
+    
+    t_list = map(lambda x: (x, self.outline.users[x].status),self.Outline.users.keys())
+    
+    return t_list
+    
+    
+def remote_set_presence(self, state):
+    """
+    Set the presence of one user 
+    """
+    
+    self.status = state
+    
+    for t_list in self.Outline.users.values(): # a list of client references
+        for t_value in t_list:
+            t_value.client.callRemote("post_presence", self.name, state).addErrback(raiseLeoError, "could not post your presence to %s"%(t_value.name))
+    
+    return
+
+def remote_send_message(self, to, txt):
+    """ 
+    Send a message to
+    """
+    
+    if to == "_everyone":
+        for t_list in self.Outline.users.values():
+            for t_value in t_list:
+                t_value.client.callRemote("post_message", self.name, txt).addErrback(raiseMessageError, t_value.name)
+        return
+
+    if to == "_room":
+        for t_list in self.selected_node.users.values():
+            for t_value in t_list:
+                t_value.client.callRemote("post_message", self.name, txt).addErrback(raiseMessageError, t_value.name)
+        return
+    
+    
+    if not self.Outline.users.has_key(to):
+        raise LeoError("The user '%s' is not logged into this outline."%(to))
+        #raise LeoError("The user '%s' is not logged into this outline. %s"%(to, str(self.Outline.users))) # just for debugging
+    
+    for t_perspective in self.Outline.users[to]:
+        t_perspective.client.callRemote("post_message", self.name, txt).addErrback(raiseMessageError, self.name)
+        
+    return</t>
+<t tx="niederberger.20040825221401.9">@
+Add the logic of the distributed application and then call the native Outline method.
+@c
+
+</t>
+<t tx="niederberger.20040825221401.10">@
+Server side, data&lt;-&gt;outline transformation
+@c</t>
+<t tx="niederberger.20040825221401.11">def outline_to_data(self, parent_node):
+    """
+    Recieve a node instance and return a list in the format.
+    ([node1_instance, node2_instance, ..], [0, 1, 2, [4, 1], 5, 2, 6, ..])
+    Clones suboutlines appears only once (node '2' in the previous example) 
+    Used as a helper function to construct the data to send.
+    parent_node is also included in the result.
+    """
+        
+    # inner helper recursive function ---------------------------
+    def level_list(childrens, t_dic):
+        t_list = []
+        for t_node in childrens:
+            if not t_dic.has_key(t_node): # if not in the dic
+                t_dic[t_node] = len(t_dic) # add it, with his index
+                
+            t_list.append(t_dic[t_node]) # add the entry
+            
+            if t_node.childrens and t_dic[t_node] == (len(t_dic) - 1): # if has childrens, and it is the first appearance
+                t_list.append(level_list(t_node.childrens, t_dic)) # add the new level, recursivelly
+            
+            # lets continue with the actual level 
+        
+        return t_list # tada... easy
+    # end of inner recursive function ----------------------------
+    
+    t_dic = {parent_node:0}	
+    nodes_hierarchy = [0, level_list(parent_node.childrens, t_dic)]
+    nodes_list = range(len(t_dic))
+    for t_node, pos in t_dic.items():
+        nodes_list[pos] = t_node
+
+    return (nodes_list, nodes_hierarchy)</t>
+<t tx="niederberger.20040825221401.12">def data_to_outline(self, parent, nodes_list, nodes_hierarchy, t_dic):
+    """
+    Receive data in the format ([(name, body), (name,body), ...], [0 1 [2 3 1] 4])
+    and append the new nodes to the parent.
+    If the parent already has childrens, will add them to the last position.
+    t_dic contain a map of "already scanned indexes" -&gt; node_instance object. This allow to create the required clones.
+    Recursive function.
+    """
+ 
+    NodeClass = self.Outline.nodeClass #NodeClass( parent_node=None, position=-1, name="New CollaborativeNode", text=""):
+    last_node = parent
+    
+    for t_item in nodes_hierarchy:
+        
+        if type(t_item) is int:
+          
+            if not t_dic.has_key(t_item): # if not already created, create a new node
+                #print t_item, len(nodes_list), nodes_list # just for debugging
+                t_name, t_text = nodes_list[t_item]
+                last_node = NodeClass(parent, position=-1, name=t_name, text=t_text) # new node
+                t_dic[t_item] = last_node
+            else: # the node already was created, now we should create a clone of it.
+                twin = t_dic[t_item]
+                self.Outline.create_clone(twin, parent, position=-1) #create_clone(twin, parent, position=-1):
+                last_node = twin 
+                
+        elif type(t_item) in [list, tuple]:
+            self.data_to_outline(last_node, nodes_list, t_item, t_dic) # recursive call for the next level
+            
+        else:
+            self.es_error("&lt;LeoClient Error&gt; The nodes hierarchy in the uploaded data contain an unmanageable object of type %s"%( type(t_item)))
+    
+    
+    return
+
+
+</t>
+<t tx="niederberger.20040825221401.13">
+def remote_get_outline(self,):
+    """
+    Return a copy own perspective outline branch.
+    The format is
+    (["name1", "name2", ..], [0, 1, 2, [4, 1], 5, 6, ..])
+    """
+    
+    base_node = self.Outline.get_node(self.base_path)
+    assert base_node, LeoError("Could not find the base_node (base_path '%s')" % self.base_path)
+        
+    nodes_list, nodes_hierarchy = self.outline_to_data(base_node) # format ([node1_instance, node2_instance, ..], [0, 1, 2, [4, 1], 5, 6, ..])
+    nodes_list = map(lambda x:x.name, nodes_list) 
+
+    return (nodes_list, nodes_hierarchy) # tada... so easy.
+
+</t>
+<t tx="niederberger.20040825221401.14">def remote_select_node(self, path):
+    """
+    Set us selected node and
+    return the content of the selected node.
+    """
+    
+    t_node = self.Outline.get_node(path)
+    
+    if not t_node:
+        raiseLeoError("Could not found the required node. (%s)"%(path))
+        return
+    
+    self.selected_node_path = path
+    # if actual node is locked, unlock it
+    if self.selected_node.is_locked == self.name:
+        self.remote_unlock_selected_node()
+        
+    # dettach from previous node
+    try:
+        self.selected_node.users[self.name].remove(self)
+    except:
+        # we where not attached to the previous node....
+        pass
+    
+    # select the new node
+    self.selected_node = t_node
+    
+    # attach us
+    if self.selected_node.users.has_key(self.name):
+        self.selected_node.users[self.name].append(self)
+    else:
+        self.selected_node.users[self.name] = [self]
+    
+    # obtain the contents of the selected node
+    content = self.selected_node.get_text()
+    
+    return content
+</t>
+<t tx="niederberger.20040825221401.15">@
+Each instance is responsable of his task, to check permissions and to propagate the event to the other clients.
+@c
+
+def absolute_path(self, relative_node_path): 
+    """
+    transforme a relative path to a valid server url
+    """
+    assert type(relative_node_path) is unicode, LeoError("Received relative paths have to be unicode (received type %s)" % type(relative_node_path))
+    return self.base_path + relative_node_path[1:]	
+
+
+
+</t>
+<t tx="niederberger.20040825221401.16">@
+The set of base operations that allow any desirable tree modification.
+@c</t>
+<t tx="niederberger.20040825221401.17">def remote_create_node(self, path, text=u"", position=-1):
+    """ 
+    The perspective receive relatives paths (relatives to the self perspective).
+    The CollaborativeOutline receive absolutes paths.
+    """
+
+    t_list = self.Outline.path_to_list(self.absolute_path(path))
+        
+    parent_path, name = t_list[:-1], t_list[-1]
+    parent_node       = self.Outline.get_node(parent_path)
+    
+    if not parent_node:
+        raiseLeoError("Could not found the parent of the new node  (%s)"%(parent_path) )
+        return
+        
+    # check if authorized to edit the tree
+    local_permissions = self.Outline.get_permissions(self.name, parent_path)
+
+    if "Tree_edit" not in local_permissions:
+        raise Unauthorized, "You are not allowed to edit this tree. (your local permissions are %s)"%(local_permissions)
+        
+    # check if the tree is not locked
+    # regulation: node creation have no restrictions
+
+    # apply	
+    self.Outline.create_node(parent_node, name=name, text=text, position=position)
+    
+        
+    # propagate. only two cases, will see it, will not see it. Easy. -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
+    
+    # obtain the perspectives related to this event
+    t_dic = self.Outline.get_upward_perspectives(parent_node) # return a dic of 'perspective'-&gt;"relative_path"
+    
+    for t_perspective, t_rpath in t_dic.items():
+        t_rpath = "%s/%s" % ( t_rpath, name) 
+        t_perspective.client.callRemote("create_node", t_rpath, position) # propagate the event to other clients
+
+    
+    return</t>
+<t tx="niederberger.20040825221401.18">def remote_create_clone(self, twin_path, parent_path, position=-1):
+    """ 
+    The perspective methods receive relatives paths (relatives to the self perspective).
+    """
+
+    twin_path   = self.absolute_path(twin_path)
+    parent_path = self.absolute_path(parent_path)
+    
+    twin   = self.Outline.get_node(twin_path)
+    parent = self.Outline.get_node(parent_path)
+
+    # check existance
+    assert twin, LeoError("Could not find the twin")
+    assert parent, LeoError("Could not find the parent")
+
+    # check permissions
+    local_permissions = self.Outline.get_permissions(self.name, parent_path)
+    if "Tree_edit" not in local_permissions:
+        raise Unauthorized, "You are not allowed to edit this tree. (your local permissions are %s)"%(local_permissions)
+
+    local_permissions = self.Outline.get_permissions(self.name, twin_path)
+    if "Read" not in local_permissions:
+        raise Unauthorized, "You are not allowed to read the node to clone. (your local permissions are %s)"%(local_permissions)
+
+    # check recursive outline construction
+    assert twin != parent and twin not in  self.Outline.get_upward_nodes(parent), LeoError("Recursive graphs are not allowed, Leo(N) only accept Acyclic Graphs.\nTwin node '%s' is parent of the node '%s'." % (twin_path, parent_path))
+    
+    # create the clone -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
+    self.Outline.create_clone(twin, parent, position)
+    
+    # propagate -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
+    # three cases: will see it, will see it as a node creation, will not see it. simple but non trivial.
+    
+    twin_perspectives   = self.Outline.get_upward_perspectives(twin)   # return a dic of 'perspective'-&gt;"relative_path"    
+    parent_perspectives = self.Outline.get_upward_perspectives(parent) # return a dic of 'perspective'-&gt;"relative_path"
+    
+    for t_perspective, t_rpath in parent_perspectives.items():
+        if twin_perspectives.has_key(t_perspective): # if user see the parent of new node and the root twin
+            # he will see a clone
+            t_twin_rpath = twin_perspectives[t_perspective]
+            t_perspective.client.callRemote("create_clone", t_rpath, t_twin_rpath, position) # propagate the event to other clients
+        else: # only see the parent, but not the original node
+            # he will see a new node (not cloned)
+            t_rpath = t_rpath + '/' + twin.name
+            t_perspective.client.callRemote("create_node", t_rpath, position) # propagate the event to other clients  
+
+
+    return</t>
+<t tx="niederberger.20040825221401.19">def remote_delete_node(self, node_path):
+    """ 
+    The perspective receive relatives paths (relatives to the self perspective).
+    """
+
+    node_path = self.absolute_path(node_path) 
+    
+    if node_path == "/": #node == self.Outline.root_node:
+        raise Unauthorized, "The Root Node is unerasable."
+        
+    # check if authorized to edit the tree
+    local_permissions = self.Outline.get_permissions(self.name, node_path)
+    if "Tree_edit" not in local_permissions:
+        raise Unauthorized, "You are not allowed to edit this tree. (your local permissions are %s)"%(local_permissions)
+
+
+    node = self.Outline.get_node(node_path)
+    
+    # check if the tree is not locked
+    # regulation: only nodes that no one is editing can be erased
+    
+    # helper recursive function ----
+    def check_no_other_users(t_node):
+        if t_node.users.values() != [] and t_node.users.values() != [[self]]:
+            raiseLeoError("Nodes being edited by other users can not be erased.")
+            return
+        if t_node.base_node_of:
+            raiseLeoError("This node is the base node of %s so it can not be deleted." % t_node.base_node_of.keys() )
+            return
+        for t_child in t_node.childrens:
+            check_no_other_users(t_child)
+                    
+        return
+    # end of helper recursive function ----
+    
+    check_no_other_users(node) # will raise an exception if there are problems
+
+    # obtain the perspectives related to this event (need to do this *before* deleting the node)
+    t_dic = self.Outline.get_upward_perspectives(node) # return a dic of 'perspective'-&gt;"relative_path"
+
+    # apply
+    self.Outline.delete_node(node)
+
+    # propagate the event to all the interested users: every user that register an access from parent to upstairs
+    # only two cases, will see it, will not see it.
+        
+    for t_perspective, t_rpath in t_dic.items(): 
+        t_perspective.client.callRemote("delete_node", t_rpath) # propagate the event to other clients
+
+    return
+
+</t>
+<t tx="niederberger.20040825221401.20">    
+    
+def remote_move_node(self, node_path, new_path, position=-1):
+    """ 
+    The perspective receive relatives paths (relatives to the self perspective).
+    Allow move, a renaming+move
+    """
+
+    node_path  = self.absolute_path(node_path)
+    new_path   = self.absolute_path(new_path)
+    
+    try:
+        t_list     = filter(lambda x:x, new_path.split('/')) 
+        new_parent_lpath = t_list[:-1] #lpath is a list path
+        new_parent_path = u'/' + '/'.join(new_parent_lpath)
+        new_name   = t_list[-1]
+    except:
+        LeoError("Could no separate the parent and the new node name. (new_path %s)" % new_path) 
+    
+    old_name   = filter(lambda x:x, node_path.split('/'))[-1]
+
+
+    &lt;&lt; check permissions &gt;&gt;
+    &lt;&lt; check locks &gt;&gt;
+    &lt;&lt; apply &gt;&gt;
+    &lt;&lt; propagate &gt;&gt;
+
+    return
+    
+</t>
+<t tx="niederberger.20040825221401.21"># check if authorized to edit the tree -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
+permissions = self.Outline.get_permissions(self.name , node_path)
+if "Tree_edit" not in permissions:
+    raise Unauthorized, "%s not allowed to move the requested node. (permissions %s at '%s')"%(self.name.capitalize(), permissions, node_path)
+
+permissions = self.Outline.get_permissions(self.name , new_parent_path)
+if "Tree_edit" not in permissions:
+    raise Unauthorized, "%s not allowed to edit the tree associated to the new node position. (permissions %s at '%s')"%(self.name.capitalize(), permissions, new_parent_path)
+
+
+# check nodes existance -:-:-:-:-:-
+node = self.Outline.get_node(node_path)    
+if not node:
+    raiseLeoError("Could not found the node to move (and rename). (node_path '%s')"% node_path)
+
+old_parent_path = '/'.join(node_path.split('/')[:-1])
+old_parent = self.Outline.get_node(old_parent_path)
+assert old_parent, LeoError("Could not find the old parent (parent_path '%s')" % old_parent_path)
+
+
+new_parent = self.Outline.get_node(new_parent_path)
+assert new_parent, LeoError("Could not find the new parent (parent_path '%s')" % new_parent_path)
+
+
+# check recursive outline construction
+assert node != new_parent and node not in self.Outline.get_upward_nodes(new_parent), LeoError("Recursive graphs are not allowed, Leo(N) only accept Acyclic Graphs.\nMoved node '%s' is parent of the destination node '%s'." % (node_path, new_parent_path))
+</t>
+<t tx="niederberger.20040825221401.22"># check if the tree is not locked -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
+
+
+# regulation: no one has to be editing the node during edition because for some users a node move can be seen as a deletion.
+    
+# future regulation: the node and their descendant can only be edited by users that view both the old_path and the new_path. If not some user will see that they actual edition node is deleted, that inasceptable. (too complicated to implement in the first version, KISS)
+    
+# helper recursive function ----
+def check_no_other_users(t_node):
+    if t_node.users.values() != [] and t_node.users.values() != [[self]]:
+        raiseLeoError("Nodes being edited by other users can not be erased. (detected the presence of %s)"%(t_node.users.keys()))
+        return
+    for t_child in t_node.childrens:
+        check_no_other_users(t_child)
+                            
+    return
+# end of helper recursive function ----
+
+check_no_other_users(node) # will raise an exception if there are problems
+</t>
+<t tx="niederberger.20040825221401.23">
+# apply -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
+self.Outline.move_node(node_path, new_parent_path, position = position)
+
+# rename the node, if necessary
+old_name = node.name
+if new_name != old_name: # check renaming
+    node.name = new_name
+</t>
+<t tx="niederberger.20040825221401.24"># apply to the other clients -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
+# depending on the perspective a move can look as an insertion, a deletion or a move.
+# propagate the event to all the interested users
+# propagation is cpu intensive ...
+
+# obtain the perspectives related to this event
+old_view_dic = self.Outline.get_upward_perspectives(old_parent) # return a dic of 'perspective'-&gt;"relative_path"
+new_view_dic = self.Outline.get_upward_perspectives(new_parent) # return a dic of "relative_path" -&gt; [perspectives]
+        
+#print "new_parent t_dic", t_dic # just for debugging
+#print "new_view_dic", new_view_dic # just for debugging
+
+outline_list = None # will create it only if required
+
+for t_perspective in new_view_dic.keys(): # users that will see an insertion
+    if old_view_dic.has_key(t_perspective): # the user will see a move
+        old_rpath = old_view_dic[t_perspective] + '/' + old_name
+        new_rpath = new_view_dic[t_perspective] + '/' + new_name
+        t_perspective.client.callRemote("move_node", old_rpath, new_rpath, position=position)
+        del old_view_dic[t_perspective] # already counted    
+    else: # the user will see an insertion
+        new_rpath = new_view_dic[t_perspective] + '/' + new_name
+        if not outline_list: # if the data have not been obtained calculate it now
+            data = self.Outline.outline_to_data(node)
+            outline_list = (map(lambda x: x[0], data[0]), data[1]) # change ([(name, body), (name,body)], [0 1 [2 3 1] 4]) to ([name, name], [0 1 [2 3 1] 4])
+        t_perspective.callRemote("paste_outline", new_rpath, position, outline_list) # send the data to the other clients
+    
+    
+for t_perspective in old_view_dic.keys(): # the rest of the old users will see a deletion
+    old_rpath = old_view_dic[t_perspective] + '/' + old_name
+    t_perspective.client.callRemote("delete_node", old_rpath)
+    </t>
+<t tx="niederberger.20040825221401.25">def remote_upload_outline(self, parent_path, position, data):
+    """
+    This method allow clients to update outlines.
+    The clients upload data to the server, this method transform this data in a real outline, and propagate the event.
+    The format of data is : ([(name, body), (name,body), ...], [0 1 [2 3 1] 4])
+    """
+       
+    # check if authorized to edit the tree -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
+    local_permissions = self.Outline.get_permissions(self.name, parent_path)
+
+    if "Tree_edit" not in local_permissions:
+        raise Unauthorized, "You are not allowed to append branches to this tree. (your local permissions are %s)"%(local_permissions)
+
+    # create the local outline -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
+    parent_node = self.Outline.get_node(parent_path)
+    assert parent_node, LeoError("Could not find the parent node where insert the uploaded data (parent_path '%s')" % parent_path)
+
+    assert len(data[1])== 2, LeoError("The nodes hierarchy have not the correct format. (a parent node and all his childrens) (len(data[1]) == %i != 2) " % len(data[1]) )
+    
+    # security check of names with "/" (an error would be too much disastrous)
+    data = (map(lambda x: (x[0].replace("/", "&amp;sl;"), x[1]), data[0]), data[1])
+    
+    # add the first item at the correct position, the rest is recursive,
+    t_name, t_text = data[0][data[1][0]]
+    t_node = self.Outline.nodeClass(parent_node, position, name=t_name, text=t_text) #NodeClass( parent_node=None, position=-1, name="New CollaborativeNode", text=""):
+    t_dic = {data[1][0]:t_node} # index -&gt; node_instance
+    
+    # now deploy the data in the rest of the t_node childrens
+    self.data_to_outline(t_node, data[0], data[1][1], t_dic) # data_to_outline(parent, nodes_list, nodes_hierarchy, t_dic)
+    
+    
+    # propagate the event to the other clients -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
+    # obtain the outline 
+    outline_list = (map(lambda x: x[0], data[0]), data[1]) # change ([(name, body), (name,body)], [0 1 [2 3 1] 4]) to ([name, name], [0 1 [2 3 1] 4])
+    
+    # send outline to the interested clients 
+    # only two cases, will see it, will not see it. Easy.
+    
+    # obtain the perspectives related to this event
+    t_dic = self.Outline.get_upward_perspectives(parent_node) # return a dic of 'perspective'-&gt;"relative_path"
+    
+    for t_perspective, t_rpath in t_dic.items(): 
+        t_perspective.client.callRemote("paste_outline", t_rpath, position, outline_list) # send the data to the other clients
+            
+    return
+</t>
+<t tx="niederberger.20040825221401.26">def remote_download_outline(self, path):
+    """
+    Return the data related to a specific outline. This method is called by client that desire to "copy" an online outline.
+    Data format,
+    (
+        ([("node1_name", "node1_text"), ("node2_name", "node2_text"), ..], [0, 1, 2, [4, 1], 5, 6, ..]),
+        {1:["user1", "user2"], 5:["user2", "user4"]}
+    )
+    i.e. outline data plus data of who is editing the copied nodes, very important to warn the user of corrupt, or in edition version.
+    """
+    
+    # transform a local outline to his data representation
+    
+    base_node = self.Outline.get_node(path)
+    assert base_node, LeoError("Could not find the base_node to download (base_node_path '%s')" % path)
+    
+    nodes_list, nodes_hierarchy = self.outline_to_data(base_node) # format ([node1_instance, node2_instance, ..], [0, 1, 2, [4, 1], 5, 6, ..])
+    data = (map(lambda x:(x.name, x.get_text()), nodes_list) , nodes_hierarchy) 
+
+
+    warnings = {} #the "being edited by" warnings. {1:["user1", "user2"], 5:["user2", "user4"]} 
+    c = 0
+    for t_node in nodes_list:
+        if t_node.users:
+            warnings[c] = t_node.users.keys()
+        c+=1
+        
+        
+    return (data, warnings)
+</t>
+<t tx="niederberger.20040825221401.27"># Perspective access to node contents edition methods</t>
+<t tx="niederberger.20040825221401.28">def remote_selected_node_is_locked(self,): # is this method necessary ?
+    """
+    Used by the client to know who is locking the node.
+    """
+    
+    if self.selected_node:
+        return self.selected_node.is_locked
+    
+    return None
+
+
+def remote_lock_selected_node(self, ):
+    """ 
+    """
+
+    # check the permissions	
+    if self.selected_node.is_locked and self.selected_node.is_locked != self.name:
+        raiseLeoError("The selected node is already locked by '%s'."%(self.selected_node.is_locked))
+            
+    self.selected_node.is_locked = self.name
+        
+    return
+    
+def remote_unlock_selected_node(self, ):
+    """ 
+    """
+
+    if self.selected_node.is_locked != self.name:
+        raiseLeoError("The selected node is locked by '%s', you can not unlock it."%(self.selected_node.is_locked))
+        
+    
+    self.selected_node.is_locked = None # no one has a lock over this node
+    
+    return
+</t>
+<t tx="niederberger.20040825221401.29">
+
+def remote_update_node(self, path, text): # this method should be generic or only for the selected node
+    """ 
+    """
+
+    node = self.Outline.get_node(path)
+        
+    # check if it is already locked by you
+    if node.is_locked != self.name:
+        raiseLeoError("The selected node is locked by '%s', you can not edit it."%(self.selected_node.is_locked))
+
+    # apply
+    self.Outline.update_node(node, text)
+
+    # propagate the event to all the interested users
+    for t_value in node.users.values():
+        t_value.client.callRemote("update_node", text ).addErrback(raiseLeoError, "could not update the node for user %s"%(t_value.name))		
+        
+    return	
+    
+
+def remote_update_selected_node(self, text): # this method should be generic or only for the selected node
+    """ 
+    """
+
+    # check if it is already locked by you
+    if self.selected_node.is_locked != self.name:
+        raiseLeoError("The selected node is locked by '%s', you can not edit it."%(self.selected_node.is_locked))
+
+    # apply		
+    self.Outline.update_node(self.selected_node, text)
+
+    # propagate the event to all the interested users
+    for t_list in self.selected_node.users.values():
+        for t_value in t_list:
+            t_value.client.callRemote("update_selected_node", text ).addErrback(raiseLeoError, "could not update the selected node of %s"%(t_value.name))
+        
+    return	
+</t>
+<t tx="niederberger.20040825221401.30"># Allow external users to start collaborating
+
+
+def remote_collaborate_in(self):
+    """
+    Login into the collaborative server associated to the selected node
+    """
+    
+    site_index, num_of_sites, base_state_vector, base_text, ops_list = self.selected_node.add_client(self.client)
+    
+    self.site_index = site_index
+    
+    return (site_index, num_of_sites, base_state_vector, base_text, ops_list)
+
+
+def remote_collaborate_out(self):
+    """
+    Logout from the collaborative server associated to the selected node
+    """
+
+    # logout of the Collaborative Node
+    self.selected_node.del_client(self.client)
+    
+    self.site_index = None
+    
+    return
+    
+    
+
+</t>
+<t tx="niederberger.20040825221401.31">def remote_receive_op(self, *args, **kws):
+    """
+    Perspective access to the selected nodes operations
+    """
+    
+    # check if it is already locked by you
+    if self.selected_node.is_locked and (self.selected_node.is_locked != self.name):
+        raiseLeoError("The selected node is locked by '%s', you can not edit it."%(self.selected_node.is_locked))
+        
+    if self.site_index == None:
+        raiseLeoError("You have not logged in the node, so you are not able to edit it.")
+
+    kws["source_site"] = self.site_index # if this perspective manage the call, it has to comes from that source
+    kws["who"] = self.name # stamp the operation with us name
+    
+    # apply		
+    self.selected_node.receive_operation(ConcurrentEditable.Operation(*args, **kws))
+    return</t>
+<t tx="niederberger.20040825221401.32">def remote_insert_text(self, startpos, text, timestamp = None):
+    """ 
+    
+    (version will be used for leo step4)
+    """
+    
+    # check if it is already locked by you
+    if self.selected_node.is_locked and (self.selected_node.is_locked != self.name):
+        raiseLeoError("The selected node is locked by '%s', you can not edit it."%(self.selected_node.is_locked))
+        
+    if self.site_index == None:
+        raiseLeoError("You have not logged in the node, so you are not able to edit it.")
+
+    if timestamp == None:
+        raiseLeoError("Operation 'insert_text' called without a timestamp.")
+        
+        
+    # apply		
+    self.selected_node.receive_operation(ConcurrentEditable.Operation("Insert", startpos, text, timestamp = timestamp, source_site = self.site_index, who= self.name))
+    
+    # the selected, cnode will propage the event to the related users.
+    # cnode : CollaborativeNode, is a ConcurrentEditableServer
+        
+    return
+    
+def remote_delete_text(self, startpos, length, timestamp = None):
+    """ 
+    """
+    
+    # check if it is already locked by you
+    if self.selected_node.is_locked and (self.selected_node.is_locked != self.name):
+        raiseLeoError("The selected node is locked by '%s', you can not edit it."%(self.selected_node.is_locked))
+        
+    if self.site_index == None:
+        raiseLeoError("You have not logged in the node, so you are not able to edit it.")
+        
+    if timestamp == None:
+        raiseLeoError("Operation 'delete_text' called without a timestamp.")
+
+        
+    if not ( type(startpos) == type(length) and type(startpos) is int):
+        raiseLeoError( "Type of the arguments for delete text are incorrect. (expected IntType got %s, %s)"%(type(startpos), type(length) ) )
+    
+    # apply		
+    self.selected_node.receive_operation(ConcurrentEditable.Operation("Delete", startpos, length, timestamp = timestamp, source_site = self.site_index, who= self.name))
+    
+    # the selected, cnode will propage the event to the related users.
+    # cnode : CollaborativeNode, is a ConcurrentEditableServer
+    
+    return
+
+</t>
+<t tx="niederberger.20040825221401.33">@
+this is the server side representation of the administrator
+@c
+
+class AdminOutlinePerspective(pb.Referenceable):
+    """
+    This perspective implement the methods required for a remote administration to the Outline.
+    Focused on the User accounts and accesses administration.
+    One perspective per Administrator connection in the rare case that there is more than One authorizer associated with LeoService.
+    
+    This perspective manage accounts, acesses and permissions.
+    An Authenticater has accounts.
+    An account has acesses to certain nodes.
+    A node has permissions for certains accounts.
+    """
+    
+    def __init__(self, name, base_node_url, outline, mind):
+        #pb.Referenceable.__init__(self) # pb.Referenceable  has no __init__ method
+        
+        # check the permissions        
+        permissions = outline.get_permissions(name, base_node_url)
+        assert "Admin_node" in permissions, Unauthorized("Not authorized to admin the node '%s' (local permissions %s)"%( base_node_url, permissions))  
+        
+        
+        self.Outline = outline		# the internal Outline is capitalized because it make reference at the Server instance.
+        self.checker = outline.checker
+        self.base_path = base_node_url
+        self.base_node = self.Outline.get_node(self.base_path)		
+              
+        self.name   = name
+        self.client = mind
+        deferred = self.client.callRemote("post_message", 
+                                         "LeoServer", 
+                                          "%s, you have now access to the Admin Perspective."%(name.capitalize()))
+        
+        deferred.addErrback(raiseLeoError, "Could not send a message to user %s"%(name))
+        
+        return
+
+                
+    def logout(self,):
+        """
+        A client is closing his relation with this perspective (i.e. this outline).
+        """
+        
+        print "Admnistrator %s at %s is login out" % (self.name, self.base_path)
+        
+        return
+        
+    def absolute_path(self, relative_node_path): 
+        """
+        transform a relative path to a valid server url
+        """
+        return self.base_path + '/' + relative_node_path[1:]	
+
+    @others
+    
+
+
+
+
+
+</t>
+<t tx="niederberger.20040825221401.34">def remote_create_account(self, name, password):
+    """
+    Add an account in the same Authorizer that gives the access to the Admin perspective.
+    """
+    
+    # should I check that the name is free ?
+    assert not self.checker.userExist(name), LeoError("The user account %s already exist" % name)
+    
+    self.checker.addUser(name, password)
+    
+    self.client.callRemote("post_message", "LeoServer", 
+                            "An account for %s have been created."%(name.capitalize())).addErrback(raiseMessageError, self.name)
+    
+    return
+
+
+def remote_change_password(self, name, password):
+    """
+    Change the password of an existing account.
+    """
+    
+    # should I check that the name is free ?
+    assert self.checker.userExist(name), LeoError("The user account %s does not exist (can not change his password)" % name)
+    
+    self.checker.setPassword(name, password)
+    
+    self.client.callRemote("post_message", "LeoServer", 
+                            "The password of  %s have been edited."%(name.capitalize())).addErrback(raiseMessageError, self.name)
+    
+    return
+
+
+def remote_delete_account(self, name):
+    """
+    Delete an account in the same Authorizer that gives the access to the Admin perspective.
+    """
+    
+    self.checker.delUser(name)
+    
+    # should I delete the permissions in the outline too ? &lt;&lt;&lt;&lt; YES, to avoid false permissions of future users 
+    # need to visit the entire outline (ouch !)
+    
+    
+    self.client.callRemote("post_message",  "LeoServer", 
+                           "The account %s has been deleted."%(name.capitalize())).addErrback(raiseMessageError, self.name)
+    
+    return
+
+
+def remote_get_users_list(self,):
+    """
+    Return the list of existing users name
+    """
+    return  self.checker.users.keys()
+</t>
+<t tx="niederberger.20040825221401.35">def remote_get_users_permissions(self, rpath):
+    """
+    Return the dictionnary of the permissions of a node.
+    """        
+    path = self.absolute_path(rpath)
+    t_node = self.Outline.get_node(path)
+    assert t_node, LeoError("Could not found the indicated path '%s'" % path)
+    return t_node.permissions
+
+
+def remote_get_permissions(self, name, rpath):
+    """
+    Permissions are related to the aviable actions per node. 
+    They also are herited to the subnodes.
+    valid permissions are : ['Read', 'Node_edit', 'Tree_edit', 'Admin_node'] 
+    """
+    # could put here and access check, but will not (in sake of cpu usage)
+        
+    # get the path node
+    path = self.absolute_path(rpath)
+    t_node = self.Outline.get_node(path)
+    assert t_node, LeoError("Could not found the indicated path '%s'" % path)
+    permissions = self.Outline.get_permissions(name, t_node)	
+    
+    return permissions
+
+
+def remote_delete_permissions(self, name, rpath):
+    """
+    Erase the permissions of one user in the node. The permissions of upper nodes will be herited (propagated).
+    """
+    # could put here and access check, but will not (in sake of cpu usage)
+        
+    # get the path node
+    path   = self.absolute_path(rpath)
+    t_node = self.Outline.get_node(path)
+    assert t_node, LeoError("Could not found the indicated path '%s'" % path)
+    
+    if t_node.permissions.has_key(name):
+        del t_node.permissions[name]
+    
+    return 
+
+
+def remote_set_permissions(self, name, rpath, permissions):
+    """
+    Permissions are related to the aviable actions per node. 
+    They also are herited to the subnodes.
+    valid permissions are : ['Read', 'Node_edit', 'Tree_edit', 'Admin_node'] 
+    """
+
+    # get the path node
+    path   = self.absolute_path(rpath)
+    t_node = self.Outline.get_node(path)
+    
+    if not t_node:
+        raisePathError(path)
+        
+    # check if the requested path is under the admin perspective
+    res_node = self.Outline.find_upward(lambda x: self.base_node == x, path)
+    if not res_node:
+        raiseLeoError("You are not allowed to edit the permissions of this node. (%s)"%(path))
+
+        
+    if type(permissions) not in [list, tuple]:
+        raiseLeoError("Permissions should be a list or a tuple")
+
+    for permission in permissions:
+        if permission not in ["Read", "Node_edit", "Tree_edit", "Admin_node"]:
+            raiseLeoError("Unknown permission '%s'"%(permission))
+        
+    t_node.permissions[name] = list(permissions)
+
+    # check if the user is logged and update his permissions.
+    if t_node.users.has_key(name):	
+        for t_perspective in t_node.users[name]:
+            t_perspective.local_permissions = self.Outline.get_permissions(t_perspective.name, t_perspective.selected_node_path)
+            
+    self.client.callRemote("post_message", "LeoServer", 
+                           "%s permissions have been updated."%(name.capitalize())).addErrback(raiseMessageError, self.name)
+    
+    return
+
+
+
+
+
+
+</t>
+<t tx="niederberger.20040825221442">@nocolor
+There are outlines transfers, at node paste, copy and at clients connection.
+To transfer the outline we use us own dummy transfer format.
+
+The format is an abuse of python data objects, and it has some similarities with the leo xml format.
+The data object is a tuple of two elements 
+
+(&lt;nodes_data&gt;, &lt;nodes_hierarchy&gt;)
+
+&lt;nodes_data&gt; is a list of (&lt;name&gt;, &lt;body&gt;) tuples, or only of nodes names if only the headline is being transfered: a list of &lt;name&gt;.
+If a node name contain the character '/' is is replaced by the sequence "&amp;sl;", to avoid paths confusions. Both headline and body have to be unicode strings.
+
+&lt;nodes_hierarchy&gt; is a recursive list numbers and lists.  Each number correspond to a index in the &lt;nodes_data&gt; list. Each list correspond to a new outline sublevel, that is attached to the previous node. If an index appears twice, then a clone will be created. The suboutlines of the clones is only indicated at the first appearance, the next instance the suboutline will herited by the clone.
+
+
+Examples:
+
+    data1 = ([(u"dnö&amp;sl;\\de1",u""),(u"dnode2",u""),(u"dnod€/\\3",u""),(u"dnode4",u"")], [0,[1, 3,[2, 1], 1, 2, 3, 1]]) 
+    data2 = ([u"dnö&amp;sl;\\de1", u"dnode2", u"dnod€/\\3", u"dnode4"], [0,[1, 3,[2, 1], 1, 2, 3, 1]]) 
+
+    Notice that there are many clones. One of them, '3' has a suboutline.
+
+
+This data object is sent as it is via PB that serialize/unserialize it (jelly). The PB serialization format is a compact binary representation (see the twisted documentation).
+
+The code that use this format can be found at "LeoN.leo/Code/Code Perspectives/Upload/Download nodes"
+
+In the future the transfer format will probably modified (change in the path system, better use of the PB remoterefence, copy and cacheable features).</t>
+<t tx="niederberger.20040825221442.1"></t>
+<t tx="niederberger.20040825221453">Read the Admin Gui help to get more information about the permissions system of LeoN.
 The security is based on password access. 
 Be aware that the data is transmited in a non encripted binary format. Do not manage sensible data.
 
 &lt;&lt; admingui help &gt;&gt;
 
 </t>
+<t tx="niederberger.20040825221453.1">@color
+@language python
+# this is the documentation that will see the end user, give a description of the panel and his usage
+# this is part of the code, do not delete the "help" definition and the """ elements.
+help = \
+"""
+
+The administration gui allow you to do two things:
+    - Define the permissions of each user at each node
+    - Define the accounts of the server, defined by they name and password.
+
+The accounts are defined at the server level. The permissions are defined at a per node level.
+    
+Thus the interface is separated in two areas, the left pane -the users accounts- and the right pane -the node permissions-.
+
+The left pane present the list of the defined accounts, and interfaces to create new accounts, to change passwords and to delete some accounts. Be carefull, there is no undo! 
+
+Creating an account for an user is not enough to allow it to access the server, you need to define his permissions at the access point.
+
+The right pane allow you to you the edit the per node per user permissions.
+The LeoN permissions system is similar to the Zope permissions system.
+
+If a node contain no permissions information about an user, they permissions will be herited from uper nodes. So defining the permissions for the root node will be valid for all the nodes of the system. To change the permissions in a branch, edit the permissions of the root node of the branch.
+
+You have to understand that adding permissions for a user at a node and leaving in blank the options indicate that you are Prohibiting all those permissions for that user, starting from that node and in the suboutline.
+
+The admin gui allow you to edit the permissions of the node where you raised the dialog.
+You can add users permissions using the "Add user entry &gt;&gt;&gt;" button, that will add an entry in the node permissions list.
+
+You can edit the different permissions of the node by selecting different users via the  "User:" combobox, click over the user name and a choice list will appear. Remember to press the "Save Changes" button to confirm the modifications.
+
+The button "Delete users permissions" will eliminate the entry at that node, and the permissions for that user at that node will be searched upward in the server outline.
+
+If no permissions entry are found for an user, by default he will have no permissions at (thus it will not be able to connect to the server).
+
+Remember to define the permissions of the users recently created. 
+Avoid defining permissions in every node, if would become difficult to maintain. Try to always edit the permissions at the project root nodes.
+
+The users accounts and their permissions are persisted in the server '.tap' file.
+
+Read/Access: allow the users to retreive the node body content and connect at that point.
+Node edit:   allow to enter in collaborative mode and edit the node body content.
+Tree edit:   allow to insert, move and delete nodes in the outlines. 
+Admin node:  allow to edit the permissions of that node, and the accounts of the server (allow access to this dialog).
+
+Note: be aware that in the actual version the server/client connections are not encrypted. Thus all the data, including the passwords are transmited in a easy to deduce binary format. Do not transfer sensible data over insecure network.
+"""
+
+
+@others</t>
+<t tx="niederberger.20040825221453.2"></t>
+<t tx="niederberger.20040825221501">@
+Probably the third most important element for sucessfull code development are the tests.
+The test suite for LeoN is centralized the "LeoNtest.py" script.
+
+Both CollaborativeOutline and LeoServer provide they own automated unit tests.
+
+CollaborativeOutline execute a test similar to the original paper typical example.
+LeoServer execute a test between a raised server and a SimpleClient object (that only print the command received). The correctness of the execution can be checked if no error is raised, if the printed information is consistent and if the webpage publishing is consistent too.
+
+LeoClient tests are more difficults, because they require network events.
+By the moment I have not figured a clean way to get the defered objects of the client side.
+The file "LeoNtest.leo" provide a simple demo outline and some executable nodes.
+The executable nodes allow to automatize some predefined actions on the client. By the moment we use a timing system to be sure that the network event has been realized.
+Client side tests are somewhat incipients.
+
+LeoNtest.py will supose that the his directory contain an executable file named "leon.py" that correspond to a symbolic link to the "leo.py" file a Leo distribution that has already LeoN installed and enabled.
+
+Use "LeoNtest.py -h" to see the options of the tests execution. ("usage" child node)
+@c</t>
+<t tx="niederberger.20040825221501.1">@color 
+@language python
+# LeoNtest.py usage string
+
+usage= \
+"""
+Understood options:
+    'no_server', run only the concurrent editable tests;
+    'just_server', ommit the concurrent editable tests;
+    '1', run server tests and open one client;
+    '2', run server tests and open two clients;
+    'save_tap', if run the server test, will create a '.tap' twisted server file at shutdown;
+    'help' or '-h', show this help message
+    if no option, will run all tests.
+    
+Example:
+    'LeoNtest.py 1 save_tap'
+"""
+</t>
+<t tx="rodrigob.010104175231"></t>
 <t tx="rodrigob.010104211709"></t>
 <t tx="rodrigob.010104212717">no real requirement right now, but issues we should think about:
 
@@ -3667,9 +4936,8 @@ One of the interesant features that LeoN provide is ability to manage various cl
 
 ConcurrentEditable provide a pure python implementation of the concurrent edition algorithm developed by the Chengzheng Sun team. I extended a little the idea (on the technical aspect) to provide a client/server implementation (subclassing the base system). LeoClient and LeoServer use ConcurrentEditable to provide the concurrent edition feature to the users.</t>
 <t tx="rodrigob.121403173614.58">The "General view of the system" provide a good insight to the different elements of the software (read first).
-That elements are directly mapped to the files "LeoClient.py", "LeoServer.py" and "ConcurrentEditable.py" .
 
-The principal rule here is "Keep It Simple". The second rule is "Comment everything".
+The main rule here is "Keep It Simple". The second rule is "Comment everything".
 
 Tracing the code can be somewhat complex because everything is dynamic, distributed and it integrate itself with other components.
 
@@ -3755,132 +5023,6 @@ The schema used for testing the protocol is intensionally similar to the Twisted
 
 @c
 </t>
-<t tx="rodrigob.121403173614.61">Look at the "Server login" code perspective body.</t>
-<t tx="rodrigob.121403173614.62">@
-In this perspective you will find the Server Login classes and methods.
-
-The server login system use the Twisted Cred system. Look at the twisted documentation for the Cred HowTo, the documentation explain in detail the concepts, relations and possiblities.
-
-Essencially the login is composed of three elements, the Realm that provide Avatars after checking the autorization. The Checker is an autenthifiaction object. An the Avatar is a remote perspective of the server (the client possibilities in the server space).
-
-Being smart, and to avoid to many short classes, the Realm is embedded in the CollaborativeOutline server structure.
-To persist his data and to maintain a logic object hierarchy the CollaborativeOutline instance "has-a" .checker instance.
-
-CollaborativeOutline is a collaborative outline and is a Realm and has a LeoChecker.
-@c</t>
-<t tx="rodrigob.121403173614.63">class LeoChecker:
-    """
-    An ultra simple Leo checker.
-    Implement management methods.
-    
-    (should be edited in order to be able to persist)
-    """
-    # look at ./twisted/test/test_newcred.py for hash usage examples
-    
-    __implements__ = checkers.ICredentialsChecker
-
-    credentialInterfaces = (credentials.IUsernamePassword, credentials.IUsernameHashedPassword)
-
-    def __init__(self, **users):
-        self.users = users # users is a dictionary of username-&gt;password mapping
-        return
-
-    def userExist(self, username):
-        return self.users.has_key(username)
-        
-    def addUser(self, username, password):
-        self.users[username] = password
-        
-    def delUser(self, username):
-        del self.users[username]
-        
-    def setPassword(self, username, password):
-        self.users[username] = password
-
-    def _cbPasswordMatch(self, matched, username):
-        if matched:
-            return username
-        else:
-            return failure.Failure(error.UnauthorizedLogin("The password of %s did not matched with database." % username))
-
-    def requestAvatarId(self, credential):		
-        if credential.username in self.users:
-            return defer.maybeDeferred(credential.checkPassword, self.users[credential.username]).addCallback(self._cbPasswordMatch, credential.username)
-        else:
-            return failure.Failure(error.UnauthorizedLogin("%s is not listed in the authorized users." % credential.username))
-</t>
-<t tx="rodrigob.121403173614.64">class LeoAvatar(pb.Avatar):
-    """
-    The server side representation of the user.
-    There is one avatar instance per client connection to the server
-    """
-    
-    def __init__(self, avatarId, mind, outline=None):
-        
-        self.Outline = outline # the outline contain a .checker attribute
-        self.perspectives = []
-        self.mind = mind # store it for later use
-        self.avatarId = avatarId
-        
-        assert mind, LeoError("LeoN strictly require references to the client connecting.")
-        
-        #pb.Avatar.__init__(self, avatarId, mind) # pb.Avatar has no __init__ method.
-        
-        return  
-    
-    def perspective_get_perspective(self, kind, base_node_url):
-        """
-        """
-        perspective = None
-        
-        if kind == "outline":
-            perspective = OutlinePerspective(self.avatarId, base_node_url, self.Outline, self.mind)
-           
-        elif kind == "admin_outline":
-            perspective = AdminOutlinePerspective(self.avatarId, base_node_url, self.Outline, self.mind)
-            
-        else:
-            raiseLeoError("unknown perspective requested")
-        
-        if perspective:
-            self.perspectives.append(perspective) # are there really more than one perspective per avatar ?
-        
-        return perspective
-        
-        
-    def logout(self,):
-        """
-        Detach the requested perspectives.
-        """
-        
-        #print "Avatar is login out self.avatarId == %s" % self.avatarId # just for debugging
-        
-        for t_perspective in self.perspectives:
-            t_perspective.logout()
-        
-        del self.perspectives
-            
-        return
-
-    
-    
-    
-
-
-
-</t>
-<t tx="rodrigob.121403173614.65">def requestAvatar(self, avatarId, mind, *interfaces):
-    """
-    The user have been authenticated and it is requesting an Avatar.
-    """
-    if pb.IPerspective not in interfaces:
-        raise NotImplementedError	
-    
-    avatar = LeoAvatar(avatarId, mind, self) # one avatar instance per conection
-
-    return pb.IPerspective, avatar , avatar.logout # implemented interface reference, interface instance, logout method
-
-</t>
 <t tx="rodrigob.121403173614.66"></t>
 <t tx="rodrigob.121403173614.67">@color
 @language python
@@ -3932,34 +5074,6 @@ Note: be aware that in the actual version the server/client connections are not 
 
 
 @others</t>
-<t tx="rodrigob.121403173614.68">@nocolor
-There are outlines transfers, at node paste, copy and at clients connection.
-To transfer the outline we use us own dummy transfer format.
-
-The format is an abuse of python data objects, and it has some similarities with the leo xml format.
-The data object is a tuple of two elements 
-
-(&lt;nodes_data&gt;, &lt;nodes_hierarchy&gt;)
-
-&lt;nodes_data&gt; is a list of (&lt;name&gt;, &lt;body&gt;) tuples, or only of nodes names if only the headline is being transfered: a list of &lt;name&gt;.
-If a node name contain the character '/' is is replaced by the sequence "&amp;sl;", to avoid paths confusions. Both headline and body have to be unicode strings.
-
-&lt;nodes_hierarchy&gt; is a recursive list numbers and lists.  Each number correspond to a index in the &lt;nodes_data&gt; list. Each list correspond to a new outline sublevel, that is attached to the previous node. If an index appears twice, then a clone will be created. The suboutlines of the clones is only indicated at the first appearance, the next instance the suboutline will herited by the clone.
-
-
-Examples:
-
-    data1 = ([(u"dnö&amp;sl;\\de1",u""),(u"dnode2",u""),(u"dnod€/\\3",u""),(u"dnode4",u"")], [0,[1, 3,[2, 1], 1, 2, 3, 1]]) 
-    data2 = ([u"dnö&amp;sl;\\de1", u"dnode2", u"dnod€/\\3", u"dnode4"], [0,[1, 3,[2, 1], 1, 2, 3, 1]]) 
-
-    Notice that there are many clones. One of them, '3' has a suboutline.
-
-
-This data object is sent as it is via PB that serialize/unserialize it (jelly). The PB serialization format is a compact binary representation (see the twisted documentation).
-
-The code that use this format can be found at "LeoN.leo/Code/Code Perspectives/Upload/Download nodes"
-
-In the future the transfer format will probably modified (change in the path system, better use of the PB remoterefence, copy and cacheable features).</t>
 <t tx="rodrigob.121403173614.69">We use the following conventions throughout the code:
 
 a: the application object.
@@ -26730,653 +27844,6 @@ Ideas /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\
 @path ./src/
 
 </t>
-<t tx="rodrigob.121403173614.1324">@
-this is the server side representation of the administrator
-@c
-
-class AdminOutlinePerspective(pb.Referenceable):
-    """
-    This perspective implement the methods required for a remote administration to the Outline.
-    Focused on the User accounts and accesses administration.
-    One perspective per Administrator connection in the rare case that there is more than One authorizer associated with LeoService.
-    
-    This perspective manage accounts, acesses and permissions.
-    An Authenticater has accounts.
-    An account has acesses to certain nodes.
-    A node has permissions for certains accounts.
-    """
-    
-    def __init__(self, name, base_node_url, outline, mind):
-        #pb.Referenceable.__init__(self) # pb.Referenceable  has no __init__ method
-        
-        # check the permissions        
-        permissions = outline.get_permissions(name, base_node_url)
-        assert "Admin_node" in permissions, Unauthorized("Not authorized to admin the node '%s' (local permissions %s)"%( base_node_url, permissions))  
-        
-        
-        self.Outline = outline		# the internal Outline is capitalized because it make reference at the Server instance.
-        self.checker = outline.checker
-        self.base_path = base_node_url
-        self.base_node = self.Outline.get_node(self.base_path)		
-              
-        self.name   = name
-        self.client = mind
-        deferred = self.client.callRemote("post_message", 
-                                         "LeoServer", 
-                                          "%s, you have now access to the Admin Perspective."%(name.capitalize()))
-        
-        deferred.addErrback(raiseLeoError, "Could not send a message to user %s"%(name))
-        
-        return
-
-                
-    def logout(self,):
-        """
-        A client is closing his relation with this perspective (i.e. this outline).
-        """
-        
-        print "Admnistrator %s at %s is login out" % (self.name, self.base_path)
-        
-        return
-        
-    def absolute_path(self, relative_node_path): 
-        """
-        transform a relative path to a valid server url
-        """
-        return self.base_path + '/' + relative_node_path[1:]	
-
-    @others
-    
-
-
-
-
-
-</t>
-<t tx="rodrigob.121403173614.1325">def remote_create_account(self, name, password):
-    """
-    Add an account in the same Authorizer that gives the access to the Admin perspective.
-    """
-    
-    # should I check that the name is free ?
-    assert not self.checker.userExist(name), LeoError("The user account %s already exist" % name)
-    
-    self.checker.addUser(name, password)
-    
-    self.client.callRemote("post_message", "LeoServer", 
-                            "An account for %s have been created."%(name.capitalize())).addErrback(raiseMessageError, self.name)
-    
-    return
-
-
-def remote_change_password(self, name, password):
-    """
-    Change the password of an existing account.
-    """
-    
-    # should I check that the name is free ?
-    assert self.checker.userExist(name), LeoError("The user account %s does not exist (can not change his password)" % name)
-    
-    self.checker.setPassword(name, password)
-    
-    self.client.callRemote("post_message", "LeoServer", 
-                            "The password of  %s have been edited."%(name.capitalize())).addErrback(raiseMessageError, self.name)
-    
-    return
-
-
-def remote_delete_account(self, name):
-    """
-    Delete an account in the same Authorizer that gives the access to the Admin perspective.
-    """
-    
-    self.checker.delUser(name)
-    
-    # should I delete the permissions in the outline too ? &lt;&lt;&lt;&lt; YES, to avoid false permissions of future users 
-    # need to visit the entire outline (ouch !)
-    
-    
-    self.client.callRemote("post_message",  "LeoServer", 
-                           "The account %s has been deleted."%(name.capitalize())).addErrback(raiseMessageError, self.name)
-    
-    return
-
-
-def remote_get_users_list(self,):
-    """
-    Return the list of existing users name
-    """
-    return  self.checker.users.keys()
-</t>
-<t tx="rodrigob.121403173614.1326">def remote_get_users_permissions(self, rpath):
-    """
-    Return the dictionnary of the permissions of a node.
-    """        
-    path = self.absolute_path(rpath)
-    t_node = self.Outline.get_node(path)
-    assert t_node, LeoError("Could not found the indicated path '%s'" % path)
-    return t_node.permissions
-
-
-def remote_get_permissions(self, name, rpath):
-    """
-    Permissions are related to the aviable actions per node. 
-    They also are herited to the subnodes.
-    valid permissions are : ['Read', 'Node_edit', 'Tree_edit', 'Admin_node'] 
-    """
-    # could put here and access check, but will not (in sake of cpu usage)
-        
-    # get the path node
-    path = self.absolute_path(rpath)
-    t_node = self.Outline.get_node(path)
-    assert t_node, LeoError("Could not found the indicated path '%s'" % path)
-    permissions = self.Outline.get_permissions(name, t_node)	
-    
-    return permissions
-
-
-def remote_delete_permissions(self, name, rpath):
-    """
-    Erase the permissions of one user in the node. The permissions of upper nodes will be herited (propagated).
-    """
-    # could put here and access check, but will not (in sake of cpu usage)
-        
-    # get the path node
-    path   = self.absolute_path(rpath)
-    t_node = self.Outline.get_node(path)
-    assert t_node, LeoError("Could not found the indicated path '%s'" % path)
-    
-    if t_node.permissions.has_key(name):
-        del t_node.permissions[name]
-    
-    return 
-
-
-def remote_set_permissions(self, name, rpath, permissions):
-    """
-    Permissions are related to the aviable actions per node. 
-    They also are herited to the subnodes.
-    valid permissions are : ['Read', 'Node_edit', 'Tree_edit', 'Admin_node'] 
-    """
-
-    # get the path node
-    path   = self.absolute_path(rpath)
-    t_node = self.Outline.get_node(path)
-    
-    if not t_node:
-        raisePathError(path)
-        
-    # check if the requested path is under the admin perspective
-    res_node = self.Outline.find_upward(lambda x: self.base_node == x, path)
-    if not res_node:
-        raiseLeoError("You are not allowed to edit the permissions of this node. (%s)"%(path))
-
-        
-    if type(permissions) not in [list, tuple]:
-        raiseLeoError("Permissions should be a list or a tuple")
-
-    for permission in permissions:
-        if permission not in ["Read", "Node_edit", "Tree_edit", "Admin_node"]:
-            raiseLeoError("Unknown permission '%s'"%(permission))
-        
-    t_node.permissions[name] = list(permissions)
-
-    # check if the user is logged and update his permissions.
-    if t_node.users.has_key(name):	
-        for t_perspective in t_node.users[name]:
-            t_perspective.local_permissions = self.Outline.get_permissions(t_perspective.name, t_perspective.selected_node_path)
-            
-    self.client.callRemote("post_message", "LeoServer", 
-                           "%s permissions have been updated."%(name.capitalize())).addErrback(raiseMessageError, self.name)
-    
-    return
-
-
-
-
-
-
-</t>
-<t tx="rodrigob.121403173614.1379">@
-Server side, data&lt;-&gt;outline transformation
-@c</t>
-<t tx="rodrigob.121403173614.1380">def outline_to_data(self, parent_node):
-    """
-    Recieve a node instance and return a list in the format.
-    ([node1_instance, node2_instance, ..], [0, 1, 2, [4, 1], 5, 2, 6, ..])
-    Clones suboutlines appears only once (node '2' in the previous example) 
-    Used as a helper function to construct the data to send.
-    parent_node is also included in the result.
-    """
-        
-    # inner helper recursive function ---------------------------
-    def level_list(childrens, t_dic):
-        t_list = []
-        for t_node in childrens:
-            if not t_dic.has_key(t_node): # if not in the dic
-                t_dic[t_node] = len(t_dic) # add it, with his index
-                
-            t_list.append(t_dic[t_node]) # add the entry
-            
-            if t_node.childrens and t_dic[t_node] == (len(t_dic) - 1): # if has childrens, and it is the first appearance
-                t_list.append(level_list(t_node.childrens, t_dic)) # add the new level, recursivelly
-            
-            # lets continue with the actual level 
-        
-        return t_list # tada... easy
-    # end of inner recursive function ----------------------------
-    
-    t_dic = {parent_node:0}	
-    nodes_hierarchy = [0, level_list(parent_node.childrens, t_dic)]
-    nodes_list = range(len(t_dic))
-    for t_node, pos in t_dic.items():
-        nodes_list[pos] = t_node
-
-    return (nodes_list, nodes_hierarchy)</t>
-<t tx="rodrigob.121403173614.1381">def data_to_outline(self, parent, nodes_list, nodes_hierarchy, t_dic):
-    """
-    Receive data in the format ([(name, body), (name,body), ...], [0 1 [2 3 1] 4])
-    and append the new nodes to the parent.
-    If the parent already has childrens, will add them to the last position.
-    t_dic contain a map of "already scanned indexes" -&gt; node_instance object. This allow to create the required clones.
-    Recursive function.
-    """
- 
-    NodeClass = self.Outline.nodeClass #NodeClass( parent_node=None, position=-1, name="New CollaborativeNode", text=""):
-    last_node = parent
-    
-    for t_item in nodes_hierarchy:
-        
-        if type(t_item) is int:
-          
-            if not t_dic.has_key(t_item): # if not already created, create a new node
-                #print t_item, len(nodes_list), nodes_list # just for debugging
-                t_name, t_text = nodes_list[t_item]
-                last_node = NodeClass(parent, position=-1, name=t_name, text=t_text) # new node
-                t_dic[t_item] = last_node
-            else: # the node already was created, now we should create a clone of it.
-                twin = t_dic[t_item]
-                self.Outline.create_clone(twin, parent, position=-1) #create_clone(twin, parent, position=-1):
-                last_node = twin 
-                
-        elif type(t_item) in [list, tuple]:
-            self.data_to_outline(last_node, nodes_list, t_item, t_dic) # recursive call for the next level
-            
-        else:
-            self.es_error("&lt;LeoClient Error&gt; The nodes hierarchy in the uploaded data contain an unmanageable object of type %s"%( type(t_item)))
-    
-    
-    return
-
-
-</t>
-<t tx="rodrigob.121403173614.1382">
-def remote_get_outline(self,):
-    """
-    Return a copy own perspective outline branch.
-    The format is
-    (["name1", "name2", ..], [0, 1, 2, [4, 1], 5, 6, ..])
-    """
-    
-    base_node = self.Outline.get_node(self.base_path)
-    assert base_node, LeoError("Could not find the base_node (base_path '%s')" % self.base_path)
-        
-    nodes_list, nodes_hierarchy = self.outline_to_data(base_node) # format ([node1_instance, node2_instance, ..], [0, 1, 2, [4, 1], 5, 6, ..])
-    nodes_list = map(lambda x:x.name, nodes_list) 
-
-    return (nodes_list, nodes_hierarchy) # tada... so easy.
-
-</t>
-<t tx="rodrigob.121403173614.1383">def remote_download_outline(self, path):
-    """
-    Return the data related to a specific outline. This method is called by client that desire to "copy" an online outline.
-    Data format,
-    (
-        ([("node1_name", "node1_text"), ("node2_name", "node2_text"), ..], [0, 1, 2, [4, 1], 5, 6, ..]),
-        {1:["user1", "user2"], 5:["user2", "user4"]}
-    )
-    i.e. outline data plus data of who is editing the copied nodes, very important to warn the user of corrupt, or in edition version.
-    """
-    
-    # transform a local outline to his data representation
-    
-    base_node = self.Outline.get_node(path)
-    assert base_node, LeoError("Could not find the base_node to download (base_node_path '%s')" % path)
-    
-    nodes_list, nodes_hierarchy = self.outline_to_data(base_node) # format ([node1_instance, node2_instance, ..], [0, 1, 2, [4, 1], 5, 6, ..])
-    data = (map(lambda x:(x.name, x.get_text()), nodes_list) , nodes_hierarchy) 
-
-
-    warnings = {} #the "being edited by" warnings. {1:["user1", "user2"], 5:["user2", "user4"]} 
-    c = 0
-    for t_node in nodes_list:
-        if t_node.users:
-            warnings[c] = t_node.users.keys()
-        c+=1
-        
-        
-    return (data, warnings)
-</t>
-<t tx="rodrigob.121403173614.1384">def remote_upload_outline(self, parent_path, position, data):
-    """
-    This method allow clients to update outlines.
-    The clients upload data to the server, this method transform this data in a real outline, and propagate the event.
-    The format of data is : ([(name, body), (name,body), ...], [0 1 [2 3 1] 4])
-    """
-       
-    # check if authorized to edit the tree -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
-    local_permissions = self.Outline.get_permissions(self.name, parent_path)
-
-    if "Tree_edit" not in local_permissions:
-        raise Unauthorized, "You are not allowed to append branches to this tree. (your local permissions are %s)"%(local_permissions)
-
-    # create the local outline -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
-    parent_node = self.Outline.get_node(parent_path)
-    assert parent_node, LeoError("Could not find the parent node where insert the uploaded data (parent_path '%s')" % parent_path)
-
-    assert len(data[1])== 2, LeoError("The nodes hierarchy have not the correct format. (a parent node and all his childrens) (len(data[1]) == %i != 2) " % len(data[1]) )
-    
-    # security check of names with "/" (an error would be too much disastrous)
-    data = (map(lambda x: (x[0].replace("/", "&amp;sl;"), x[1]), data[0]), data[1])
-    
-    # add the first item at the correct position, the rest is recursive,
-    t_name, t_text = data[0][data[1][0]]
-    t_node = self.Outline.nodeClass(parent_node, position, name=t_name, text=t_text) #NodeClass( parent_node=None, position=-1, name="New CollaborativeNode", text=""):
-    t_dic = {data[1][0]:t_node} # index -&gt; node_instance
-    
-    # now deploy the data in the rest of the t_node childrens
-    self.data_to_outline(t_node, data[0], data[1][1], t_dic) # data_to_outline(parent, nodes_list, nodes_hierarchy, t_dic)
-    
-    
-    # propagate the event to the other clients -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
-    # obtain the outline 
-    outline_list = (map(lambda x: x[0], data[0]), data[1]) # change ([(name, body), (name,body)], [0 1 [2 3 1] 4]) to ([name, name], [0 1 [2 3 1] 4])
-    
-    # send outline to the interested clients 
-    # only two cases, will see it, will not see it. Easy.
-    
-    # obtain the perspectives related to this event
-    t_dic = self.Outline.get_upward_perspectives(parent_node) # return a dic of 'perspective'-&gt;"relative_path"
-    
-    for t_perspective, t_rpath in t_dic.items(): 
-        t_perspective.client.callRemote("paste_outline", t_rpath, position, outline_list) # send the data to the other clients
-            
-    return
-</t>
-<t tx="rodrigob.121403173614.1385">@
-Each instance is responsable of his task, to check permissions and to propagate the event to the other clients.
-@c
-
-def absolute_path(self, relative_node_path): 
-    """
-    transforme a relative path to a valid server url
-    """
-    assert type(relative_node_path) is unicode, LeoError("Received relative paths have to be unicode (received type %s)" % type(relative_node_path))
-    return self.base_path + relative_node_path[1:]	
-
-
-
-</t>
-<t tx="rodrigob.121403173614.1386">@
-The set of base operations that allow any desirable tree modification.
-@c</t>
-<t tx="rodrigob.121403173614.1387">def remote_create_node(self, path, text=u"", position=-1):
-    """ 
-    The perspective receive relatives paths (relatives to the self perspective).
-    The CollaborativeOutline receive absolutes paths.
-    """
-
-    t_list = self.Outline.path_to_list(self.absolute_path(path))
-        
-    parent_path, name = t_list[:-1], t_list[-1]
-    parent_node       = self.Outline.get_node(parent_path)
-    
-    if not parent_node:
-        raiseLeoError("Could not found the parent of the new node  (%s)"%(parent_path) )
-        return
-        
-    # check if authorized to edit the tree
-    local_permissions = self.Outline.get_permissions(self.name, parent_path)
-
-    if "Tree_edit" not in local_permissions:
-        raise Unauthorized, "You are not allowed to edit this tree. (your local permissions are %s)"%(local_permissions)
-        
-    # check if the tree is not locked
-    # regulation: node creation have no restrictions
-
-    # apply	
-    self.Outline.create_node(parent_node, name=name, text=text, position=position)
-    
-        
-    # propagate. only two cases, will see it, will not see it. Easy. -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
-    
-    # obtain the perspectives related to this event
-    t_dic = self.Outline.get_upward_perspectives(parent_node) # return a dic of 'perspective'-&gt;"relative_path"
-    
-    for t_perspective, t_rpath in t_dic.items():
-        t_rpath = "%s/%s" % ( t_rpath, name) 
-        t_perspective.client.callRemote("create_node", t_rpath, position) # propagate the event to other clients
-
-    
-    return</t>
-<t tx="rodrigob.121403173614.1388">def remote_create_clone(self, twin_path, parent_path, position=-1):
-    """ 
-    The perspective methods receive relatives paths (relatives to the self perspective).
-    """
-
-    twin_path   = self.absolute_path(twin_path)
-    parent_path = self.absolute_path(parent_path)
-    
-    twin   = self.Outline.get_node(twin_path)
-    parent = self.Outline.get_node(parent_path)
-
-    # check existance
-    assert twin, LeoError("Could not find the twin")
-    assert parent, LeoError("Could not find the parent")
-
-    # check permissions
-    local_permissions = self.Outline.get_permissions(self.name, parent_path)
-    if "Tree_edit" not in local_permissions:
-        raise Unauthorized, "You are not allowed to edit this tree. (your local permissions are %s)"%(local_permissions)
-
-    local_permissions = self.Outline.get_permissions(self.name, twin_path)
-    if "Read" not in local_permissions:
-        raise Unauthorized, "You are not allowed to read the node to clone. (your local permissions are %s)"%(local_permissions)
-
-    # check recursive outline construction
-    assert twin != parent and twin not in  self.Outline.get_upward_nodes(parent), LeoError("Recursive graphs are not allowed, Leo(N) only accept Acyclic Graphs.\nTwin node '%s' is parent of the node '%s'." % (twin_path, parent_path))
-    
-    # create the clone -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
-    self.Outline.create_clone(twin, parent, position)
-    
-    # propagate -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
-    # three cases: will see it, will see it as a node creation, will not see it. simple but non trivial.
-    
-    twin_perspectives   = self.Outline.get_upward_perspectives(twin)   # return a dic of 'perspective'-&gt;"relative_path"    
-    parent_perspectives = self.Outline.get_upward_perspectives(parent) # return a dic of 'perspective'-&gt;"relative_path"
-    
-    for t_perspective, t_rpath in parent_perspectives.items():
-        if twin_perspectives.has_key(t_perspective): # if user see the parent of new node and the root twin
-            # he will see a clone
-            t_twin_rpath = twin_perspectives[t_perspective]
-            t_perspective.client.callRemote("create_clone", t_rpath, t_twin_rpath, position) # propagate the event to other clients
-        else: # only see the parent, but not the original node
-            # he will see a new node (not cloned)
-            t_rpath = t_rpath + '/' + twin.name
-            t_perspective.client.callRemote("create_node", t_rpath, position) # propagate the event to other clients  
-
-
-    return</t>
-<t tx="rodrigob.121403173614.1389">def remote_delete_node(self, node_path):
-    """ 
-    The perspective receive relatives paths (relatives to the self perspective).
-    """
-
-    node_path = self.absolute_path(node_path) 
-    
-    if node_path == "/": #node == self.Outline.root_node:
-        raise Unauthorized, "The Root Node is unerasable."
-        
-    # check if authorized to edit the tree
-    local_permissions = self.Outline.get_permissions(self.name, node_path)
-    if "Tree_edit" not in local_permissions:
-        raise Unauthorized, "You are not allowed to edit this tree. (your local permissions are %s)"%(local_permissions)
-
-
-    node = self.Outline.get_node(node_path)
-    
-    # check if the tree is not locked
-    # regulation: only nodes that no one is editing can be erased
-    
-    # helper recursive function ----
-    def check_no_other_users(t_node):
-        if t_node.users.values() != [] and t_node.users.values() != [[self]]:
-            raiseLeoError("Nodes being edited by other users can not be erased.")
-            return
-        if t_node.base_node_of:
-            raiseLeoError("This node is the base node of %s so it can not be deleted." % t_node.base_node_of.keys() )
-            return
-        for t_child in t_node.childrens:
-            check_no_other_users(t_child)
-                    
-        return
-    # end of helper recursive function ----
-    
-    check_no_other_users(node) # will raise an exception if there are problems
-
-    # obtain the perspectives related to this event (need to do this *before* deleting the node)
-    t_dic = self.Outline.get_upward_perspectives(node) # return a dic of 'perspective'-&gt;"relative_path"
-
-    # apply
-    self.Outline.delete_node(node)
-
-    # propagate the event to all the interested users: every user that register an access from parent to upstairs
-    # only two cases, will see it, will not see it.
-        
-    for t_perspective, t_rpath in t_dic.items(): 
-        t_perspective.client.callRemote("delete_node", t_rpath) # propagate the event to other clients
-
-    return
-
-</t>
-<t tx="rodrigob.121403173614.1390">    
-    
-def remote_move_node(self, node_path, new_path, position=-1):
-    """ 
-    The perspective receive relatives paths (relatives to the self perspective).
-    Allow move, a renaming+move
-    """
-
-    node_path  = self.absolute_path(node_path)
-    new_path   = self.absolute_path(new_path)
-    
-    try:
-        t_list     = filter(lambda x:x, new_path.split('/')) 
-        new_parent_lpath = t_list[:-1] #lpath is a list path
-        new_parent_path = u'/' + '/'.join(new_parent_lpath)
-        new_name   = t_list[-1]
-    except:
-        LeoError("Could no separate the parent and the new node name. (new_path %s)" % new_path) 
-    
-    old_name   = filter(lambda x:x, node_path.split('/'))[-1]
-
-
-    &lt;&lt; check permissions &gt;&gt;
-    &lt;&lt; check locks &gt;&gt;
-    &lt;&lt; apply &gt;&gt;
-    &lt;&lt; propagate &gt;&gt;
-
-    return
-    
-</t>
-<t tx="rodrigob.121403173614.1391"># check if authorized to edit the tree -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
-permissions = self.Outline.get_permissions(self.name , node_path)
-if "Tree_edit" not in permissions:
-    raise Unauthorized, "%s not allowed to move the requested node. (permissions %s at '%s')"%(self.name.capitalize(), permissions, node_path)
-
-permissions = self.Outline.get_permissions(self.name , new_parent_path)
-if "Tree_edit" not in permissions:
-    raise Unauthorized, "%s not allowed to edit the tree associated to the new node position. (permissions %s at '%s')"%(self.name.capitalize(), permissions, new_parent_path)
-
-
-# check nodes existance -:-:-:-:-:-
-node = self.Outline.get_node(node_path)    
-if not node:
-    raiseLeoError("Could not found the node to move (and rename). (node_path '%s')"% node_path)
-
-old_parent_path = '/'.join(node_path.split('/')[:-1])
-old_parent = self.Outline.get_node(old_parent_path)
-assert old_parent, LeoError("Could not find the old parent (parent_path '%s')" % old_parent_path)
-
-
-new_parent = self.Outline.get_node(new_parent_path)
-assert new_parent, LeoError("Could not find the new parent (parent_path '%s')" % new_parent_path)
-
-
-# check recursive outline construction
-assert node != new_parent and node not in self.Outline.get_upward_nodes(new_parent), LeoError("Recursive graphs are not allowed, Leo(N) only accept Acyclic Graphs.\nMoved node '%s' is parent of the destination node '%s'." % (node_path, new_parent_path))
-</t>
-<t tx="rodrigob.121403173614.1392"># check if the tree is not locked -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
-
-
-# regulation: no one has to be editing the node during edition because for some users a node move can be seen as a deletion.
-    
-# future regulation: the node and their descendant can only be edited by users that view both the old_path and the new_path. If not some user will see that they actual edition node is deleted, that inasceptable. (too complicated to implement in the first version, KISS)
-    
-# helper recursive function ----
-def check_no_other_users(t_node):
-    if t_node.users.values() != [] and t_node.users.values() != [[self]]:
-        raiseLeoError("Nodes being edited by other users can not be erased. (detected the presence of %s)"%(t_node.users.keys()))
-        return
-    for t_child in t_node.childrens:
-        check_no_other_users(t_child)
-                            
-    return
-# end of helper recursive function ----
-
-check_no_other_users(node) # will raise an exception if there are problems
-</t>
-<t tx="rodrigob.121403173614.1393">
-# apply -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
-self.Outline.move_node(node_path, new_parent_path, position = position)
-
-# rename the node, if necessary
-old_name = node.name
-if new_name != old_name: # check renaming
-    node.name = new_name
-</t>
-<t tx="rodrigob.121403173614.1394"># apply to the other clients -:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-
-# depending on the perspective a move can look as an insertion, a deletion or a move.
-# propagate the event to all the interested users
-# propagation is cpu intensive ...
-
-# obtain the perspectives related to this event
-old_view_dic = self.Outline.get_upward_perspectives(old_parent) # return a dic of 'perspective'-&gt;"relative_path"
-new_view_dic = self.Outline.get_upward_perspectives(new_parent) # return a dic of "relative_path" -&gt; [perspectives]
-        
-#print "new_parent t_dic", t_dic # just for debugging
-#print "new_view_dic", new_view_dic # just for debugging
-
-outline_list = None # will create it only if required
-
-for t_perspective in new_view_dic.keys(): # users that will see an insertion
-    if old_view_dic.has_key(t_perspective): # the user will see a move
-        old_rpath = old_view_dic[t_perspective] + '/' + old_name
-        new_rpath = new_view_dic[t_perspective] + '/' + new_name
-        t_perspective.client.callRemote("move_node", old_rpath, new_rpath, position=position)
-        del old_view_dic[t_perspective] # already counted    
-    else: # the user will see an insertion
-        new_rpath = new_view_dic[t_perspective] + '/' + new_name
-        if not outline_list: # if the data have not been obtained calculate it now
-            data = self.Outline.outline_to_data(node)
-            outline_list = (map(lambda x: x[0], data[0]), data[1]) # change ([(name, body), (name,body)], [0 1 [2 3 1] 4]) to ([name, name], [0 1 [2 3 1] 4])
-        t_perspective.callRemote("paste_outline", new_rpath, position, outline_list) # send the data to the other clients
-    
-    
-for t_perspective in old_view_dic.keys(): # the rest of the old users will see a deletion
-    old_rpath = old_view_dic[t_perspective] + '/' + old_name
-    t_perspective.client.callRemote("delete_node", old_rpath)
-    </t>
 <t tx="rodrigob.121403173614.1412">&lt;html&gt;
 &lt;head&gt;
 &lt;style typ="text/css"&gt;
@@ -27411,381 +27878,6 @@ body
 &lt;/table&gt;
 &lt;/body&gt;
 &lt;/html&gt;</t>
-<t tx="rodrigob.121403173614.1426">class OutlinePerspective(pb.Referenceable):
-    """
-    This class present a external access to an outline branch.
-    This are the method that the client can access in the server space.
-    The OutlinePerspective attach itself to the outline
-    """
-    
-    # __init__ is a merge of old init and attach
-
-    def __init__(self, name, base_node_url, outline, clientref):
-        #pb.Referenceable.__init__(self) # pb.Referenceable  has no __init__ method
-                
-        self.Outline  = outline	# the internal Outline is capitalized because it make reference at the Server instance. (so ?)
-        if not self.Outline:
-            raise LeoError("Cannot attach a client if no CollaborativeOutline instance is attached to the Perpective (bug of the Service).")
-
-        # store the perspective reference Node. Once logged we only have access to the Downside nodes.
-        self.base_path = base_node_url
-        self.base_node = self.Outline.get_node(base_node_url)
-        assert self.base_node, LeoError("Could not found the reference node (base_node_url '%s')"% base_node_url)
-        
-        self.selected_node  = None
-        self.selected_node_path = base_node_url
-        self.local_permissions = [] # the permissions associated to the local nodes
-        
-
-        self.name     = name
-        self.client   = clientref
-        self.status   = "online"
-        
-        # attach to the CollaborativeOutline
-        if self.Outline.users.has_key(self.name):
-            self.Outline.users[self.name].append(self)
-        else:
-            self.Outline.users[self.name]= [ self ] # important, the outline manage a dictionary of lists of users perspective (an user user can be logged more than once at different point with one or more clients.)
-            
-        
-        # attach us to the base node        
-        if self.base_node.base_node_of.has_key(self.name):
-            self.base_node.base_node_of[self.name].append(self)
-        else:
-            self.base_node.base_node_of[self.name] = [self]
-        
-        
-        # attach us to the selected node
-        self.selected_node = self.Outline.get_node(self.base_path)
-                
-        if self.selected_node.users.has_key(self.name):
-            self.selected_node.users[self.name].append(self)
-        else:
-            self.selected_node.users[self.name] = [self]
-            
-            
-
-        # set presence
-        self.remote_set_presence("online")
-        
-        
-        self.client.callRemote("post_message", "LeoServer", 
-                                           "%s, you are welcome to the system."%(self.name.capitalize())).addErrback(raiseMessageError, self.name)
-    
-        return
-
-        
-    def logout(self,):
-        """
-        A client is closing his relation with this perspective (i.e. this outline).
-        """
-        
-        print "%s at %s is login out." % (self.name, self.base_path)
-        
-        self.remote_collaborate_out() # collaborate_out (will do nothing if was not collaborating)
-            
-        #  dettach us from the selected node        
-        self.selected_node.users[self.name].remove(self)
-        if not self.selected_node.users[self.name]: # if there are no more clients connected
-            del self.selected_node.users[self.name]  # forget us name
-            
-        # dettach from the CollaborativeOutline
-        self.Outline.users[self.name].remove(self)
-        if not self.Outline.users[self.name]: # if there are no more clients connected
-            del self.Outline.users[self.name]  # forget us name
-            
-        #  dettach us from the base node        
-        if self.base_node.base_node_of.has_key(self.name):
-            self.base_node.base_node_of[self.name].remove(self)
-        if not self.base_node.base_node_of[self.name]:
-            del self.base_node.base_node_of[self.name]
-        
-
-        
-        return
-        
-
-    @others
-
-</t>
-<t tx="rodrigob.121403173614.1427">def remote_change_password(self, newpassword):
-    """
-    Let the users change they password.
-    """
-    
-    self.Outline.checker.setPassword(self.name, newpassword)
-
-    self.client.callRemote("post_message", "LeoServer", "Own password; updated.").addErrback(raiseMessageError, self.name)		
-    return</t>
-<t tx="rodrigob.121403173614.1428">
-def remote_get_actual_users_list(self, ):
-    """ 
-    Return the list of the logged users and they state.
-    """
-    
-    t_list = map(lambda x: (x, self.outline.users[x].status),self.Outline.users.keys())
-    
-    return t_list
-    
-    
-def remote_set_presence(self, state):
-    """
-    Set the presence of one user 
-    """
-    
-    self.status = state
-    
-    for t_list in self.Outline.users.values(): # a list of client references
-        for t_value in t_list:
-            t_value.client.callRemote("post_presence", self.name, state).addErrback(raiseLeoError, "could not post your presence to %s"%(t_value.name))
-    
-    return
-
-def remote_send_message(self, to, txt):
-    """ 
-    Send a message to
-    """
-    
-    if to == "_everyone":
-        for t_list in self.Outline.users.values():
-            for t_value in t_list:
-                t_value.client.callRemote("post_message", self.name, txt).addErrback(raiseMessageError, t_value.name)
-        return
-
-    if to == "_room":
-        for t_list in self.selected_node.users.values():
-            for t_value in t_list:
-                t_value.client.callRemote("post_message", self.name, txt).addErrback(raiseMessageError, t_value.name)
-        return
-    
-    
-    if not self.Outline.users.has_key(to):
-        raise LeoError("The user '%s' is not logged into this outline."%(to))
-        #raise LeoError("The user '%s' is not logged into this outline. %s"%(to, str(self.Outline.users))) # just for debugging
-    
-    for t_perspective in self.Outline.users[to]:
-        t_perspective.client.callRemote("post_message", self.name, txt).addErrback(raiseMessageError, self.name)
-        
-    return</t>
-<t tx="rodrigob.121403173614.1429">@
-Add the logic of the distributed application and then call the native Outline method.
-@c
-
-</t>
-<t tx="rodrigob.121403173614.1430">def remote_select_node(self, path):
-    """
-    Set us selected node and
-    return the content of the selected node.
-    """
-    
-    t_node = self.Outline.get_node(path)
-    
-    if not t_node:
-        raiseLeoError("Could not found the required node. (%s)"%(path))
-        return
-    
-    self.selected_node_path = path
-    # if actual node is locked, unlock it
-    if self.selected_node.is_locked == self.name:
-        self.remote_unlock_selected_node()
-        
-    # dettach from previous node
-    try:
-        self.selected_node.users[self.name].remove(self)
-    except:
-        # we where not attached to the previous node....
-        pass
-    
-    # select the new node
-    self.selected_node = t_node
-    
-    # attach us
-    if self.selected_node.users.has_key(self.name):
-        self.selected_node.users[self.name].append(self)
-    else:
-        self.selected_node.users[self.name] = [self]
-    
-    # obtain the contents of the selected node
-    content = self.selected_node.get_text()
-    
-    return content
-</t>
-<t tx="rodrigob.121403173614.1431"># Perspective access to node contents edition methods</t>
-<t tx="rodrigob.121403173614.1432">def remote_selected_node_is_locked(self,): # is this method necessary ?
-    """
-    Used by the client to know who is locking the node.
-    """
-    
-    if self.selected_node:
-        return self.selected_node.is_locked
-    
-    return None
-
-
-def remote_lock_selected_node(self, ):
-    """ 
-    """
-
-    # check the permissions	
-    if self.selected_node.is_locked and self.selected_node.is_locked != self.name:
-        raiseLeoError("The selected node is already locked by '%s'."%(self.selected_node.is_locked))
-            
-    self.selected_node.is_locked = self.name
-        
-    return
-    
-def remote_unlock_selected_node(self, ):
-    """ 
-    """
-
-    if self.selected_node.is_locked != self.name:
-        raiseLeoError("The selected node is locked by '%s', you can not unlock it."%(self.selected_node.is_locked))
-        
-    
-    self.selected_node.is_locked = None # no one has a lock over this node
-    
-    return
-</t>
-<t tx="rodrigob.121403173614.1433">
-
-def remote_update_node(self, path, text): # this method should be generic or only for the selected node
-    """ 
-    """
-
-    node = self.Outline.get_node(path)
-        
-    # check if it is already locked by you
-    if node.is_locked != self.name:
-        raiseLeoError("The selected node is locked by '%s', you can not edit it."%(self.selected_node.is_locked))
-
-    # apply
-    self.Outline.update_node(node, text)
-
-    # propagate the event to all the interested users
-    for t_value in node.users.values():
-        t_value.client.callRemote("update_node", text ).addErrback(raiseLeoError, "could not update the node for user %s"%(t_value.name))		
-        
-    return	
-    
-
-def remote_update_selected_node(self, text): # this method should be generic or only for the selected node
-    """ 
-    """
-
-    # check if it is already locked by you
-    if self.selected_node.is_locked != self.name:
-        raiseLeoError("The selected node is locked by '%s', you can not edit it."%(self.selected_node.is_locked))
-
-    # apply		
-    self.Outline.update_node(self.selected_node, text)
-
-    # propagate the event to all the interested users
-    for t_list in self.selected_node.users.values():
-        for t_value in t_list:
-            t_value.client.callRemote("update_selected_node", text ).addErrback(raiseLeoError, "could not update the selected node of %s"%(t_value.name))
-        
-    return	
-</t>
-<t tx="rodrigob.121403173614.1434"># Allow external users to start collaborating
-
-
-def remote_collaborate_in(self):
-    """
-    Login into the collaborative server associated to the selected node
-    """
-    
-    site_index, num_of_sites, base_state_vector, base_text, ops_list = self.selected_node.add_client(self.client)
-    
-    self.site_index = site_index
-    
-    return (site_index, num_of_sites, base_state_vector, base_text, ops_list)
-
-
-def remote_collaborate_out(self):
-    """
-    Logout from the collaborative server associated to the selected node
-    """
-
-    # logout of the Collaborative Node
-    self.selected_node.del_client(self.client)
-    
-    self.site_index = None
-    
-    return
-    
-    
-
-</t>
-<t tx="rodrigob.121403173614.1435">def remote_receive_op(self, *args, **kws):
-    """
-    Perspective access to the selected nodes operations
-    """
-    
-    # check if it is already locked by you
-    if self.selected_node.is_locked and (self.selected_node.is_locked != self.name):
-        raiseLeoError("The selected node is locked by '%s', you can not edit it."%(self.selected_node.is_locked))
-        
-    if self.site_index == None:
-        raiseLeoError("You have not logged in the node, so you are not able to edit it.")
-
-    kws["source_site"] = self.site_index # if this perspective manage the call, it has to comes from that source
-    kws["who"] = self.name # stamp the operation with us name
-    
-    # apply		
-    self.selected_node.receive_operation(ConcurrentEditable.Operation(*args, **kws))
-    return</t>
-<t tx="rodrigob.121403173614.1436">def remote_insert_text(self, startpos, text, timestamp = None):
-    """ 
-    
-    (version will be used for leo step4)
-    """
-    
-    # check if it is already locked by you
-    if self.selected_node.is_locked and (self.selected_node.is_locked != self.name):
-        raiseLeoError("The selected node is locked by '%s', you can not edit it."%(self.selected_node.is_locked))
-        
-    if self.site_index == None:
-        raiseLeoError("You have not logged in the node, so you are not able to edit it.")
-
-    if timestamp == None:
-        raiseLeoError("Operation 'insert_text' called without a timestamp.")
-        
-        
-    # apply		
-    self.selected_node.receive_operation(ConcurrentEditable.Operation("Insert", startpos, text, timestamp = timestamp, source_site = self.site_index, who= self.name))
-    
-    # the selected, cnode will propage the event to the related users.
-    # cnode : CollaborativeNode, is a ConcurrentEditableServer
-        
-    return
-    
-def remote_delete_text(self, startpos, length, timestamp = None):
-    """ 
-    """
-    
-    # check if it is already locked by you
-    if self.selected_node.is_locked and (self.selected_node.is_locked != self.name):
-        raiseLeoError("The selected node is locked by '%s', you can not edit it."%(self.selected_node.is_locked))
-        
-    if self.site_index == None:
-        raiseLeoError("You have not logged in the node, so you are not able to edit it.")
-        
-    if timestamp == None:
-        raiseLeoError("Operation 'delete_text' called without a timestamp.")
-
-        
-    if not ( type(startpos) == type(length) and type(startpos) is int):
-        raiseLeoError( "Type of the arguments for delete text are incorrect. (expected IntType got %s, %s)"%(type(startpos), type(length) ) )
-    
-    # apply		
-    self.selected_node.receive_operation(ConcurrentEditable.Operation("Delete", startpos, length, timestamp = timestamp, source_site = self.site_index, who= self.name))
-    
-    # the selected, cnode will propage the event to the related users.
-    # cnode : CollaborativeNode, is a ConcurrentEditableServer
-    
-    return
-
-</t>
 <t tx="rodrigob.121403173614.1502">@first #!/usr/bin/env python2.3
 @first # -*- coding: utf-8 -*-
 
@@ -29691,7 +29783,6 @@ def TestConcurrentEditable2():
 
 
     return success</t>
-<t tx="rodrigob.121603125712"></t>
 <t tx="rodrigob.122203065507">25/12/2003
 if file clonning is safe double message should be avoied
 
@@ -29820,44 +29911,6 @@ test(old_sel, old_to_send_ranges)
 	print "text_deletion_ranges", text_deletion_ranges
 	print
 	return
-</t>
-<t tx="rodrigob.122403135941">@
-Probably the third most important element for sucessfull code development are the tests.
-The test suite for LeoN is centralized the "LeoNtest.py" script.
-
-Both CollaborativeOutline and LeoServer provide they own automated unit tests.
-
-CollaborativeOutline execute a test similar to the original paper typical example.
-LeoServer execute a test between a raised server and a SimpleClient object (that only print the command received). The correctness of the execution can be checked if no error is raised, if the printed information is consistent and if the webpage publishing is consistent too.
-
-LeoClient tests are more difficults, because they require network events.
-By the moment I have not figured a clean way to get the defered objects of the client side.
-The file "LeoNtest.leo" provide a simple demo outline and some executable nodes.
-The executable nodes allow to automatize some predefined actions on the client. By the moment we use a timing system to be sure that the network event has been realized.
-Client side tests are somewhat incipients.
-
-LeoNtest.py will supose that the his directory contain an executable file named "leon.py" that correspond to a symbolic link to the "leo.py" file a Leo distribution that has already LeoN installed and enabled.
-
-Use "LeoNtest.py -h" to see the options of the tests execution. ("usage" child node)
-@c</t>
-<t tx="rodrigob.122403135941.1">@color 
-@language python
-# LeoNtest.py usage string
-
-usage= \
-"""
-Understood options:
-    'no_server', run only the concurrent editable tests;
-    'just_server', ommit the concurrent editable tests;
-    '1', run server tests and open one client;
-    '2', run server tests and open two clients;
-    'save_tap', if run the server test, will create a '.tap' twisted server file at shutdown;
-    'help' or '-h', show this help message
-    if no option, will run all tests.
-    
-Example:
-    'LeoNtest.py 1 save_tap'
-"""
 </t>
 <t tx="rodrigob.122403141113">25/12/2003
 Change, Then Find error
