@@ -269,8 +269,7 @@ class Chalks:
         getPage(t_adr).addCallbacks( callback=ip_callback, errback=ip_errback )
         #@-node:niederberger.20040826214344:<< guess local ip address >>
         #@nl
-        
-        return
+
     
     #@-node:rodrigob.20040123131236:__init__
     #@+node:rodrigob.20040123131236.1:quit
@@ -385,28 +384,26 @@ class Chalks:
     #@-at
     #@@c
     
-    def set_encoding (self):
-    	
-    	"""Set app.tkEncoding."""
+    def set_encoding (self):    	
+        """Set app.tkEncoding."""
         #<<<<< finish
         raise NotImplementedError
     
     	for (encoding,src) in (
             ("utf-8","default")
-    		(self.config.tkEncoding,"config"),
-    		#(locale.getdefaultlocale()[1],"locale"),
-    		(getpreferredencoding(),"locale"),
-    		(sys.getdefaultencoding(),"sys"),
-    		("utf-8","default")):
-    	
-    		if isValidEncoding (encoding): # 3/22/03
-    			self.tkEncoding = encoding
-    			# trace(self.tkEncoding,src)
-    			break
-    		elif encoding and len(encoding) > 0:
-    			trace("ignoring invalid " + src + " encoding: " + `encoding`)
-    			
-    	color = choose(self.tkEncoding=="ascii","red","blue")
+            (self.config.tkEncoding,"config"),
+            #(locale.getdefaultlocale()[1],"locale"),
+            (getpreferredencoding(),"locale"),
+            (sys.getdefaultencoding(),"sys"),
+            ("utf-8","default")):
+            if isValidEncoding (encoding): # 3/22/03
+                self.tkEncoding = encoding
+                # trace(self.tkEncoding,src)
+                break
+            elif encoding and len(encoding) > 0:
+                trace("ignoring invalid " + src + " encoding: " + `encoding`)
+                
+        color = choose(self.tkEncoding=="ascii","red","blue")
     #@nonl
     #@-node:rodrigob.20040129131141:set_encoding
     #@+node:rodrigob.20040125204408:is dirty
@@ -553,7 +550,7 @@ class Chalks:
                 bar.configure(relief=relief,width=w,bg=color,cursor="sb_h_double_arrow")
         except: # Could be a user error. Use all defaults
             self.log("exception in user configuration for splitbar")
-            es_exception()
+
             if verticalFlag:
                 # Panes arranged vertically; horizontal splitter bar
                 bar.configure(height=7,cursor="sb_v_double_arrow")
@@ -616,8 +613,7 @@ class Chalks:
         
         # Returns < < s > >
         def virtual_event_name(s):
-                return ( "<<" + s +
-                      ">>") # must be on a separate line.
+            return ( "<<" + s + ">>") # must be on a separate line.
         
         # Gui-dependent commands...
         text_widget.bind(virtual_event_name("Cut"), self.onCut)
@@ -755,7 +751,6 @@ class Chalks:
             self.app.log_widget.tag_config("stdout", foreground="gray45")
             
             self.redirect() # redirect stderr and stdout to the log panel
-            return
             
         def isRedirected (self):
             return self.redirecting
@@ -883,19 +878,18 @@ class Chalks:
     def get_text_selection (self):
     	"""
         Return a tuple representing the selected range of body text.
-    	
     	Return a tuple giving the insertion point if no range of text is selected.
         """
-    
-    	text_widget = self.text_widget
-    	sel = text_widget.tag_ranges("sel")
-    
-    	if len(sel) == 2:
-    		return sel
-    	else:
-    		# Return the insertion point if there is no selected text.
-    		insert = text_widget.index("insert")
-    		return insert,insert
+
+        text_widget = self.text_widget
+        sel = text_widget.tag_ranges("sel")
+
+        if len(sel) == 2:
+            return sel
+        else:
+            # Return the insertion point if there is no selected text.
+            insert = text_widget.index("insert")
+            return insert,insert
     #@nonl
     #@-node:rodrigob.20040125192325:get text selection
     #@-node:rodrigob.20040125154636:onTextKey
@@ -998,9 +992,8 @@ class Chalks:
     #@+node:rodrigob.20040121150952.6:divideSplitter
     # Divides the main or secondary splitter, using the key invariant.
     def divideSplitter (self, verticalFlag, frac):
-            self.divideAnySplitter(frac, verticalFlag, self.split_bar, self.splitPane1, self.splitPane2)
-            self.ratio = frac # Ratio of body pane to tree pane.
-    
+        self.divideAnySplitter(frac, verticalFlag, self.split_bar, self.splitPane1, self.splitPane2)
+        self.ratio = frac # Ratio of body pane to tree pane.
     
     # This is the general-purpose placer for splitters.
     # It is the only general-purpose splitter code in Leo.
@@ -1029,9 +1022,9 @@ class Chalks:
         
         from tkFileDialog import askopenfile
         
-        file = askopenfile(mode="rw") # return the opened file
+        t_file = askopenfile(mode="rw") # return the opened file
         
-        if not file:
+        if not t_file:
             self.log_error("Did not select a file to open.")
             
         else:
@@ -1067,9 +1060,9 @@ class Chalks:
             # ask for a filename
             from tkFileDialog import asksaveasfile
                     
-            file = asksaveasfile(mode="rw") # return the file instance
+            t_file = asksaveasfile(mode="rw") # return the file instance
             
-            if not file:
+            if not t_file:
                 self.log_error("You did not selected a file to save as.")
                 ret = 0
             else:
@@ -1078,7 +1071,7 @@ class Chalks:
                 self.save_text() 
                         
                 from os.path import basename
-                self.filename = basename(file.name)
+                self.filename = basename(t_file.name)
                 self.log("saved: %s" % self.filename)
                 self.root.title("Chalks - %s" % self.filename)
                 ret = 1
@@ -1383,7 +1376,8 @@ class Chalks:
 #@-node:rodrigob.20040119152542:class Chalks
 #@+node:rodrigob.20040125154815.1:class ChalksNode
 from ConcurrentEditable import ConcurrentEditableNode
-
+from ConcurrentEditable import ConcurrentEditable # needed by remote_delete_text()
+        
 class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     """
     <<< EDIT THIS CONTENT !!
@@ -1422,7 +1416,6 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
             
         self.deletion_buffer = () # helper variable store a cumulative erasure (successive delete or insert commands) in the tuple (startpos, len)
         
-        return
     
     
     #@    @+others
@@ -1523,7 +1516,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     
         deferred = self.server_perspective.callRemote("collaborate_out")
         deferred.addCallback(self.disconnected)
-        deferred.addErrback(self.leo_client.exception)
+        #deferred.addErrback(self.leo_client.exception)   ## <<< commented because leo_client doesn't exist
         
         return
     
@@ -2301,7 +2294,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
             
         if not ( type(startpos) == type(length) and type(startpos) is int):
             raise ChalksError,  "Type of the arguments for delete text are incorrect. (expected IntType got %s, %s)"%(type(startpos), type(length) ) 
-        
+
         # apply		
         self.receive_operation(ConcurrentEditable.Operation("Delete", startpos, length, timestamp = timestamp, source_site = self.site_index, who= self.nickname))
         
@@ -2353,7 +2346,6 @@ class ChalksPerspective(pb.Avatar):
         
         #pb.Avatar.__init__(self, avatarId, mind) # pb.Avatar has no __init__ method.
         
-        return  
     
 
 
@@ -2506,8 +2498,8 @@ class ChalksServerMonitor(object):
         assert (self.rendezvous is None) and (self.browser is None), 'you can only call this method once'
         from Rendezvous import Rendezvous, ServiceBrowser
         self.rendezvous = Rendezvous()
-        type = "_chalks._tcp.local."
-        self.browser = ServiceBrowser(self.rendezvous, type, self)
+        t_type = "_chalks._tcp.local."
+        self.browser = ServiceBrowser(self.rendezvous, t_type, self)
         print "Started listening local network for Chalks servers ..."
                 
     def stop(self):
