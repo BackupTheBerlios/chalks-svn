@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2926" clone_windows="0"/>
-<globals body_outline_ratio="0.397163120567">
-	<global_window_position top="10" left="10" height="705" width="1009"/>
+<globals body_outline_ratio="0.278625954198">
+	<global_window_position top="10" left="10" height="524" width="800"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -27,16 +27,17 @@
 </v>
 <v t="rodrigob.20040824110326.1" a="E"><vh>Docs</vh>
 <v t="rodrigob.20040826155317" a="E"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
-<v t="rodrigob.20040908003956"><vh>Latex</vh>
+<v t="rodrigob.20040908003956" a="E"><vh>Latex</vh>
 <v t="rodrigob.20040908003956.1" a="E"
-expanded="rodrigob.20040908010357.1,"><vh>@thin doc/design_proposal.tex</vh></v>
+marks="rodrigob.20040908172407.1,rodrigob.20040908172711.1,"
+expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010357.1,"><vh>@thin doc/design.tex</vh></v>
 <v t="rodrigob.20040908004300"><vh>@read-only doc/Makefile</vh></v>
 </v>
 <v t="rodrigob.20040831002540" a="E"><vh>Distribution files</vh>
 <v t="rodrigob.20040826154516"><vh>@thin README</vh></v>
 <v t="rodrigob.20040831001818"><vh>@thin AUTHORS</vh></v>
 <v t="rodrigob.20040831002026" a="E"><vh>@thin COPYING</vh></v>
-<v t="rodrigob.20040831004246" a="TV"><vh>@thin ./src/setup.py</vh></v>
+<v t="rodrigob.20040831004246"><vh>@thin ./src/setup.py</vh></v>
 <v t="rodrigob.20040831002444"><vh>@thin ./src/setup.cfg</vh></v>
 </v>
 <v t="rodrigob.121403173614.9"><vh>Old LeoN (to purge) Docs</vh>

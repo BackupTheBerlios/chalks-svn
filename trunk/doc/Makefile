@@ -1,5 +1,5 @@
-all: design_proposal.pdf
+all: design.pdf
 
 
-design_proposal.pdf: design_proposal.tex
-		     pdflatex design_proposal.tex
+design.pdf: design.tex
+		     pdflatex design.tex

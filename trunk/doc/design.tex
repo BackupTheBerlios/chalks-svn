@@ -1,10 +1,10 @@
 %@+leo-ver=4-thin
-%@+node:rodrigob.20040908003956.1:@thin doc/design_proposal.tex
+%@+node:rodrigob.20040908003956.1:@thin doc/design.tex
 %@@color
 %@@language latex
 
-%\documentclass{report}
-\documentclass{article}
+\documentclass{report}
+%\documentclass{article}
 %\documentclass[A4paper, notitlepage]{article}
                                               
 \usepackage[utf8]{inputenc}
@@ -35,7 +35,7 @@
                                               
 \pagestyle{fancy}
 
-\title{\large Chalks \\ \huge Design proposal}
+\title{\large \emph{Chalks, collaborative text editing for everyone} \\ \huge Design documentation}
 \author{Rodrigo Benenson, Ricardo Niederberger}
 \date{Technical draft as of\\ \today}
 
@@ -67,6 +67,154 @@
 % \newpage
 %@-at
 %@@c
+
+%@+others
+%@+node:rodrigob.20040908172407:Chalks
+\chapter{Chalks}
+
+%@+others
+%@+node:rodrigob.20040908172407.1:Requirements
+\section{Requirements}
+
+This are the requirements for Chalks:
+
+\begin{description}
+
+\item [Realtime Concurrent Edition]
+
+   - As defined in Chengzheng Sun's works, see ResearchNotes.
+
+\item [Easy to install]
+
+   - The user should not know about python existence
+   
+   - Lightweight
+
+   - Ideally only one executable file, without requiring an installation process
+
+\item [Easy to use]
+
+  - Scan local network (also guessing local network) for Chalks servers
+
+  - Collaborative !NotePad for dummies
+
+  - Very simple gui, notepad/wordpad look'n'feel, so it should have similar menus and basic features:
+
+    - Search, Find, Replace, Print, Save as, Insert date/time.
+
+  - <a href="images/Chalks_gui_concept.png"><img src="images/Chalks_gui_concept.png" title="Chalks Gui Concept" width="350"/></a>
+
+
+  - Undo/redo operations
+
+  - Chat space among users
+
+  - Background text coloring for indicating the user who made changes
+
+  - Cursors for indicating other users current position on the text, as an additional measure to avoid conflicts
+
+  - Only text, no pretention of text formatting or any multimedia support
+
+  - One app instance can manage only one document, but can run many instances in a computer. In other words, Single Document Interface approach.
+
+     - One app instance can do only one thing at a time: connect to a remote server or serve a local file.
+
+\item [Descentralized data flow]
+
+  - Nearby users will have better ping (responsiveness) than remotes one
+  
+\end{description}
+%@nonl
+%@-node:rodrigob.20040908172407.1:Requirements
+%@+node:rodrigob.20040908172711:Development difficulties
+\section{Development difficulties}
+
+The development of Chalks has some specific difficulties, it is important the have them in mind in order to allow reducing risks:
+
+\begin{itemize}
+\item Debugging of distributed applications
+\item Creating tests for the concurrent editing algorithms
+\item Separating GUI frontend from concurrent editing logic in order to ease automatic tests
+\end{itemize}
+%@nonl
+%@-node:rodrigob.20040908172711:Development difficulties
+%@+node:rodrigob.20040908172711.1:Aspects
+\section{Aspects}
+
+Chalks is a software with three aspects. Identifiying these aspects helps understanding the application structure:
+
+\begin{enumerate}
+\item Concurrent Editing
+ 
+  - Managing Concurrent Realtime editing of just text 
+
+     - Define the memory/cpu performance
+
+     - <a href="images/operations_in_time.png"><img src="images/operations_in_time.png" title="Operations in time" width=250 /></a>
+
+  - Receive tagged atomic operations over the text and manage them
+
+  - Generate tagged atomic operations over the local text and pass them to the network layer
+
+\item Network
+
+  - Create a transparent layer between the concurrent editing of objects
+
+      - Creates the ilustion of an "all to all" network.
+
+         - <a href="images/all_to_all_network.png"><img src="images/all_to_all_network.png" title="All to all network" width=150 /></a>
+
+      - Define the real network topology
+
+         - <a href="images/real_network.png"><img src="images/real_network.png" title="A possible real network topology" width=150 /></a>
+
+      - Define the protocol
+
+      - Define the network usage performances
+  
+  - Insertion/deletion of new nodes into the network *<= tricky point*
+
+  - How to discover Chalks servers on the current local network automatically
+    
+       Figure out local ip address and netmask, then scan ip range for default chalks server port
+
+  - Translation/transport of atomic operations
+
+\item Gui
+
+  - Simple gui
+
+  - Reflect the local and remote operations over the seen text
+
+    - <a href="images/collaborating_small_shot.png
+"><img src="images/collaborating_small_shot.png
+" title="Remote users operations are colored" width=250 /></a>
+
+  - Allow user entry of operations, pass the atomic operations to the !Concurrentediting layer *<= tricky point*
+
+\end{enumerate}
+%@nonl
+%@-node:rodrigob.20040908172711.1:Aspects
+%@+node:rodrigob.20040908172959:Research notes
+\section{Research notes}
+
+For definitions of Real-time Cooperative Editing Systems, and their basic properties: Convergence, Casuality-preservation and Intention-preservation and how to achieve them (Search at http://www.researchindex.com for these files and related files):
+
+- \href{http://citeseer.ist.psu.edu/sun98achieving.html}{Achieving convergence, causality-preservation, and intention.. - Sun, Jia et al. - 1998} \emph{$\leftarrow$ the must}
+
+- \href{http://citeseer.ist.psu.edu/sun97generic.html}{A Generic Operation Transformation Scheme for Consistency.. - Sun, Jia (1997)}
+
+- \href{http://citeseer.ist.psu.edu/sun98operational.html}{Operational Transformation in Real-Time Group Editors: Issues, Algorithms, and Achievements (1998)}
+
+- \href{http://citeseer.ist.psu.edu/sun98reversible.html}{Reversible inclusion and exclusion transformation for string.. - Sun, Chen et al. - 1998}
+
+- \href{http://intcomm.wiki.taoriver.net/moin.cgi/RealTimeCooperativeEditingSystemsPaper}{Realtime Collaborative Edition explained in plain English}
+%@-node:rodrigob.20040908172959:Research notes
+%@-others
+%@nonl
+%@-node:rodrigob.20040908172407:Chalks
+%@+node:rodrigob.20040908172407.2:Design Proposal
+\chapter{Design Proposal}
 
 %@+others
 %@+node:rodrigob.20040908004801:Introduction
@@ -296,8 +444,11 @@ The number of dialogs is also minimal, and they complexity very low.
 %@nonl
 %@-node:rodrigob.20040908010357.2:Gui
 %@-others
+%@nonl
+%@-node:rodrigob.20040908172407.2:Design Proposal
+%@-others
 
 \end{document}
 %@nonl
-%@-node:rodrigob.20040908003956.1:@thin doc/design_proposal.tex
+%@-node:rodrigob.20040908003956.1:@thin doc/design.tex
 %@-leo
