@@ -1,3 +1,8 @@
+#@+leo-ver=4-thin
+#@+node:rodrigob.20040831001818:@thin AUTHORS
+#@@color
+#@<< credits >>
+#@+node:rodrigob.20040826155317:<<credits>>
                      Chalks authors
 -------------------------------------------------------------
 Rodrigo Benenson Díaz (rodrigob at elo.utfsm.cl)
@@ -8,3 +13,7 @@ Ricardo Niederberger Cabral (ncabral at terra.com.br)
 
 - Rendezvous.py module was written by Paul Scott-Murphy 
   (http://sourceforge.net/projects/pyzeroconf)
+#@-node:rodrigob.20040826155317:<<credits>>
+#@nl
+#@-node:rodrigob.20040831001818:@thin AUTHORS
+#@-leo
