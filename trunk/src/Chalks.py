@@ -269,7 +269,7 @@ class Chalks:
         getPage(t_adr).addCallbacks( callback=ip_callback, errback=ip_errback )
         #@-node:niederberger.20040826214344:<< guess local ip address >>
         #@nl
-
+    
     
     #@-node:rodrigob.20040123131236:__init__
     #@+node:rodrigob.20040123131236.1:quit
@@ -517,7 +517,7 @@ class Chalks:
         parent = root
         
         # require parent, verticalFlag
-
+        
         # set up icon only on win32 (need to research how this is done on *NIX)
         import sys
         if sys.platform == 'win32':
@@ -550,7 +550,7 @@ class Chalks:
                 bar.configure(relief=relief,width=w,bg=color,cursor="sb_h_double_arrow")
         except: # Could be a user error. Use all defaults
             self.log("exception in user configuration for splitbar")
-
+        
             if verticalFlag:
                 # Panes arranged vertically; horizontal splitter bar
                 bar.configure(height=7,cursor="sb_v_double_arrow")
@@ -613,7 +613,8 @@ class Chalks:
         
         # Returns < < s > >
         def virtual_event_name(s):
-            return ( "<<" + s + ">>") # must be on a separate line.
+            return ( "<<" + s +
+                   ">>") # must be on a separate line.
         
         # Gui-dependent commands...
         text_widget.bind(virtual_event_name("Cut"), self.onCut)
@@ -880,10 +881,10 @@ class Chalks:
         Return a tuple representing the selected range of body text.
     	Return a tuple giving the insertion point if no range of text is selected.
         """
-
+    
         text_widget = self.text_widget
         sel = text_widget.tag_ranges("sel")
-
+    
         if len(sel) == 2:
             return sel
         else:
@@ -1035,15 +1036,15 @@ class Chalks:
                     message = "File \"%s\" contains changes not yet saved to disk.\nDo you want to save the file before opening a new one ?" % self.filename
                 else:
                     message = "The text has not been saved. Save before opening a new one ?"
-
+    
                 ret = self.askYesNoCancel("Save before opening", message) # ret 1, 0 or -1 for cancel
-
+    
                 if ret == 1:
                     # save the file
                     ret = self.onSave()
                     if not ret: # did not save
                         return # do not open
-
+    
                 elif ret == -1:
                     print "Open cancelled"
                     return
@@ -1053,7 +1054,7 @@ class Chalks:
                 from tkMessageBox import askokcancel
                 ret = askokcancel("Confirm disconnection",
                                   "You are connected to a remote server. Opening another file will close this connection. Proceed ?")
-
+    
                 if not ret:
                     print "Open cancelled"
                     return
@@ -1067,7 +1068,7 @@ class Chalks:
                 base_text = t_file.read()
             except IOError:
                 print 'i/o error opening file %s, aborting' % t_file
-
+    
             if not base_text:
                 from tkMessageBox import showerror
                 showerror('Error', 'Input/output error opening file %s, aborting.' % t_file)
@@ -2347,7 +2348,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
             
         if not ( type(startpos) == type(length) and type(startpos) is int):
             raise ChalksError,  "Type of the arguments for delete text are incorrect. (expected IntType got %s, %s)"%(type(startpos), type(length) ) 
-
+    
         # apply		
         self.receive_operation(ConcurrentEditable.Operation("Delete", startpos, length, timestamp = timestamp, source_site = self.site_index, who= self.nickname))
         
