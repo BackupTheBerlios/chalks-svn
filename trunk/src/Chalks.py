@@ -70,9 +70,11 @@ from twisted.internet import tksupport # the first thing that we need to do is t
 from twisted.internet import reactor
 from twisted.python import components
 
-# Woven imports 
+# Woven imports  # THIS IS CURRENTLY DISABLED
+"""
 from twisted.web.woven import page, interfaces, model
 from twisted.web import server
+"""
 
 # Twisted Applications imports
 from twisted.application import service, internet
@@ -156,7 +158,9 @@ class Chalks:
         #@    << install the web service >>
         #@+node:rodrigob.20040125150558:<< install the web service >>
         # install the web service
-        if web_service:
+        #NOTE: this is currently disabled
+        """
+        if 0 and web_service: 
             
             site = server.Site(utf8Page(interfaces.IModel(self), templateFile="Chalks.xhtml", templateDirectory="./"))        
             
@@ -174,6 +178,9 @@ class Chalks:
                     
             else: # the range failed
                 self.log_error("Could not find an available port in the range %s to provide webpublishing of the text contents." % [web_portno, web_portno+10])
+                
+        """
+        #@nonl
         #@-node:rodrigob.20040125150558:<< install the web service >>
         #@nl
         #@    << install the collaboration service >>
@@ -2688,75 +2695,6 @@ class ChalksError(pb.Error):
     
 #@nonl
 #@-node:rodrigob.20040127180819:class ChalksError
-#@+node:rodrigob.20040125150021:Web
-#@+at
-# This are the class definitions used to render us beauty outline over the 
-# WWW.
-# 
-# The web rendering is done using the Woven component of Twisted.
-# Look at the twisted documentation to see how to use Woven.
-#@-at
-#@@c
-
-#@+at
-# Usage:
-# 
-# site = server.Site(page.Page(interfaces.IModel(self), 
-# templateFile="Chalks.xhtml", templateDirectory="./templates/")
-# web_service = reactor.listenTCP(port, site)
-# 
-#@-at
-#@@c
-#@nonl
-#@+node:rodrigob.20040125152117:Pages classes
-class utf8Page(page.Page):
-    """
-    """
-
-    def render(self, request):
-        request.setHeader("Content-type", "text/html; charset=utf-8")
-        return page.Page.render(self, request)
-#@-node:rodrigob.20040125152117:Pages classes
-#@+node:rodrigob.20040124181251.3:Chalks model adaptator
-#@+at
-# We define an adaptator to let Woven use the Chalks instance
-#@-at
-#@@c
-
-class ChalksModel(model.MethodModel):
-    """
-    Model adaptator for the web templates that publish a Chalks instances
-    
-    When the MyDataModel adapter is wrapped around an instance
-    of MyData, the original MyData instance will be stored in 'original'
-    """
-    
-    def wmfactory_name(self, request):
-        return self.original.filename or "Chalks"
-    
-    def wmfactory_text(self, request):
-        return self.original.text_widget.get("1.0", END).encode("utf-8")
-                
-    def wmfactory_users(self, request):
-        ret = []
-        return ret
-
-    def wmfactory_HB(self, request):
-        return map(lambda x: str(x), self.original.HB) 
-        
-    def wmfactory_delayed_operations(self, request):
-        return map(lambda x: str(x), self.original.delayed_operations)
-
-    def wmfactory_base_text(self, request):
-        return self.original.base_text.encode("utf-8")
-
-    def wmfactory_MSV(self, request):
-        return self.original.minimum_state_vector
-
-
-components.registerAdapter(ChalksModel, Chalks, interfaces.IModel)
-#@-node:rodrigob.20040124181251.3:Chalks model adaptator
-#@-node:rodrigob.20040125150021:Web
 #@+node:rodrigob.20040130123655:main
 if __name__ == '__main__':
     #test_FileStack()

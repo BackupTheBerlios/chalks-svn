@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
-<leo_header file_format="2" tnodes="0" max_tnode_index="2927" clone_windows="0"/>
+<leo_header file_format="2" tnodes="0" max_tnode_index="2930" clone_windows="0"/>
 <globals body_outline_ratio="0.33475177305">
 	<global_window_position top="10" left="10" height="986" width="1270"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
@@ -27,12 +27,12 @@
 </v>
 <v t="rodrigob.20040824110326.1" a="E"><vh>Docs</vh>
 <v t="rodrigob.20040826155317" a="EM"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
-<v t="rodrigob.20040908003956" a="E"><vh>Latex</vh>
+<v t="rodrigob.20040908003956"><vh>Latex</vh>
 <v t="rodrigob.20040908003956.1" a="E"
 expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010357.1,"><vh>@thin doc/design.tex</vh></v>
 <v t="rodrigob.20040908004300"><vh>@read-only doc/Makefile</vh></v>
 </v>
-<v t="rodrigob.20040831002540" a="E"><vh>Distribution files</vh>
+<v t="rodrigob.20040831002540"><vh>Distribution files</vh>
 <v t="rodrigob.20040826154516" a="E" tnodeList="rodrigob.20040826154516,rodrigob.20040826154830,rodrigob.20040826154614,rodrigob.20040826154614.1,rodrigob.20040826154830.1,rodrigob.20040826154830.2,rodrigob.20040826154830.3,rodrigob.20040826155317"><vh>@nosentinelsfile README</vh>
 <v t="rodrigob.20040826154830"><vh>&lt;&lt;legal declaration&gt;&gt;</vh></v>
 <v t="rodrigob.20040826154614"><vh>&lt;&lt;what is Chalks ?&gt;&gt;</vh></v>
@@ -40,7 +40,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040826154830.1"><vh>&lt;&lt;release status&gt;&gt;</vh></v>
 <v t="rodrigob.20040826154830.2"><vh>&lt;&lt;installation instructions&gt;&gt;</vh></v>
 <v t="rodrigob.20040826154830.3"><vh>&lt;&lt;usage&gt;&gt;</vh></v>
-<v t="rodrigob.20040826155317" a="MTV"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
+<v t="rodrigob.20040826155317" a="M"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
 </v>
 <v t="rodrigob.20040831001818" a="E" tnodeList="rodrigob.20040831001818,rodrigob.20040826155317"><vh>@nosentinelsfile AUTHORS</vh>
 <v t="rodrigob.20040826155317" a="M"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
@@ -283,7 +283,11 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.123103165427"><vh>GNU GPL</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040824110326.2"><vh>Reference code</vh>
+<v t="rodrigob.20040824110326.2" a="E"><vh>Reference code</vh>
+<v t="niederberger.20040911012711" a="E"><vh>Web</vh>
+<v t="niederberger.20040911012711.1"><vh>Pages classes</vh></v>
+<v t="niederberger.20040911012711.2" a="TV"><vh>Chalks model adaptator</vh></v>
+</v>
 <v t="rodrigob.121403173614.220"><vh>Old LeoN (to purge) Reference code</vh>
 <v t="rodrigob.121403173614.221"><vh>Deprecated code</vh>
 <v t="rodrigob.121403173614.222"><vh>file /usr/local/leo/leo_cvs/leo/leon.py</vh>
@@ -1786,13 +1790,13 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 <v t="rodrigob.20040119132914" a="EM"
 marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040127185444,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040126020641,"
-expanded="rodrigob.20040119152542,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040125154636,rodrigob.20040121150952.7,rodrigob.20040122175312,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040125154815.3,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040126020544,rodrigob.20040127190845,"><vh>@thin Chalks.py</vh></v>
+expanded="rodrigob.20040123131236,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040125154636,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.2,rodrigob.20040125154815.3,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040126020544,rodrigob.20040127190845,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.20040125173910"><vh>@thin Test_Chalks.py</vh></v>
 <v t="rodrigob.20040125151012"><vh>@thin Chalks.xhtml</vh></v>
-<v t="rodrigob.121403173614.1502" a="E"
+<v t="rodrigob.121403173614.1502"
 marks="rodrigob.121403173614.1509,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040130224144,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
 expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1516,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040128011921.1,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
-<v t="rodrigob.20040129132740"><vh>docs</vh>
+<v t="rodrigob.20040129132740" a="E"><vh>docs</vh>
 <v t="rodrigob.20040129130513.1"><vh>Unicode utils...</vh>
 <v t="rodrigob.20040129130513.2"><vh>isUnicode</vh></v>
 <v t="rodrigob.20040129130513.3"><vh>isValidEncoding</vh></v>
@@ -3208,6 +3212,64 @@ exceptions.AssertionError: In ConcurrentEditableNode the transmited time stamps 
 To develop the network code we use Twisted. Twisted is a framework (a library of functions and classes) for Python. Twisted is very important because it provides many features. It allows very easily to construct server apps ('.tap' files), create networked client applications (reactors, general class design), to communicate two pieces of software (perspective broker), to provide web services (woven/nevow), and much more. 
 
 ConcurrentEditable provides a pure python implementation of the concurrent edition algorithms developed by Chengzheng Sun's team. We extended a little the idea (on the technical aspect) to provide a client/server implementation (subclassing the base system), and thus ConcurrentEditableClient/Server were born.</t>
+<t tx="niederberger.20040911012711">@
+This are the class definitions used to render us beauty outline over the WWW.
+
+The web rendering is done using the Woven component of Twisted.
+Look at the twisted documentation to see how to use Woven.
+@c
+
+@
+Usage:
+
+site = server.Site(page.Page(interfaces.IModel(self), templateFile="Chalks.xhtml", templateDirectory="./templates/")
+web_service = reactor.listenTCP(port, site)
+
+@c</t>
+<t tx="niederberger.20040911012711.1">class utf8Page(page.Page):
+
+    def render(self, request):
+        request.setHeader("Content-type", "text/html; charset=utf-8")
+        return page.Page.render(self, request)
+
+</t>
+<t tx="niederberger.20040911012711.2">@
+We define an adaptator to let Woven use the Chalks instance
+@c
+
+class ChalksModel(model.MethodModel):
+    """
+    Model adaptator for the web templates that publish a Chalks instances
+    
+    When the MyDataModel adapter is wrapped around an instance
+    of MyData, the original MyData instance will be stored in 'original'
+    """
+    
+    def wmfactory_name(self, request):
+        return self.original.filename or "Chalks"
+    
+    def wmfactory_text(self, request):
+        return self.original.text_widget.get("1.0", END).encode("utf-8")
+                
+    def wmfactory_users(self, request):
+        ret = []
+        return ret
+
+    def wmfactory_HB(self, request):
+        return map(lambda x: str(x), self.original.HB) 
+        
+    def wmfactory_delayed_operations(self, request):
+        return map(lambda x: str(x), self.original.delayed_operations)
+
+    def wmfactory_base_text(self, request):
+        return self.original.base_text.encode("utf-8")
+
+    def wmfactory_MSV(self, request):
+        return self.original.minimum_state_vector
+
+
+components.registerAdapter(ChalksModel, Chalks, interfaces.IModel)
+</t>
 <t tx="rodrigob.010104175231"></t>
 <t tx="rodrigob.010104211709"></t>
 <t tx="rodrigob.010104212717">no real requirement right now, but issues we should think about:
