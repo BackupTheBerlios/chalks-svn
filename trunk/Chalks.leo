@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2934" clone_windows="0"/>
-<globals body_outline_ratio="0.522900763359">
-	<global_window_position top="10" left="10" height="524" width="800"/>
+<globals body_outline_ratio="0.462411347518">
+	<global_window_position top="0" left="0" height="705" width="1009"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -48,6 +48,11 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040831002026" a="E" tnodeList="rodrigob.20040831002026"><vh>@nosentinelsfile COPYING</vh></v>
 <v t="rodrigob.20040831004246"><vh>@thin ./src/setup.py</vh></v>
 <v t="rodrigob.20040831002444"><vh>@thin ./src/setup.cfg</vh></v>
+</v>
+<v t="rodrigob.121403173614.10" a="E"><vh>logs</vh>
+<v t="rodrigob.121403173614.11" a="E"><vh>LeoN release '0**0'</vh></v>
+<v t="rodrigob.123103131341"><vh>LeoN release 0.1.0</vh></v>
+<v t="rodrigob.20040918184418"><vh>Chalks initial logs</vh></v>
 </v>
 <v t="rodrigob.121403173614.9"><vh>Old LeoN (to purge) Docs</vh>
 <v t="rodrigob.121403173614.4" a="E"><vh>&lt;&lt; release status &gt;&gt;</vh></v>
@@ -153,10 +158,6 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.121403173614.1506"><vh>ConcurrentEditable algorithm explanation</vh></v>
 <v t="rodrigob.121403173614.60"><vh>About ConcurrentEditableClient and ConcurrentEditableServer</vh></v>
 <v t="rodrigob.121403173614.37"><vh>Release file tree</vh></v>
-</v>
-<v t="rodrigob.121403173614.10"><vh>logs</vh>
-<v t="rodrigob.121403173614.11"><vh>release '0**0'</vh></v>
-<v t="rodrigob.123103131341"><vh>release 0.1.0</vh></v>
 </v>
 <v t="rodrigob.121403173614.20"><vh>forum/mail_list posts</vh>
 <v t="rodrigob.121403173614.21"><vh>Leo over network requirements (original post)</vh>
@@ -287,6 +288,9 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="niederberger.20040911012711"><vh>Web</vh>
 <v t="niederberger.20040911012711.1"><vh>Pages classes</vh></v>
 <v t="niederberger.20040911012711.2"><vh>Chalks model adaptator</vh></v>
+</v>
+<v t="rodrigob.20040119132949"><vh>class FileStack</vh>
+<v t="rodrigob.20040122143140"><vh>test_FileStack</vh></v>
 </v>
 <v t="rodrigob.121403173614.220"><vh>Old LeoN (to purge) Reference code</vh>
 <v t="rodrigob.121403173614.221"><vh>Deprecated code</vh>
@@ -1684,24 +1688,23 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
 <v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
 <v t="niederberger.20040825222327.1" a="E"><vh>High</vh>
-<v t="rodrigob.20040913221406"><vh>Old Chalks todo list (to purge)</vh></v>
+<v t="rodrigob.20040915113450"><vh>Code problems</vh></v>
+<v t="rodrigob.20040918192751"><vh>Rendez Vous crash the program if pc is without internet</vh></v>
 </v>
 <v t="niederberger.20040825222327.2" a="E"><vh>Medium</vh>
-<v t="rodrigob.20040915113450"><vh>Code problems</vh></v>
+<v t="rodrigob.20040918185607" a="E"><vh> Concurrent editable todos</vh></v>
 </v>
-<v t="niederberger.20040825222327.3" a="E"><vh>Low</vh>
-<v t="rodrigob.20040826215836"><vh>Old LeoN todo list (to purge)</vh>
-<v t="rodrigob.20040125223416" a="E"><vh>HOOK PROBLEM</vh></v>
-</v>
+<v t="niederberger.20040825222327.3"><vh>Low</vh>
+<v t="rodrigob.20040125223416" a="E"><vh>hook problem</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040125160038"><vh>Code perspectives</vh>
+<v t="rodrigob.20040125160038" a="E"><vh>Code perspectives</vh>
 <v t="rodrigob.20040129141624" a="EM"><vh>network</vh>
-<v t="rodrigob.20040913233519"><vh>&lt;&lt;about the connections process&gt;&gt;</vh></v>
+<v t="rodrigob.20040913233519" a="TV"><vh>&lt;&lt;about the connections process&gt;&gt;</vh></v>
 <v t="rodrigob.20040125154815.1" a="EM"><vh>class ChalksNode</vh>
 <v t="rodrigob.20040125154815.2" a="EM"><vh>connect to/disconnect from parent node</vh>
 <v t="rodrigob.20040913221730" a="E"><vh>connect</vh>
-<v t="rodrigob.20040909060311" a="EM"><vh>start collaborating</vh></v>
+<v t="rodrigob.20040909060311" a="M"><vh>start collaborating</vh></v>
 </v>
 <v t="rodrigob.20040913221730.1"><vh>disconnect</vh></v>
 </v>
@@ -1749,7 +1752,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040915120517.2"><vh>insert/delete text</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040121155420" a="EM"><vh>ConcurrentEditableNode</vh>
+<v t="rodrigob.20040121155420" a="M"><vh>ConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013418" a="E"><vh>__init__</vh></v>
 <v t="rodrigob.20040128011816"><vh>receive operation</vh></v>
 <v t="rodrigob.20040128011809" a="E"><vh>add/del site</vh>
@@ -1798,7 +1801,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040125200531" a="M"><vh>dummy checker</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040831112258" a="E"><vh>gui</vh>
+<v t="rodrigob.20040831112258"><vh>gui</vh>
 <v t="rodrigob.20040121151612" a="E"><vh>body (construct the gui)</vh>
 <v t="rodrigob.20040122173046" a="E"><vh>&lt;&lt; create frames &gt;&gt;</vh>
 <v t="rodrigob.20040123123802.1" a="EM"><vh>&lt;&lt; create the splitter &gt;&gt;</vh>
@@ -1888,7 +1891,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 </v>
 </v>
-<v t="rodrigob.20040119132914" a="TV"
+<v t="rodrigob.20040119132914" a="E"
 marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040127184605,rodrigob.20040127185444,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040126020641,"
 expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040121150952.7,rodrigob.20040122175312,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040912225813,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.121403173614.1502"
@@ -3313,17 +3316,16 @@ Example:
 <t tx="niederberger.20040825222327">@language plain
 This node contains reminders and all things left to do in general, grouped by priority.
 Currently they may be related to coding, researching, packaging, everything.</t>
-<t tx="niederberger.20040825222327.1">- Solve the network objects references conflicts
-- Get chat working
+<t tx="niederberger.20040825222327.1">
+- in Test_Chalks, separate both instance stdout redirection (run in threads ?). Test_Chalks should be reimplemented.
+- why does Test_Chalks is sooo slow to quit ? (seeems to be related with rendez vous, when disabled it quit in a fraction of seconds)
 
-- why does Test_Chalks is sooo slow to quit ?
-- in Test_Chalks, separete both instance stdout redirection (run in threads ?). Test_Chalks should be reimplemented.
 
 - Why does site show the insertion point index and the other one does not ? (left of the chat bar) (Test_Chalks exclusive problem, a reason more to rewrite it)
 
+- solve the code problems
+
 - Work on concurrenteditablenode (make consistent use of the new site_id system)
-
-
 
 - Chalks.py", line 1494, in start_collaborating
     self.receive_operation(Operation(**t_dict))	# instanciate and receive
@@ -3332,7 +3334,7 @@ Currently they may be related to coding, researching, packaging, everything.</t>
 exceptions.AssertionError: In ConcurrentEditableNode the transmited time stamps are expected to be dictionaries that map &lt;known_site_id&gt; =&gt; &lt;num_of_operations_we_know_he_has_created&gt; OR to be a local state vector timestamp
 
 
-
+- the rendezvous system does not seems to be working under linux (aviables servers list appears empty)
 
 </t>
 <t tx="niederberger.20040825222327.2">- we should add to rendezvous published data which filename we are serving, and unregister our server and register it again with the new filename when a new file is opened
@@ -3340,17 +3342,34 @@ exceptions.AssertionError: In ConcurrentEditableNode the transmited time stamps 
   But before all that, implement unRegisterServer() method on ChalksServerMonitor
   
 
-- the rendezvous system does not seems to be working under linux
+- connect_to_parent -&gt; logged_in -&gt; start_colaborating are unnecesarry. The node can start collaborating when just connecting.
 
-- connect_to_parent -&gt; logged_in -&gt; start_colaborating are unnecesarry. The node can start collaborating when just connecting.</t>
-<t tx="niederberger.20040825222327.3">- Implement a LiveEvil nevow web front end to the chat sessions, will be so cool.
 
+
+- work on ConcurrentEditableNode, ChalksNode
+
+- implement the file open complications
+- document the system internals, add docustrings for the methods
+- clean up the "self.splitVerticalFlag" / "verticalFlag"  usage
+</t>
+<t tx="niederberger.20040825222327.3">- test the fill_body routine. 
+
+- do edition tests with the "delayed line"
+
+- Implement a LiveEvil nevow web front end to the chat sessions, will be so cool.
+
+- parse argv options (using twisted options system) to allow enabling/disabling web service
 
 - implement a persistence system for the user options (using python default tools) (need to save the nickname... last edited files... and ?)
 
 - To enhance Gui separation should create a ChalksGui Interface and make Chalks implement it trough a TkChalks method
 http://www.twistedmatrix.com/documents/current/howto/components
-ChalksGui code should be in Chalks.py, TkChalks code should be in TkChalks.py</t>
+ChalksGui code should be in Chalks.py, TkChalks code should be in TkChalks.py
+
+- create a circle similar configuration file system
+
+- write the help text
+</t>
 <t tx="niederberger.20040906222819">Components of Chalks are Python, Twisted, ConcurrentEditable and Tkinter.
 
 &gt;&gt; improve it later and actually give a general view of how parts fit together &lt;&lt;
@@ -29331,6 +29350,74 @@ On Linux, if you copy some leo headline or body text, and try to paste it in the
 I suspect the problem is due that Ctrl+V (paste) is not define in the Find panel.
 
 RodrigoB.</t>
+<t tx="rodrigob.20040119132949">class FileStack:
+    """
+    Helper class to manage the HB buffer file.
+    
+    Original creation of Josiah Carlson &lt;jcarlson at uci dot edu&gt;, University of California, Irvine.
+    """
+    
+    def __init__(self, fout):
+        """
+        receive in file as input
+        """        
+        
+        assert type(fout) is file
+        assert fout.mode == 'w+b'
+        
+        from cPickle import dumps, loads
+        from struct import pack, unpack
+
+        self.dumps, self.loads = dumps, loads
+        self.pack, self.unpack = pack, unpack
+        self.f = fout
+        self.s = len(self.pack('!i', 0))
+
+        return
+        
+    def get_size(self):
+        """
+        Return the actual file size
+        """
+        t_pos = self.f.tell()
+        self.f.seek(0,1) # reach the end of the file
+        size = self.f.tell()
+        self.f.seek(t_pos, 0) # put the file pointer at his original position
+        return size
+        
+    def push(self, obj):
+        """
+        Add an object in the file
+        """
+        
+        st = self.dumps(obj)
+        self.f.write(st)
+        
+        t_string = self.pack('!i', len(st))
+        assert len(t_string) == self.s, "too long object to keep in the FileStack len(dumps(data)) == %i" % len(st)
+        self.f.write(t_string)
+        
+        return
+        
+    def pop(self):
+        """
+        Extract one object from the file 
+        """
+        
+        posn = self.f.tell()
+        if posn &lt;= 0:
+            raise IndexError
+        self.f.seek(posn - self.s)
+        s = self.unpack('!i', self.f.read(self.s))[0]
+        self.f.seek(posn - self.s - s)
+        ret = self.loads(self.f.read(s))
+        self.f.seek(posn - self.s - s)
+        
+        return ret
+
+        
+
+</t>
 <t tx="rodrigob.20040121150952.2">def resizePanesToRatio(self,ratio):
     self.divideSplitter(self.splitVerticalFlag, ratio)
 </t>
@@ -29531,6 +29618,27 @@ Chalks, the LeoN child.
     return
 
 </t>
+<t tx="rodrigob.20040122143140">class S:
+        pass
+    
+def test_FileStack():
+    
+    import tempfile
+    
+    f = tempfile.TemporaryFile()
+    fs = FileStack(f)
+    fs.push({"Hello":"boy"})
+    fs.push(range(8))
+    s = S(); s.a = 5; s.b = {5:7};	s.c = "8"
+    fs.push(s)
+    print "File size %s bytes" % fs.get_size()
+    print fs.pop()
+    print fs.pop()
+    fs.push({"Bye, bye":"darling"})
+    print fs.pop()
+    print fs.pop()
+    
+    return</t>
 <t tx="rodrigob.20040122173046">#f = Frame(root,bd=0,relief="flat")
 #f.pack(expand=1,fill="both",pady=1)
 #pane1 = Frame(f)
@@ -29944,9 +30052,7 @@ NOT YET WRITTEN
     
     nickname_entry = t_entry = Entry(tt_frame, width=8, background="white")
     t_entry.grid(row=2, column=1, sticky=W)
-    # guess the username
-    from os import getenv
-    t_username = str(getenv("username"))
+    t_username = guess_username() # guess the username
     t_entry.insert(END, t_username)
     
     # see binding below...
@@ -29988,15 +30094,17 @@ NOT YET WRITTEN
 
     &lt;&lt; server monitor callback &gt;&gt;
     
-    # register callback with serverMonitor object
-    self.server_monitor.addCallbackListener(server_monitor_callback)
-    # populate it for the first time
-    server_monitor_callback(self.server_monitor.getServers())
+    if self.server_monitor:
+        # register callback with serverMonitor object
+        self.server_monitor.addCallbackListener(server_monitor_callback)
+        # populate it for the first time
+        server_monitor_callback(self.server_monitor.getServers())
     
     self.root.wait_window(top) # show
 
-    # unregister callback with serverMonitor object
-    self.server_monitor.removeCallbackListener(server_monitor_callback)
+    if self.server_monitor:
+        # unregister callback with serverMonitor object
+        self.server_monitor.removeCallbackListener(server_monitor_callback)
     
     return
     </t>
@@ -30240,13 +30348,12 @@ class ChalksNode(ConcurrentEditableNode):
         """
         """
         
-        ConcurrentEditableNode.__init__(self,) #??
-        # local ConcurrentEditable will be initialized during connection process.
+        ConcurrentEditableNode.__init__(self,)
 
         # initialize the extra attributes		
         self.chalks_gui  = chalks_gui # stores a reference to the gui object
 
-        self.nickname = None
+        self.nickname = guess_username()
         self.site_id = None # site_id is an unique internet identifier
         self.connected = 0              # initially we are not connected to anyone
         
@@ -30944,20 +31051,23 @@ For more information about the code read the "LeoN.leo/Docs/developers docs/Code
         
         self.mind = mind # store it for later use # mind is a perspective of the client that is connecting to use
         self.avatarId = self.nickname = avatarId
-        
+        if self.mind: self.mind.nickname = avatarId
+            
         # this assertion has to be relaxed to enable childrens side avatar creations
         #assert mind, ChalksError("Chalks strictly require references to the client connecting.")
+    
+        #if mind: assert type(mind) is pb.Reference # if mind assert it is a remote reference
         
         #pb.Avatar.__init__(self, avatarId, mind) # pb.Avatar has no __init__ method.
         
 
         # copy every perspective_ method in remote_ method
         perspective_methods = ['_'.join(x.split('_')[1:]) for x in dir(self) if x.split('_')[0] == "perspective"] # ugly hack
-        print "Avatar perspective_methods", perspective_methods
+        #print "Avatar perspective_methods", perspective_methods
         for t_name in perspective_methods:
             if t_name:
                 setattr(self, "remote_"+t_name, getattr(self, "perspective_"+t_name))
-                print "Added method %s to ChalksAvatar class"%("remote_"+t_name)
+                #print "Added method %s to ChalksAvatar class"%("remote_"+t_name)
 
 
         return
@@ -31074,7 +31184,9 @@ def save_text(self,):
 </t>
 <t tx="rodrigob.20040125223416">@
 what if text is inserted while a char as typed but not yet marked by the "after_idle". That would cause a 'one char' fatal error !!!
-Chars marking has to be done as soon as the char is aviable; OR the text insertion have to be done when we are sure that not pending makring exist...</t>
+Chars marking has to be done as soon as the char is aviable; OR the text insertion have to be done when we are sure that not pending makring exist...
+
+does this problem exists in Chalks ?</t>
 <t tx="rodrigob.20040126020116">@
 The network graph is a Tree.
 The upper node is the first instance, that created the original content.
@@ -31133,8 +31245,11 @@ def perspective_collaborate_in(self, site_id):
     """
         
     self.site_id = site_id
+    if self.mind: self.mind.site_id = site_id
     
-    self.node.add_site(self) # we register us perspective in the parent
+    assert self.mind, ChalksError("Avatar without mind trying to collaborate in")
+    self.node.add_site(self.mind) # we register us perspective in the parent
+    print "Registering child perspective %s" % self.mind
     
     # we obtain and return the required data to start the session in the child
     t_state = self.node.get_state(); t_state = list(t_state);
@@ -31142,7 +31257,7 @@ def perspective_collaborate_in(self, site_id):
     t_HB = t_state[3]; t_HB = map(dict, t_HB); t_state[3] = t_HB;
     
     # return the parent ChalksNode reference, and the data necesarry to start the collaboration
-    return (self, t_state)
+    return t_state
     
 
 def perspective_collaborate_out(self):
@@ -31187,13 +31302,14 @@ So we use only this implementation. The ChalksAvatar equivalent methods, call th
     
     
     perspectives = self.childrens_perspectives + [self.parent_perspective]
-        
-    # &lt;&lt;&lt; diagnose code    
-    print "&lt;%s&gt; %s" %(from_, txt)
+
+@        
+    # diagnose code    
+    #print "&lt;%s&gt; %s" %(from_, txt)
     print "received_from %s" % received_from
-    print "perspectives %s" % perspectives
+    #print "perspectives %s" % perspectives
     print "[x==%s for x in %s] == %s" %(received_from, perspectives, [x==received_from for x in perspectives])
-    print 
+@c
 @
     if self.parent_perspective: self.parent_perspective.callRemote("send_message", from_, to, txt).addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
     return # to avoid horrible loop
@@ -31201,8 +31317,11 @@ So we use only this implementation. The ChalksAvatar equivalent methods, call th
     
     for t_perspective in perspectives:
         if t_perspective and received_from != t_perspective:
-            print "%s.callRemote" % t_perspective
-            t_perspective.callRemote("send_message", from_, to, txt).addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
+            #print "%s.callRemote('send_message', ..." % t_perspective
+            t_deferred = t_perspective.callRemote("send_message", from_, to, txt)
+            t_deferred.addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
+    #print
+    
     return
 </t>
 <t tx="rodrigob.20040127184605.1">def remote_set_presence(self, state):
@@ -31778,6 +31897,7 @@ Code related to the Chalks network and his related events
 @c</t>
 <t tx="rodrigob.20040129150513">def logout(self,):
     """
+    This methods is called when the children node is disconnecting himself
     """
     
     # &lt;&lt;&lt;&lt; EDIT CODE # has to generate the propagation of a disconnection notification to all the other nodes....
@@ -32146,168 +32266,6 @@ Ricardo Niederberger Cabral (ncabral at terra.com.br)
 - Rendezvous.py module was written by Paul Scott-Murphy 
   (http://sourceforge.net/projects/pyzeroconf)
 </t>
-<t tx="rodrigob.20040826215836">Todo /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
-
-- Purge LeoN todos and write Chalks todos &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
-
-
-
-
-
-- when pressing the first key at connection a flush_body call generate an operation to send. First key should not generate a send operation...
-
-Exception in Tkinter callback
-Traceback (most recent call last):
-  File "/usr/local/lib/python2.3/lib-tk/Tkinter.py", line 1345, in __call__
-    return self.func(*args)
-  File "/usr/local/lib/python2.3/lib-tk/Tkinter.py", line 456, in callit
-    func(*args)
-  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/LeoClient.py", line 336, in idle_body_key
-    v.client.client_node.fill_body(k)
-  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/LeoClient.py", line 2550, in fill_body
-    self.flush_body(keywords) # send the unsent data and clean up what is necesarry.
-  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/LeoClient.py", line 2645, in flush_body
-    self.send_operation("insert_text", startpos, t_text)
-  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/LeoClient.py", line 2209, in send_operation
-    self.gen_op(op_type, pos, data, avoid=1) # will avoid the effects the first time.
-  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/ConcurrentEditable.py", line 595, in gen_op
-    return self.generate_operation(type, pos, data, **kws)
-  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/ConcurrentEditable.py", line 1779, in generate_operation
-    t_op = ConcurrentEditable.generate_operation(self, type, pos, data, **kws)
-  File "/home/rodrigob/projets/leon/leo/leo-4.1-rc1/src/../plugins/LeoN/ConcurrentEditable.py", line 576, in generate_operation
-    t_SV = list(self.state_vector) # copy the list
-AttributeError: ClientNode instance has no attribute 'state_vector'
-
-
-For release 0.1.1 beta,
-    - solve/reimplement the base state vector issues
-    - solve the 'no state_vector' bug
-    - include a pruned twisted in the release
-    - allow an ultra easy install (rewrite the instalation instructions) &lt;= test the new start/stop system
-
-- when and why the "concurrent_editable_server.base_text" method is used ?
-- solve the base_EO management
-- implement/check the base_state_vector usage, etc...&lt;&lt;&lt; absolute priority
-
-- base text is used for: at connection we receive base text and then we apply all the HB operations.
-    =&gt; is this necesarry ? could we not just set the text, set the HB and calculate the adecuate State Vector (probably can be deduced from the last HB EO timestamp...)
-
-- what I thinked was a -1 usage, was a None usage. Site_index = None
-
-
-- copy/paste still bugy.  at paste: ERROR old_sel["newsel"][0] =&gt; unsupscritable object !
-
-- do edition tests with the "delayed line"
-
-- when and why the remote host traceback is unaviable ?
-- outlines move get sometimes weird (position reference special), will wait bugs report
-- yan2 has a problem, the other nodes do not ... weird...
-- obtain new screenshots (clones support)
-
-
-- will implement the Chalks application (spin off)
-
-Test /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
-
-- test the fill_body routine. 
-- adapt the tests to have user1 and user2 in very different access points (idealy under clones elements, jejej)
-- implement some tests that should generate errors (permissions deny, etc...)
-
-- unit for test node operations (delete text, create, move, delete node, passing from relative to absolute paths and back again)
-- unittests: test move operations propagation (with different users with diferents view (delete, insert, move))
-
-- why the test wait one second before disconnection ? real usage conditions will be not as easy.
-
-
-Server /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
-
-- users should be aware of collaborate out (verbose the message) (outline perspecitve/etdit nodes/collaborate in in/out)
-
-- delete_account should delete users nodes permissions too (else there will be false permissions if a new user with same nick is created.) (create an iterator object and apply for each node in the outline)
-- data&lt;-&gt;outline methods, are not secure, should check first for user permissions (or, simply not ?) (the user will not be able to edit the data anyway) (node data (get_text()) download should be strictly restricted...)
-
-- solve the '///' behaviour (related to .split('/') )
-new_parent t_dic {'///test_node1': [&lt;LeoServer.OutlinePerspective instance at 0xbf0b978c&gt;, &lt;LeoServer.OutlinePerspective instance at 0xbf0b902c&gt;]}
-new_view_dic {&lt;LeoServer.OutlinePerspective instance at 0xbf0b902c&gt;: '///test_node1', &lt;LeoServer.OutlinePerspective instance at 0xbf0b978c&gt;: '///test_node1'}
-
-- does "stop_LeoServer.bat" work on windows ? &lt;&lt;&lt; easy and important (how to stop a server process in window ?)
-
-- Refine server side persistence (allow bigger outlines? save using the xml leo format ?)
-
-- implement a real usage checker (filepasswordDB implementation  with addUser). Important.
-
-- implement the stale broker auto-cleaning up system, urgently !
-- when the server call " raise DeadReferenceError("Calling Stale Broker") twisted.spread.pb.DeadReferenceError: Calling Stale Broker", it should delete this reference (as if the user had disconnected by itself)
-
-- how to change the "No Such resource" web server error page ?
-- the administrator should be able to set which page to publish and wich page to do not (define a _webserver user ?)
-- how to implement better links to parents of a clone ? (it is possible ?)
-- how to link a css file to a web template in a clean way?
-
-Client /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
-
-- pasting text into an outline does not make it start the collaboration mode
-
-- nodes waiting for event propagation should be marked as dirty (to ensure the users)
-- the client code should manage online nodes dirtiness, (at text retrieve, text editing,at outlines moves, etc...)
-
-- when aviable test using "draw-outline-text-box" hook instead of the ugly drawText manual overwrite.
-- enhance that so ugly hoooks methods !!
-
-- at "Tree sync broken" redownload the outline
-- outline moves operations has to be processed in a similar fashion of text deletion, the user start the moves but the final network action is only sent when the user has finished to move the node (when he select another one, or the tree pane lose his focus) (specially for move{up, down, left, rigth})
-
-- does the password entries have unicode issues (should convert from tkencoding to utf-8 ?) (admingui topic)
-
-- leo should not save the v.client outlines (how to implement this ?)
-- could change the @leoServer usage by "@url leo://localhost:8787" and use "t_node == v.client.root_node" instead of "startswith("@leoServer")"
-
-- If the user is a monkey and start double clicking like a fool, sometimes the Client connects to the Server more than once.
-
-Code /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
-
-
-- use server side objects ID for paths constructions. (nodes renaming would be a special event, or a special argument of the move event (kw renamed_as = new_name )) (solve the issue but debugging become much more difficult, name paths was a good kis).
-  As a start define a use the .id node attribute for path construction and deconstruction.
-
-- when selecting a node, it could be fine to see who is there (or at least how many persons are there, and to have a command to list them ("/who"))
-- users should see who generate outlines events (add a user=None param to the outline edition online methods)
-
-- does the data_send crash should be so ugly ?
-- WHAT IS THE , the client cannot connect
-&lt;Error!&gt; Got a remote Exception
-&lt;twisted.spread.pb.CopiedFailure&gt;&lt;twisted.spread.pb.DeadReferenceError&gt; Calling Stale Broker 
-&lt;Debug&gt; [Failure instance: Traceback from remote host -- Traceback unavailable] ?
-- what does means "Calling Stale Broker" &lt;= important, common problem. twisted.spread.pb.DeadReferenceError: Calling Stale Broker
-- Check what is that "Calling Stale Broker" error (closed clients to not detach themself?)
-
-- How about the 'anonymous'/'guest' users management ?
-
-- create a periodic server side backup system (sob, IPersisted, per.save method (how to manage connected clients ? does the tap file can be reconstructed if ephemeral objects are reconstructed ?))
-- create a versioning system (the users control file freezing)
-
-- implement file upload (througth @binary only nodes) (remember to enforce at least client side size limitations) (is this a good idea ?)
-
-- create an All in One file release (LeoN+Twisted+Leo)
-
-Concurrent Editable /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
-
-- the base_state_vector is wrongly implemented. &lt;= DRAMA
-- a posteriori connections to do not work due to error in base_state_vector and garbage collector errors! &lt;= DRAMA
-=&gt; the base_text has an associated base state_vector. So we have to overwrite the system with some base state vector !
-
-- Find a good TestConcurrentEditable2 to test LostInformation cases
-
-- LI is absolutelly not verified
-- Find the Recover_LI specifications.
-- Find a better way to quit the ambiguities on the 'if else {}' operation pertenence. (save_RA, save_LI conditions ?)
-
-Ideas /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
-
-- the log text redirection plugin should be bidirectional (in order to be able to use the pdb debuger directly)
-- (this is equal to ask: how to use a Tkinter.Text as a console ?)
-- (could I define a "@console the_command" node ?)
-</t>
 <t tx="rodrigob.20040831001818">@color
 &lt;&lt; credits &gt;&gt;
 </t>
@@ -32673,11 +32631,6 @@ code related to the concurrent edition system</t>
     Callback for the connection procedure.        
     """
 
-    parent_node_perspective, ret_tuple  = ret_tuple
-    # receive the parent ChalksNode reference
-    self.parent_perspective = parent_node_perspective
-
-
     insert_index = self.text_widget.index("insert")
     
     assert len(ret_tuple) == 7, 'wrong number of state parameters received'
@@ -32778,28 +32731,6 @@ Register/Unregister childrens in the session</t>
         self.chalks_gui.disableChat()
     return
     </t>
-<t tx="rodrigob.20040913221406">Todo
-----
-
-- need to make congruent the def start_collaborating(self, ret_tuple): expected data, and the ConcurrentEditableNode.get_state return tuple
-
-- work on ConcurrentEditableNode, ChalksNode
-- ChalksNode should be the Chalks realm
-
-- create the base network class
-
-
-
-- Connect To dialog should show default values !! (implement the options persistence system, using ConfigParser.ConfigParser, add_section, write, set(section, option, value), get(section, option))
-- parse argv options (using twisted options system) to allow disabling web service
-
-- implement the file open complications
-- document the system internals, add docustrings for the methods
-- clean up the "self.splitVerticalFlag" / "verticalFlag"  usage
-- create a circle similar configuration file system
-- when connected, the "connect to" menu should become a "Disconnect" option
-- write the help text
-</t>
 <t tx="rodrigob.20040913221730">def connect_to_parent(self, address, port, nickname="No name"):
     """
     Connect as a children to a parent node
@@ -32828,6 +32759,11 @@ def logged_in(self, avatar):
     """
 
     self.avatar = avatar
+    # us avatar is the us perspective ot the parent ChalksNode
+    self.parent_perspective = avatar
+    self.parent_avatar.mind = avatar # set the avatar perspective (important)
+    print "Registering parent perspective %s" % avatar 
+
         
     # we obtain us site_id
     t_address = self.avatar.broker.transport.getHost()
@@ -32930,6 +32866,21 @@ ChalksAvatar can receive calls to the perspective\_ methods.
 
 We want the childrens able to call the ChalksNode methods. Thus when the Childrens call the collaborate\_in using his avatar on the parent side, he receive back (in a huge list of params) the parents ChalksNode reference.
 
+The connection process occurs in this order:
+\begin{enumerate}
+\item ChalksNode require a connection to the parent using the {\texttt connect\_to\_parent} method. Thus a parent ChalksAvatar object is created and passed to the parent as an access to the Children. This parent ChalksAvatar instance has no {\texttt mind} object.
+
+\item The parent receive through his {\texttt ChalksRealm} the children connection request. A children ChalksAvatar instance is created in the parent side. The parent return to the children a reference to this avatar.
+
+\item The children receive this reference (at {\texttt logged\_in}) and register it as the parent perspective (the access of the children to the parent side). It also register this perspective as the mind of the children side parent ChalksAvatar instance.
+
+\item Now that the children is connect he call in the parent (througth his avatar in the parent side, i.e. throught the parent perpespective) the {\texttt collaborate\_in} method.
+
+\item The parent receive the call, register the children perspective (local children avatar mind) as one more site in the collaboration session and return to the children all the required information to start collaborating.
+
+\end{enumerate}
+
+It worth noting that the ChalksNode object keep only \emph{remote references} of the avatars (of the parent and of the children). When a node call a remote method in the called node receive a call from the local Avatar instance. Thus \emph{the mind} of the local Avatar is compared to the childrens and parents remote references. For a clear example look at the {\texttt send\_message} ChalksNode methods.
 </t>
 <t tx="rodrigob.20040915113450">From: Ricardo Niederberger Cabral &lt;ncabral@terra.com.br&gt;
 To: chalks-devel@lists.berlios.de
@@ -33015,33 +32966,81 @@ So we use only one implementation. ChalksAvatar calls ChalksNode implementation.
     """ 
     Return the dictonary of map node.id -&gt; user_nickname
     """    
-    return self.node.perspective_get_actual_users_list(self)
+    return self.node.perspective_get_actual_users_list(self.mind)
     
     
 def perspective_set_presence(self, state):
     """
     Set the presence of one user 
     """
-    return self.node.remote_set_presence(self,state)
+    return self.node.remote_set_presence(self.mind,state)
     
     
 def perspective_send_message(self, from_, to, txt):
     """ 
     Send a message to
     """
-    return self.node.remote_send_message(self, from_, to, txt)
+    return self.node.remote_send_message(self.mind, from_, to, txt)
     </t>
 <t tx="rodrigob.20040915120517.2">def perspective_insert_text(self, startpos, text, timestamp = None):
     """ 
     """
-    return self.node.remote_insert_text(startpos, text, timestamp, who=self)
+    return self.node.remote_insert_text(self.mind, startpos, text, timestamp)
     
     
 def perspective_delete_text(self, startpos, length, timestamp = None):
     """ 
     """
-    return self.node.remote_delete_text(startpos, length, timestamp, who=self)
+    return self.node.remote_delete_text(self.mind, startpos, length, timestamp)
 
+</t>
+<t tx="rodrigob.20040918184418">19/01/04 Started LeoN spinoff. RodrigoB.
+21/01/04 Minor edits. RodrigoB.
+23/01/04 Programming the gui. RodrigoB.
+24/01/04 Working. RodrigoB.
+25/01/04 Working. RodrigoB.
+27/01/04 Renamed MultiEdit as Chalks. Working. RodrigoB.
+28/01/04 Working. RodrigoB.
+29/01/04 Working. RodrigoB.
+30/01/04 Working and debugging. RodrigoB.
+03/02/04 Working. RodrigoB.
+12/02/04 Minor bugfix. RodrigoB.
+19/02/04 Debugging. RodrigoB.
+
+25/08/04 Project ressurected. Ricardo Niederberger Cabral joined development efforts. Logs are now keept in the svn server.
+</t>
+<t tx="rodrigob.20040918185607">Concurrent Editable /!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\/!\_/!\_/!\_/!\_/!\_/!\_/!\_/!\
+
+- the base_state_vector is wrongly implemented. &lt;= DRAMA
+- a posteriori connections to do not work due to error in base_state_vector and garbage collector errors! &lt;= DRAMA
+=&gt; the base_text has an associated base state_vector. So we have to overwrite the system with some base state vector !
+
+- Find a good TestConcurrentEditable2 to test LostInformation cases
+
+- LI is absolutelly not verified
+- Find the Recover_LI specifications.
+- Find a better way to quit the ambiguities on the 'if else {}' operation pertenence. (save_RA, save_LI conditions ?)
+
+</t>
+<t tx="rodrigob.20040918192751">./Test_Chalks.py
+Creating two Chalks instances
+Chalks 0.0.1, started. Licensed under the GNU GPL. Copyright 2004, Chalks Development Team (http://chalks.berlios.de)
+                                                                                                                             
+Starting Chalks service at chalks://localhost:8787
+Knowing your internet address (i.e. your IP) other users can connect themself to your session using the port 8787.
+Traceback (most recent call last):
+  File "./Test_Chalks.py", line 56, in ?
+    app1 = Chalks.Chalks()
+  File "/home/rodrigob/projets/chalks/svn/trunk/src/Chalks.py", line 276, in __init__
+    self.server_monitor = ChalksServerMonitor()
+  File "/home/rodrigob/projets/chalks/svn/trunk/src/Chalks.py", line 2803, in __init__
+    self.startListening()  # make it active
+  File "/home/rodrigob/projets/chalks/svn/trunk/src/Chalks.py", line 2855, in startListening
+    self.rendezvous = Rendezvous()
+  File "/home/rodrigob/projets/chalks/svn/trunk/src/Rendezvous.py", line 1595, in __init__
+    self.socket.setsockopt(socket.SOL_IP, socket.IP_ADD_MEMBERSHIP, socket.inet_aton(_MDNS_ADDR) + socket.inet_aton('0.0.0.0'))
+  File "&lt;string&gt;", line 1, in setsockopt
+socket.error: (19, 'No such device')
 </t>
 </tnodes>
 </leo_file>

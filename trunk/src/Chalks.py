@@ -14,22 +14,12 @@
 # http://souvenirs.sf.net
 # http://leo.sf.net
 # 
+# 31/05/03 LeoN started. RodrigoB.
 # 19/01/04 Started LeoN spinoff. RodrigoB.
-# 21/01/04 Minor edits. RodrigoB.
-# 23/01/04 Programming the gui. RodrigoB.
-# 24/01/04 Working. RodrigoB.
-# 25/01/04 Working. RodrigoB.
 # 27/01/04 Renamed MultiEdit as Chalks. Working. RodrigoB.
-# 28/01/04 Working. RodrigoB.
-# 29/01/04 Working. RodrigoB.
-# 30/01/04 Working and debugging. RodrigoB.
-# 03/02/04 Working. RodrigoB.
-# 12/02/04 Minor bugfix. RodrigoB.
-# 19/02/04 Debugging. RodrigoB.
-# 
+# 20/02/04 Frozen. RodrigoB.
 # 25/08/04 Project ressurected. Ricardo Niederberger Cabral joined development 
-# efforts. Logs are now keept in the svn server.
-# 
+# efforts. Logs are now keept in the berlios svn server.
 #@-at
 #@@c
 
@@ -113,6 +103,14 @@ from twisted.python import failure
 # Miscelaneous functions that help doing common actions
 #@-at
 #@@c
+
+
+def guess_username():
+    """
+    Guess a login name
+    """
+    from os import getenv
+    return str(getenv('username') or getenv('USER'))
 #@nonl
 #@-node:rodrigob.20040129130513:helpers
 #@+node:rodrigob.20040119152542:class Chalks
@@ -272,22 +270,26 @@ class Chalks:
         #@nl
         #@    << install server monitor >>
         #@+node:niederberger.20040911103457:<< install server monitor >>
-        """
-        install server monitor and advertise this Chalks server
-        """
-        self.server_monitor = ChalksServerMonitor()
+        #@+at
+        # install server monitor and advertise this Chalks server
+        #@-at
+        #@@c
+        self.server_monitor = None
+        try:
+            self.server_monitor = ChalksServerMonitor()
+        except:
+            print "Could not start ZeroConf service. Working without it."
         #@-node:niederberger.20040911103457:<< install server monitor >>
         #@nl
         #@    << advertise local server >>
         #@+node:niederberger.20040911111958:<< advertise local server >>
-        if self.server_port: #only if we actually started serving
+        if self.server_port and self.server_monitor: #only if we actually started serving
             # first determine local ip address
             import socket
             self.server_address = socket.gethostbyname(socket.gethostname())
         
             # now advertise
-            from os import getenv
-            user_name = str(getenv("username")) +'@'+ socket.gethostname()  # this seems to work fine under Win32 and Linux
+            user_name = guess_username() +'@'+ socket.gethostname()  # this seems to work fine under Win32 and Linux
             
             # the service name should be "<file name> at <machine name>", but at this point we have no file name, so just name it something random
             import random
@@ -323,8 +325,9 @@ class Chalks:
                 print "you canceled"
                 return
                 
-        # shutdown Server Monitos
-        self.server_monitor.stop()
+        if self.server_monitor:
+            # shutdown Server Monitor
+            self.server_monitor.stop()
         
         # non return point, the app will quit
         reactor.stop()
@@ -1214,9 +1217,7 @@ class Chalks:
         
         nickname_entry = t_entry = Entry(tt_frame, width=8, background="white")
         t_entry.grid(row=2, column=1, sticky=W)
-        # guess the username
-        from os import getenv
-        t_username = str(getenv("username"))
+        t_username = guess_username() # guess the username
         t_entry.insert(END, t_username)
         
         # see binding below...
@@ -1371,15 +1372,17 @@ class Chalks:
         #@-node:niederberger.20040911120126:<< server monitor callback >>
         #@nl
         
-        # register callback with serverMonitor object
-        self.server_monitor.addCallbackListener(server_monitor_callback)
-        # populate it for the first time
-        server_monitor_callback(self.server_monitor.getServers())
+        if self.server_monitor:
+            # register callback with serverMonitor object
+            self.server_monitor.addCallbackListener(server_monitor_callback)
+            # populate it for the first time
+            server_monitor_callback(self.server_monitor.getServers())
         
         self.root.wait_window(top) # show
     
-        # unregister callback with serverMonitor object
-        self.server_monitor.removeCallbackListener(server_monitor_callback)
+        if self.server_monitor:
+            # unregister callback with serverMonitor object
+            self.server_monitor.removeCallbackListener(server_monitor_callback)
         
         return
         
@@ -1625,13 +1628,12 @@ class ChalksNode(ConcurrentEditableNode):
         """
         """
         
-        ConcurrentEditableNode.__init__(self,) #??
-        # local ConcurrentEditable will be initialized during connection process.
+        ConcurrentEditableNode.__init__(self,)
 
         # initialize the extra attributes		
         self.chalks_gui  = chalks_gui # stores a reference to the gui object
 
-        self.nickname = None
+        self.nickname = guess_username()
         self.site_id = None # site_id is an unique internet identifier
         self.connected = 0              # initially we are not connected to anyone
         
@@ -1701,6 +1703,11 @@ class ChalksNode(ConcurrentEditableNode):
         """
     
         self.avatar = avatar
+        # us avatar is the us perspective ot the parent ChalksNode
+        self.parent_perspective = avatar
+        self.parent_avatar.mind = avatar # set the avatar perspective (important)
+        print "Registering parent perspective %s" % avatar 
+    
             
         # we obtain us site_id
         t_address = self.avatar.broker.transport.getHost()
@@ -1717,11 +1724,6 @@ class ChalksNode(ConcurrentEditableNode):
         """
         Callback for the connection procedure.        
         """
-    
-        parent_node_perspective, ret_tuple  = ret_tuple
-        # receive the parent ChalksNode reference
-        self.parent_perspective = parent_node_perspective
-    
     
         insert_index = self.text_widget.index("insert")
         
@@ -2544,13 +2546,16 @@ class ChalksNode(ConcurrentEditableNode):
         
         
         perspectives = self.childrens_perspectives + [self.parent_perspective]
-            
-        # <<< diagnose code    
-        print "<%s> %s" %(from_, txt)
-        print "received_from %s" % received_from
-        print "perspectives %s" % perspectives
-        print "[x==%s for x in %s] == %s" %(received_from, perspectives, [x==received_from for x in perspectives])
-        print 
+    
+    #@+at        
+    #     # diagnose code
+    #     #print "<%s> %s" %(from_, txt)
+    #     print "received_from %s" % received_from
+    #     #print "perspectives %s" % perspectives
+    #     print "[x==%s for x in %s] == %s" %(received_from, perspectives, 
+    # [x==received_from for x in perspectives])
+    #@-at
+    #@@c
     #@+at
     #     if self.parent_perspective: 
     # self.parent_perspective.callRemote("send_message", from_, to, 
@@ -2562,8 +2567,11 @@ class ChalksNode(ConcurrentEditableNode):
         
         for t_perspective in perspectives:
             if t_perspective and received_from != t_perspective:
-                print "%s.callRemote" % t_perspective
-                t_perspective.callRemote("send_message", from_, to, txt).addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
+                #print "%s.callRemote('send_message', ..." % t_perspective
+                t_deferred = t_perspective.callRemote("send_message", from_, to, txt)
+                t_deferred.addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
+        #print
+        
         return
     #@-node:rodrigob.20040127184605:send message
     #@+node:rodrigob.20040127185444:get users list
@@ -2669,20 +2677,23 @@ class ChalksAvatar(pb.Avatar, pb.Referenceable):
         
         self.mind = mind # store it for later use # mind is a perspective of the client that is connecting to use
         self.avatarId = self.nickname = avatarId
-        
+        if self.mind: self.mind.nickname = avatarId
+            
         # this assertion has to be relaxed to enable childrens side avatar creations
         #assert mind, ChalksError("Chalks strictly require references to the client connecting.")
+    
+        #if mind: assert type(mind) is pb.Reference # if mind assert it is a remote reference
         
         #pb.Avatar.__init__(self, avatarId, mind) # pb.Avatar has no __init__ method.
         
 
         # copy every perspective_ method in remote_ method
         perspective_methods = ['_'.join(x.split('_')[1:]) for x in dir(self) if x.split('_')[0] == "perspective"] # ugly hack
-        print "Avatar perspective_methods", perspective_methods
+        #print "Avatar perspective_methods", perspective_methods
         for t_name in perspective_methods:
             if t_name:
                 setattr(self, "remote_"+t_name, getattr(self, "perspective_"+t_name))
-                print "Added method %s to ChalksAvatar class"%("remote_"+t_name)
+                #print "Added method %s to ChalksAvatar class"%("remote_"+t_name)
 
 
         return
@@ -2698,8 +2709,11 @@ class ChalksAvatar(pb.Avatar, pb.Referenceable):
         """
             
         self.site_id = site_id
+        if self.mind: self.mind.site_id = site_id
         
-        self.node.add_site(self) # we register us perspective in the parent
+        assert self.mind, ChalksError("Avatar without mind trying to collaborate in")
+        self.node.add_site(self.mind) # we register us perspective in the parent
+        print "Registering child perspective %s" % self.mind
         
         # we obtain and return the required data to start the session in the child
         t_state = self.node.get_state(); t_state = list(t_state);
@@ -2707,7 +2721,7 @@ class ChalksAvatar(pb.Avatar, pb.Referenceable):
         t_HB = t_state[3]; t_HB = map(dict, t_HB); t_state[3] = t_HB;
         
         # return the parent ChalksNode reference, and the data necesarry to start the collaboration
-        return (self, t_state)
+        return t_state
         
     
     def perspective_collaborate_out(self):
@@ -2727,6 +2741,7 @@ class ChalksAvatar(pb.Avatar, pb.Referenceable):
     #@+node:rodrigob.20040129150513:logout
     def logout(self,):
         """
+        This methods is called when the children node is disconnecting himself
         """
         
         # <<<< EDIT CODE # has to generate the propagation of a disconnection notification to all the other nodes....
@@ -2750,21 +2765,21 @@ class ChalksAvatar(pb.Avatar, pb.Referenceable):
         """ 
         Return the dictonary of map node.id -> user_nickname
         """    
-        return self.node.perspective_get_actual_users_list(self)
+        return self.node.perspective_get_actual_users_list(self.mind)
         
         
     def perspective_set_presence(self, state):
         """
         Set the presence of one user 
         """
-        return self.node.remote_set_presence(self,state)
+        return self.node.remote_set_presence(self.mind,state)
         
         
     def perspective_send_message(self, from_, to, txt):
         """ 
         Send a message to
         """
-        return self.node.remote_send_message(self, from_, to, txt)
+        return self.node.remote_send_message(self.mind, from_, to, txt)
         
     #@nonl
     #@-node:rodrigob.20040915120517.1:messages and presence methods
@@ -2772,13 +2787,13 @@ class ChalksAvatar(pb.Avatar, pb.Referenceable):
     def perspective_insert_text(self, startpos, text, timestamp = None):
         """ 
         """
-        return self.node.remote_insert_text(startpos, text, timestamp, who=self)
+        return self.node.remote_insert_text(self.mind, startpos, text, timestamp)
         
         
     def perspective_delete_text(self, startpos, length, timestamp = None):
         """ 
         """
-        return self.node.remote_delete_text(startpos, length, timestamp, who=self)
+        return self.node.remote_delete_text(self.mind, startpos, length, timestamp)
     
     #@-node:rodrigob.20040915120517.2:insert/delete text
     #@-node:rodrigob.20040915120517:bi directional methods
@@ -2855,7 +2870,7 @@ class ChalksServerMonitor(object):
     def startListening(self):
         assert (self.rendezvous is None) and (self.browser is None), 'you can only call this method once'
         from Rendezvous import Rendezvous, ServiceBrowser
-        self.rendezvous = Rendezvous()
+        self.rendezvous = Rendezvous() # <<<< crash if no internet aviable
         t_type = "_chalks._tcp.local."
         self.browser = ServiceBrowser(self.rendezvous, t_type, self)
         print "Started listening local network for Chalks servers ..."
@@ -2888,99 +2903,6 @@ class ChalksServerMonitor(object):
         info = ServiceInfo("_chalks._tcp.local.", name + "._chalks._tcp.local.", socket.inet_aton(host), port, 0, 0, desc)
         r.registerService(info)
 #@-node:niederberger.20040909124137:class ChalksServerMonitor
-#@+node:rodrigob.20040119132949:class FileStack
-class FileStack:
-    """
-    Helper class to manage the HB buffer file.
-    
-    Original creation of Josiah Carlson <jcarlson at uci dot edu>, University of California, Irvine.
-    """
-    
-    def __init__(self, fout):
-        """
-        receive in file as input
-        """        
-        
-        assert type(fout) is file
-        assert fout.mode == 'w+b'
-        
-        from cPickle import dumps, loads
-        from struct import pack, unpack
-
-        self.dumps, self.loads = dumps, loads
-        self.pack, self.unpack = pack, unpack
-        self.f = fout
-        self.s = len(self.pack('!i', 0))
-
-        return
-        
-    def get_size(self):
-        """
-        Return the actual file size
-        """
-        t_pos = self.f.tell()
-        self.f.seek(0,1) # reach the end of the file
-        size = self.f.tell()
-        self.f.seek(t_pos, 0) # put the file pointer at his original position
-        return size
-        
-    def push(self, obj):
-        """
-        Add an object in the file
-        """
-        
-        st = self.dumps(obj)
-        self.f.write(st)
-        
-        t_string = self.pack('!i', len(st))
-        assert len(t_string) == self.s, "too long object to keep in the FileStack len(dumps(data)) == %i" % len(st)
-        self.f.write(t_string)
-        
-        return
-        
-    def pop(self):
-        """
-        Extract one object from the file 
-        """
-        
-        posn = self.f.tell()
-        if posn <= 0:
-            raise IndexError
-        self.f.seek(posn - self.s)
-        s = self.unpack('!i', self.f.read(self.s))[0]
-        self.f.seek(posn - self.s - s)
-        ret = self.loads(self.f.read(s))
-        self.f.seek(posn - self.s - s)
-        
-        return ret
-
-        
-
-#@+node:rodrigob.20040122143140:test_FileStack
-class S:
-        pass
-    
-def test_FileStack():
-    
-    import tempfile
-    
-    f = tempfile.TemporaryFile()
-    fs = FileStack(f)
-    fs.push({"Hello":"boy"})
-    fs.push(range(8))
-    s = S(); s.a = 5; s.b = {5:7};	s.c = "8"
-    fs.push(s)
-    print "File size %s bytes" % fs.get_size()
-    print fs.pop()
-    print fs.pop()
-    fs.push({"Bye, bye":"darling"})
-    print fs.pop()
-    print fs.pop()
-    
-    return
-#@nonl
-#@-node:rodrigob.20040122143140:test_FileStack
-#@-node:rodrigob.20040119132949:class FileStack
 #@+node:rodrigob.20040127180819:class ChalksError
 class ChalksError(pb.Error):
     """

@@ -502,6 +502,21 @@ ChalksAvatar can receive calls to the perspective\_ methods.
 
 We want the childrens able to call the ChalksNode methods. Thus when the Childrens call the collaborate\_in using his avatar on the parent side, he receive back (in a huge list of params) the parents ChalksNode reference.
 
+The connection process occurs in this order:
+\begin{enumerate}
+\item ChalksNode require a connection to the parent using the {\texttt connect\_to\_parent} method. Thus a parent ChalksAvatar object is created and passed to the parent as an access to the Children. This parent ChalksAvatar instance has no {\texttt mind} object.
+
+\item The parent receive through his {\texttt ChalksRealm} the children connection request. A children ChalksAvatar instance is created in the parent side. The parent return to the children a reference to this avatar.
+
+\item The children receive this reference (at {\texttt logged\_in}) and register it as the parent perspective (the access of the children to the parent side). It also register this perspective as the mind of the children side parent ChalksAvatar instance.
+
+\item Now that the children is connect he call in the parent (througth his avatar in the parent side, i.e. throught the parent perpespective) the {\texttt collaborate\_in} method.
+
+\item The parent receive the call, register the children perspective (local children avatar mind) as one more site in the collaboration session and return to the children all the required information to start collaborating.
+
+\end{enumerate}
+
+It worth noting that the ChalksNode object keep only \emph{remote references} of the avatars (of the parent and of the children). When a node call a remote method in the called node receive a call from the local Avatar instance. Thus \emph{the mind} of the local Avatar is compared to the childrens and parents remote references. For a clear example look at the {\texttt send\_message} ChalksNode method.
 %@-node:rodrigob.20040913233519:<<about the connections process>>
 %@nl
 %@+others
