@@ -18,7 +18,7 @@
 # 19/01/04 Started LeoN spinoff. RodrigoB.
 # 27/01/04 Renamed MultiEdit as Chalks. Working. RodrigoB.
 # 20/02/04 Frozen. RodrigoB.
-# 25/08/04 Project ressurected. Ricardo Niederberger Cabral joined development 
+# 25/08/04 Project resurrected. Ricardo Niederberger Cabral joined development 
 # efforts. Logs are now kept in the berlios svn server.
 #@-at
 #@@c
@@ -2784,10 +2784,14 @@ class ChalksServerMonitor(object):
     def startListening(self):
         assert (self.rendezvous is None) and (self.browser is None), 'you can only call this method once'
         from Rendezvous import Rendezvous, ServiceBrowser
-        self.rendezvous = Rendezvous() # <<<< crash if no internet aviable
-        t_type = "_chalks._tcp.local."
-        self.browser = ServiceBrowser(self.rendezvous, t_type, self)
-        print "Started listening local network for Chalks servers ..."
+        try:
+            self.rendezvous = Rendezvous() # <<<< crashes if no internet available
+        except:
+            print "Error starting rendezvous browser. Automatic discovery of local servers is disabled."
+        else:
+            t_type = "_chalks._tcp.local."
+            self.browser = ServiceBrowser(self.rendezvous, t_type, self)
+            print "Started listening local network for Chalks servers ..."
                 
     def stop(self):
         assert self.browser, 'you should only call stop() when there is a browser/rendevzvous threads running'
@@ -2807,7 +2811,9 @@ class ChalksServerMonitor(object):
         
         """
         from Rendezvous import Rendezvous, ServiceInfo
+        from Rendezvous import NonUniqueNameException
         import socket
+        
         print "Registering your server with rendezvous ..."        
         # register record with Rendezvous
         r = Rendezvous()
@@ -2815,7 +2821,11 @@ class ChalksServerMonitor(object):
                 'private': str(private),
                 }
         info = ServiceInfo("_chalks._tcp.local.", name + "._chalks._tcp.local.", socket.inet_aton(host), port, 0, 0, desc)
-        r.registerService(info)
+        try:
+            r.registerService(info)
+        except NonUniqueNameException:
+            print "Unable to advertise your shared file on the local network: Apparently there is a service with this same name."
+
 #@-node:niederberger.20040909124137:class ChalksServerMonitor
 #@+node:rodrigob.20040127180819:class ChalksError
 class ChalksError(pb.Error):

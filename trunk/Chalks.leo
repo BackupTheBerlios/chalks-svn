@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
-<leo_header file_format="2" tnodes="0" max_tnode_index="2935" clone_windows="0"/>
+<leo_header file_format="2" tnodes="0" max_tnode_index="2937" clone_windows="0"/>
 <globals body_outline_ratio="0.50572519084">
-	<global_window_position top="10" left="10" height="524" width="800"/>
+	<global_window_position top="10" left="10" height="986" width="1280"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -1689,11 +1689,13 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
 <v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
 <v t="niederberger.20040825222327.1" a="ETV"><vh>High</vh>
-<v t="niederberger.20040920181441"><vh>Another rendezvous bug</vh></v>
 <v t="niederberger.20040920180258"><vh>Disconnect bug</vh></v>
-<v t="rodrigob.20040918192751"><vh>Rendez Vous crash the program if pc is without internet</vh></v>
 </v>
 <v t="niederberger.20040825222327.2" a="E"><vh>Medium</vh>
+<v t="niederberger.20040922110026" a="E"><vh>pyzeroconf problems</vh>
+<v t="niederberger.20040922111043"><vh>Another rendezvous bug</vh></v>
+<v t="niederberger.20040922110926"><vh>Rendez Vous crash the program if pc is without internet</vh></v>
+</v>
 <v t="rodrigob.20040918185607" a="E"><vh> Concurrent editable todos</vh></v>
 </v>
 <v t="niederberger.20040825222327.3" a="E"><vh>Low</vh>
@@ -1951,9 +1953,9 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 </v>
 </v>
-<v t="rodrigob.20040119132914"
+<v t="rodrigob.20040119132914" a="E"
 marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040125154815.19,rodrigob.20040920122333,rodrigob.20040125194534,rodrigob.20040126020641,"
-expanded="rodrigob.20040119133203,rodrigob.20040119152542,rodrigob.20040125153141,rodrigob.20040123142302,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040123130224,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040912225813,rodrigob.20040125154815.3,rodrigob.20040125154815.8,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
+expanded="rodrigob.20040119133203,rodrigob.20040119152542,rodrigob.20040125153141,rodrigob.20040123142302,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040123130224,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040912225813,rodrigob.20040125154815.3,rodrigob.20040125154815.8,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.121403173614.1502"
 marks="rodrigob.121403173614.1509,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040130224144,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
 expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1516,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040128011921,rodrigob.20040128011921.1,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
@@ -3380,10 +3382,7 @@ Currently they may be related to coding, researching, packaging, everything.</t>
 
 - in Test_Chalks, separate both instance stdout redirection (run in threads ?). Test_Chalks should be reimplemented.
 
-- why does Test_Chalks is sooo slow to quit ? (seeems to be related with rendez vous, when disabled it quit in a fraction of seconds)
-
 - Why does site show the insertion point index and the other one does not ? (left of the chat bar) (Test_Chalks exclusive problem, a reason more to rewrite it)
-
 
 - Work on concurrenteditablenode (make consistent use of the new site_id system)
 
@@ -3545,7 +3544,36 @@ components.registerAdapter(ChalksModel, Chalks, interfaces.IModel)
 
 
 When a parent disconnects, we need to send the collaborate_out msg to all of it's children. Code for that is on ChalksNode.remote_send_message(). We need to refactor that code out of remote_send_message, since sending commands to all children is a common thing and will be needed by other methods later.</t>
-<t tx="niederberger.20040920181441">Started listening local network for Chalks servers ...
+<t tx="niederberger.20040922110026">Place all pyzeroconf/rendezvous bugs/issues here so they can be reported to original authors later:
+
+- why does Test_Chalks is sooo slow to quit ? (seeems to be related with rendez vous, when disabled it quit in a fraction of seconds).
+  This has to do with Rendezvous.py threading mechanism. It has a long timeout when waiting for all socket monitoring threads to finish.</t>
+<t tx="niederberger.20040922110926">This is a pyzeroconf bug, we will just catch the exception and disable rendezvous support when this happens.
+
+Traceback:
+
+
+./Test_Chalks.py
+Creating two Chalks instances
+Chalks 0.0.1, started. Licensed under the GNU GPL. Copyright 2004, Chalks Development Team (http://chalks.berlios.de)
+                                                                                                                             
+Starting Chalks service at chalks://localhost:8787
+Knowing your internet address (i.e. your IP) other users can connect themself to your session using the port 8787.
+Traceback (most recent call last):
+  File "./Test_Chalks.py", line 56, in ?
+    app1 = Chalks.Chalks()
+  File "/home/rodrigob/projets/chalks/svn/trunk/src/Chalks.py", line 276, in __init__
+    self.server_monitor = ChalksServerMonitor()
+  File "/home/rodrigob/projets/chalks/svn/trunk/src/Chalks.py", line 2803, in __init__
+    self.startListening()  # make it active
+  File "/home/rodrigob/projets/chalks/svn/trunk/src/Chalks.py", line 2855, in startListening
+    self.rendezvous = Rendezvous()
+  File "/home/rodrigob/projets/chalks/svn/trunk/src/Rendezvous.py", line 1595, in __init__
+    self.socket.setsockopt(socket.SOL_IP, socket.IP_ADD_MEMBERSHIP, socket.inet_aton(_MDNS_ADDR) + socket.inet_aton('0.0.0.0'))
+  File "&lt;string&gt;", line 1, in setsockopt
+socket.error: (19, 'No such device')
+</t>
+<t tx="niederberger.20040922111043">Started listening local network for Chalks servers ...
 Registering your server with rendezvous ...
 Traceback (most recent call last):
   File "C:\prj\chalks\src\Chalks.py", line 2898, in ?
@@ -3562,7 +3590,8 @@ self.server_port, user_name)
 Rendezvous.NonUniqueNameException
 
 
-Happened when starting two instances one immediately after the other. Seeding the random number generator with system time should fix it.</t>
+Happened when starting two instances one immediately after the other. Seeding the random number generator with system time should fix it.
+Actually there is no need to fix it, just wrap with try: except:, since later service names will be properly advertised with correct filenames.</t>
 <t tx="rodrigob.010104175231"></t>
 <t tx="rodrigob.010104211709"></t>
 <t tx="rodrigob.010104212717">no real requirement right now, but issues we should think about:
@@ -32936,26 +32965,6 @@ perspective_receive_op = perspective_receive_operation
 - Find the Recover_LI specifications.
 - Find a better way to quit the ambiguities on the 'if else {}' operation pertenence. (save_RA, save_LI conditions ?)
 
-</t>
-<t tx="rodrigob.20040918192751">./Test_Chalks.py
-Creating two Chalks instances
-Chalks 0.0.1, started. Licensed under the GNU GPL. Copyright 2004, Chalks Development Team (http://chalks.berlios.de)
-                                                                                                                             
-Starting Chalks service at chalks://localhost:8787
-Knowing your internet address (i.e. your IP) other users can connect themself to your session using the port 8787.
-Traceback (most recent call last):
-  File "./Test_Chalks.py", line 56, in ?
-    app1 = Chalks.Chalks()
-  File "/home/rodrigob/projets/chalks/svn/trunk/src/Chalks.py", line 276, in __init__
-    self.server_monitor = ChalksServerMonitor()
-  File "/home/rodrigob/projets/chalks/svn/trunk/src/Chalks.py", line 2803, in __init__
-    self.startListening()  # make it active
-  File "/home/rodrigob/projets/chalks/svn/trunk/src/Chalks.py", line 2855, in startListening
-    self.rendezvous = Rendezvous()
-  File "/home/rodrigob/projets/chalks/svn/trunk/src/Rendezvous.py", line 1595, in __init__
-    self.socket.setsockopt(socket.SOL_IP, socket.IP_ADD_MEMBERSHIP, socket.inet_aton(_MDNS_ADDR) + socket.inet_aton('0.0.0.0'))
-  File "&lt;string&gt;", line 1, in setsockopt
-socket.error: (19, 'No such device')
 </t>
 <t tx="rodrigob.20040920122333">def remote_receive_operation(self, in_op, *args, **kw):
     """
