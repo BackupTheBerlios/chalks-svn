@@ -1769,14 +1769,18 @@ class ChalksNode(ConcurrentEditableNode):
     #@+node:rodrigob.20040913221730.1:disconnect
     def disconnect_from_server(self):
         """
-        Disconnect from the server.
-        """
+        Disconnect from the server. Also warn all my children about my disconnection
+        """    
+        perspectives = self.childrens_perspectives + [self.parent_perspective]
     
-        deferred = self.avatar.callRemote("collaborate_out")
-        deferred.addCallback(self.disconnected)
-        deferred.addErrback(self.exception)
-        
-        return
+        for t_perspective in perspectives:
+            if not t_perspective: # skip Null perspective, probably my parent_perspective when I'm not connected to a parent
+                continue
+            t_deferred = t_perspective.callRemote("collaborate_out")
+            #t_deferred.addCallback(self.disconnected)
+            t_deferred.addErrback(self.exception)
+    
+        self.disconnected()
     
     def disconnected(self, *args):
         """
