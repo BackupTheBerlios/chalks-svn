@@ -61,13 +61,13 @@
 #@-at
 #@@c
 
+# Tkinter Imports
 from Tkinter import *
 from Tkconstants import *
 
-# the first thing that we need to do is to install the Tkinter loop.
-from twisted.internet import tksupport
+# Twisted imports
+from twisted.internet import tksupport # the first thing that we need to do is to install the Tkinter loop.
 from twisted.internet import reactor
-
 from twisted.python import components
 
 # Woven imports 
@@ -520,16 +520,18 @@ class Chalks:
         parent = root
         
         # require parent, verticalFlag
-        
-        import Tkinter as Tk
-        root.iconbitmap(bitmap="chalks.ico")  # set application icon
+
+        # set up icon only on win32 (need to research how this is done on *NIX)
+        import sys
+        if sys.platform == 'win32':
+            root.iconbitmap(bitmap="chalks.ico")  # set application icon
         
         # Create the frames.
-        f = Tk.Frame(parent,bd=0,relief="flat",width=640,height=480) # without forcing width/height, the frame starts up with a really small dimension on win32 (almost iconic)
+        f = Frame(parent,bd=0,relief="flat",width=640,height=480) # without forcing width/height, the frame starts up with a really small dimension on win32 (almost iconic)
         f.pack(expand=1,fill="both",pady=1)
-        pane1 = Tk.Frame(f)
-        pane2 = Tk.Frame(f)
-        bar =   Tk.Frame(f,bd=2,relief="raised",bg="LightSteelBlue2")
+        pane1 = Frame(f)
+        pane2 = Frame(f)
+        bar =   Frame(f,bd=2,relief="raised",bg="LightSteelBlue2")
         
         # Configure and place the frames.
         
@@ -680,7 +682,7 @@ class Chalks:
         self.rowcol_label.pack(side=LEFT, padx=1)
         
         bg = self.status_bar.cget("background")
-        self.status_text = Tk.Text(self.status_bar, height=1, state=DISABLED, bg=bg, relief=GROOVE)
+        self.status_text = Text(self.status_bar, height=1, state=DISABLED, bg=bg, relief=GROOVE)
         self.status_text.pack(side=LEFT, fill=X,expand=1)
         
         # Register an idle-time handler to update the row and column indicators.
