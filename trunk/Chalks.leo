@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2927" clone_windows="0"/>
-<globals body_outline_ratio="0.421755725191">
+<globals body_outline_ratio="0.490458015267">
 	<global_window_position top="10" left="10" height="524" width="800"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
@@ -1669,18 +1669,20 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 </v>
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
-<v t="niederberger.20040825222327"><vh>Things left to do</vh>
+<v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
 <v t="rodrigob.20040826215836"><vh>Old LeoN todo list (to purge)</vh>
 <v t="rodrigob.20040125223416" a="E"><vh>HOOK PROBLEM</vh></v>
 </v>
-<v t="niederberger.20040825222327.1"><vh>High</vh></v>
+<v t="niederberger.20040825222327.1" a="MTV"><vh>High</vh></v>
 <v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
 <v t="niederberger.20040825222327.3"><vh>Low</vh></v>
 </v>
 <v t="rodrigob.20040125160038" a="E"><vh>Code perspectives</vh>
 <v t="rodrigob.20040129141624" a="EM"><vh>network</vh>
 <v t="rodrigob.20040125154815.1" a="E"><vh>class ChalksNode</vh>
-<v t="rodrigob.20040125154815.2" a="EMTV"><vh>connect to/disconnect from parent node</vh></v>
+<v t="rodrigob.20040125154815.2" a="E"><vh>connect to/disconnect from parent node</vh>
+<v t="rodrigob.20040909060311" a="M"><vh>start collaborating</vh></v>
+</v>
 <v t="rodrigob.20040125154815.3" a="E"><vh>edit content</vh>
 <v t="rodrigob.20040125154815.4" a="E"><vh>set text</vh></v>
 <v t="rodrigob.20040125154815.5"><vh>insert text</vh></v>
@@ -1702,7 +1704,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040125154815.19"><vh>flush body</vh></v>
 <v t="rodrigob.20040125154815.7"><vh>send operation</vh></v>
 </v>
-<v t="rodrigob.20040127182438"><vh>remote callable methods</vh>
+<v t="rodrigob.20040127182438" a="E"><vh>remote callable methods</vh>
 <v t="rodrigob.20040127182530" a="E"><vh>messages and presence methods</vh>
 <v t="rodrigob.20040127185444" a="M"><vh>get users list</vh></v>
 <v t="rodrigob.20040127184605"><vh>send message</vh></v>
@@ -1713,7 +1715,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 </v>
 </v>
-<v t="rodrigob.20040125194534" a="M"><vh>class ChalksPerspective</vh>
+<v t="rodrigob.20040125194534" a="EM"><vh>class ChalksPerspective</vh>
 <v t="rodrigob.20040129150513"><vh>logout</vh></v>
 <v t="rodrigob.20040126020641" a="M"><vh>collaborate in/out</vh></v>
 <v t="rodrigob.20040127190845" a="E"><vh>bi directional methods</vh>
@@ -1773,9 +1775,9 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040831112258"><vh>gui</vh></v>
 <v t="rodrigob.20040831112258.1"><vh>concurrent edition</vh></v>
 </v>
-<v t="rodrigob.20040119132914" a="M"
-marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.2,rodrigob.20040125154815.6,rodrigob.20040127185444,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040126020641,"
-expanded="rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040125154636,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.3,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182530,rodrigob.20040126020544,rodrigob.20040127190845,"><vh>@thin Chalks.py</vh></v>
+<v t="rodrigob.20040119132914" a="EM"
+marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040909060311,rodrigob.20040125154815.6,rodrigob.20040127185444,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040126020641,"
+expanded="rodrigob.20040119152542,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040125154636,rodrigob.20040121150952.7,rodrigob.20040122175312,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040125154815.3,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040126020544,rodrigob.20040127190845,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.20040125173910"><vh>@thin Test_Chalks.py</vh></v>
 <v t="rodrigob.20040125151012"><vh>@thin Chalks.xhtml</vh></v>
 <v t="rodrigob.121403173614.1502"
@@ -3182,7 +3184,12 @@ Example:
 <t tx="niederberger.20040825222327">@language plain
 This node contains reminders and all things left to do in general, grouped by priority.
 Currently they may be related to coding, researching, packaging, everything.</t>
-<t tx="niederberger.20040825222327.1"></t>
+<t tx="niederberger.20040825222327.1">- Chalks.py", line 1494, in start_collaborating
+    self.receive_operation(Operation(**t_dict))	# instanciate and receive
+ ConcurrentEditable.py", line 1880, in receive_operation
+    assert type(timestamp) is dict or in_op.get("source_site") == self.site_index, "In ConcurrentEditableNode the transmited time stamps are expected to be dictionaries that map &lt;known_site_id&gt; =&gt; &lt;num_of_operations_we_know_he_has_created&gt; OR to be a local state vector timestamp"
+exceptions.AssertionError: In ConcurrentEditableNode the transmited time stamps are expected to be dictionaries that map &lt;known_site_id&gt; =&gt; &lt;num_of_operations_we_know_he_has_created&gt; OR to be a local state vector timestamp
+</t>
 <t tx="niederberger.20040825222327.2"></t>
 <t tx="niederberger.20040825222327.3"></t>
 <t tx="niederberger.20040906222819">Components of Chalks are Python, Twisted, ConcurrentEditable and Tkinter.
@@ -28889,59 +28896,7 @@ def logged_in(self, parent_perspective):
     return
 
 
-def start_collaborating(self, ret_tuple):
-    """
-    Callback for the connection procedure.        
-    """
-    insert_index = self.text_widget.index("insert")
-    
-    assert len(ret_tuple) == 7, 'wrong number of state parameters received'
-    """ What's returned by get_state():
-    return  self.sites_index,
-            self.state_vector_table,
-            self.minimum_state_vector,
-            self.HB,
-            self.delayed_operations,
-            self.text_buffer,
-            self.state_vector
-    
-    """
-    #site_index, num_of_sites, base_state_vector, base_text, ops_list = ret_tuple
-    t_sites_index, t_state_vector_table, t_msv, t_hb, t_delayed_operations , base_text, base_state_vector = ret_tuple
-    ops_list = [] 
-    num_of_sites = len(t_sites_index)
-    #site_index = max(t_sites_index.keys())  # &lt;&lt;&lt;&lt; is it safe to assume my site_id is the largest one returned from parent current state ?
-    # init the internal ConcurrentEditable
-    
-    from ConcurrentEditable import ConcurrentEditable
-    ConcurrentEditable.__init__(self, 1,2) # site_index, num_of_sites) # site_index, num_of_sites # the clients has site_index 1, thus state_vector == [server, client]
-
-    self.set_text(base_text)
-
-    self.state_vector = base_state_vector # &lt;&lt;&lt;&lt; is this a correct idea ?
-
-    self.log("Base state vector %s"% base_state_vector, color="yellow") # just for debugging
-    self.log("Received ops_list (len == %s) %s"%( len(ops_list), ops_list), color="yellow") # just for debugging
-        
-    for t_dict in ops_list: #ops_list is a list of dictionaries that define a list of operations
-        self.receive_operation(Operation(**t_dict))	# instanciate and receive
-    
-    self.log("Setting the index mark back to his initial location: %s"% (insert_index),color="yellow")
-    
-    self.text_widget.mark_set("insert", insert_index) # try to keep the insert mark at the same place
-    
-    t_address = self.parent_perspective.broker.transport.getPeer()
-    self.log("Connected to '%s:%i' as site '%s' (num_of_sites %s)"%(t_address.host, t_address.port, self.id, num_of_sites))
-    
-    self.log("HB after the connection %s"% self.HB, color="yellow") # just for debugging
-    self.log("delayed_operations after the connection %s"% self.delayed_operations, color="yellow") # just for debugging
-    self.log("self.state_vector %s" % self.state_vector, color="yellow") # just for debugging
-
-    # upon connection we need to enable the chat system # &lt;&lt;&lt;&lt; EDIT CODE HERE
-    
-    self.connected = 1 # indicate the success
-    return
-    
+@others
 
 def disconnect_from_server(self):
     """
@@ -29739,7 +29694,12 @@ def perspective_collaborate_in(self, id):
     self.id = id
     
     self.node.add_site(id) # we register us in the parent
-    return self.node.get_state() # we obtain and return the required data to start the session in the child
+    
+    # we obtain and return the required data to start the session in the child
+    t_state = self.node.get_state(); t_state = list(t_state);
+    # Convert HB Operation objects to diccionaries
+    t_HB = t_state[3]; t_HB = map(dict, t_HB); t_state[3] = t_HB;
+    return t_state
     
 
 def perspective_collaborate_out(self):
@@ -30864,5 +30824,58 @@ code related to the concurrent edition system</t>
     self.text_buffer = new_text
     
     return</t>
+<t tx="rodrigob.20040909060311">def start_collaborating(self, ret_tuple):
+    """
+    Callback for the connection procedure.        
+    """
+    insert_index = self.text_widget.index("insert")
+    
+    assert len(ret_tuple) == 7, 'wrong number of state parameters received'
+    """ What's returned by get_state():
+    return  self.sites_index,
+            self.state_vector_table,
+            self.minimum_state_vector,
+            self.HB,
+            self.delayed_operations,
+            self.text_buffer,
+            self.state_vector
+    """
+    #site_index, num_of_sites, base_state_vector, base_text, ops_list = ret_tuple
+    t_sites_index, t_state_vector_table, t_msv, t_HB, t_delayed_operations , base_text, base_state_vector = ret_tuple
+
+    num_of_sites = len(t_sites_index)
+
+    # init the internal ConcurrentEditable
+    from ConcurrentEditable import ConcurrentEditable
+    ConcurrentEditable.__init__(self, 1,2) # site_index, num_of_sites) # site_index, num_of_sites # the clients has site_index 1, thus state_vector == [server, client] # &lt;&lt;&lt; This line seems fine, this should be managed in a different way by ConcurrentNode
+
+    self.set_text(base_text)
+
+    self.state_vector = base_state_vector # &lt;&lt;&lt;&lt; is this a correct idea ?
+
+    self.log("Base state vector %s"% base_state_vector, color="yellow") # just for debugging
+    self.log("Received ops_list (len == %s) %s"%( len(t_HB), t_HB), color="yellow") # just for debugging
+    
+    from ConcurrentEditable import Operation    
+    for t_dict in t_HB: #ops_list is a list of dictionaries that define a list of operations
+        self.receive_operation(Operation(**t_dict))	# instanciate and receive
+    
+    self.log("Setting the index mark back to his initial location: %s"% (insert_index),color="yellow")
+    
+    self.text_widget.mark_set("insert", insert_index) # try to keep the insert mark at the same place
+    
+    t_address = self.parent_perspective.broker.transport.getPeer()
+    self.log("Connected to '%s:%i' as site '%s' (num_of_sites %s)"%(t_address.host, t_address.port, self.id, num_of_sites))
+    
+    self.log("HB after the connection %s"% self.HB, color="yellow") # just for debugging
+    self.log("delayed_operations after the connection %s"% self.delayed_operations, color="yellow") # just for debugging
+    self.log("self.state_vector %s" % self.state_vector, color="yellow") # just for debugging
+
+    # upon connection we need to enable the chat system 
+    # &lt;&lt;&lt;&lt; EDIT CODE HERE
+    
+    self.connected = 1 # indicate the success
+    return
+    </t>
 </tnodes>
 </leo_file>

@@ -1128,7 +1128,7 @@ class Chalks:
         t_text.grid(row=0, column=2)
     
         port_entry = t_entry = Entry(t_frame, width=5,  background="white")
-        t_entry.insert(END, "4321")
+        t_entry.insert(END, "8787")
         t_entry.grid(row=0, column=3, sticky=W)
         
         t_text = Label(t_frame, text="e.g. : 4321")
@@ -1455,6 +1455,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         return
     
     
+    #@+others
+    #@+node:rodrigob.20040909060311:start collaborating
     def start_collaborating(self, ret_tuple):
         """
         Callback for the connection procedure.        
@@ -1470,26 +1472,25 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
                 self.delayed_operations,
                 self.text_buffer,
                 self.state_vector
-        
         """
         #site_index, num_of_sites, base_state_vector, base_text, ops_list = ret_tuple
-        t_sites_index, t_state_vector_table, t_msv, t_hb, t_delayed_operations , base_text, base_state_vector = ret_tuple
-        ops_list = [] 
+        t_sites_index, t_state_vector_table, t_msv, t_HB, t_delayed_operations , base_text, base_state_vector = ret_tuple
+    
         num_of_sites = len(t_sites_index)
-        #site_index = max(t_sites_index.keys())  # <<<< is it safe to assume my site_id is the largest one returned from parent current state ?
+    
         # init the internal ConcurrentEditable
-        
         from ConcurrentEditable import ConcurrentEditable
-        ConcurrentEditable.__init__(self, 1,2) # site_index, num_of_sites) # site_index, num_of_sites # the clients has site_index 1, thus state_vector == [server, client]
+        ConcurrentEditable.__init__(self, 1,2) # site_index, num_of_sites) # site_index, num_of_sites # the clients has site_index 1, thus state_vector == [server, client] # <<< This line seems fine, this should be managed in a different way by ConcurrentNode
     
         self.set_text(base_text)
     
         self.state_vector = base_state_vector # <<<< is this a correct idea ?
     
         self.log("Base state vector %s"% base_state_vector, color="yellow") # just for debugging
-        self.log("Received ops_list (len == %s) %s"%( len(ops_list), ops_list), color="yellow") # just for debugging
-            
-        for t_dict in ops_list: #ops_list is a list of dictionaries that define a list of operations
+        self.log("Received ops_list (len == %s) %s"%( len(t_HB), t_HB), color="yellow") # just for debugging
+        
+        from ConcurrentEditable import Operation    
+        for t_dict in t_HB: #ops_list is a list of dictionaries that define a list of operations
             self.receive_operation(Operation(**t_dict))	# instanciate and receive
         
         self.log("Setting the index mark back to his initial location: %s"% (insert_index),color="yellow")
@@ -1503,11 +1504,15 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         self.log("delayed_operations after the connection %s"% self.delayed_operations, color="yellow") # just for debugging
         self.log("self.state_vector %s" % self.state_vector, color="yellow") # just for debugging
     
-        # upon connection we need to enable the chat system # <<<< EDIT CODE HERE
+        # upon connection we need to enable the chat system 
+        # <<<< EDIT CODE HERE
         
         self.connected = 1 # indicate the success
         return
         
+    #@nonl
+    #@-node:rodrigob.20040909060311:start collaborating
+    #@-others
     
     def disconnect_from_server(self):
         """
@@ -2378,7 +2383,12 @@ class ChalksPerspective(pb.Avatar):
         self.id = id
         
         self.node.add_site(id) # we register us in the parent
-        return self.node.get_state() # we obtain and return the required data to start the session in the child
+        
+        # we obtain and return the required data to start the session in the child
+        t_state = self.node.get_state(); t_state = list(t_state);
+        # Convert HB Operation objects to diccionaries
+        t_HB = t_state[3]; t_HB = map(dict, t_HB); t_state[3] = t_HB;
+        return t_state
         
     
     def perspective_collaborate_out(self):
