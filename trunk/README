@@ -1,299 +1,51 @@
+###############################################################################
+# This program is free software; you can redistribute it and/or modify        #
+# it under the terms of the GNU General Public License as published by        #
+# the Free Software Foundation; either version 2 of the License, or           #
+# (at your option) any later version.                                         #
+#                                                                             #
+# This program is distributed in the hope that it will be useful,             #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of              #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               #
+# GNU General Public License for more details.                                #
+#                                                                             #
+# You should have received a copy of the GNU General Public License           #
+# along with this program; if not, write to the Free Software                 #
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA   #
+###############################################################################
 
-READ THIS FILE TO UNDERSTAND HOW TO USE THIS PROGRAM,
-unless you are a "pythonic twisted mind leo user" you will not guess how to use this files.
-The text is somewhat long, but you will see that LeoN is very easy to use (both client and server side).
-
-What is LeoN ?
+What is Chalks ?
 --------------
+Chalks is a software under development for crossplatform realtime concurrent editing. The primary focus will be ease of use and minimum requirements.
 
-LeoN means "Leo over Network".
-
-Leo is an multiplatform open source extensible outliner. http://leo.sf.net
-
-LeoN is a plugin for Leo that allow near to real time collaboration between Leo editors.
-
-LeoN is separated in two parts: the client plugin and the server.
-The LeoN plugin allow Leo to connect to a  LeoN server.
-
-To setup a local LeoN system you need both components.
-A LeoN server can store as many projects as the users desire.
-
-Leo and LeoN are written in Python. http://www.python.org
-LeoN require Twisted, a network module for Python. http://www.twistedmatrix.com
-Leo, LeoN, Twisted and Python are open source multiplatform projects.
-
-
+Chalks is written in Python. http://www.python.org
+Chalks requires Twisted, a network module for Python. http://www.twistedmatrix.com
+Chalks, Twisted and Python are open source multiplatform projects.
 
 Features
 --------
 
-- Easy and confortable integration with the Leo editor
 - Server/Client architecture, ultra easy usage
-- Full clones support, full unicode support
-- Allow download/upload Leo outline from/to the server (thus direct internet outlines sharing)
-- Direct publication of the outlines via web
-- Basic server side persistence of the outlines
-- Chat service for Leo clients connected in the outline
-- Concurrent edition of nodes content, allow more than a user to edit a node at the same time over the same version
-- Administration system to manage access and permissions over the outlines/nodes
-- Full crossplatform (herited from python, leo and twisted)
-
+- Full crossplatform (inherited from python, and twisted)
 
 Release Status
 --------------
 
-LeoN
-Release  >>>HAVE TO REWRITE IT<<< '0.1.0 alpha'
-CodeName "Feux d'artifice"
-
-This is the first alpha release of LeoN.
-
-This release provide all the required features to use Leo in a networked ambient.
-
-All the system is designed and implemented, but many parts still buggy. 
-This version provide a system that need to be tested, critized, and stabilized.
-
-It is important to recall that all the described features are aviables and working, but in alpha stages. This code is not ready for production use and it does NOT ensure the data preservation. Use carefully, to do some test and give feedback to the author.
-
-It is important to notice that this release has the garbage collector of the concurrent edition system disabled. That mean the program posibly will increment, slowly, his memory usage. This is not an issue for an alpha release, where the code is not expected to run more than a few hours continously; but is important in case someone would reuse this code directly. This topic was delayed for the next release because it require a special focus, at the conceptual level.
-
-
-Next steps
-----------
-
-- check and enable the gargabe collector implementation
-- make hard rock the concurrent editable module
-- debug, debug, debug
-- check the approach as a valid solution
-- step2, 3 and 4 are aviable, step1 still not created (different work). step1: leo outlines merge 
-
+Still in planning/design phase
 
 Know bugs
 ---------
 
-This release is alpha stage so some things will fail and some things are known to fail. Anyway it is necessary to specify *any* bug found, during tests some weirdness appeared so this are area were bugs are expected to be detected.
 
-- the permissions system is not hard rock and some prohibited data can be accesses (example, via outline download)
-- move outlines get weird, something at the outline positions level
-- there can be unicode problems at the passwords level, not checked
-- the software is developed on a Linux ambient, no idea about possible windows/mac os platform specific bugs
-- some hooks in the systems are hardcoded, so there can be ways to do not trigger them (example, nodes renaming)
-- the system is designed and implemented considering networks delays, but the author have no access to two remotes machines for testing purpose. Only tests on a LAN have been realized, probably some underlying bugs related to the delay lines could remain. (the next tests will be realized using simulated delay lines).
-- the Todo list include elements that can be considered bugs
 
-Instalation
------------
+Installing 
+----------
 
-Short
+To install the source package, try running, as root:
+
+ $ python setup.py install
+
+Using
 -----
 
-Copy the 'leo_plugin' directory in you leo pluglins directory. Enable in your "plugin/pluginsManager.txt" the file "mod_LeoN.py". Run Leo.
-
-
-Detailed
---------
-
-The installation is manual, Leo still developing a better plug-ins installation system.
-
-Please follow this instructions:
-
-1- First ensure that you have properly installed in your system:
-    a- python 2.x (python 2.3 is recomended), http://www.python.org 
-    b- Leo >= 4.1, http://leo.sf.net
-    c- Twisted >= 1.1.1 (a python module), http://www.twistedmatrix.com
-    
-  Ensure that you use the correct versions.
-
-2- Decompress the LeoN distribution file, enter into the created directory. This directory contain two subdirectories "leo_plugin" and "leon_server".
-
-LeoN is composed of two parts: a client plugin and a LeoN server.
-
-3- The release has a directory named "leo_plugin", copy all the contents of this directory in the "plugins" directory of your Leo installation. 
-
-4- Edit the file "plugin/pluginsManager.txt" of your Leo installation, add a line with the text "mod_LeoN.py". 
-  We recommend to also include a line with the plugin "redirect_to_log.py". 
-
-5- Congratulations you have finished the installation of LeoN ! 
-  At the next start of Leo you should see in the message bar the text "Welcome to LeoN"
-
-Please read the Usage instruction to know how to use the code, specially about how to startup a LeoN server and how to use the Leo(N) client.
-
-In the future we expect to create an all-in-one install file (technically feasible, at least Twisted+Leo+LeoN).
-
-Usage instructions
-------------------
-
-The usage is subdivided in four topics,
-
-1. How to install LeoN ?
-2. How to run a server ?
-3. How to connect to a server ?
-4. Panoramas
-
----
-
-1. How to install LeoN ?
-------------------------
-
-See the previous "Instalation" section, obviously LeoN has to be correctly installed. 
-
-You should be able to run Leo 
-
-$ leo
-
-and see, after startup, in the message bar the text "Welcome to LeoN".
-
-2. How to run a server ?
-------------------------
-
-LeoN is separated in two different elements the 'client' and the 'server'. The server is a must to use the system, normally there will be many (2-20) clients connected to one server. The 'server' is a program, just like Leo, but it run as a 'daemon', that is, in the background.
-
-The 'server' files of LeoN can be found in the directory "leon_server". 
-There you will find some *.bat, *.sh files, as well as a *.tac and *.tap file.
-
-Twisted make very easy creating and using servers.
-
-For starters the release provide a ready-to-use server.  
-Run the command "start_LeoServer.sh" (or "start_LeoServer.bat" if using windows) to start a server with some dummy default contents. 
-Normally nothing should happen, now the server is running in the background, providing services in the port 8787 and 8788.
-
->>> to run a server use the script "start_LeoServer", port 8787 will provide a LeoServer and 8788 a Web server. <<<
-
-Open a web navigator and look at the url "http://localhost:8788", if a page appear, congratulations your server is running !
-At this web page you will be able to see the contents of the server outlines and who is editing it.
-
-At the end of the server it will automagically store all his data in the .tap file, in order to restore his content when running it again latter. The server can be turned off using the stop_LeoServer.sh command (in windows you will to manually kill the process).
-
-The default server include accounts for 'user1', 'user2' and 'admin_user'.
-
-Now that you have your LeoServer running, look at the next section to learn how to use Leo with the LeoN plugin.
-
-IMPORTANT: if your going to use LeoN between various computer in a LAN make sure that the firewalls of the network allow TCP transactions in the ports 8787 and 8788.
-
-2.1 Advanced users 
-------------------
-
-All the magics of server daemonizing, logging and persistence is made by Twisted.
-The shell scripts call the program "twistd", look at the Twisted documentation for more information about it.
-
-The '.tap' file is a "twisted application pickle".
-The '.tac' file is a "twisted application configuration" file, and will allow you to create new empty '.tap' files (look inside it for more information).
-
-Both '.tap' and '.tac' files are executed using the "twistd" command (twisted daemon).
-
-Respect of the web publishing, the "templates" directory contain two '.xhtml' files that define the esthetics (not the contents) of the web pages published, that files can be edited and the changes will be apreciable at the next page reload (does not require server restart). Then, you can edit that files to make the webpages look just like you like.    
-3. How to connect to a server ?
--------------------------------
-
-3.1 @leoServer nodes
---------------------
-
-This is when the funny start !
-At this point we expect that you have already installed the plugin with success, made run the LeoServer with success too. 
-The server has to be running in order to be able to connect to it.
-
-The LeoN plugin provide the definition for a new kind of node, with node name starting with "@leoServer".
-LeoN expect to find the following notation for that nodes, 
-
-@leoServer <dnsname or ip>:<port>:<path>
-
-or
-
-@leoServer <dnsname or ip>:<path>
-
-if no port is indicated, the default port is 8787.
-If you are running a LeoServer on the local machine then you should create a node named
-
-@leoServer localhost:8787:/
-
-The @leoServer nodes define the machine and port to connect, a at which remote server node access. '/' is the root nodes, but you could login directly into a known subnodes. Depending on the administrator LeoServer configuration, you will not be able to connect at the root node, and you will be forced to connect directly into a project subnode (example "@leoServer the_server:/your_project").
-
-The @leoServer node headline answer the "where ?" but the "who ?" is missing. The LeoN plugin will expect that the @leoServer nodes will contain in his *body* the "@login" directive (if not found an error is connected).
-That directive use the following notation
-
-@login <name>:<password>
-
-Thus the "@login" directive indicate your authentification at the connection.
-
-Once a "@leoServer" node is correctly defined a simple double click over the node icon (not over the headline, over the icon) will initiate the connection procedure to the server, after some seconds a new remote outline will appear.
-
->>> to connect to a @leoServer node you have to doubleclick over this icon. Look at the example file "LeoNtest.leo".<<<
-
-You will find the "leon_plugin/LeoN/LeoNtest.leo" outline, which include a "@leoServer" node with the username and password of the predefined user named "user1" (password "pass1"). A simple double click over that node icon (the icon, not the headline) will connect the you to the local running server.
-
-
-3.2 After connection
---------------------
-
-After connection, if everything go fine two things should happen,
-- a new suboutline should appear, corresponding to the server content at that path,
-- in the log pane a char bar should appear. 
-
-The chat bar allow you to send messages to the persons in the room, the editions to the outline will be propagated to the server and to the related online clients, and at the first edition of the body of an online node, you will automatically enter in the collaborative mode (loosing the first edition). The change to the collaborative mode could take some seconds, please be patient.
-
-If you are using a local machine server, with your web navigator visit the site "http://localhost:8788" to see server outline published via web.
-
-This kind of features become interesant when more than one persons are intereseted for the same outline.
-
-More documentation can be found in the "LeoN.leo" file.
-
-4. Panoramas
-------------
-
-This alpha release provides to you some interesant panoramas:
-
-- Various users play
-
-  Run a server, install various clients in your LAN and play with your friends creating some test outlines and editing the content. 
-  You can see how the outline is directly published in the port 8788 of you server machine.
-
-- Code Lecture
-
-  The file LeoN.leo contain all the code and his documentation. Interested hackers should start to take a look there.
-
-- Test Bed
-
-  The file "LeoNtest.py" is the test bed for LeoN (specially concurrent editable and server elements), look at "LeoNtest.py -h" to see his usage.
-
-
----
-     
-The above instructions should be enough to reproduce the screenshots presented at http://souvenirs.sf.net .
-
-The intention of this release is to allow more people to introduce them in the LeoN project, we expect feedback, bugs report, and constructive critics.
-
-Explore the LeoN.leo outline for more infos, details, code notes and future plans.
-
-We encourage you to post comments, critiques, suggestions for this project in the Sourceforge Leo Devel forum (link aviable at http://leo.sf.net) or a the author mail <rodrigo_b at users dot sourceforge dot net>.
-
-
-
-----
-# LeoN version 0.1.0 alpha, "Feux d'artifice".
-# LeoN project. Leo over Network.
-# Rodrigo Benenson 2003, 2004. <rodrigo_b at users dot sourceforge dot net>
-# http://souvenirs.sf.net, http://leo.sf.net.
-# 
-# The collaborative editing code is based research papers of Chengzheng Sun.
-# 
-# This code is released under GNU GPL.
-# The license is aviable at 'LeoN.leo/LeoN/Docs/GNU GPL' or in the web 
-# http://www.gnu.org .
-# 
-# ---
-# This file is part of LeoN.
-# 
-# LeoN is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-# 
-# LeoN is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with LeoN; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-# ---
+To be written
