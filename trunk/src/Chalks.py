@@ -2457,6 +2457,50 @@ class ChalksPerspective(pb.Avatar):
     #@-others
 #@nonl
 #@-node:rodrigob.20040125194534:class ChalksPerspective
+#@+node:niederberger.20040909124137:class ChalksServerMonitor
+class ChalksServerMonitor(object):
+    """ 
+    This class provides removeService and addService methods for Rendezvous module's ServiceBrowser().
+    Users of this class should only call the getServers() method, which should return a dict of known local servers, keyed by server name. Each entry is a server, 
+    represented as a dictionary with the following keys:
+        "address": ip address
+        "identifier": user supplied string identifier for this service
+        "port": integer port
+   
+    """
+    def __init__(self):
+        self.servers =  {} # known servers
+        self.startListening()  # make it active
+
+    def removeService(self, rendezvous, type, name):
+        print "Server", name, "removed"
+        try:
+            del self.servers[name]
+        except KeyError:
+            print "attempt to remove unknown server"
+
+    def addService(self, rendezvous, type, name):
+        info = rendezvous.getServiceInfo(type, name)
+        
+        print "Server", name, "added"
+        print "   \-- ", info
+        
+        self.servers[name] = {'address':     info.getAddress(),
+                              'identifier':  info.getName(),
+                              'port':        info.getPort(),
+                              }                              
+        
+    def getServers(self):
+        return self.servers
+        
+    def startListening(self):
+        from Rendezvous import Rendezvous, ServiceBrowser        # <<< will need to be updated if module location changes
+        print "Started listening local network for Chalks servers ..."
+        r = Rendezvous()
+        type = "_chalks._tcp.local."
+        browser = ServiceBrowser(r, type, self)
+
+#@-node:niederberger.20040909124137:class ChalksServerMonitor
 #@+node:rodrigob.20040119132949:class FileStack
 class FileStack:
     """

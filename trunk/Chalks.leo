@@ -1714,7 +1714,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 </v>
 </v>
-<v t="rodrigob.20040125194534" a="EM"><vh>class ChalksPerspective</vh>
+<v t="rodrigob.20040125194534" a="M"><vh>class ChalksPerspective</vh>
 <v t="rodrigob.20040129150513"><vh>logout</vh></v>
 <v t="rodrigob.20040126020641" a="M"><vh>collaborate in/out</vh></v>
 <v t="rodrigob.20040127190845" a="E"><vh>bi directional methods</vh>
@@ -1749,7 +1749,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040128012627"><vh>generate operations</vh></v>
 <v t="rodrigob.20040909033320"><vh>set text</vh></v>
 </v>
-<v t="rodrigob.121403173614.1509"><vh>ConcurrentEditable</vh>
+<v t="rodrigob.121403173614.1509" a="E"><vh>ConcurrentEditable</vh>
 <v t="rodrigob.121403173614.1510"><vh>receive operation</vh></v>
 <v t="rodrigob.121403173614.1511"><vh>apply</vh></v>
 <v t="rodrigob.121403173614.1512"><vh>execute</vh>
