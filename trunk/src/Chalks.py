@@ -1626,18 +1626,19 @@ class ChalksNode(ConcurrentEditableNode):
     All messages that arrive to a node has to be repeated to the other nodes.
     This is the class that generate all the operations to be sent to the server, and it the the one that process the received operations.
     """
-    
+
+    #@    @+others
+    #@+node:rodrigob.20041011002305:__init__
     def __init__(self, chalks_gui, text=""):
         """
         """
         
         ConcurrentEditableNode.__init__(self,)
-
+    
         # initialize the extra attributes		
         self.chalks_gui  = chalks_gui # stores a reference to the gui object
-
+    
         self.nickname = guess_username()
-        self.site_id = None # site_id is an unique internet identifier
         self.connected = 0              # initially we are not connected to anyone
         
         # perspectives of the adjacent nodes in the network
@@ -1653,15 +1654,15 @@ class ChalksNode(ConcurrentEditableNode):
         self.text_widget.tag_config("to_send", relief= RAISED, borderwidth=4, background= "beige")# work fine in Linux
             
         self.deletion_buffer = () # helper variable store a cumulative erasure (successive delete or insert commands) in the tuple (startpos, len)
-
+    
         #<<<<< "text" parameter is not being used. Keep it in mind when fixing this method, as the open dialog will call it with textbase from a local file
         if text:
             self.set_text(text)        
-
+    
         return
-
-
-    #@    @+others
+    
+    
+    #@-node:rodrigob.20041011002305:__init__
     #@+node:rodrigob.20040125154815.2:connect to/disconnect from parent node
     
     #@+others

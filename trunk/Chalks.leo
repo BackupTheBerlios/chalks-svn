@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2937" clone_windows="0"/>
-<globals body_outline_ratio="0.50572519084">
-	<global_window_position top="10" left="10" height="986" width="1280"/>
+<globals body_outline_ratio="0.482824427481">
+	<global_window_position top="10" left="10" height="524" width="800"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -29,7 +29,6 @@
 <v t="rodrigob.20040826155317" a="EM"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
 <v t="rodrigob.20040908003956" a="E"><vh>Latex</vh>
 <v t="rodrigob.20040908003956.1" a="E"
-marks="rodrigob.20040913233519,"
 expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010357.1,rodrigob.20040913234027,"><vh>@thin doc/design.tex</vh></v>
 <v t="rodrigob.20040908004300"><vh>@read-only doc/Makefile</vh></v>
 </v>
@@ -1688,22 +1687,25 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
 <v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
-<v t="niederberger.20040825222327.1" a="E"><vh>High</vh></v>
-<v t="niederberger.20040825222327.2" a="E"><vh>Medium</vh>
+<v t="niederberger.20040825222327.1" a="E"><vh>High</vh>
+<v t="rodrigob.20041011010233"><vh>state vectors and timestamps</vh></v>
+</v>
+<v t="niederberger.20040825222327.2"><vh>Medium</vh>
 <v t="niederberger.20040922110026" a="E"><vh>pyzeroconf problems</vh>
 <v t="niederberger.20040922111043"><vh>Another rendezvous bug</vh></v>
 <v t="niederberger.20040922110926"><vh>Rendez Vous crash the program if pc is without internet</vh></v>
 </v>
 <v t="rodrigob.20040918185607" a="E"><vh> Concurrent editable todos</vh></v>
 </v>
-<v t="niederberger.20040825222327.3" a="E"><vh>Low</vh>
+<v t="niederberger.20040825222327.3"><vh>Low</vh>
 <v t="rodrigob.20040125223416" a="E"><vh>hook problem</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040125160038"><vh>Code perspectives</vh>
-<v t="rodrigob.20040129141624" a="EM"><vh>network</vh>
+<v t="rodrigob.20040125160038" a="E"><vh>Code perspectives</vh>
+<v t="rodrigob.20040129141624" a="M"><vh>network</vh>
 <v t="rodrigob.20040913233519" a="M"><vh>&lt;&lt;about the connections process&gt;&gt;</vh></v>
 <v t="rodrigob.20040125154815.1" a="EM"><vh>class ChalksNode</vh>
+<v t="rodrigob.20041011002305"><vh>__init__</vh></v>
 <v t="rodrigob.20040125154815.2" a="EM"><vh>connect to/disconnect from parent node</vh>
 <v t="rodrigob.20040913221730" a="E"><vh>connect</vh>
 <v t="rodrigob.20040909060311" a="M"><vh>start collaborating</vh></v>
@@ -1863,7 +1865,9 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 </v>
 <v t="rodrigob.20040831112258.1" a="E"><vh>concurrent edition</vh>
+<v t="rodrigob.20041011000844" a="TV"><vh>&lt;&lt;about the state vectors and the timestamps in a distributed network&gt;&gt;</vh></v>
 <v t="rodrigob.20040125154815.1" a="EM"><vh>class ChalksNode</vh>
+<v t="rodrigob.20041011002305"><vh>__init__</vh></v>
 <v t="rodrigob.20040125154815.2" a="EM"><vh>connect to/disconnect from parent node</vh>
 <v t="rodrigob.20040913221730" a="E"><vh>connect</vh>
 <v t="rodrigob.20040909060311" a="M"><vh>start collaborating</vh></v>
@@ -1900,7 +1904,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040920122333" a="M"><vh>receive operation</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040121155420" a="M"><vh>ConcurrentEditableNode</vh>
+<v t="rodrigob.20040121155420" a="EM"><vh>ConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013418" a="E"><vh>__init__</vh></v>
 <v t="rodrigob.20040128011816"><vh>receive operation</vh></v>
 <v t="rodrigob.20040128011809" a="E"><vh>add/del site</vh>
@@ -1927,7 +1931,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040128012627"><vh>generate operations</vh></v>
 <v t="rodrigob.20040909033320"><vh>set text</vh></v>
 </v>
-<v t="rodrigob.121403173614.1509" a="M"><vh>ConcurrentEditable</vh>
+<v t="rodrigob.121403173614.1509" a="EM"><vh>ConcurrentEditable</vh>
 <v t="rodrigob.121403173614.1510"><vh>receive operation</vh></v>
 <v t="rodrigob.121403173614.1511"><vh>apply</vh></v>
 <v t="rodrigob.121403173614.1512"><vh>execute</vh>
@@ -30456,40 +30460,6 @@ class ChalksNode(ConcurrentEditableNode):
     All messages that arrive to a node has to be repeated to the other nodes.
     This is the class that generate all the operations to be sent to the server, and it the the one that process the received operations.
     """
-    
-    def __init__(self, chalks_gui, text=""):
-        """
-        """
-        
-        ConcurrentEditableNode.__init__(self,)
-
-        # initialize the extra attributes		
-        self.chalks_gui  = chalks_gui # stores a reference to the gui object
-
-        self.nickname = guess_username()
-        self.site_id = None # site_id is an unique internet identifier
-        self.connected = 0              # initially we are not connected to anyone
-        
-        # perspectives of the adjacent nodes in the network
-        self.parent_perspective = None
-        self.childrens_perspectives = []
-        
-        # attach some attributes and methods
-        for t_name in ["log", "log_error", "exception", "encoding"]: 
-            setattr(self, t_name, getattr(chalks_gui, t_name))
-        self.log = lambda text, *args, **kws: chalks_gui.log("\n%s" % text) # dummy trick
-                
-        self.text_widget = chalks_gui.text_widget
-        self.text_widget.tag_config("to_send", relief= RAISED, borderwidth=4, background= "beige")# work fine in Linux
-            
-        self.deletion_buffer = () # helper variable store a cumulative erasure (successive delete or insert commands) in the tuple (startpos, len)
-
-        #&lt;&lt;&lt;&lt;&lt; "text" parameter is not being used. Keep it in mind when fixing this method, as the open dialog will call it with textbase from a local file
-        if text:
-            self.set_text(text)        
-
-        return
-
 
     @others</t>
 <t tx="rodrigob.20040125154815.2">
@@ -31541,11 +31511,7 @@ This method have to be overwritten for network transfers support.
     </t>
 <t tx="rodrigob.20040128013418">def __init__(self, text=u""):
     """
-    &lt;&lt;&lt;&lt; EDIT THIS CONTENT
-    
-    OLD SERVER TEXT
-    Simple Observer and operations repeater.
-    It manage all the conection/disconnection syncronization problems.
+    Manage concurrent edition. Manage the apparition and disapparition of nodes.
     """
     
     assert type(text) is unicode, "Internal text data is managed as unicode data. Tried to initialize the ConcurrentEditableNode with data %s '%r'" % (type(text), text)
@@ -31560,6 +31526,7 @@ This method have to be overwritten for network transfers support.
     
     self.receiving_parent_state = 0 # tag used to indicate a sensible state where other client can not connect to us
     
+    self.site_id = None # site_id is an unique internet identifier
     self.id = None # the identifier of this node
     self.sites_index = {} # map &lt;known site id&gt; =&gt; &lt;local site index&gt;
     
@@ -31933,7 +31900,7 @@ Code related to the Chalks network and his related events
         
     return
 </t>
-<t tx="rodrigob.20040129165804">def add_site(self, site_id):
+<t tx="rodrigob.20040129165804">def add_site(self, site_id): # &lt;&lt;&lt;&lt; this method have to be renamed to "insert_site", because it does not append sites, but it can insert one in the middle of the sites list...
     """
     Add a site to the list of known sites.
     Known sites (normally all the nodes of the network) are possibly more than connected_sites (parent and childrens of the node)
@@ -31961,7 +31928,7 @@ Code related to the Chalks network and his related events
     # always add a new entry at the end of the state vectors (timestamps)
      
     # register the site
-    self.sites_index[site_id] = site_index
+    self.sites_index[site_id] = site_index # &lt;&lt;&lt;&lt; this line is wrong !!!! should define the site_index using the site_id, to have an unique order !!!!
     if site_id == self.id: # also update our self site_index (that is non zero, as it could be supossed)
         self.site_index = site_index
 
@@ -32990,5 +32957,91 @@ perspective_receive_op = perspective_receive_operation
 remote_receive_op = remote_receive_operation # alias
     
 </t>
+<t tx="rodrigob.20041011000844">@language latex
+@color
+\section{About the state vectors and the timestamps in a distributed network}
+
+% the core idea
+
+
+% why it is needed ?
+
+\subsection{Network aspects}
+
+This is an horrible draft.
+
+- The packets are tagged with dictionnaries, the sites manage operations with vectors. At operations reception/emission a translation is realized.
+
+% how to add a site ?
+
+- Simply the dictionanry is extend with a new entry. When a site receive a new entry it extend his local state_vector and HB timestamps.
+
+% how to quit a site ?
+
+- Tag the site_id operation timestamp entry with a -1. Thus when a site receive such packet it delete the entry in the local state_vector and HB timestamps. The site_id is keept in the site_id-&gt;site_index translation index for possible disordered packets reapareance. If a packet with non -1 killed site_id reference appears such reference is overwritten.
+
+This method should work fine but it allow anyone to disconnect/ban a site. As anyway all the comunications are insecure, we do not care about this issue by now.
+
+\subsection{Concurrent edition aspects}
+
+% how the new time stamp format is managed ?
+
+To ensure the concurrent edition convergence is important that every site consider an unique site order. Thus the site_id has to be defined to keep a specific order eg: the seconds since epoch. Using such site_id all the sites can be ordered in a specific way.
+
+
+To keep maximal backward compatibility the idea is to:
+1- Keep a map of site_id -&gt; site_index
+2- Implement methods to insert sites and delete sites
+
+
+If a site disconnect himself and then reconnect himself, it will appear as a new site, different from the first one.
+
+All the complication is focused on the disconnection/reconnection attack. If a site disconnect and reconect repreatidelly it will make the state_vector (and thus the timestamp) grow more and more, slowing down the communications and the local processing. 
+
+The first idea to solve this issue is to have clean up measures, maybe something smarter could be done ?
+
+
+
+</t>
+<t tx="rodrigob.20041011002305">def __init__(self, chalks_gui, text=""):
+    """
+    """
+    
+    ConcurrentEditableNode.__init__(self,)
+
+    # initialize the extra attributes		
+    self.chalks_gui  = chalks_gui # stores a reference to the gui object
+
+    self.nickname = guess_username()
+    self.connected = 0              # initially we are not connected to anyone
+    
+    # perspectives of the adjacent nodes in the network
+    self.parent_perspective = None
+    self.childrens_perspectives = []
+    
+    # attach some attributes and methods
+    for t_name in ["log", "log_error", "exception", "encoding"]: 
+        setattr(self, t_name, getattr(chalks_gui, t_name))
+    self.log = lambda text, *args, **kws: chalks_gui.log("\n%s" % text) # dummy trick
+            
+    self.text_widget = chalks_gui.text_widget
+    self.text_widget.tag_config("to_send", relief= RAISED, borderwidth=4, background= "beige")# work fine in Linux
+        
+    self.deletion_buffer = () # helper variable store a cumulative erasure (successive delete or insert commands) in the tuple (startpos, len)
+
+    #&lt;&lt;&lt;&lt;&lt; "text" parameter is not being used. Keep it in mind when fixing this method, as the open dialog will call it with textbase from a local file
+    if text:
+        self.set_text(text)        
+
+    return
+
+
+</t>
+<t tx="rodrigob.20041011010233">Implementation todo:
+- Check site_id management, have to be based on the time since epoch
+- Implement the insert_site/del_site method
+- Implement the timestamp/state_vector/packet_timestamp translation
+- Check the connection process to be consistent with the insert/del _site methods
+- Think about the cleanup methods</t>
 </tnodes>
 </leo_file>

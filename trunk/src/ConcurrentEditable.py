@@ -1821,11 +1821,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
     #@+node:rodrigob.20040128013418:__init__
     def __init__(self, text=u""):
         """
-        <<<< EDIT THIS CONTENT
-        
-        OLD SERVER TEXT
-        Simple Observer and operations repeater.
-        It manage all the conection/disconnection syncronization problems.
+        Manage concurrent edition. Manage the apparition and disapparition of nodes.
         """
         
         assert type(text) is unicode, "Internal text data is managed as unicode data. Tried to initialize the ConcurrentEditableNode with data %s '%r'" % (type(text), text)
@@ -1840,6 +1836,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
         
         self.receiving_parent_state = 0 # tag used to indicate a sensible state where other client can not connect to us
         
+        self.site_id = None # site_id is an unique internet identifier
         self.id = None # the identifier of this node
         self.sites_index = {} # map <known site id> => <local site index>
         
@@ -1933,7 +1930,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
     
     #@+others
     #@+node:rodrigob.20040129165804:add site
-    def add_site(self, site_id):
+    def add_site(self, site_id): # <<<< this method have to be renamed to "insert_site", because it does not append sites, but it can insert one in the middle of the sites list...
         """
         Add a site to the list of known sites.
         Known sites (normally all the nodes of the network) are possibly more than connected_sites (parent and childrens of the node)
@@ -1961,7 +1958,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
         # always add a new entry at the end of the state vectors (timestamps)
          
         # register the site
-        self.sites_index[site_id] = site_index
+        self.sites_index[site_id] = site_index # <<<< this line is wrong !!!! should define the site_index using the site_id, to have an unique order !!!!
         if site_id == self.id: # also update our self site_index (that is non zero, as it could be supossed)
             self.site_index = site_index
     
