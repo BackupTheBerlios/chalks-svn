@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2926" clone_windows="0"/>
-<globals body_outline_ratio="0.624113475177">
-	<global_window_position top="45" left="53" height="986" width="1280"/>
+<globals body_outline_ratio="0.5134751773049645">
+	<global_window_position top="10" left="10" height="705" width="1009"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -13,33 +13,24 @@
 </find_panel_settings>
 <vnodes>
 <v t="rodrigob.20040121154249" a="E"><vh>Chalks</vh>
-<v t="rodrigob.20040824110326"><vh>Introduction (for Chalks newbies)</vh>
-<v t="rodrigob.121403173614.1"><vh>Old LeoN (to purge) Introduction (for LeoN newbies)</vh>
-<v t="rodrigob.121403173614.2" a="E" tnodeList="rodrigob.121403173614.2,rodrigob.121403173614.3,rodrigob.123103123958,rodrigob.121403173614.4,rodrigob.121403173614.5,rodrigob.121403173614.6,rodrigob.123103162446,rodrigob.123103162446.1,rodrigob.123103162446.2,rodrigob.123103162446.3,rodrigob.122403213028"><vh>@nosentinelsfile README</vh>
-<v t="rodrigob.121403173614.3"><vh>&lt;&lt; what is LeoN ? &gt;&gt;</vh></v>
-<v t="rodrigob.123103123958"><vh>&lt;&lt; features &gt;&gt;</vh></v>
-<v t="rodrigob.121403173614.4" a="M"><vh>&lt;&lt; release status &gt;&gt;</vh></v>
-<v t="rodrigob.121403173614.5" a="M"><vh>&lt;&lt; installation instructions &gt;&gt;</vh></v>
-<v t="rodrigob.121403173614.6"><vh>&lt;&lt; usage &gt;&gt; (LeoN system usage)</vh>
-<v t="rodrigob.123103162446"><vh>&lt;&lt; 1. how to install LeoN ?&gt;&gt;</vh></v>
-<v t="rodrigob.123103162446.1"><vh>&lt;&lt; 2. how to run a server ? &gt;&gt;</vh></v>
-<v t="rodrigob.123103162446.2"><vh>&lt;&lt; 3. how to connect to a server ? &gt;&gt;</vh></v>
-<v t="rodrigob.123103162446.3"><vh>&lt;&lt; 4. panoramas &gt;&gt;</vh></v>
+<v t="rodrigob.20040824110326" a="E"><vh>Introduction (for Chalks newbies)</vh>
+<v t="rodrigob.20040826154516" a="E" tnodeList="rodrigob.20040826154516,rodrigob.20040826154830,rodrigob.20040826154614,rodrigob.20040826154614.1,rodrigob.20040826154830.1,rodrigob.20040826154830.2,rodrigob.20040826154830.3"><vh>@nosentinelsfile README</vh>
+<v t="rodrigob.20040826154830"><vh>&lt;&lt;legal declaration&gt;&gt;</vh></v>
+<v t="rodrigob.20040826154614"><vh>&lt;&lt;what is Chalks ?&gt;&gt;</vh></v>
+<v t="rodrigob.20040826154614.1"><vh>&lt;&lt;features&gt;&gt;</vh></v>
+<v t="rodrigob.20040826154830.1"><vh>&lt;&lt;release status&gt;&gt;</vh></v>
+<v t="rodrigob.20040826154830.2"><vh>&lt;&lt;installation instructions&gt;&gt;</vh></v>
+<v t="rodrigob.20040826154830.3"><vh>&lt;&lt;usage&gt;&gt;</vh></v>
+<v t="rodrigob.20040826155317"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
 </v>
-<v t="rodrigob.122403213028"><vh>&lt;&lt; legal declaration &gt;&gt;</vh></v>
-</v>
-<v t="rodrigob.121403173614.57"><vh>General view of the system</vh>
+<v t="rodrigob.121403173614.1" a="TV"><vh>Old LeoN (to purge) Introduction (for LeoN newbies)</vh>
+<v t="rodrigob.121403173614.57" a="E"><vh>General view of the system</vh>
 <v t="rodrigob.010104211709"><vh>see image misc/leon_scheme.png</vh></v>
 </v>
 </v>
 </v>
-<v t="rodrigob.20040824110326.1" a="E"><vh>Docs</vh>
-<v t="niederberger.20040825222327" a="ETV"><vh>Things left to do</vh>
-<v t="niederberger.20040825222327.1"><vh>High</vh></v>
-<v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
-<v t="niederberger.20040825222327.3"><vh>Low</vh></v>
-</v>
-<v t="rodrigob.20040824112428"><vh>Credits</vh></v>
+<v t="rodrigob.20040824110326.1"><vh>Docs</vh>
+<v t="rodrigob.20040826155317"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.9"><vh>Old LeoN (to purge) Docs</vh>
 <v t="rodrigob.121403173614.4" a="E"><vh>&lt;&lt; release status &gt;&gt;</vh></v>
 <v t="rodrigob.122403213028"><vh>&lt;&lt; legal declaration &gt;&gt;</vh></v>
@@ -1668,6 +1659,11 @@
 </v>
 </v>
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
+<v t="niederberger.20040825222327"><vh>Things left to do</vh>
+<v t="niederberger.20040825222327.1"><vh>High</vh></v>
+<v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
+<v t="niederberger.20040825222327.3"><vh>Low</vh></v>
+</v>
 <v t="rodrigob.20040125223416"><vh>HOOK PROBLEM</vh></v>
 <v t="rodrigob.20040125160038"><vh>Code perspectives</vh>
 <v t="rodrigob.20040129141624" a="M"><vh>network stuff</vh>
@@ -1762,24 +1758,24 @@
 </v>
 </v>
 </v>
-<v t="rodrigob.20040119132914" a="M" tnodeList="rodrigob.20040119132914,rodrigob.20040119133203,rodrigob.20040126020116,rodrigob.20040125194054,rodrigob.20040129130513,rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531.1,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040123142302,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123133012,rodrigob.20040123134959,rodrigob.20040128005315,rodrigob.20040124165851,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040123123829,rodrigob.20040123130224.1,rodrigob.20040125153909,rodrigob.20040125153909.1,rodrigob.20040122173046.1,rodrigob.20040122173046.3,rodrigob.20040122173046.2,rodrigob.20040125210836,rodrigob.20040122182446.1,rodrigob.20040123142018,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040125192325,rodrigob.20040125154657,rodrigob.20040125145031,rodrigob.20040123130224,rodrigob.20040121150952.2,rodrigob.20040121150952.7,rodrigob.20040121150952.6,rodrigob.20040122175312,rodrigob.20040123133928,rodrigob.20040123140212,rodrigob.20040125211222,rodrigob.20040123134358,rodrigob.20040125213003,rodrigob.20040125213003.1,rodrigob.20040121153312,rodrigob.20040124160427,rodrigob.20040121153834.4,rodrigob.20040123123802,rodrigob.20040123132311.1,rodrigob.20040126020116,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040125154815.3,rodrigob.20040125154815.4,rodrigob.20040125154815.5,rodrigob.20040125154815.6,rodrigob.20040125154815.8,rodrigob.20040125154815.10,rodrigob.20040125154815.11,rodrigob.20040125154815.12,rodrigob.20040125154815.13,rodrigob.20040125154815.14,rodrigob.20040125154815.15,rodrigob.20040125154815.16,rodrigob.20040125154815.17,rodrigob.20040125154815.18,rodrigob.20040125154815.9,rodrigob.20040125154815.19,rodrigob.20040125154815.7,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040127185444,rodrigob.20040127184605,rodrigob.20040127184605.1,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040129150513,rodrigob.20040126020641,rodrigob.20040127190845,rodrigob.20040125220331,rodrigob.20040127182541,rodrigob.20040119132949,rodrigob.20040122143140,rodrigob.20040127180819,rodrigob.20040125150021,rodrigob.20040125152117,rodrigob.20040124181251.3,rodrigob.20040130123655"><vh>@file Chalks.py</vh>
-<v t="rodrigob.20040119133203"><vh>Theorical aspects</vh>
+<v t="rodrigob.20040119132914" a="EM" tnodeList="rodrigob.20040119132914,rodrigob.20040119133203,rodrigob.20040126020116,rodrigob.20040125194054,rodrigob.20040129130513,rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531.1,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040123142302,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123133012,rodrigob.20040123134959,rodrigob.20040128005315,rodrigob.20040124165851,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040123123829,rodrigob.20040123130224.1,rodrigob.20040125153909,rodrigob.20040125153909.1,rodrigob.20040122173046.1,rodrigob.20040122173046.3,rodrigob.20040122173046.2,rodrigob.20040125210836,rodrigob.20040122182446.1,rodrigob.20040123142018,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040125192325,rodrigob.20040125154657,rodrigob.20040125145031,rodrigob.20040121150952.2,rodrigob.20040121150952.7,rodrigob.20040121150952.6,rodrigob.20040123133928,rodrigob.20040123140212,rodrigob.20040125211222,rodrigob.20040123134358,rodrigob.20040125213003,rodrigob.20040125213003.1,rodrigob.20040121153312,rodrigob.20040121153834.4,rodrigob.20040123123802,rodrigob.20040123132311.1,rodrigob.20040126020116,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040125154815.3,rodrigob.20040125154815.4,rodrigob.20040125154815.5,rodrigob.20040125154815.6,rodrigob.20040125154815.8,rodrigob.20040125154815.10,rodrigob.20040125154815.11,rodrigob.20040125154815.12,rodrigob.20040125154815.13,rodrigob.20040125154815.14,rodrigob.20040125154815.15,rodrigob.20040125154815.16,rodrigob.20040125154815.17,rodrigob.20040125154815.18,rodrigob.20040125154815.19,rodrigob.20040125154815.7,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040127185444,rodrigob.20040127184605,rodrigob.20040127184605.1,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040129150513,rodrigob.20040126020641,rodrigob.20040127190845,rodrigob.20040125220331,rodrigob.20040127182541,rodrigob.20040119132949,rodrigob.20040122143140,rodrigob.20040127180819,rodrigob.20040125150021,rodrigob.20040125152117,rodrigob.20040124181251.3,rodrigob.20040130123655"><vh>@file Chalks.py</vh>
+<v t="rodrigob.20040119133203" a="E"><vh>Theorical aspects</vh>
 <v t="rodrigob.20040126020116"><vh>network graph (about Server, Client, Children, Parent, and Trees)</vh></v>
 <v t="rodrigob.20040125194054"><vh>repetitions (personal note)</vh></v>
 </v>
 <v t="rodrigob.20040129130513" a="E"><vh>helpers</vh></v>
-<v t="rodrigob.20040119152542" a="E"><vh>class Chalks</vh>
-<v t="rodrigob.20040123131236" a="E"><vh>__init__</vh>
-<v t="rodrigob.20040125150558"><vh>&lt;&lt; install the web service &gt;&gt;</vh></v>
-<v t="rodrigob.20040125153141"><vh>&lt;&lt; install the collaboration service &gt;&gt;</vh>
+<v t="rodrigob.20040119152542" a="M"><vh>class Chalks</vh>
+<v t="rodrigob.20040123131236" a="EM"><vh>__init__</vh>
+<v t="rodrigob.20040125150558" a="M"><vh>&lt;&lt; install the web service &gt;&gt;</vh></v>
+<v t="rodrigob.20040125153141" a="M"><vh>&lt;&lt; install the collaboration service &gt;&gt;</vh>
 <v t="rodrigob.20040125200531.1"><vh>Chalks realm</vh></v>
-<v t="rodrigob.20040125200531"><vh>dummy checker</vh></v>
+<v t="rodrigob.20040125200531" a="M"><vh>dummy checker</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040123131236.1" a="E"><vh>quit</vh></v>
+<v t="rodrigob.20040123131236.1" a="EM"><vh>quit</vh></v>
 <v t="rodrigob.20040123142302" a="E"><vh>helpers</vh>
 <v t="rodrigob.20040129131141" a="M"><vh>set_encoding</vh></v>
-<v t="rodrigob.20040125204408"><vh>is dirty</vh></v>
+<v t="rodrigob.20040125204408" a="M"><vh>is dirty</vh></v>
 </v>
 <v t="rodrigob.20040123133012" a="E"><vh>log</vh>
 <v t="rodrigob.20040123134959"><vh>log_error</vh></v>
@@ -1788,7 +1784,7 @@
 </v>
 <v t="rodrigob.20040121151612"><vh>body (construct the gui)</vh>
 <v t="rodrigob.20040122173046" a="E"><vh>&lt;&lt; create frames &gt;&gt;</vh>
-<v t="rodrigob.20040123123802.1" a="E"><vh>&lt;&lt; create the splitter &gt;&gt;</vh>
+<v t="rodrigob.20040123123802.1" a="EM"><vh>&lt;&lt; create the splitter &gt;&gt;</vh>
 <v t="rodrigob.20040123123829"><vh>&lt;&lt; configure &gt;&gt;</vh></v>
 <v t="rodrigob.20040123130224.1"><vh>&lt;&lt; place &gt;&gt;</vh></v>
 </v>
@@ -1823,7 +1819,7 @@
 <v t="rodrigob.20040125211222"><vh>save text</vh></v>
 </v>
 <v t="rodrigob.20040123134358" a="E"><vh>connect to</vh>
-<v t="rodrigob.20040125213003"><vh>&lt;&lt; connect to callback &gt;&gt;</vh></v>
+<v t="rodrigob.20040125213003" a="M"><vh>&lt;&lt; connect to callback &gt;&gt;</vh></v>
 <v t="rodrigob.20040125213003.1"><vh>&lt;&lt; validation callback &gt;&gt;</vh></v>
 </v>
 </v>
@@ -1831,20 +1827,20 @@
 <v t="rodrigob.20040124160427" a="E"><vh>status bar commands</vh>
 <v t="rodrigob.20040121153834.4"><vh>updateStatusRowCol</vh></v>
 </v>
-<v t="rodrigob.20040123123802" a="E"><vh>help command</vh>
+<v t="rodrigob.20040123123802" a="EM"><vh>help command</vh>
 <v t="rodrigob.20040123132311.1" a="E"><vh>&lt;&lt; chalks help &gt;&gt;</vh>
 <v t="rodrigob.20040126020116"><vh>network graph (about Server, Client, Children, Parent, and Trees)</vh></v>
 </v>
-<v t="rodrigob.20040122173128"><vh>online_homepage</vh></v>
+<v t="rodrigob.20040122173128" a="M"><vh>online_homepage</vh></v>
 </v>
 </v>
 </v>
-<v t="rodrigob.20040125154815.1" a="E"><vh>class ChalksNode</vh>
+<v t="rodrigob.20040125154815.1"><vh>class ChalksNode</vh>
 <v t="rodrigob.20040125154815.2" a="E"><vh>connect to/disconnect from parent node</vh></v>
 <v t="rodrigob.20040125154815.3"><vh>edit content</vh>
 <v t="rodrigob.20040125154815.4"><vh>set text</vh></v>
 <v t="rodrigob.20040125154815.5"><vh>insert text</vh></v>
-<v t="rodrigob.20040125154815.6"><vh>delete text</vh></v>
+<v t="rodrigob.20040125154815.6" a="M"><vh>delete text</vh></v>
 <v t="rodrigob.20040125154815.8"><vh>fill body</vh>
 <v t="rodrigob.20040125154815.9" a="E"><vh>helpers functions</vh>
 <v t="rodrigob.20040125154815.10"><vh>&lt;&lt; def index_to_list &gt;&gt;</vh></v>
@@ -1864,16 +1860,16 @@
 </v>
 <v t="rodrigob.20040127182438" a="E"><vh>remote callable methods</vh>
 <v t="rodrigob.20040127182530" a="E"><vh>messages and presence methods</vh>
-<v t="rodrigob.20040127185444"><vh>get users list</vh></v>
+<v t="rodrigob.20040127185444" a="M"><vh>get users list</vh></v>
 <v t="rodrigob.20040127184605"><vh>send message</vh></v>
 <v t="rodrigob.20040127184605.1"><vh>set presence</vh></v>
 </v>
 <v t="rodrigob.20040126020544" a="E"><vh>insert/delete text</vh>
-<v t="rodrigob.20040127203753"><vh>check sites</vh></v>
+<v t="rodrigob.20040127203753" a="M"><vh>check sites</vh></v>
 </v>
 </v>
 </v>
-<v t="rodrigob.20040125194534" a="E"><vh>class ChalksPerspective</vh>
+<v t="rodrigob.20040125194534"><vh>class ChalksPerspective</vh>
 <v t="rodrigob.20040129150513"><vh>logout</vh></v>
 <v t="rodrigob.20040126020641"><vh>collaborate in/out</vh></v>
 <v t="rodrigob.20040127190845" a="E"><vh>bi directional methods</vh>
@@ -1895,9 +1891,9 @@
 <v t="rodrigob.20040125151012" tnodeList="rodrigob.20040125151012,rodrigob.20040125151012.1"><vh>@nosentinelsfile Chalks.xhtml</vh>
 <v t="rodrigob.20040125151012.1"><vh>&lt;&lt; css code &gt;&gt;</vh></v>
 </v>
-<v t="rodrigob.121403173614.1502" tnodeList="rodrigob.121403173614.1502,rodrigob.121403173614.1503,rodrigob.121403173614.1504,rodrigob.122403213028,rodrigob.121403173614.1505,rodrigob.121403173614.1506,rodrigob.121403173614.1507,rodrigob.121403173614.60,rodrigob.121403173614.1508,rodrigob.121403173614.1509,rodrigob.121403173614.1510,rodrigob.121403173614.1511,rodrigob.121403173614.1512,rodrigob.121403173614.1513,rodrigob.121403173614.1514,rodrigob.121403173614.1515,rodrigob.121403173614.1516,rodrigob.20040121161315,rodrigob.121403173614.1517,rodrigob.121403173614.1518,rodrigob.121403173614.1519,rodrigob.121403173614.1520,rodrigob.121403173614.1521,rodrigob.121403173614.1522,rodrigob.121403173614.1523,rodrigob.121403173614.1524,rodrigob.121403173614.1525,rodrigob.121403173614.1526,rodrigob.121403173614.1527,rodrigob.121403173614.1528,rodrigob.121403173614.1529,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1534,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1537,rodrigob.121403173614.1538,rodrigob.121403173614.1539,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.121403173614.1542,rodrigob.121403173614.1543,rodrigob.121403173614.1544,rodrigob.121403173614.1545,rodrigob.121403173614.1546,rodrigob.20040121154800,rodrigob.20040121155420,rodrigob.20040128013418,rodrigob.20040128011816,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040130122927,rodrigob.20040129165804.1,rodrigob.20040129165804.2,rodrigob.20040128011921,rodrigob.20040128011921.1,rodrigob.20040130224144,rodrigob.20040129181502,rodrigob.20040130225705,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040128011939,rodrigob.20040130225148.1,rodrigob.20040128012459,rodrigob.20040128012627,rodrigob.121403173614.1547,rodrigob.121403173614.1548,rodrigob.121403173614.1549,rodrigob.121403173614.1550,rodrigob.20040121155542,rodrigob.20040128013509,rodrigob.20040128013523"><vh>@file ConcurrentEditable.py</vh>
-<v t="rodrigob.121403173614.1503"><vh>&lt;&lt;docs&gt;&gt;</vh>
-<v t="rodrigob.121403173614.1504"><vh>About</vh>
+<v t="rodrigob.121403173614.1502" a="E" tnodeList="rodrigob.121403173614.1502,rodrigob.121403173614.1503,rodrigob.121403173614.1504,rodrigob.122403213028,rodrigob.121403173614.1505,rodrigob.121403173614.1506,rodrigob.121403173614.1507,rodrigob.121403173614.60,rodrigob.121403173614.1508,rodrigob.121403173614.1509,rodrigob.121403173614.1510,rodrigob.121403173614.1511,rodrigob.121403173614.1512,rodrigob.121403173614.1513,rodrigob.121403173614.1514,rodrigob.121403173614.1515,rodrigob.121403173614.1516,rodrigob.20040121161315,rodrigob.121403173614.1517,rodrigob.121403173614.1518,rodrigob.121403173614.1519,rodrigob.121403173614.1520,rodrigob.121403173614.1521,rodrigob.121403173614.1522,rodrigob.121403173614.1523,rodrigob.121403173614.1524,rodrigob.121403173614.1525,rodrigob.121403173614.1526,rodrigob.121403173614.1527,rodrigob.121403173614.1528,rodrigob.121403173614.1529,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1534,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1537,rodrigob.121403173614.1538,rodrigob.121403173614.1539,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.121403173614.1542,rodrigob.121403173614.1543,rodrigob.121403173614.1544,rodrigob.121403173614.1545,rodrigob.121403173614.1546,rodrigob.20040121154800,rodrigob.20040121155420,rodrigob.20040128013418,rodrigob.20040128011816,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040130122927,rodrigob.20040129165804.1,rodrigob.20040129165804.2,rodrigob.20040128011921,rodrigob.20040128011921.1,rodrigob.20040130224144,rodrigob.20040129181502,rodrigob.20040130225705,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040128011939,rodrigob.20040130225148.1,rodrigob.20040128012459,rodrigob.20040128012627,rodrigob.121403173614.1547,rodrigob.121403173614.1548,rodrigob.121403173614.1549,rodrigob.121403173614.1550,rodrigob.20040121155542,rodrigob.20040128013509,rodrigob.20040128013523"><vh>@file ConcurrentEditable.py</vh>
+<v t="rodrigob.121403173614.1503" a="E"><vh>&lt;&lt;docs&gt;&gt;</vh>
+<v t="rodrigob.121403173614.1504" a="E"><vh>About</vh>
 <v t="rodrigob.122403213028"><vh>&lt;&lt; legal declaration &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.1505"><vh>Release status</vh></v>
 </v>
@@ -1995,7 +1991,7 @@
 </v>
 </v>
 </v>
-<v t="rodrigob.20040129132740" a="E"><vh>docs</vh>
+<v t="rodrigob.20040129132740"><vh>docs</vh>
 <v t="rodrigob.20040129130513.1"><vh>Unicode utils...</vh>
 <v t="rodrigob.20040129130513.2"><vh>isUnicode</vh></v>
 <v t="rodrigob.20040129130513.3"><vh>isValidEncoding</vh></v>
@@ -3431,30 +3427,6 @@ is propose to rename the "leoPlugins.leo" as "LeoPlugins.leo", in the sake of co
 This is the LeoN outline, here you will find all the LeoN documentation and text aviable (some pictures are referenced too).
 
 Start reading the README file (subnode). For more information, explore the Docs node. Enjoy !</t>
-<t tx="rodrigob.121403173614.2">@language plain
-
-READ THIS FILE TO UNDERSTAND HOW TO USE THIS PROGRAM,
-unless you are a "pythonic twisted mind leo user" you will not guess how to use this files.
-The text is somewhat long, but you will see that LeoN is very easy to use (both client and server side).
-
-&lt;&lt; what is LeoN ? &gt;&gt;
-
-
-&lt;&lt; features &gt;&gt;
-
-
-&lt;&lt; release status &gt;&gt;
-
-
-&lt;&lt; installation instructions &gt;&gt;
-
-
-&lt;&lt; usage &gt;&gt;
-
-
-----
-&lt;&lt;legal declaration&gt;&gt;
-</t>
 <t tx="rodrigob.121403173614.3">What is LeoN ?
 --------------
 
@@ -30651,7 +30623,7 @@ RodrigoB.</t>
 @language python
 
 @
-Chalks is a simplified LeoN application. Pretend to give ultra easy usage to allow massive usage of this tecnology.
+Chalks is a simplified LeoN application. Intended to give ultra easy usage in order to allow massive employment of this technology.
 This program is one pure python package. Most of the code is derived from LeoN and Leo base code.
 http://souvenirs.sf.net
 http://leo.sf.net
@@ -30669,9 +30641,10 @@ http://leo.sf.net
 12/02/04 Minor bugfix. RodrigoB.
 19/02/04 Debugging. RodrigoB.
 
+25/08/04 Project ressurected. Ricardo Niederberger Cabral joined development efforts.
+
 Todo
 ----
-
 
 - need to make congruent the def start_collaborating(self, ret_tuple): expected data, and the ConcurrentEditableNode.get_state return tuple
 
@@ -30699,7 +30672,7 @@ Todo
 from Tkinter import *
 from Tkconstants import *
 
-# the first thing that we need to do is to install us in the Tkinter loop.
+# the first thing that we need to do is to install the Tkinter loop.
 from twisted.internet import tksupport
 from twisted.internet import reactor
 
@@ -30798,8 +30771,8 @@ from twisted.python import failure
 @c</t>
 <t tx="rodrigob.20040119152542">class Chalks:
     """
-    Main class that construct the Graphical User Interface and contain other interactive objects, as the CollaborativeEditableNode.
-    This class take care principaly of the Gui, the other tasks are delegated (components architecture, has-a architecture).
+    Main class that builds the Graphical User Interface and contains other interactive objects, such as the CollaborativeEditableNode.
+    This class takes care mainly of the GUI. Other tasks are delegated (components architecture, has-a architecture).
     """
     
     @others</t>
@@ -31126,7 +31099,7 @@ def online_homepage(self, event=1):
     
     import webbrowser
 
-    url = "http://souvenirs.sf.net"
+    url = "http://chalks.berlios.de"
     
     try:
         webbrowser.open_new(url)
@@ -31184,17 +31157,17 @@ def online_homepage(self, event=1):
 
 def onHelp(self, event=None):
     """
-    Show the help of the program
+    Show main help screen
     """
 
     from ScrolledText import ScrolledText
     top = Toplevel(self.root)
-    top.title("Help about the Admin Window")
+    top.title("Help")
     t = ScrolledText(top, wrap=WORD, padx=50); t.pack(expand=1, fill=BOTH)
     
     # add apropos
-    t.insert(END, "\nChalks 0.1.0. Rodrigo Benenson, LeoN project 2004.")
-    link_text = " Online homepage"
+    t.insert(END, "\nChalks " + self.version + "\nLicensed under the GNU GPL\nCopyright 2004, Chalks Development Team")
+    link_text = " Project homepage"
     t.insert(END, link_text)
     t.tag_config("hyperlink", underline=1, foreground="blue3")
     t.tag_bind("hyperlink", "&lt;Button&gt;", self.online_homepage)
@@ -31221,7 +31194,7 @@ parent = root
 import Tkinter as Tk
 
 # Create the frames.
-f = Tk.Frame(parent,bd=0,relief="flat")
+f = Tk.Frame(parent,bd=0,relief="flat",width=640,height=480) # without forcing width/height, the frame starts up with a really small dimension on win32 (almost iconic)
 f.pack(expand=1,fill="both",pady=1)
 pane1 = Tk.Frame(f)
 pane2 = Tk.Frame(f)
@@ -31288,13 +31261,14 @@ else:
     self.body(root) # build the gui
    
     self.encoding = "utf-8" # is this standard, sustainable ?
+    self.version = '0.0.1'
     
     
     self.file     = None # will keep the file instance
     self.filename = None # will keep the filename
     self.saved_version_hash = hash("\n") # used to check changes in the file
     
-    print "Chalks 0.1.0, started. GNU GPL. Rodrigo Benenson, LeoN project 2004.\n"
+    print "Chalks " + self.version + ", started. Licensed under the GNU GPL. Copyright 2004, Chalks Development Team (http://chalks.berlios.de)\n"
     
     &lt;&lt; install the web service &gt;&gt;
     &lt;&lt; install the collaboration service &gt;&gt;
@@ -31310,7 +31284,7 @@ def quit(self, *args):
     
     if self.is_dirty(): # if file is dirty
         if self.filename: 
-            message = "File %s contain change not yet saved.\nDo you want to save the file before quitting ?" % self.filename
+            message = "File %s contains changes not yet saved to disk.\nDo you want to save the file before quiting ?" % self.filename
         else:
             message = "The text has not been saved. Save before exit ?"
         
@@ -31670,7 +31644,7 @@ if web_service:
             break # stop creating web services
             
     else: # the range failed
-        self.log_error("Could not found an aviable port in the range %s to provide webpublishing of the contents." % [web_portno, web_portno+10])
+        self.log_error("Could not find an available port in the range %s to provide webpublishing of the text contents." % [web_portno, web_portno+10])
 </t>
 <t tx="rodrigob.20040125151012">@language html
 &lt;html&gt;
@@ -31828,12 +31802,12 @@ for port in xrange(pb.portno, pb.portno+10):
         continue
     else: # got it
         print "Starting Chalks service at chalks://localhost:%i" % port
-        print "Knowing your internet address (i.e. your IP) other users can connect themself to your session using the port %i." % port
+        print "Knowing your internet address (i.e. your IP) other users can connect themself to your session using the port %i." % port  #&lt;&lt;&lt;&lt;&lt; this should be replaced by a friendlier popup or message
         self.chalks_service = pb_service
         break # stop creating web services
         
 else: # the range failed
-    self.log_error("Could not found an aviable port in the range %s to provide the chalks service." % [pb.portno, pb.portno+10] )
+    self.log_error("Unable to find an available port in the range %s to provide the chalks service." % [pb.portno, pb.portno+10] )
     self.log_error("This is a fatal error")
     self.text_widget["state"] = DISABLED # I said fatal error...
     </t>
@@ -32181,7 +32155,7 @@ def set_cursor_position(self, who, pos):
     if op.get("avoid"):
         self.log( "AutoDeletion is avoiyed", color="yellow") # for debugging
         del op["avoid"] # I hope this will edit the operation stored in the HB
-        self.log("HB after operation avoyance %s"% self.HB, color="yellow") # just for debugging
+        self.log("HB after operation avoidance %s"% self.HB, color="yellow") # just for debugging
 
         return
 
@@ -32804,12 +32778,12 @@ self.nodes
 
     def requestAvatarId(self, credential):		
         """
-        give access to every one that request it
+        give access to everyone that requests it
         """
         if 1:
             return credential.username
         else:
-            return failure.Failure(error.UnauthorizedLogin("%s is not listed in the authorized users." % credential.username))
+            return failure.Failure(error.UnauthorizedLogin("'%s' is not listed in the authorized users list." % credential.username))
 
 </t>
 <t tx="rodrigob.20040125200531.1">class ChalksRealm:
@@ -32830,7 +32804,7 @@ self.nodes
 </t>
 <t tx="rodrigob.20040125204408">def is_dirty(self):
     """
-    Indicate if the contents of the file have changed since last saved.
+    Indicates if the contents of the file have changed since last saved.
     Use a hash function
     """
     
@@ -32862,9 +32836,9 @@ def save_text(self,):
     # if required, request a save as 
     if self.is_dirty():
         if self.filename: 
-            message = "File %s contain change not yet saved.\nWhen connecting a new text will be downloaded.\nDo you want to save the file before connecting ?" % self.filename
+            message = "File %s contains changes not yet saved.\nOnce connected, a new text will be downloaded.\nDo you want to save the current file before connecting ?" % self.filename
         else:
-            message = "The text has not been saved.\nWhen connecting a new text will be downloaded.\nSave before connecting ?"
+            message = "The text has not been saved.\nOnce connected, a new text will be downloaded.\nSave before connecting ?"
     
         ret = self.askYesNoCancel("Save and connect to ...", message) # ret 1, 0 or -1 for cancel
     
@@ -32884,7 +32858,7 @@ def save_text(self,):
     nickname = nickname_entry.get()
     
     top.destroy()
-    print "Requesting a connection to 'chalks://%s:%s' as '%s'" % (address, port, nickname) 
+    print "Requesting a connection to 'chalks://%s:%s' as '%s', please wait..." % (address, port, nickname) 
     # start the connection 
     self.node.connect_to_parent(address, port, nickname)
     return
@@ -33084,7 +33058,7 @@ def perspective_delete_text(self, startpos, length, timestamp = None):
     Return the dictonary of map node.id -&gt; user_nickname
     """
         
-    return {}
+    return {}  #&lt;&lt;&lt;&lt; implement
     
     
 </t>
@@ -33093,6 +33067,7 @@ this methods are common to both children-&gt;parent calls and parent-&gt;childre
 So we use only one implementation. ChalksPerspective calls ChalksNode implementation.
 @c</t>
 <t tx="rodrigob.20040127203753">def check_sites(self,):
+    # &lt;&lt;&lt;&lt; what is this method supposed to do ?
     pass</t>
 <t tx="rodrigob.20040128005315">def exception(self, error):
     """
@@ -33936,7 +33911,7 @@ for t_op in (self.HB + self.delayed_operations):
     # delete us childrens references
 
     return</t>
-<t tx="rodrigob.20040824110326"></t>
+<t tx="rodrigob.20040824110326">@language plain</t>
 <t tx="rodrigob.20040824110326.1">@nocolor
 
 Documentation of Chalks.
@@ -33949,7 +33924,81 @@ Not interesting (mostly used in first development stages, now almost everything 
 
 @color
 @language python</t>
-<t tx="rodrigob.20040824112428">Rodrigo Benenson Díaz (rodrigob at elo.utfsm.cl)
+<t tx="rodrigob.20040826154516">
+&lt;&lt;legal declaration&gt;&gt;
+&lt;&lt;what is Chalks ?&gt;&gt;
+&lt;&lt;features&gt;&gt;
+&lt;&lt;release status&gt;&gt;
+&lt;&lt;installation instructions&gt;&gt;
+&lt;&lt;usage&gt;&gt;
+
+
+
+
+</t>
+<t tx="rodrigob.20040826154614">
+
+What is Chalks ?
+--------------
+Chalks is a software under development for crossplatform realtime concurrent editing. The primary focus will be ease of use and minimum requirements.
+
+Chalks is written in Python. http://www.python.org
+Chalks requires Twisted, a network module for Python. http://www.twistedmatrix.com
+Chalks, Twisted and Python are open source multiplatform projects.
+
+</t>
+<t tx="rodrigob.20040826154614.1">
+Features
+--------
+
+- Server/Client architecture, ultra easy usage
+- Full crossplatform (inherited from python, and twisted)</t>
+<t tx="rodrigob.20040826154830">
+###############################################################################
+# This program is free software; you can redistribute it and/or modify        #
+# it under the terms of the GNU General Public License as published by        #
+# the Free Software Foundation; either version 2 of the License, or           #
+# (at your option) any later version.                                         #
+#                                                                             #
+# This program is distributed in the hope that it will be useful,             #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of              #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               #
+# GNU General Public License for more details.                                #
+#                                                                             #
+# You should have received a copy of the GNU General Public License           #
+# along with this program; if not, write to the Free Software                 #
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA   #
+###############################################################################
+
+This file is part of Chalks.</t>
+<t tx="rodrigob.20040826154830.1">
+Release Status
+--------------
+
+Still in planning/design phase
+
+Know bugs
+---------
+
+</t>
+<t tx="rodrigob.20040826154830.2">
+Installing 
+----------
+
+To install the source package, try running, as root:
+
+ $ python setup.py install</t>
+<t tx="rodrigob.20040826154830.3">
+Using
+-----
+
+To be written</t>
+<t tx="rodrigob.20040826155317">Chalks 2003, 2004.
+http://chalks.berlios.de
+
+The collaborative editing code is based research papers of Chengzheng Sun.
+
+Rodrigo Benenson Díaz (rodrigob at elo.utfsm.cl)
 
 Ricardo Niederberger Cabral (ncabral at terra.com.br)</t>
 </tnodes>
