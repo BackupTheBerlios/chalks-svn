@@ -33,12 +33,17 @@
 #@-at
 #@@c
 
-from twisted import copyright
-
-if int(copyright.version.split('.')[1]) < 3:
-    print "Chalks require Twisted 1.3 or superior. Download it from http://www.twistedmatrix.com"
-    from sys import exit
-    exit(0)
+### Check twisted version
+try:
+    from twisted.copyright import version as twistedVersion
+    twistedIntVersion = [int(x[0]) for x in twistedVersion.split('.')]
+    if (twistedIntVersion[0] >= 2) or (twistedIntVersion[0] >= 1 and twistedIntVersion[1] >= 3):
+        pass # Twisted version > 1.3 correct
+    else:
+        print "Chalks requires Twisted 1.3 or superior. Download it from http://www.twistedmatrix.com"
+        sys.exit(1)
+except:
+    print 'Error detecting Twisted version. Perhaps you are running a CVS/SVN version. Continuing anyway.'
 
 # Tkinter Imports
 from Tkinter import *
