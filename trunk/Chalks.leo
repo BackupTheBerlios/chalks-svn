@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2937" clone_windows="0"/>
-<globals body_outline_ratio="0.482824427481">
-	<global_window_position top="10" left="10" height="524" width="800"/>
+<globals body_outline_ratio="0.489361702128">
+	<global_window_position top="0" left="0" height="705" width="1009"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -1688,7 +1688,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
 <v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
 <v t="niederberger.20040825222327.1" a="E"><vh>High</vh>
-<v t="rodrigob.20041011010233"><vh>state vectors and timestamps</vh></v>
+<v t="rodrigob.20041011010233" a="TV"><vh>state vectors and timestamps</vh></v>
 </v>
 <v t="niederberger.20040825222327.2"><vh>Medium</vh>
 <v t="niederberger.20040922110026" a="E"><vh>pyzeroconf problems</vh>
@@ -1753,18 +1753,17 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040121155420" a="EM"><vh>ConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013418" a="E"><vh>__init__</vh></v>
 <v t="rodrigob.20040128011816"><vh>receive operation</vh></v>
-<v t="rodrigob.20040128011809" a="E"><vh>add/del site</vh>
-<v t="rodrigob.20040129165804" a="EM"><vh>add site</vh>
+<v t="rodrigob.20040128011809"><vh>add/del site</vh>
+<v t="rodrigob.20040129165804" a="E"><vh>add site</vh>
 <v t="rodrigob.20040130122927"><vh>&lt;&lt; expand the vectors and matrices &gt;&gt;</vh></v>
 </v>
-<v t="rodrigob.20040129165804.1" a="EM"><vh>del site</vh>
-<v t="rodrigob.20040129165804.2"><vh>del clients (server)</vh></v>
+<v t="rodrigob.20040129165804.1" a="E"><vh>del site</vh></v>
 </v>
-</v>
-<v t="rodrigob.20040128011921" a="E"><vh>network methods</vh>
+<v t="rodrigob.20040128011921" a="EM"><vh>network methods</vh>
 <v t="rodrigob.20040128011921.1" a="E"><vh>connect to parent </vh>
-<v t="rodrigob.20040130224144" a="M"><vh>old</vh></v>
-<v t="rodrigob.20040129181502"><vh>get_data</vh></v>
+<v t="rodrigob.20040130224144" a="EM"><vh>old</vh>
+<v t="rodrigob.20040129181502" a="M"><vh>get_data</vh></v>
+</v>
 </v>
 <v t="rodrigob.20040130225705"><vh>disconnect_from_parent</vh></v>
 <v t="rodrigob.20040130225148" a="EM"><vh>collaborate_in</vh>
@@ -1865,7 +1864,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 </v>
 <v t="rodrigob.20040831112258.1" a="E"><vh>concurrent edition</vh>
-<v t="rodrigob.20041011000844" a="TV"><vh>&lt;&lt;about the state vectors and the timestamps in a distributed network&gt;&gt;</vh></v>
+<v t="rodrigob.20041011000844"><vh>&lt;&lt;about the state vectors and the timestamps in a distributed network&gt;&gt;</vh></v>
 <v t="rodrigob.20040125154815.1" a="EM"><vh>class ChalksNode</vh>
 <v t="rodrigob.20041011002305"><vh>__init__</vh></v>
 <v t="rodrigob.20040125154815.2" a="EM"><vh>connect to/disconnect from parent node</vh>
@@ -1907,18 +1906,17 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040121155420" a="EM"><vh>ConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013418" a="E"><vh>__init__</vh></v>
 <v t="rodrigob.20040128011816"><vh>receive operation</vh></v>
-<v t="rodrigob.20040128011809" a="E"><vh>add/del site</vh>
-<v t="rodrigob.20040129165804" a="EM"><vh>add site</vh>
+<v t="rodrigob.20040128011809"><vh>add/del site</vh>
+<v t="rodrigob.20040129165804" a="E"><vh>add site</vh>
 <v t="rodrigob.20040130122927"><vh>&lt;&lt; expand the vectors and matrices &gt;&gt;</vh></v>
 </v>
-<v t="rodrigob.20040129165804.1" a="EM"><vh>del site</vh>
-<v t="rodrigob.20040129165804.2"><vh>del clients (server)</vh></v>
+<v t="rodrigob.20040129165804.1" a="E"><vh>del site</vh></v>
 </v>
-</v>
-<v t="rodrigob.20040128011921" a="E"><vh>network methods</vh>
+<v t="rodrigob.20040128011921" a="EM"><vh>network methods</vh>
 <v t="rodrigob.20040128011921.1" a="E"><vh>connect to parent </vh>
-<v t="rodrigob.20040130224144" a="M"><vh>old</vh></v>
-<v t="rodrigob.20040129181502"><vh>get_data</vh></v>
+<v t="rodrigob.20040130224144" a="EM"><vh>old</vh>
+<v t="rodrigob.20040129181502" a="M"><vh>get_data</vh></v>
+</v>
 </v>
 <v t="rodrigob.20040130225705"><vh>disconnect_from_parent</vh></v>
 <v t="rodrigob.20040130225148" a="EM"><vh>collaborate_in</vh>
@@ -1959,8 +1957,8 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040125154815.19,rodrigob.20040920122333,rodrigob.20040125194534,rodrigob.20040126020641,"
 expanded="rodrigob.20040119133203,rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040123142302,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040123130224,rodrigob.20040121150952.7,rodrigob.20040122175312,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040912225813,rodrigob.20040125154815.8,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.121403173614.1502" a="E"
-marks="rodrigob.121403173614.1509,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040130224144,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
-expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1509,rodrigob.121403173614.1516,rodrigob.121403173614.1518,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040128011921,rodrigob.20040128011921.1,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
+marks="rodrigob.121403173614.1509,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040128011921,rodrigob.20040130224144,rodrigob.20040129181502,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
+expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1509,rodrigob.121403173614.1516,rodrigob.121403173614.1518,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040129165804,rodrigob.20040128011921,rodrigob.20040128011921.1,rodrigob.20040130224144,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
 <v t="rodrigob.20040912220039"
 marks="rodrigob.20040912220039.14,rodrigob.20040912220039.15,rodrigob.20040912220039.16,rodrigob.20040912220039.17,rodrigob.20040912220039.18,rodrigob.20040912220039.19,rodrigob.20040912220039.21,rodrigob.20040912220039.22,rodrigob.20040912220039.23,rodrigob.20040912220039.25,rodrigob.20040912220039.26,rodrigob.20040912220039.27,rodrigob.20040912220039.28,rodrigob.20040912220039.29,rodrigob.20040912220039.30,rodrigob.20040912220039.31,rodrigob.20040912220039.32,rodrigob.20040912220039.33,rodrigob.20040912220039.34,rodrigob.20040912220039.35,rodrigob.20040912220039.37,rodrigob.20040912220039.38,rodrigob.20040912220039.39,rodrigob.20040912220039.40,rodrigob.20040912220039.42,rodrigob.20040912220039.43,rodrigob.20040912220039.44,rodrigob.20040912220039.45,rodrigob.20040912220039.47,rodrigob.20040912220039.48,rodrigob.20040912220039.49,rodrigob.20040912220039.50,rodrigob.20040912220039.52,rodrigob.20040912220039.53,rodrigob.20040912220039.54,rodrigob.20040912220039.55,rodrigob.20040912220039.57,rodrigob.20040912220039.58,rodrigob.20040912220039.59,rodrigob.20040912220039.60,rodrigob.20040912220039.62,rodrigob.20040912220039.63,rodrigob.20040912220039.64,rodrigob.20040912220039.65,rodrigob.20040912220039.66,rodrigob.20040912220039.67,rodrigob.20040912220039.68,rodrigob.20040912220039.69,rodrigob.20040912220039.70,rodrigob.20040912220039.71,rodrigob.20040912220039.72,rodrigob.20040912220039.73,rodrigob.20040912220039.75,rodrigob.20040912220039.76,rodrigob.20040912220039.77,rodrigob.20040912220039.78,rodrigob.20040912220039.79,rodrigob.20040912220039.80,rodrigob.20040912220039.81,rodrigob.20040912220039.82,rodrigob.20040912220039.83,rodrigob.20040912220039.84,rodrigob.20040912220039.85,rodrigob.20040912220039.86,rodrigob.20040912220039.87,rodrigob.20040912220039.88,rodrigob.20040912220039.89,rodrigob.20040912220039.90,rodrigob.20040912220039.92,rodrigob.20040912220039.93,rodrigob.20040912220039.94,rodrigob.20040912220039.95,rodrigob.20040912220039.96,rodrigob.20040912220039.97,rodrigob.20040912220039.98,rodrigob.20040912220039.100,rodrigob.20040912220039.101,rodrigob.20040912220039.102,rodrigob.20040912220039.103,rodrigob.20040912220039.104,rodrigob.20040912220039.105,rodrigob.20040912220039.107,rodrigob.20040912220039.108,rodrigob.20040912220039.110,rodrigob.20040912220039.111,rodrigob.20040912220039.113,rodrigob.20040912220039.114,rodrigob.20040912220039.115,rodrigob.20040912220039.116,rodrigob.20040912220039.118,rodrigob.20040912220039.119,rodrigob.20040912220039.120,rodrigob.20040912220039.121,rodrigob.20040912220039.122,rodrigob.20040912220039.123,rodrigob.20040912220039.124,rodrigob.20040912220039.125,rodrigob.20040912220039.126,rodrigob.20040912220039.127,rodrigob.20040912220039.128,rodrigob.20040912220039.129,rodrigob.20040912220039.130,rodrigob.20040912220039.131,rodrigob.20040912220039.132,rodrigob.20040912220039.133,rodrigob.20040912220039.134,rodrigob.20040912220039.136,rodrigob.20040912220039.137,rodrigob.20040912220039.138,rodrigob.20040912220039.139,rodrigob.20040912220039.140,rodrigob.20040912220039.141,rodrigob.20040912220039.142,rodrigob.20040912220039.143,rodrigob.20040912220039.144,rodrigob.20040912220039.145,rodrigob.20040912220039.146,rodrigob.20040912220039.147,rodrigob.20040912220039.148,rodrigob.20040912220039.149,rodrigob.20040912220039.150,rodrigob.20040912220039.151,rodrigob.20040912220039.152,rodrigob.20040912220039.153,rodrigob.20040912220039.154,"
 expanded="rodrigob.20040912220039.13,"><vh>@thin Rendezvous.py</vh></v>
@@ -31451,13 +31449,14 @@ This method have to be overwritten for network transfers support.
     Obtain a reference of the parent
     Define own node id
     
-    Dummy implementation for testing purpose. This method should be overwritten to manage network methods.
+    DUMMY IMPLEMENTATION FOR TESTING PURPOSE.
+    This method should be overwritten to manage network methods.
     """
     
     # register the parent 
     self.parent_perspective = parent_reference
     
-    self.id = id(self) # local python session unique id
+    self.site_id = id(self) # local python session unique id
     # in the network implementation this should an internet unique id (normally ip+tcp_port)
     
     
@@ -31521,13 +31520,13 @@ This method have to be overwritten for network transfers support.
     ConcurrentEditable.__init__(self, 0, 1) # (self, site_index, num_of_sites) 
     # we consider ourself as part of the network. We are always the first of use local sites indexing
     
-    self.parent_perspective = None # the perspective of the parent node
-    self.connected_sites = {} # the map &lt;connected sites id&gt; =&gt; &lt;site remote perspective object&gt;
+    # are the perspectives managed at this level ?? &lt;&lt;&lt;
+    #self.parent_perspective = None # the perspective of the parent node
+    #self.connected_sites = {} # the map &lt;connected sites id&gt; =&gt; &lt;site remote perspective object&gt;
     
     self.receiving_parent_state = 0 # tag used to indicate a sensible state where other client can not connect to us
     
     self.site_id = None # site_id is an unique internet identifier
-    self.id = None # the identifier of this node
     self.sites_index = {} # map &lt;known site id&gt; =&gt; &lt;local site index&gt;
     
     self.text_buffer = text
@@ -31900,12 +31899,14 @@ Code related to the Chalks network and his related events
         
     return
 </t>
-<t tx="rodrigob.20040129165804">def add_site(self, site_id): # &lt;&lt;&lt;&lt; this method have to be renamed to "insert_site", because it does not append sites, but it can insert one in the middle of the sites list...
+<t tx="rodrigob.20040129165804">def add_site(self, site_id):
     """
     Add a site to the list of known sites.
     Known sites (normally all the nodes of the network) are possibly more than connected_sites (parent and childrens of the node)
     When adding a site, his reference is stored and the state_vectors are expanded.
     
+    Due of the dinamic nature of the decentralized network it is possible that a new site should be inserted in the state_vector (instead of appended as usual). This will depend of the site_id of the new node.
+        
     Assign a site index. 
     Expand the history buffer timestamps and the SVT timestamps (this mean; all the stored timestamps). Take care to expand the timestamps of the operation embedded into other ones (RA, LI, etc...).
 
@@ -31922,16 +31923,24 @@ Code related to the Chalks network and his related events
     if site_id in self.sites_index.keys():
         raise "Site already registered connected, addition rejected."
         return
+
+    # assign a site index    
+    c = 0
+    keys = self.sites_index.keys
+    for c in xrange(len(keys)):
+        if keys[c] &gt; site_id:
+            break
     
-    # assign a site index
-    site_index = len(self.sites_index) # == len(self.state_vector)
-    # always add a new entry at the end of the state vectors (timestamps)
+    site_index = c
+    # add a new site in a position that depend of his unique id. Every node has to put in the same position the same node.
      
     # register the site
-    self.sites_index[site_id] = site_index # &lt;&lt;&lt;&lt; this line is wrong !!!! should define the site_index using the site_id, to have an unique order !!!!
-    if site_id == self.id: # also update our self site_index (that is non zero, as it could be supossed)
+    self.sites_index[site_id] = site_index 
+    
+    if site_id == self.site_id: # also update our self site_index (that is non zero, as it could be supossed)
         self.site_index = site_index
 
+    # now insert zero where adecuate
     &lt;&lt; expand the vectors and matrices &gt;&gt;
     
     if dbg &gt;= 1:
@@ -31945,21 +31954,11 @@ Code related to the Chalks network and his related events
 <t tx="rodrigob.20040129165804.1">def del_site(self, site_id):
     """
     This method is called when we receive a disconnection message
-    """
     
-    raise NotImplementedError, "not yet"
-    
-    return
-
-
-
-        
-def del_client(self, client_index):
-    """
     Eliminate the reference in the state_vectors of one specific client that has disconnected.
     """
     
-    i = client_index
+    i = self.sites_index[site_id] # site_id -&gt; site_index
     
     # update the site_index mapping ----
         
@@ -31997,34 +31996,9 @@ def del_client(self, client_index):
                 
     
     return
-        
-
-
-
-
 </t>
-<t tx="rodrigob.20040129165804.2">def del_client(self, client_perspective):
-    """
-    The inverse of add_client.
-    """
-    
-    if not self.connected_sites.has_key(client_perspective):
-        return # if not connected, nothing to disconnect
-    
-    # delete the client
-    i = self.connected_sites[client_perspective]
-    
-    self.indexed_sites[i] = None # mark for future reuses
-    del self.connected_sites[client_perspective]
-                    
-    if len(self.indexed_sites) == 0: # there are no more clients connected
-        # clean up the node
-        self.HB = []
-        self.base_text = self.get_text()
-        #&gt;&gt;&gt;&gt;&gt;&gt;&gt;ADD CODE HERE (what is missing?)&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
-        
-    return</t>
-<t tx="rodrigob.20040129181502">def get_data(self,): # what and where ?
+<t tx="rodrigob.20040129181502"># what is this ? does it is needed ?
+def get_data(self,): # what and where ?
     """
     """
     
@@ -32046,17 +32020,17 @@ def del_client(self, client_index):
     return (site_index, len(self.state_vector), self.base_state_vector, self.base_text, ops_list)
 </t>
 <t tx="rodrigob.20040130122927"># -------------------------------
-# expand the vectors and matrices 
-extra = [0]
-self.state_vector.extend(extra)
+# expand &gt;&gt;&gt;by insertion&lt;&lt;&lt; the vectors and matrices 
+extra = 0
+self.state_vector.insert(site_index, extra)
 
 for t_vector in self.state_vector_table:
     if t_vector != self.state_vector:
-        t_vector.extend(extra)
+        t_vector.insert(site_index, extra)
     
-self.state_vector_table.append([0]*len(self.state_vector))
-self.minimum_state_vector.extend(extra)
-#self.base_state_vector.extend(extra) #does base_state... still existing ?
+self.state_vector_table.insert(site_index, [0]*len(self.state_vector))
+self.minimum_state_vector.insert(site_index, extra)
+#self.base_state_vector.insert(site_index, extra) #does base_state... still existing ?
 
 #print "self.state_vector %s self.state_vector_table %s self.minimum_state_vector %s"%(self.state_vector, self.state_vector_table, self.minimum_state_vector) # just for debugging
 #print "Server HB %s" % self.HB # just for debugging
@@ -32065,18 +32039,18 @@ assert len(self.state_vector) == len(self.state_vector_table) == len(self.minimu
 
 # expand the operations timestamp in the HB and in the delayed_operations stack
 for t_op in (self.HB + self.delayed_operations):
-    t_op["timestamp"].extend(extra)
+    t_op["timestamp"].insert(site_index, extra)
     
     if t_op.get("base_operation"): # RA: relative address
-        t_op["base_operation"]["timestamp"].extend(extra)
+        t_op["base_operation"]["timestamp"].insert(site_index, extra)
         
     if t_op.get("splitted_head") and t_op.get("splitted_tail") : # Splitted
-        t_op["splitted_head"]["timestamp"].extend(extra)			
-        t_op["splitted_tail"]["timestamp"].extend(extra)			
+        t_op["splitted_head"]["timestamp"].insert(site_index, extra)			
+        t_op["splitted_tail"]["timestamp"].insert(site_index, extra)			
         
     if t_op.get("lost_information"): # LI: lost information
-        t_op["lost_information"].get("timestamp", []).extend(extra)
-        t_op["LI_base_op" ].get("timestamp", []).extend(extra)
+        t_op["lost_information"].get("timestamp", []).insert(site_index, extra)
+        t_op["LI_base_op" ].get("timestamp", []).insert(site_index, extra)
 
 # end of references expantions -----------
 </t>
@@ -32143,7 +32117,7 @@ for t_op in (self.HB + self.delayed_operations):
     self.delayed_operations = delayed_operations
     
     # add our self to the state    
-    self.add_site(self.id) # if self id is not there, add it to the actual data
+    self.add_site(self.site_id) # if self id is not there, add it to the actual data
     
     return</t>
 <t tx="rodrigob.20040130225705">def disconnect_from_parent(self,):
@@ -32760,8 +32734,9 @@ def logged_in(self, avatar):
 
         
     # we obtain our site_id
-    t_address = self.avatar.broker.transport.getHost()
-    self.site_id = hash("%s:%i" % (t_address.host, t_address.port))
+    #t_address = self.avatar.broker.transport.getHost()
+    #self.site_id = hash("%s:%i" % (t_address.host, t_address.port))
+    self.site_id = time.time() # seconds since the epoch
 
     deferred = self.avatar.callRemote("collaborate_in", self.site_id)
     deferred.addCallback(self.start_collaborating).addErrback(self.exception)
@@ -33038,10 +33013,17 @@ The first idea to solve this issue is to have clean up measures, maybe something
 
 </t>
 <t tx="rodrigob.20041011010233">Implementation todo:
-- Check site_id management, have to be based on the time since epoch
-- Implement the insert_site/del_site method
+
 - Implement the timestamp/state_vector/packet_timestamp translation
+
 - Check the connection process to be consistent with the insert/del _site methods
-- Think about the cleanup methods</t>
+
+- Think about the cleanup methods
+
+- Has ConcurrentEditableNode something todo with     
+    #self.parent_perspective = None # the perspective of the parent node
+    #self.connected_sites = {} # the map &lt;connected sites id&gt; =&gt; &lt;site remote perspective object&gt;
+are they used for debuging ? where and how ?
+</t>
 </tnodes>
 </leo_file>

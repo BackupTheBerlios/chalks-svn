@@ -1831,13 +1831,13 @@ class ConcurrentEditableNode(ConcurrentEditable):
         ConcurrentEditable.__init__(self, 0, 1) # (self, site_index, num_of_sites) 
         # we consider ourself as part of the network. We are always the first of use local sites indexing
         
-        self.parent_perspective = None # the perspective of the parent node
-        self.connected_sites = {} # the map <connected sites id> => <site remote perspective object>
+        # are the perspectives managed at this level ?? <<<
+        #self.parent_perspective = None # the perspective of the parent node
+        #self.connected_sites = {} # the map <connected sites id> => <site remote perspective object>
         
         self.receiving_parent_state = 0 # tag used to indicate a sensible state where other client can not connect to us
         
         self.site_id = None # site_id is an unique internet identifier
-        self.id = None # the identifier of this node
         self.sites_index = {} # map <known site id> => <local site index>
         
         self.text_buffer = text
@@ -1930,12 +1930,14 @@ class ConcurrentEditableNode(ConcurrentEditable):
     
     #@+others
     #@+node:rodrigob.20040129165804:add site
-    def add_site(self, site_id): # <<<< this method have to be renamed to "insert_site", because it does not append sites, but it can insert one in the middle of the sites list...
+    def add_site(self, site_id):
         """
         Add a site to the list of known sites.
         Known sites (normally all the nodes of the network) are possibly more than connected_sites (parent and childrens of the node)
         When adding a site, his reference is stored and the state_vectors are expanded.
         
+        Due of the dinamic nature of the decentralized network it is possible that a new site should be inserted in the state_vector (instead of appended as usual). This will depend of the site_id of the new node.
+            
         Assign a site index. 
         Expand the history buffer timestamps and the SVT timestamps (this mean; all the stored timestamps). Take care to expand the timestamps of the operation embedded into other ones (RA, LI, etc...).
     
@@ -1952,30 +1954,38 @@ class ConcurrentEditableNode(ConcurrentEditable):
         if site_id in self.sites_index.keys():
             raise "Site already registered connected, addition rejected."
             return
+    
+        # assign a site index    
+        c = 0
+        keys = self.sites_index.keys
+        for c in xrange(len(keys)):
+            if keys[c] > site_id:
+                break
         
-        # assign a site index
-        site_index = len(self.sites_index) # == len(self.state_vector)
-        # always add a new entry at the end of the state vectors (timestamps)
+        site_index = c
+        # add a new site in a position that depend of his unique id. Every node has to put in the same position the same node.
          
         # register the site
-        self.sites_index[site_id] = site_index # <<<< this line is wrong !!!! should define the site_index using the site_id, to have an unique order !!!!
-        if site_id == self.id: # also update our self site_index (that is non zero, as it could be supossed)
+        self.sites_index[site_id] = site_index 
+        
+        if site_id == self.site_id: # also update our self site_index (that is non zero, as it could be supossed)
             self.site_index = site_index
     
+        # now insert zero where adecuate
         #@    << expand the vectors and matrices >>
         #@+node:rodrigob.20040130122927:<< expand the vectors and matrices >>
         # -------------------------------
-        # expand the vectors and matrices 
-        extra = [0]
-        self.state_vector.extend(extra)
+        # expand >>>by insertion<<< the vectors and matrices 
+        extra = 0
+        self.state_vector.insert(site_index, extra)
         
         for t_vector in self.state_vector_table:
             if t_vector != self.state_vector:
-                t_vector.extend(extra)
+                t_vector.insert(site_index, extra)
             
-        self.state_vector_table.append([0]*len(self.state_vector))
-        self.minimum_state_vector.extend(extra)
-        #self.base_state_vector.extend(extra) #does base_state... still existing ?
+        self.state_vector_table.insert(site_index, [0]*len(self.state_vector))
+        self.minimum_state_vector.insert(site_index, extra)
+        #self.base_state_vector.insert(site_index, extra) #does base_state... still existing ?
         
         #print "self.state_vector %s self.state_vector_table %s self.minimum_state_vector %s"%(self.state_vector, self.state_vector_table, self.minimum_state_vector) # just for debugging
         #print "Server HB %s" % self.HB # just for debugging
@@ -1984,18 +1994,18 @@ class ConcurrentEditableNode(ConcurrentEditable):
         
         # expand the operations timestamp in the HB and in the delayed_operations stack
         for t_op in (self.HB + self.delayed_operations):
-            t_op["timestamp"].extend(extra)
+            t_op["timestamp"].insert(site_index, extra)
             
             if t_op.get("base_operation"): # RA: relative address
-                t_op["base_operation"]["timestamp"].extend(extra)
+                t_op["base_operation"]["timestamp"].insert(site_index, extra)
                 
             if t_op.get("splitted_head") and t_op.get("splitted_tail") : # Splitted
-                t_op["splitted_head"]["timestamp"].extend(extra)			
-                t_op["splitted_tail"]["timestamp"].extend(extra)			
+                t_op["splitted_head"]["timestamp"].insert(site_index, extra)			
+                t_op["splitted_tail"]["timestamp"].insert(site_index, extra)			
                 
             if t_op.get("lost_information"): # LI: lost information
-                t_op["lost_information"].get("timestamp", []).extend(extra)
-                t_op["LI_base_op" ].get("timestamp", []).extend(extra)
+                t_op["lost_information"].get("timestamp", []).insert(site_index, extra)
+                t_op["LI_base_op" ].get("timestamp", []).insert(site_index, extra)
         
         # end of references expantions -----------
         #@-node:rodrigob.20040130122927:<< expand the vectors and matrices >>
@@ -2013,21 +2023,11 @@ class ConcurrentEditableNode(ConcurrentEditable):
     def del_site(self, site_id):
         """
         This method is called when we receive a disconnection message
-        """
         
-        raise NotImplementedError, "not yet"
-        
-        return
-    
-    
-    
-            
-    def del_client(self, client_index):
-        """
         Eliminate the reference in the state_vectors of one specific client that has disconnected.
         """
         
-        i = client_index
+        i = self.sites_index[site_id] # site_id -> site_index
         
         # update the site_index mapping ----
             
@@ -2065,35 +2065,6 @@ class ConcurrentEditableNode(ConcurrentEditable):
                     
         
         return
-            
-    
-    
-    
-    
-    #@+node:rodrigob.20040129165804.2:del clients (server)
-    def del_client(self, client_perspective):
-        """
-        The inverse of add_client.
-        """
-        
-        if not self.connected_sites.has_key(client_perspective):
-            return # if not connected, nothing to disconnect
-        
-        # delete the client
-        i = self.connected_sites[client_perspective]
-        
-        self.indexed_sites[i] = None # mark for future reuses
-        del self.connected_sites[client_perspective]
-                        
-        if len(self.indexed_sites) == 0: # there are no more clients connected
-            # clean up the node
-            self.HB = []
-            self.base_text = self.get_text()
-            #>>>>>>>ADD CODE HERE (what is missing?)<<<<<<<<<<<<<
-            
-        return
-    #@nonl
-    #@-node:rodrigob.20040129165804.2:del clients (server)
     #@-node:rodrigob.20040129165804.1:del site
     #@-others
     #@-node:rodrigob.20040128011809:add/del site
@@ -2110,13 +2081,14 @@ class ConcurrentEditableNode(ConcurrentEditable):
         Obtain a reference of the parent
         Define own node id
         
-        Dummy implementation for testing purpose. This method should be overwritten to manage network methods.
+        DUMMY IMPLEMENTATION FOR TESTING PURPOSE.
+        This method should be overwritten to manage network methods.
         """
         
         # register the parent 
         self.parent_perspective = parent_reference
         
-        self.id = id(self) # local python session unique id
+        self.site_id = id(self) # local python session unique id
         # in the network implementation this should an internet unique id (normally ip+tcp_port)
         
         
@@ -2145,8 +2117,8 @@ class ConcurrentEditableNode(ConcurrentEditable):
     #@-at
     #@@c
     #@nonl
-    #@-node:rodrigob.20040130224144:old
     #@+node:rodrigob.20040129181502:get_data
+    # what is this ? does it is needed ?
     def get_data(self,): # what and where ?
         """
         """
@@ -2168,6 +2140,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
                 
         return (site_index, len(self.state_vector), self.base_state_vector, self.base_text, ops_list)
     #@-node:rodrigob.20040129181502:get_data
+    #@-node:rodrigob.20040130224144:old
     #@-node:rodrigob.20040128011921.1:connect to parent 
     #@+node:rodrigob.20040130225705:disconnect_from_parent
     def disconnect_from_parent(self,):
@@ -2226,7 +2199,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
         self.delayed_operations = delayed_operations
         
         # add our self to the state    
-        self.add_site(self.id) # if self id is not there, add it to the actual data
+        self.add_site(self.site_id) # if self id is not there, add it to the actual data
         
         return
     #@nonl

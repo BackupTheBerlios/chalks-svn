@@ -62,6 +62,11 @@ from twisted.cred import checkers, portal, credentials, error
 from twisted.spread import pb
 from twisted.python import failure
 
+# python imports
+import time
+
+
+# globals
 global dbg
 dbg = 0
 #@+others
@@ -1703,8 +1708,9 @@ class ChalksNode(ConcurrentEditableNode):
     
             
         # we obtain our site_id
-        t_address = self.avatar.broker.transport.getHost()
-        self.site_id = hash("%s:%i" % (t_address.host, t_address.port))
+        #t_address = self.avatar.broker.transport.getHost()
+        #self.site_id = hash("%s:%i" % (t_address.host, t_address.port))
+        self.site_id = time.time() # seconds since the epoch
     
         deferred = self.avatar.callRemote("collaborate_in", self.site_id)
         deferred.addCallback(self.start_collaborating).addErrback(self.exception)
