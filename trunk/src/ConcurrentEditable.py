@@ -224,8 +224,6 @@ I recomend using Leo to explore the code. http://leo.sf.net
 #@-node:rodrigob.121403173614.1503:<<docs>>
 #@nl
 
-import unittest
-
 dbg = 0# debug level ;p
         
 #@+others
@@ -2334,13 +2332,13 @@ def get_test_suite():
     global dbg
     dbg = 0
     
+    import unittest
     TestSuite = unittest.TestSuite()
     TestSuite.addTest(unittest.FunctionTestCase(TestConcurrentEditable1))
     TestSuite.addTest(unittest.FunctionTestCase(TestConcurrentEditable2))
     TestSuite.addTest(unittest.FunctionTestCase(TestConcurrentEditableServer))
         
     return TestSuite
-#@nonl
 #@+node:rodrigob.121403173614.1548:TestConcurrentEditable1
 
 def TestConcurrentEditable1():
@@ -2942,7 +2940,7 @@ def TestConcurrentEditableServer():
 
 
 if __name__ == "__main__":
-
+    import unittest
     unittest.TextTestRunner().run(get_test_suite())
 
 #@-node:rodrigob.121403173614.1502:@thin ConcurrentEditable.py
