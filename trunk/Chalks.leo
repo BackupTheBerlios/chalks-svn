@@ -12,7 +12,7 @@
 	<change_string></change_string>
 </find_panel_settings>
 <vnodes>
-<v t="rodrigob.20040121154249" a="TV"><vh>Chalks</vh>
+<v t="rodrigob.20040121154249" a="E"><vh>Chalks</vh>
 <v t="rodrigob.20040824110326"><vh>Introduction (for Chalks newbies)</vh>
 <v t="rodrigob.121403173614.1"><vh>Old LeoN (to purge) Introduction (for LeoN newbies)</vh>
 <v t="rodrigob.121403173614.2" a="E" tnodeList="rodrigob.121403173614.2,rodrigob.121403173614.3,rodrigob.123103123958,rodrigob.121403173614.4,rodrigob.121403173614.5,rodrigob.121403173614.6,rodrigob.123103162446,rodrigob.123103162446.1,rodrigob.123103162446.2,rodrigob.123103162446.3,rodrigob.122403213028"><vh>@nosentinelsfile README</vh>
@@ -34,7 +34,7 @@
 </v>
 </v>
 <v t="rodrigob.20040824110326.1" a="E"><vh>Docs</vh>
-<v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
+<v t="niederberger.20040825222327" a="ETV"><vh>Things left to do</vh>
 <v t="niederberger.20040825222327.1"><vh>High</vh></v>
 <v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
 <v t="niederberger.20040825222327.3"><vh>Low</vh></v>
@@ -3392,7 +3392,8 @@ Example:
     'LeoNtest.py 1 save_tap'
 """
 </t>
-<t tx="niederberger.20040825222327"></t>
+<t tx="niederberger.20040825222327">This node contains reminders and all things left to do in general, grouped by priority.
+Currently they may be related to coding, researching, packaging, everything.</t>
 <t tx="niederberger.20040825222327.1"></t>
 <t tx="niederberger.20040825222327.2"></t>
 <t tx="niederberger.20040825222327.3"></t>
