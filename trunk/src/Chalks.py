@@ -1671,7 +1671,7 @@ class ChalksNode(ConcurrentEditableNode):
     #@+node:rodrigob.20040125154815.2:connect to/disconnect from parent node
     
     #@+others
-    #@+node:rodrigob.20040913221730:connect
+    #@+node:rodrigob.20040913221730:connect to parent
     def connect_to_parent(self, address, port, nickname="No name"):
         """
         Connect as a children to a parent node
@@ -1774,7 +1774,7 @@ class ChalksNode(ConcurrentEditableNode):
     #@-node:rodrigob.20040909060311:start collaborating
     #@-others
     #@nonl
-    #@-node:rodrigob.20040913221730:connect
+    #@-node:rodrigob.20040913221730:connect to parent
     #@+node:rodrigob.20040913221730.1:disconnect
     def disconnect_from_server(self):
         """
@@ -2387,7 +2387,7 @@ class ChalksNode(ConcurrentEditableNode):
     #@+node:rodrigob.20040125154815.9:helpers functions
     #@-node:rodrigob.20040125154815.9:helpers functions
     #@-node:rodrigob.20040125154815.8:fill body
-    #@+node:rodrigob.20040125154815.19:flush body
+    #@+node:rodrigob.20040125154815.19:flush body <<< BUG HERE ??
     def flush_body(self, keywords={}, all=0):
         """
         Send all the "to_send" that acomplish the criteria, send the operation related to the deletion buffer if necessary.
@@ -2408,7 +2408,7 @@ class ChalksNode(ConcurrentEditableNode):
             if ((undo_type == "Typing" and ch not in ['\x7f', '\x08']) or all):  # at the end of a chunk deletion, that is, the user was deleting (using delete or suppr) but now he has pressed any other key, so we have to send the operation.
             
                 # flush the deletion buffer
-                deferred = self.send_operation("delete_text", self.deletion_buffer[0], self.deletion_buffer[1])
+                deferred = self.send_operation("delete_text", self.deletion_buffer[0], self.deletion_buffer[1]) # <<< send or receive operation ?
                 
                 self.log("deletion_buffer executed with value (%i %i)"%(self.deletion_buffer[0], self.deletion_buffer[1]), color="yellow") # just for debugging
                                 
@@ -2466,11 +2466,25 @@ class ChalksNode(ConcurrentEditableNode):
                 text.tag_remove("to_send", start, stop)
                 
                 # send the data
-                self.send_operation("insert_text", startpos, t_text)
+                self.send_operation("insert_text", startpos, t_text) # <<< send or receive operation ?
                 
         return
-    #@-node:rodrigob.20040125154815.19:flush body
+    #@-node:rodrigob.20040125154815.19:flush body <<< BUG HERE ??
+    #@-node:rodrigob.20040125154815.3:edit content
+    #@+node:rodrigob.20041014201949:network aware methods
     #@+node:rodrigob.20040125154815.7:send operation <<< BUG HERE
+    def send_operation(self, site_perspective, t_op):
+        """
+        Implement the network layer that allow sending operation to a remote reference
+        """
+        
+        site_perspective.callRemote("receive_op", t_op["type"], t_op["pos"], t_op["data"], t_op["timestamp"]).addErrback(self.exception)
+                
+        return
+    
+    
+    #@+node:rodrigob.20041014201949.1:old
+    
     def send_operation(self, op_type, pos, data): # <<< Should be def send_operation(self, site_index, t_op):
         """
         Apply locally and then send the operation to all the adjacent nodes (upward and downward the tree).
@@ -2507,9 +2521,8 @@ class ChalksNode(ConcurrentEditableNode):
         
         return
     
-    
+    #@-node:rodrigob.20041014201949.1:old
     #@-node:rodrigob.20040125154815.7:send operation <<< BUG HERE
-    #@-node:rodrigob.20040125154815.3:edit content
     #@+node:rodrigob.20040127182438:remote callable methods
     #@+at
     # This are the method the Avatars are suposed to access. This are the only 
@@ -2627,9 +2640,11 @@ class ChalksNode(ConcurrentEditableNode):
         return
     
     remote_receive_op = remote_receive_operation # alias
-        
+    receive_operation = remote_receive_operation # alias
+    receive_op = receive_operation # alias
     #@-node:rodrigob.20040920122333:receive operation
     #@-node:rodrigob.20040127182438:remote callable methods
+    #@-node:rodrigob.20041014201949:network aware methods
     #@-others
 #@nonl
 #@-node:rodrigob.20040125154815.1:class ChalksNode

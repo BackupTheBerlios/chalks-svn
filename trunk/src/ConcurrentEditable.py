@@ -1832,7 +1832,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
         # we consider ourself as part of the network. We are always the first of use local sites indexing
         
         # are the perspectives managed at this level ?? <<<
-        #self.parent_perspective = None # the perspective of the parent node
+        self.parent_perspective = None # the perspective of the parent node
         #self.connected_sites = {} # the map <connected sites id> => <site remote perspective object>
         
         self.receiving_parent_state = 0 # tag used to indicate a sensible state where other client can not connect to us
@@ -1892,9 +1892,9 @@ class ConcurrentEditableNode(ConcurrentEditable):
             raise TypeError, "expected a dict or list timestamp. Umnanaged type %s" % type(timestamp)
     
         # send the operation to all the other clients -- --    
-        for site_id in self.connected_sites: # <<< there is not a bug here, connected_sites has to be managed better
+        for site_id in self.connected_sites.keys(): # <<< there is not a bug here, connected_sites has to be managed better
             if site_id == in_op["source_site"]: continue # do not send back to the emisor	
-            self.send_operation(site_id, in_op) # send it
+            self.send_operation(self.connected_sites[site_id], in_op) # send it
                
         # process locally --- -
         
@@ -2088,7 +2088,9 @@ class ConcurrentEditableNode(ConcurrentEditable):
         # register the parent 
         self.parent_perspective = parent_reference
         
-        self.site_id = id(self) # local python session unique id
+        
+        from time import time; self.site_id = time()
+        #self.site_id = id(self) # local python session unique id
         # in the network implementation this should an internet unique id (normally ip+tcp_port)
         
         
@@ -2206,7 +2208,7 @@ class ConcurrentEditableNode(ConcurrentEditable):
     #@-node:rodrigob.20040130225208:set_state <= THIS IS THE ACTUAL WORK
     #@-node:rodrigob.20040130225148:collaborate_in
     #@+node:rodrigob.20040128011939:send operation
-    def send_operation(self, site_index, t_op):
+    def send_operation(self, site_perspective, t_op):
         """
         This function is called by 'receive operation' when the node repeat the message to his neighbors.
         This function has in charge to make sure that an operation will arive to the indicated site.
@@ -2217,12 +2219,16 @@ class ConcurrentEditableNode(ConcurrentEditable):
         I repeat, This method should be overwritten to send the object over the network.
         """
         
+        raise NotImplentedError, "not yet"
+        
+        # here the implementation for unit testing
+        # how to implement it for unit testing ? <<<
         if 1:
-            if dbg>=1: print "send_op; sending to S%s %s"%(site_index, t_op)
-            global sent_test_operations
-            sent_test_operations.append(t_op)
+            if dbg>=1: print "send_op; sending to S%s %s"%(site_perspective, t_op) 
+            # ???
             
         return
+    
     
     #@-node:rodrigob.20040128011939:send operation
     #@-node:rodrigob.20040128011921:network methods
