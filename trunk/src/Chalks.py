@@ -1606,7 +1606,7 @@ class Chalks:
 from ConcurrentEditable import ConcurrentEditableNode
 from ConcurrentEditable import ConcurrentEditable # needed by remote_delete_text()
         
-class ChalksNode(ConcurrentEditableNode, pb.Viewable):
+class ChalksNode(ConcurrentEditableNode):
     """
     This is the local instance that take care of the collaborative edition and the network layers.
     This is the core object under the GUI.
@@ -1640,15 +1640,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Viewable):
         for t_name in ["log", "log_error", "exception", "encoding"]: 
             setattr(self, t_name, getattr(Chalks_instance, t_name))
         self.log = lambda text, *args, **kws: Chalks_instance.log("\n%s" % text) # dummy trick
-        
-        # rename every remote_ method in view_ method
-        remote_methods = ['_'.join(x.split('_')[1:]) for x in dir(self) if x.split('_')[0] == "remote"] # ugly hack
-        print "remote_methods", remote_methods
-        for t_name in remote_methods:
-            setattr(self, "view_"+t_name, getattr(self, "remote_"+t_name))
-            print "Add method %s to ChalksNode class"%("view_"+t_name)
-
-        
+                
         self.text_widget = Chalks_instance.text_widget
         self.text_widget.tag_config("to_send", relief= RAISED, borderwidth=4, background= "beige")# work fine in Linux
             
@@ -1687,9 +1679,16 @@ class ChalksNode(ConcurrentEditableNode, pb.Viewable):
         assert isinstance(port, int), 'port must be integer'
         self.nickname = nickname    
         
+        # we will give to the parent access to a local avatar
+        parent_nickname = None
+        parent_mind = None
+        parent_avatar = ChalksAvatar(parent_nickname, parent_mind, self.chalks_instance)
+        self.parent_avatar = parent_avatar
+        
         factory = pb.PBClientFactory()
         reactor.connectTCP(address, port, factory)
-        factory.login(credentials.UsernamePassword(nickname, "guest"), client=self).addCallbacks(self.logged_in, self.exception)
+        deferred = factory.login(credentials.UsernamePassword(nickname, "guest"), client=parent_avatar)
+        deferred.addCallbacks(self.logged_in, self.exception)
     
         return
         
@@ -2537,23 +2536,30 @@ class ChalksNode(ConcurrentEditableNode, pb.Viewable):
         """
     
     
-        #if (not to) or (to == self.nickname):    
-        #    self.log("<%s> %s" %(from_, txt) )
-        #self.log("<%s> %s" %(from_, txt) )
+        if (not to) or (to == self.nickname):    
+            self.log("<%s> %s" %(from_, txt) )
+        
+        
+        perspectives = self.childrens_perspectives + [self.parent_perspective]
             
         # <<< diagnose code    
-        perspectives = self.childrens_perspectives + [self.parent_perspective]
-        
         print "<%s> %s" %(from_, txt)
         print "received_from %s" % received_from
         print "perspectives %s" % perspectives
         print "[x==%s for x in %s] == %s" %(received_from, perspectives, [x==received_from for x in perspectives])
         print 
-        if self.parent_perspective: self.parent_perspective.callRemote("send_message", from_, to, txt).addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
-        return # to avoid horrible loop
+    #@+at
+    #     if self.parent_perspective: 
+    # self.parent_perspective.callRemote("send_message", from_, to, 
+    # txt).addErrback(lambda _, name: self.log_error("Could not send the 
+    # message from user %s to user %s"), from_, to)
+    #     return # to avoid horrible loop
+    #@-at
+    #@@c
         
         for t_perspective in perspectives:
             if t_perspective and received_from != t_perspective:
+                print "%s.callRemote" % t_perspective
                 t_perspective.callRemote("send_message", from_, to, txt).addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
         return
     #@-node:rodrigob.20040127184605:send message
@@ -2640,7 +2646,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Viewable):
 #@nonl
 #@-node:rodrigob.20040125154815.1:class ChalksNode
 #@+node:rodrigob.20040125194534:class ChalksAvatar
-class ChalksAvatar(pb.Avatar):
+class ChalksAvatar(pb.Avatar, pb.Referenceable):
     """
     <<<<<<< ADD CONTENT HERE
     what other users (childrens) can do here (at the parent). 
@@ -2654,16 +2660,28 @@ class ChalksAvatar(pb.Avatar):
         """
         """
         
+        assert chalks_instance
         self.chalks_instance = chalks_instance
         self.node = chalks_instance.node
         
         self.mind = mind # store it for later use # mind is a perspective of the client that is connecting to use
-        self.avatarId = avatarId
-        self.nickname = self.mind.nickname = avatarId
+        self.avatarId = self.nickname = avatarId
         
-        assert mind, ChalksError("Chalks strictly require references to the client connecting.")
+        # this assertion has to be relaxed to enable childrens side avatar creations
+        #assert mind, ChalksError("Chalks strictly require references to the client connecting.")
         
         #pb.Avatar.__init__(self, avatarId, mind) # pb.Avatar has no __init__ method.
+        
+
+        # copy every perspective_ method in remote_ method
+        perspective_methods = ['_'.join(x.split('_')[1:]) for x in dir(self) if x.split('_')[0] == "perspective"] # ugly hack
+        print "Avatar perspective_methods", perspective_methods
+        for t_name in perspective_methods:
+            if t_name:
+                setattr(self, "remote_"+t_name, getattr(self, "perspective_"+t_name))
+                print "Added method %s to ChalksAvatar class"%("remote_"+t_name)
+
+
         return
         
     #@    @+others
@@ -2676,9 +2694,9 @@ class ChalksAvatar(pb.Avatar):
         the site_id is a unique identifier of the client (child) process
         """
             
-        self.site_id = self.mind.site_id = site_id
+        self.site_id = site_id
         
-        self.node.add_site(self.mind) # we register us perspective in the parent
+        self.node.add_site(self) # we register us perspective in the parent
         
         # we obtain and return the required data to start the session in the child
         t_state = self.node.get_state(); t_state = list(t_state);
@@ -2686,7 +2704,7 @@ class ChalksAvatar(pb.Avatar):
         t_HB = t_state[3]; t_HB = map(dict, t_HB); t_state[3] = t_HB;
         
         # return the parent ChalksNode reference, and the data necesarry to start the collaboration
-        return (self.node, t_state)
+        return (self, t_state)
         
     
     def perspective_collaborate_out(self):
@@ -2715,6 +2733,52 @@ class ChalksAvatar(pb.Avatar):
             
         return
     #@-node:rodrigob.20040129150513:logout
+    #@+node:rodrigob.20040915120517:bi directional methods
+    #@+at
+    # this methods are common to both children->parent calls and 
+    # parent->childrens calls.
+    # So we use only one implementation. ChalksAvatar calls ChalksNode 
+    # implementation.
+    #@-at
+    #@@c
+    #@nonl
+    #@+node:rodrigob.20040915120517.1:messages and presence methods
+    def perspective_get_actual_users_list(self, ):
+        """ 
+        Return the dictonary of map node.id -> user_nickname
+        """    
+        return self.node.perspective_get_actual_users_list(self)
+        
+        
+    def perspective_set_presence(self, state):
+        """
+        Set the presence of one user 
+        """
+        return self.node.remote_set_presence(self,state)
+        
+        
+    def perspective_send_message(self, from_, to, txt):
+        """ 
+        Send a message to
+        """
+        return self.node.remote_send_message(self, from_, to, txt)
+        
+    #@nonl
+    #@-node:rodrigob.20040915120517.1:messages and presence methods
+    #@+node:rodrigob.20040915120517.2:insert/delete text
+    def perspective_insert_text(self, startpos, text, timestamp = None):
+        """ 
+        """
+        return self.node.remote_insert_text(startpos, text, timestamp, who=self)
+        
+        
+    def perspective_delete_text(self, startpos, length, timestamp = None):
+        """ 
+        """
+        return self.node.remote_delete_text(startpos, length, timestamp, who=self)
+    
+    #@-node:rodrigob.20040915120517.2:insert/delete text
+    #@-node:rodrigob.20040915120517:bi directional methods
     #@-others
 #@nonl
 #@-node:rodrigob.20040125194534:class ChalksAvatar

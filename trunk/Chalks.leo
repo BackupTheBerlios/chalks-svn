@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leo_file>
-<leo_header file_format="2" tnodes="0" max_tnode_index="2931" clone_windows="0"/>
-<globals body_outline_ratio="0.462411347518">
+<leo_header file_format="2" tnodes="0" max_tnode_index="2934" clone_windows="0"/>
+<globals body_outline_ratio="0.43320610687">
 	<global_window_position top="10" left="10" height="524" width="800"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
@@ -1683,13 +1683,17 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
 <v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
+<v t="niederberger.20040825222327.1" a="M"><vh>High</vh>
+<v t="rodrigob.20040913221406"><vh>Old Chalks todo list (to purge)</vh></v>
+</v>
+<v t="niederberger.20040825222327.2"><vh>Medium</vh>
+<v t="rodrigob.20040915113450"><vh>Code problems</vh></v>
+</v>
+<v t="niederberger.20040825222327.3"><vh>Low</vh>
 <v t="rodrigob.20040826215836"><vh>Old LeoN todo list (to purge)</vh>
 <v t="rodrigob.20040125223416" a="E"><vh>HOOK PROBLEM</vh></v>
 </v>
-<v t="rodrigob.20040913221406"><vh>Old Chalks todo list (to purge)</vh></v>
-<v t="niederberger.20040825222327.1" a="MTV"><vh>High</vh></v>
-<v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
-<v t="niederberger.20040825222327.3"><vh>Low</vh></v>
+</v>
 </v>
 <v t="rodrigob.20040125160038" a="E"><vh>Code perspectives</vh>
 <v t="rodrigob.20040129141624" a="EM"><vh>network</vh>
@@ -1740,8 +1744,12 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040125194534" a="EM"><vh>class ChalksAvatar</vh>
 <v t="rodrigob.20040126020641" a="M"><vh>collaborate in/out</vh></v>
 <v t="rodrigob.20040129150513"><vh>logout</vh></v>
+<v t="rodrigob.20040915120517" a="E"><vh>bi directional methods</vh>
+<v t="rodrigob.20040915120517.1"><vh>messages and presence methods</vh></v>
+<v t="rodrigob.20040915120517.2"><vh>insert/delete text</vh></v>
 </v>
-<v t="rodrigob.20040121155420" a="EM"><vh>ConcurrentEditableNode</vh>
+</v>
+<v t="rodrigob.20040121155420" a="M"><vh>ConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013418" a="E"><vh>__init__</vh></v>
 <v t="rodrigob.20040128011816"><vh>receive operation</vh></v>
 <v t="rodrigob.20040128011809" a="E"><vh>add/del site</vh>
@@ -1880,9 +1888,9 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 </v>
 </v>
-<v t="rodrigob.20040119132914"
+<v t="rodrigob.20040119132914" a="E"
 marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040127184605,rodrigob.20040127185444,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040126020641,"
-expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040125194534,"><vh>@thin Chalks.py</vh></v>
+expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.20040125151012"><vh>@thin Chalks.xhtml</vh></v>
 <v t="rodrigob.121403173614.1502"
 marks="rodrigob.121403173614.1509,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040130224144,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
@@ -3305,7 +3313,9 @@ Example:
 <t tx="niederberger.20040825222327">@language plain
 This node contains reminders and all things left to do in general, grouped by priority.
 Currently they may be related to coding, researching, packaging, everything.</t>
-<t tx="niederberger.20040825222327.1">- Solve the network objects references conflicts
+<t tx="niederberger.20040825222327.1">- The connect to list local network services should not show the local instance service 
+
+- Solve the network objects references conflicts
 - Get chat working
 
 - why does Test_Chalks is sooo slow to quit ?
@@ -3314,6 +3324,8 @@ Currently they may be related to coding, researching, packaging, everything.</t>
 - Why does site show the insertion point index and the other one does not ? (left of the chat bar) (Test_Chalks exclusive problem, a reason more to rewrite it)
 
 - Work on concurrenteditablenode (make consistent use of the new site_id system)
+
+
 
 - Chalks.py", line 1494, in start_collaborating
     self.receive_operation(Operation(**t_dict))	# instanciate and receive
@@ -3334,7 +3346,8 @@ exceptions.AssertionError: In ConcurrentEditableNode the transmited time stamps 
 
 
 - the rendezvous system does not seems to be working under linux
-</t>
+
+- connect_to_parent -&gt; logged_in -&gt; start_colaborating are unnecesarry. The node can start collaborating when just connecting.</t>
 <t tx="niederberger.20040825222327.3">- Implement a LiveEvil nevow web front end to the chat sessions, will be so cool.
 
 
@@ -30208,7 +30221,7 @@ text_widget.bind(virtual_event_name("Paste"), self.onPaste)</t>
 <t tx="rodrigob.20040125154815.1">from ConcurrentEditable import ConcurrentEditableNode
 from ConcurrentEditable import ConcurrentEditable # needed by remote_delete_text()
         
-class ChalksNode(ConcurrentEditableNode, pb.Viewable):
+class ChalksNode(ConcurrentEditableNode):
     """
     This is the local instance that take care of the collaborative edition and the network layers.
     This is the core object under the GUI.
@@ -30242,15 +30255,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Viewable):
         for t_name in ["log", "log_error", "exception", "encoding"]: 
             setattr(self, t_name, getattr(Chalks_instance, t_name))
         self.log = lambda text, *args, **kws: Chalks_instance.log("\n%s" % text) # dummy trick
-        
-        # rename every remote_ method in view_ method
-        remote_methods = ['_'.join(x.split('_')[1:]) for x in dir(self) if x.split('_')[0] == "remote"] # ugly hack
-        print "remote_methods", remote_methods
-        for t_name in remote_methods:
-            setattr(self, "view_"+t_name, getattr(self, "remote_"+t_name))
-            print "Add method %s to ChalksNode class"%("view_"+t_name)
-
-        
+                
         self.text_widget = Chalks_instance.text_widget
         self.text_widget.tag_config("to_send", relief= RAISED, borderwidth=4, background= "beige")# work fine in Linux
             
@@ -30916,7 +30921,7 @@ For more information about the code read the "LeoN.leo/Docs/developers docs/Code
         # Return the insertion point if there is no selected text.
         insert = text_widget.index("insert")
         return insert,insert</t>
-<t tx="rodrigob.20040125194534">class ChalksAvatar(pb.Avatar):
+<t tx="rodrigob.20040125194534">class ChalksAvatar(pb.Avatar, pb.Referenceable):
     """
     &lt;&lt;&lt;&lt;&lt;&lt;&lt; ADD CONTENT HERE
     what other users (childrens) can do here (at the parent). 
@@ -30930,16 +30935,28 @@ For more information about the code read the "LeoN.leo/Docs/developers docs/Code
         """
         """
         
+        assert chalks_instance
         self.chalks_instance = chalks_instance
         self.node = chalks_instance.node
         
         self.mind = mind # store it for later use # mind is a perspective of the client that is connecting to use
-        self.avatarId = avatarId
-        self.nickname = self.mind.nickname = avatarId
+        self.avatarId = self.nickname = avatarId
         
-        assert mind, ChalksError("Chalks strictly require references to the client connecting.")
+        # this assertion has to be relaxed to enable childrens side avatar creations
+        #assert mind, ChalksError("Chalks strictly require references to the client connecting.")
         
         #pb.Avatar.__init__(self, avatarId, mind) # pb.Avatar has no __init__ method.
+        
+
+        # copy every perspective_ method in remote_ method
+        perspective_methods = ['_'.join(x.split('_')[1:]) for x in dir(self) if x.split('_')[0] == "perspective"] # ugly hack
+        print "Avatar perspective_methods", perspective_methods
+        for t_name in perspective_methods:
+            if t_name:
+                setattr(self, "remote_"+t_name, getattr(self, "perspective_"+t_name))
+                print "Added method %s to ChalksAvatar class"%("remote_"+t_name)
+
+
         return
         
     @others</t>
@@ -31112,9 +31129,9 @@ def perspective_collaborate_in(self, site_id):
     the site_id is a unique identifier of the client (child) process
     """
         
-    self.site_id = self.mind.site_id = site_id
+    self.site_id = site_id
     
-    self.node.add_site(self.mind) # we register us perspective in the parent
+    self.node.add_site(self) # we register us perspective in the parent
     
     # we obtain and return the required data to start the session in the child
     t_state = self.node.get_state(); t_state = list(t_state);
@@ -31122,7 +31139,7 @@ def perspective_collaborate_in(self, site_id):
     t_HB = t_state[3]; t_HB = map(dict, t_HB); t_state[3] = t_HB;
     
     # return the parent ChalksNode reference, and the data necesarry to start the collaboration
-    return (self.node, t_state)
+    return (self, t_state)
     
 
 def perspective_collaborate_out(self):
@@ -31162,23 +31179,26 @@ So we use only this implementation. The ChalksAvatar equivalent methods, call th
     """
 
 
-    #if (not to) or (to == self.nickname):    
-    #    self.log("&lt;%s&gt; %s" %(from_, txt) )
-    #self.log("&lt;%s&gt; %s" %(from_, txt) )
+    if (not to) or (to == self.nickname):    
+        self.log("&lt;%s&gt; %s" %(from_, txt) )
+    
+    
+    perspectives = self.childrens_perspectives + [self.parent_perspective]
         
     # &lt;&lt;&lt; diagnose code    
-    perspectives = self.childrens_perspectives + [self.parent_perspective]
-    
     print "&lt;%s&gt; %s" %(from_, txt)
     print "received_from %s" % received_from
     print "perspectives %s" % perspectives
     print "[x==%s for x in %s] == %s" %(received_from, perspectives, [x==received_from for x in perspectives])
     print 
+@
     if self.parent_perspective: self.parent_perspective.callRemote("send_message", from_, to, txt).addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
     return # to avoid horrible loop
+@c
     
     for t_perspective in perspectives:
         if t_perspective and received_from != t_perspective:
+            print "%s.callRemote" % t_perspective
             t_perspective.callRemote("send_message", from_, to, txt).addErrback(lambda _, name: self.log_error("Could not send the message from user %s to user %s"), from_, to)
     return
 </t>
@@ -32764,10 +32784,7 @@ Register/Unregister childrens in the session</t>
 - ChalksNode should be the Chalks realm
 
 - create the base network class
-- how to obtain TCP connections IPs
-    perspective.broker.transport
-    =&gt; getPeer() address to which we connect
-    =&gt; getHost() address from where we connect
+
 
 
 - Connect To dialog should show default values !! (implement the options persistence system, using ConfigParser.ConfigParser, add_section, write, set(section, option, value), get(section, option))
@@ -32789,9 +32806,16 @@ Register/Unregister childrens in the session</t>
     assert isinstance(port, int), 'port must be integer'
     self.nickname = nickname    
     
+    # we will give to the parent access to a local avatar
+    parent_nickname = None
+    parent_mind = None
+    parent_avatar = ChalksAvatar(parent_nickname, parent_mind, self.chalks_instance)
+    self.parent_avatar = parent_avatar
+    
     factory = pb.PBClientFactory()
     reactor.connectTCP(address, port, factory)
-    factory.login(credentials.UsernamePassword(nickname, "guest"), client=self).addCallbacks(self.logged_in, self.exception)
+    deferred = factory.login(credentials.UsernamePassword(nickname, "guest"), client=parent_avatar)
+    deferred.addCallbacks(self.logged_in, self.exception)
 
     return
     
@@ -32902,6 +32926,118 @@ ChalksNode can receive calls to the remote\_ (view\_ ) methods.
 ChalksAvatar can receive calls to the perspective\_ methods.
 
 We want the childrens able to call the ChalksNode methods. Thus when the Childrens call the collaborate\_in using his avatar on the parent side, he receive back (in a huge list of params) the parents ChalksNode reference.
+
+</t>
+<t tx="rodrigob.20040915113450">From: Ricardo Niederberger Cabral &lt;ncabral@terra.com.br&gt;
+To: chalks-devel@lists.berlios.de
+Date: Fri, 10 Sep 2004 20:50:14 -0400
+Subject: [Chalks-devel] code problems
+
+Notes about code problems I detected so we can refer to later
+-------------------------------------------------------------
+
+ChalksNode inherits from ConcurrentEditableNode, implementing the method
+connect_to_parent, which is also on the parent class.
+
+Shouldn't ChalksNode.connect_to_parent() also call
+ConcurrentEditableNode.connect_to_parent(self,...) in order to let it's
+parent do whatever it wants to do in order to connect ?
+
+Same argument above for "send_operation()"
+
+Inconsistencies caused by LeoN copy/paste
+-----------------------------------------
+
+Chalks.py:936: No global (v) found
+Chalks.py:1519
+Chalks.py:1847: No global (c) found
+Chalks.py:2144: No class attribute (last_node_dirty_text) found   (the
+entire method seems to need rework)
+Chalks.py:2248: No class attribute (log_error) found   (we need to add
+self.log and self.log_error to ChalksNode)
+Chalks.py:2259: No class attribute (Outline) found
+Chalks.py:2261: No global (raiseLeoError) found
+E:920:Chalks.OnCutFromMenu: Undefined variable 'virtual_event_name'   (and
+many other occurances)
+ChalksNode.remote_send_message: Access to undefined member 'users' and
+'parent'. Finish implementing
+E:2194:ChalksNode.send_operation: Access to undefined member 'exception'
+E:2248:ChalksNode.remote_send_message: Access to undefined member 'name'
+E:2261:ChalksNode.remote_set_presence: Access to undefined member 'name'
+E:1453:ChalksNode.logged_in: Access to undefined member 'exception'
+
+Chalks.onTextKey() and nearby code has many occurances of the typo
+"lenght" while the function parameter (and the right spelling) is "length"
+
+Our external dependencies
+-------------------------
+
+      \-ConcurrentEditable (Chalks)
+      \-Rendezvous (Chalks)
+    twisted
+      \-web
+      | \-client (Chalks)
+      | \-woven
+      | | \-model (Chalks)
+      | | \-interfaces (Chalks)
+      | | \-page (Chalks)
+      | \-server (Chalks)
+      \-python
+      | \-failure (Chalks)
+      | \-components (Chalks)
+      \-application
+      | \-service (Chalks)
+      | \-internet (Chalks)
+      \-spread
+      | \-pb (Chalks)
+      \-internet
+      | \-tksupport (Chalks)
+      \-cred
+        \-credentials (Chalks)
+        \-checkers (Chalks)
+        \-portal (Chalks)
+        \-error (Chalks)
+
+I believe we should comment out all "woven" code and imports, in order to
+make application startup faster and use less memory. And add such feature
+later.
+
+--
+Ricardo Niederberger Cabral</t>
+<t tx="rodrigob.20040915120517">@
+this methods are common to both children-&gt;parent calls and parent-&gt;childrens calls.
+So we use only one implementation. ChalksAvatar calls ChalksNode implementation.
+@c</t>
+<t tx="rodrigob.20040915120517.1">def perspective_get_actual_users_list(self, ):
+    """ 
+    Return the dictonary of map node.id -&gt; user_nickname
+    """    
+    return self.node.perspective_get_actual_users_list(self)
+    
+    
+def perspective_set_presence(self, state):
+    """
+    Set the presence of one user 
+    """
+    return self.node.remote_set_presence(self,state)
+    
+    
+def perspective_send_message(self, from_, to, txt):
+    """ 
+    Send a message to
+    """
+    return self.node.remote_send_message(self, from_, to, txt)
+    </t>
+<t tx="rodrigob.20040915120517.2">def perspective_insert_text(self, startpos, text, timestamp = None):
+    """ 
+    """
+    return self.node.remote_insert_text(startpos, text, timestamp, who=self)
+    
+    
+def perspective_delete_text(self, startpos, length, timestamp = None):
+    """ 
+    """
+    return self.node.remote_delete_text(startpos, length, timestamp, who=self)
 
 </t>
 </tnodes>
