@@ -139,6 +139,7 @@ class Chalks:
         
         self.file     = None # will keep the file instance
         self.filename = None # will keep the filename
+        self.service_name = None # will keep the name for the currently advertised service
         self.saved_version_hash = hash("\n") # used to check changes in the file
         
         print "Chalks " + self.version + ", started. Licensed under the GNU GPL. Copyright 2004, Chalks Development Team (http://chalks.berlios.de)\n"
@@ -286,18 +287,13 @@ class Chalks:
         
             # now advertise
             from os import getenv
-            user_name = str(getenv("username")) +'@'+ socket.gethostname() 
-            # this should use some OS specific way for determining current user name. 
-            # For Win32 systems, that would demand installing/including python win32 extensions (win32api module)
-            # http://starship.python.net/crew/mhammond/win32/Downloads.html and code snippet from
-            # http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/265858
-            # On *NIX I guess this could be determined from a system environment variable
+            user_name = str(getenv("username")) +'@'+ socket.gethostname()  # this seems to work fine under Win32 and Linux
             
             # the service name should be "<file name> at <machine name>", but at this point we have no file name, so just name it something random
             import random
-            service_name = user_name + ' Chalks server ' + str(random.randint(1,100000))
+            self.service_name = user_name + ' Chalks server ' + str(random.randint(1,100000))
             
-            self.server_monitor.registerService(service_name, self.server_address, self.server_port, user_name)
+            self.server_monitor.registerService(self.service_name, self.server_address, self.server_port, user_name)
         #@-node:niederberger.20040911111958:<< advertise local server >>
         #@nl
     
@@ -1254,10 +1250,7 @@ class Chalks:
         # indexes
         # 2) curselection() only returns something after you click TWICE on 
         # the list box. After that, it starts working as expected
-        # 3) how do I set an Entry widget text ??? Do I really have to change 
-        # a lot of code in order to make it use a Tkinter "textvariable" 
-        # (StringVar) ?
-        # 4) Listbox has no scrollbar, we have to set it up manually with:
+        # 3) Listbox has no scrollbar, we have to set it up manually with:
         #     """
         #     frame = Frame(master)
         #     scrollbar = Scrollbar(frame, orient=VERTICAL)
@@ -1357,14 +1350,19 @@ class Chalks:
         #@+node:niederberger.20040911120126:<< server monitor callback >>
         def server_monitor_callback(servers):    
             """
+            this is called whenever the dict of known servers changes
+            
+            sample server data for reference:
                                         'address':     info.getAddress(),
                                       'identifier':  info.getName(),
                                       'port':       
             """        
             self.server_listbox.delete(0, END)  # remove all items
-            self.cur_server_list = servers # set internal dict of current known servers
-            # add all servers
-            for server in servers.values():
+            self.cur_server_list = servers # set internal dict of current known servers. This is used later by the listbox callback to known which server the user clicked
+            
+            for server in servers.values(): # add all servers
+                if server['identifier'] == self.service_name: # skip ourself
+                    continue
                 ipadr = '.'.join(map(lambda x:str(ord(x)),unpack('cccc', server['address'])))  # Ahhhhh ! Is this the best way for unpacking 4 bytes on a binary stream ?
                 svr_string = server['identifier'] + ' [%s]' % ipadr
                 print svr_string

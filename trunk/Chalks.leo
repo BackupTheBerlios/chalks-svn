@@ -2,7 +2,7 @@
 <leo_file>
 <leo_header file_format="2" tnodes="0" max_tnode_index="2934" clone_windows="0"/>
 <globals body_outline_ratio="0.43320610687">
-	<global_window_position top="10" left="10" height="524" width="800"/>
+	<global_window_position top="10" left="10" height="986" width="1280"/>
 	<global_log_window_position top="0" left="0" height="0" width="0"/>
 </globals>
 <preferences>
@@ -1683,10 +1683,10 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
 <v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
-<v t="niederberger.20040825222327.1" a="M"><vh>High</vh>
+<v t="niederberger.20040825222327.1" a="EMTV"><vh>High</vh>
 <v t="rodrigob.20040913221406"><vh>Old Chalks todo list (to purge)</vh></v>
 </v>
-<v t="niederberger.20040825222327.2"><vh>Medium</vh>
+<v t="niederberger.20040825222327.2" a="E"><vh>Medium</vh>
 <v t="rodrigob.20040915113450"><vh>Code problems</vh></v>
 </v>
 <v t="niederberger.20040825222327.3"><vh>Low</vh>
@@ -1749,7 +1749,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040915120517.2"><vh>insert/delete text</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040121155420" a="M"><vh>ConcurrentEditableNode</vh>
+<v t="rodrigob.20040121155420" a="EM"><vh>ConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013418" a="E"><vh>__init__</vh></v>
 <v t="rodrigob.20040128011816"><vh>receive operation</vh></v>
 <v t="rodrigob.20040128011809" a="E"><vh>add/del site</vh>
@@ -1830,7 +1830,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040121150952.6"><vh>divideSplitter</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040122175312"><vh>menu commands</vh>
+<v t="rodrigob.20040122175312" a="E"><vh>menu commands</vh>
 <v t="rodrigob.20040123133928" a="M"><vh>open</vh></v>
 <v t="rodrigob.20040123140212"><vh>save</vh>
 <v t="rodrigob.20040125211222"><vh>save text</vh></v>
@@ -1843,7 +1843,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.20040913224357"><vh>disconnect</vh></v>
 </v>
-<v t="rodrigob.20040121153312" a="E"><vh>chat bar commands (on chat text entry)</vh>
+<v t="rodrigob.20040121153312"><vh>chat bar commands (on chat text entry)</vh>
 <v t="rodrigob.20040912221032" a="E"><vh>enable/disable Chat</vh></v>
 </v>
 <v t="rodrigob.20040124160427"><vh>status bar commands</vh>
@@ -1890,7 +1890,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.20040119132914" a="E"
 marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040127184605,rodrigob.20040127185444,rodrigob.20040126020544,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040126020641,"
-expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
+expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040121150952.7,rodrigob.20040122175312,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.20040125151012"><vh>@thin Chalks.xhtml</vh></v>
 <v t="rodrigob.121403173614.1502"
 marks="rodrigob.121403173614.1509,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040130224144,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
@@ -3313,9 +3313,7 @@ Example:
 <t tx="niederberger.20040825222327">@language plain
 This node contains reminders and all things left to do in general, grouped by priority.
 Currently they may be related to coding, researching, packaging, everything.</t>
-<t tx="niederberger.20040825222327.1">- The connect to list local network services should not show the local instance service 
-
-- Solve the network objects references conflicts
+<t tx="niederberger.20040825222327.1">- Solve the network objects references conflicts
 - Get chat working
 
 - why does Test_Chalks is sooo slow to quit ?
@@ -3419,14 +3417,19 @@ components.registerAdapter(ChalksModel, Chalks, interfaces.IModel)
 </t>
 <t tx="niederberger.20040911120126">def server_monitor_callback(servers):    
     """
+    this is called whenever the dict of known servers changes
+    
+    sample server data for reference:
                                 'address':     info.getAddress(),
                               'identifier':  info.getName(),
                               'port':       
     """        
     self.server_listbox.delete(0, END)  # remove all items
-    self.cur_server_list = servers # set internal dict of current known servers
-    # add all servers
-    for server in servers.values():
+    self.cur_server_list = servers # set internal dict of current known servers. This is used later by the listbox callback to known which server the user clicked
+    
+    for server in servers.values(): # add all servers
+        if server['identifier'] == self.service_name: # skip ourself
+            continue
         ipadr = '.'.join(map(lambda x:str(ord(x)),unpack('cccc', server['address'])))  # Ahhhhh ! Is this the best way for unpacking 4 bytes on a binary stream ?
         svr_string = server['identifier'] + ' [%s]' % ipadr
         print svr_string
@@ -3438,8 +3441,7 @@ components.registerAdapter(ChalksModel, Chalks, interfaces.IModel)
 @ aargh, Tkinter is disgusting:
 1) curselection() returns STRINGS instead of ints when referring to indexes
 2) curselection() only returns something after you click TWICE on the list box. After that, it starts working as expected
-3) how do I set an Entry widget text ??? Do I really have to change a lot of code in order to make it use a Tkinter "textvariable" (StringVar) ?
-4) Listbox has no scrollbar, we have to set it up manually with:
+3) Listbox has no scrollbar, we have to set it up manually with:
     """
     frame = Frame(master)
     scrollbar = Scrollbar(frame, orient=VERTICAL)
