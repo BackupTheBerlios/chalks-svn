@@ -1688,11 +1688,11 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
 <v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
-<v t="niederberger.20040825222327.1" a="ETV"><vh>High</vh>
+<v t="niederberger.20040825222327.1" a="E"><vh>High</vh>
 <v t="niederberger.20040920180258"><vh>Disconnect bug</vh></v>
 </v>
 <v t="niederberger.20040825222327.2" a="E"><vh>Medium</vh>
-<v t="niederberger.20040922110026" a="E"><vh>pyzeroconf problems</vh>
+<v t="niederberger.20040922110026" a="ETV"><vh>pyzeroconf problems</vh>
 <v t="niederberger.20040922111043"><vh>Another rendezvous bug</vh></v>
 <v t="niederberger.20040922110926"><vh>Rendez Vous crash the program if pc is without internet</vh></v>
 </v>
@@ -3386,8 +3386,6 @@ Currently they may be related to coding, researching, packaging, everything.</t>
 
 - Work on concurrenteditablenode (make consistent use of the new site_id system)
 
-- the rendezvous system does not seem to be working under linux (available servers list is empty)
-
 </t>
 <t tx="niederberger.20040825222327.2">- we should add to rendezvous published data which filename we are serving, and unregister our server and register it again with the new filename when a new file is opened
   currently it registers only once at startup and unregisters on app shutdown. 
@@ -3547,7 +3545,11 @@ When a parent disconnects, we need to send the collaborate_out msg to all of it'
 <t tx="niederberger.20040922110026">Place all pyzeroconf/rendezvous bugs/issues here so they can be reported to original authors later:
 
 - why does Test_Chalks is sooo slow to quit ? (seeems to be related with rendez vous, when disabled it quit in a fraction of seconds).
-  This has to do with Rendezvous.py threading mechanism. It has a long timeout when waiting for all socket monitoring threads to finish.</t>
+  This has to do with Rendezvous.py threading mechanism. It has a long timeout when waiting for all socket monitoring threads to finish.
+  
+- the rendezvous system does not seem to be working under linux (available servers list is empty)
+  Indeed. Apparently some multicast dns service magic daemon is not available on common linux installations (as opposed to Windows), so it doesn't work. 
+  This is not a Chalks bug: pyzeroconf tests won't work either.</t>
 <t tx="niederberger.20040922110926">This is a pyzeroconf bug, we will just catch the exception and disable rendezvous support when this happens.
 
 Traceback:
