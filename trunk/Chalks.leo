@@ -25,7 +25,7 @@
 </v>
 </v>
 </v>
-<v t="rodrigob.20040824110326.1" a="E"><vh>Docs</vh>
+<v t="rodrigob.20040824110326.1"><vh>Docs</vh>
 <v t="rodrigob.20040826155317" a="E"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
 <v t="rodrigob.20040908003956" a="E"><vh>Latex</vh>
 <v t="rodrigob.20040908003956.1" a="E"
@@ -33,7 +33,7 @@ marks="rodrigob.20040908172407.1,rodrigob.20040908172711.1,"
 expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010357.1,"><vh>@thin doc/design.tex</vh></v>
 <v t="rodrigob.20040908004300"><vh>@read-only doc/Makefile</vh></v>
 </v>
-<v t="rodrigob.20040831002540" a="E"><vh>Distribution files</vh>
+<v t="rodrigob.20040831002540"><vh>Distribution files</vh>
 <v t="rodrigob.20040826154516"><vh>@thin README</vh></v>
 <v t="rodrigob.20040831001818"><vh>@thin AUTHORS</vh></v>
 <v t="rodrigob.20040831002026" a="E"><vh>@thin COPYING</vh></v>
@@ -68,7 +68,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="niederberger.20040825221501"><vh>&lt;&lt; LeoNtest docs &gt;&gt; (about LeoN tests)</vh>
 <v t="niederberger.20040825221501.1"><vh>&lt;&lt; usage &gt;&gt;</vh></v>
 </v>
-<v t="niederberger.20040825221453" a="E"><vh>About security and permissions</vh>
+<v t="niederberger.20040825221453"><vh>About security and permissions</vh>
 <v t="niederberger.20040825221453.1"><vh>&lt;&lt; admingui help &gt;&gt; (for administrators)</vh>
 <v t="niederberger.20040825221453.2"><vh>see image misc/admin_gui.png</vh></v>
 </v>
@@ -123,11 +123,11 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 </v>
 <v t="niederberger.20040825215445" a="E"><vh>About client and server objects</vh></v>
-</v>
-<v t="niederberger.20040825221442.1"><vh>text difference transfer format</vh></v>
-<v t="rodrigob.121403173614.57"><vh>General view of the system</vh>
+<v t="rodrigob.121403173614.57" a="E"><vh>General view of the system</vh>
 <v t="rodrigob.010104211709"><vh>see image misc/leon_scheme.png</vh></v>
 </v>
+</v>
+<v t="niederberger.20040825221442.1"><vh>text difference transfer format</vh></v>
 <v t="rodrigob.010104212717"><vh>networking requirements</vh>
 <v t="rodrigob.121403173614.21"><vh>Leo over network requirements (original post)</vh>
 <v t="rodrigob.121403173614.22" a="E"><vh>&lt;&lt; Step one, Merging &gt;&gt;</vh></v>
@@ -136,10 +136,11 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.121403173614.25" a="E"><vh>&lt;&lt; Step four, Realtime interaction &gt;&gt;</vh></v>
 </v>
 </v>
-<v t="rodrigob.121403173614.58" a="E"><vh>Code explanation</vh>
+<v t="rodrigob.121403173614.58"><vh>Code explanation</vh>
 <v t="rodrigob.010104213529"><vh>&lt;&lt; notation &gt;&gt;</vh></v>
 </v>
-<v t="rodrigob.121403173614.66"><vh>About client and server objects</vh></v>
+<v t="niederberger.20040906222819"><vh>General view of the system</vh></v>
+<v t="rodrigob.121403173614.66" a="E"><vh>About client and server objects</vh></v>
 <v t="rodrigob.121403173614.1506"><vh>ConcurrentEditable algorithm explanation</vh></v>
 <v t="rodrigob.121403173614.60"><vh>About ConcurrentEditableClient and ConcurrentEditableServer</vh></v>
 <v t="rodrigob.121403173614.37"><vh>Release file tree</vh></v>
@@ -1667,21 +1668,21 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 </v>
 </v>
-<v t="rodrigob.121403173614.1321"><vh>Code</vh>
+<v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
 <v t="niederberger.20040825222327"><vh>Things left to do</vh>
-<v t="rodrigob.20040826215836" a="E"><vh>Old LeoN todo list (to purge)</vh>
+<v t="rodrigob.20040826215836"><vh>Old LeoN todo list (to purge)</vh>
 <v t="rodrigob.20040125223416" a="E"><vh>HOOK PROBLEM</vh></v>
 </v>
 <v t="niederberger.20040825222327.1"><vh>High</vh></v>
 <v t="niederberger.20040825222327.2"><vh>Medium</vh></v>
 <v t="niederberger.20040825222327.3"><vh>Low</vh></v>
 </v>
-<v t="rodrigob.20040125160038" a="E"><vh>Code perspectives</vh>
-<v t="rodrigob.20040129141624" a="M"><vh>network</vh>
+<v t="rodrigob.20040125160038"><vh>Code perspectives</vh>
+<v t="rodrigob.20040129141624" a="EM"><vh>network</vh>
 <v t="rodrigob.20040125154815.1" a="E"><vh>class ChalksNode</vh>
-<v t="rodrigob.20040125154815.2" a="E"><vh>connect to/disconnect from parent node</vh></v>
-<v t="rodrigob.20040125154815.3"><vh>edit content</vh>
-<v t="rodrigob.20040125154815.4"><vh>set text</vh></v>
+<v t="rodrigob.20040125154815.2" a="EM"><vh>connect to/disconnect from parent node</vh></v>
+<v t="rodrigob.20040125154815.3" a="E"><vh>edit content</vh>
+<v t="rodrigob.20040125154815.4" a="E"><vh>set text</vh></v>
 <v t="rodrigob.20040125154815.5"><vh>insert text</vh></v>
 <v t="rodrigob.20040125154815.6" a="M"><vh>delete text</vh></v>
 <v t="rodrigob.20040125154815.8"><vh>fill body</vh>
@@ -1701,7 +1702,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040125154815.19"><vh>flush body</vh></v>
 <v t="rodrigob.20040125154815.7"><vh>send operation</vh></v>
 </v>
-<v t="rodrigob.20040127182438" a="E"><vh>remote callable methods</vh>
+<v t="rodrigob.20040127182438"><vh>remote callable methods</vh>
 <v t="rodrigob.20040127182530" a="E"><vh>messages and presence methods</vh>
 <v t="rodrigob.20040127185444" a="M"><vh>get users list</vh></v>
 <v t="rodrigob.20040127184605"><vh>send message</vh></v>
@@ -1712,10 +1713,10 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 </v>
 </v>
-<v t="rodrigob.20040125194534" a="E"><vh>class ChalksPerspective</vh>
+<v t="rodrigob.20040125194534" a="EM"><vh>class ChalksPerspective</vh>
 <v t="rodrigob.20040129150513"><vh>logout</vh></v>
-<v t="rodrigob.20040126020641"><vh>collaborate in/out</vh></v>
-<v t="rodrigob.20040127190845" a="E"><vh>bi directional methods</vh>
+<v t="rodrigob.20040126020641" a="M"><vh>collaborate in/out</vh></v>
+<v t="rodrigob.20040127190845"><vh>bi directional methods</vh>
 <v t="rodrigob.20040125220331"><vh>messages and presence methods</vh></v>
 <v t="rodrigob.20040127182541"><vh>insert/delete text</vh></v>
 </v>
@@ -1737,16 +1738,16 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040129181502"><vh>get_data</vh></v>
 </v>
 <v t="rodrigob.20040130225705"><vh>disconnect_from_parent</vh></v>
-<v t="rodrigob.20040130225148" a="E"><vh>collaborate_in</vh>
+<v t="rodrigob.20040130225148" a="EM"><vh>collaborate_in</vh>
 <v t="rodrigob.20040130225208" a="M"><vh>set_state &lt;= THIS IS THE ACTUAL WORK</vh></v>
 </v>
 <v t="rodrigob.20040128011939"><vh>send operation</vh></v>
 </v>
-<v t="rodrigob.20040130225148.1"><vh>get_state</vh></v>
+<v t="rodrigob.20040130225148.1" a="M"><vh>get_state</vh></v>
 <v t="rodrigob.20040128012459" a="M"><vh>collect_garbage</vh></v>
 <v t="rodrigob.20040128012627"><vh>generate operations</vh></v>
 </v>
-<v t="rodrigob.121403173614.1509" a="E"><vh>ConcurrentEditable</vh>
+<v t="rodrigob.121403173614.1509"><vh>ConcurrentEditable</vh>
 <v t="rodrigob.121403173614.1510"><vh>receive operation</vh></v>
 <v t="rodrigob.121403173614.1511"><vh>apply</vh></v>
 <v t="rodrigob.121403173614.1512"><vh>execute</vh>
@@ -1759,11 +1760,11 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 </v>
 <v t="rodrigob.121403173614.1517"><vh>generate operations</vh></v>
 </v>
-<v t="rodrigob.20040121155542" a="E"><vh>TestConcurrentEditableNode</vh>
+<v t="rodrigob.20040121155542"><vh>TestConcurrentEditableNode</vh>
 <v t="rodrigob.20040128013509"><vh>TestConcurrentEditable1</vh></v>
 <v t="rodrigob.20040128013523"><vh>TestConcurrentEditableServer</vh></v>
 </v>
-<v t="rodrigob.20040125153141" a="EM"><vh>&lt;&lt; install the collaboration service &gt;&gt;</vh>
+<v t="rodrigob.20040125153141" a="M"><vh>&lt;&lt; install the collaboration service &gt;&gt;</vh>
 <v t="rodrigob.20040125200531.1"><vh>Chalks realm</vh></v>
 <v t="rodrigob.20040125200531" a="M"><vh>dummy checker</vh></v>
 </v>
@@ -1772,13 +1773,13 @@ expanded="rodrigob.20040908172407,rodrigob.20040908172407.2,rodrigob.20040908010
 <v t="rodrigob.20040831112258.1"><vh>concurrent edition</vh></v>
 </v>
 <v t="rodrigob.20040119132914" a="EM"
-marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.6,rodrigob.20040127185444,rodrigob.20040127203753,"
-expanded="rodrigob.20040119133203,rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040123142302,rodrigob.20040123133012,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040125154636,rodrigob.20040121150952.7,rodrigob.20040122175312,rodrigob.20040123134358,rodrigob.20040124160427,rodrigob.20040123123802,rodrigob.20040123132311.1,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040126020544,rodrigob.20040127190845,"><vh>@thin Chalks.py</vh></v>
+marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.2,rodrigob.20040125154815.6,rodrigob.20040127185444,rodrigob.20040127203753,rodrigob.20040125194534,rodrigob.20040126020641,"
+expanded="rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040125154636,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.3,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182530,rodrigob.20040126020544,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.20040125173910"><vh>@thin Test_Chalks.py</vh></v>
 <v t="rodrigob.20040125151012"><vh>@thin Chalks.xhtml</vh></v>
 <v t="rodrigob.121403173614.1502"
-marks="rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040130224144,rodrigob.20040130225208,rodrigob.20040128012459,"
-expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1504,rodrigob.121403173614.1508,rodrigob.121403173614.1509,rodrigob.121403173614.1516,rodrigob.121403173614.1531,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121155420,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040128011921,rodrigob.20040128011921.1,rodrigob.20040130225148,rodrigob.20040121155542,"><vh>@thin ConcurrentEditable.py</vh></v>
+marks="rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040130224144,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
+expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1516,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040121155420,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040128011921,rodrigob.20040128011921.1,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
 <v t="rodrigob.20040129132740"><vh>docs</vh>
 <v t="rodrigob.20040129130513.1"><vh>Unicode utils...</vh>
 <v t="rodrigob.20040129130513.2"><vh>isUnicode</vh></v>
@@ -1793,12 +1794,12 @@ expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1504,rodrigob.1214031
 <v t="rodrigob.20040123132311.1" a="E"><vh>&lt;&lt; chalks help &gt;&gt;</vh>
 <v t="rodrigob.20040126020116"><vh>network graph (about Server, Client, Children, Parent, and Trees)</vh></v>
 </v>
-<v t="rodrigob.122403220526.1" a="E"><vh>developers docs</vh>
+<v t="rodrigob.122403220526.1"><vh>developers docs</vh>
 <v t="niederberger.20040825214919"><vh>old (from LeoN)</vh>
 <v t="niederberger.20040825221501"><vh>&lt;&lt; LeoNtest docs &gt;&gt; (about LeoN tests)</vh>
 <v t="niederberger.20040825221501.1"><vh>&lt;&lt; usage &gt;&gt;</vh></v>
 </v>
-<v t="niederberger.20040825221453" a="E"><vh>About security and permissions</vh>
+<v t="niederberger.20040825221453"><vh>About security and permissions</vh>
 <v t="niederberger.20040825221453.1"><vh>&lt;&lt; admingui help &gt;&gt; (for administrators)</vh>
 <v t="niederberger.20040825221453.2"><vh>see image misc/admin_gui.png</vh></v>
 </v>
@@ -1853,11 +1854,11 @@ expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1504,rodrigob.1214031
 </v>
 </v>
 <v t="niederberger.20040825215445" a="E"><vh>About client and server objects</vh></v>
-</v>
-<v t="niederberger.20040825221442.1"><vh>text difference transfer format</vh></v>
-<v t="rodrigob.121403173614.57"><vh>General view of the system</vh>
+<v t="rodrigob.121403173614.57" a="E"><vh>General view of the system</vh>
 <v t="rodrigob.010104211709"><vh>see image misc/leon_scheme.png</vh></v>
 </v>
+</v>
+<v t="niederberger.20040825221442.1"><vh>text difference transfer format</vh></v>
 <v t="rodrigob.010104212717"><vh>networking requirements</vh>
 <v t="rodrigob.121403173614.21"><vh>Leo over network requirements (original post)</vh>
 <v t="rodrigob.121403173614.22" a="E"><vh>&lt;&lt; Step one, Merging &gt;&gt;</vh></v>
@@ -1866,10 +1867,11 @@ expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1504,rodrigob.1214031
 <v t="rodrigob.121403173614.25" a="E"><vh>&lt;&lt; Step four, Realtime interaction &gt;&gt;</vh></v>
 </v>
 </v>
-<v t="rodrigob.121403173614.58" a="E"><vh>Code explanation</vh>
+<v t="rodrigob.121403173614.58"><vh>Code explanation</vh>
 <v t="rodrigob.010104213529"><vh>&lt;&lt; notation &gt;&gt;</vh></v>
 </v>
-<v t="rodrigob.121403173614.66"><vh>About client and server objects</vh></v>
+<v t="niederberger.20040906222819"><vh>General view of the system</vh></v>
+<v t="rodrigob.121403173614.66" a="E"><vh>About client and server objects</vh></v>
 <v t="rodrigob.121403173614.1506"><vh>ConcurrentEditable algorithm explanation</vh></v>
 <v t="rodrigob.121403173614.60"><vh>About ConcurrentEditableClient and ConcurrentEditableServer</vh></v>
 <v t="rodrigob.121403173614.37"><vh>Release file tree</vh></v>
@@ -3182,6 +3184,13 @@ Currently they may be related to coding, researching, packaging, everything.</t>
 <t tx="niederberger.20040825222327.1"></t>
 <t tx="niederberger.20040825222327.2"></t>
 <t tx="niederberger.20040825222327.3"></t>
+<t tx="niederberger.20040906222819">Components of Chalks are Python, Twisted, ConcurrentEditable and Tkinter.
+
+&gt;&gt; improve it later and actually give a general view of how parts fit together &lt;&lt;
+
+To develop the network code we use Twisted. Twisted is a framework (a library of functions and classes) for Python. Twisted is very important because it provides many features. It allows very easily to construct server apps ('.tap' files), create networked client applications (reactors, general class design), to communicate two pieces of software (perspective broker), to provide web services (woven/nevow), and much more. 
+
+ConcurrentEditable provides a pure python implementation of the concurrent edition algorithms developed by Chengzheng Sun's team. We extended a little the idea (on the technical aspect) to provide a client/server implementation (subclassing the base system), and thus ConcurrentEditableClient/Server were born.</t>
 <t tx="rodrigob.010104175231"></t>
 <t tx="rodrigob.010104211709"></t>
 <t tx="rodrigob.010104212717">no real requirement right now, but issues we should think about:
@@ -28853,10 +28862,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     """
     Connect as a children to another node
     """
-    
-    self.nickname = nickname
-    
-    # at connection need to enable the chat system # &lt;&lt;&lt;&lt; EDIT CODE HERE
+    assert isinstance(port, int), 'port must be integer'
+    self.nickname = nickname    
     
     factory = pb.PBClientFactory()
     reactor.connectTCP(address, port, factory)
@@ -28883,14 +28890,30 @@ def logged_in(self, parent_perspective):
 
 def start_collaborating(self, ret_tuple):
     """
-    Callback for the connection procedure.
+    Callback for the connection procedure.        
     """
     insert_index = self.text_widget.index("insert")
     
-    site_index, num_of_sites, base_state_vector, base_text, ops_list = ret_tuple
-        
-    # init the internal ConcurrentEditable		
-    ConcurrentEditable.__init__(self, site_index, num_of_sites) # site_index, num_of_sites # the clients has site_index 1, thus state_vector == [server, client]
+    assert len(ret_tuple) == 7, 'wrong number of state parameters received'
+    """ What's returned by get_state():
+    return  self.sites_index,
+            self.state_vector_table,
+            self.minimum_state_vector,
+            self.HB,
+            self.delayed_operations,
+            self.text_buffer,
+            self.state_vector
+    
+    """
+    #site_index, num_of_sites, base_state_vector, base_text, ops_list = ret_tuple
+    t_sites_index, t_state_vector_table, t_msv, t_hb, t_delayed_operations , base_text, base_state_vector = ret_tuple
+    ops_list = [] 
+    num_of_sites = len(t_sites_index)
+    #site_index = max(t_sites_index.keys())  # &lt;&lt;&lt;&lt; is it safe to assume my site_id is the largest one returned from parent current state ?
+    # init the internal ConcurrentEditable
+    
+    from ConcurrentEditable import ConcurrentEditable
+    ConcurrentEditable.__init__(self, 1,2) # site_index, num_of_sites) # site_index, num_of_sites # the clients has site_index 1, thus state_vector == [server, client]
 
     self.set_text(base_text)
 
@@ -28914,7 +28937,8 @@ def start_collaborating(self, ret_tuple):
     self.log("delayed_operations after the connection %s"% self.delayed_operations, color="yellow") # just for debugging
     self.log("self.state_vector %s" % self.state_vector, color="yellow") # just for debugging
 
-
+    # upon connection we need to enable the chat system # &lt;&lt;&lt;&lt; EDIT CODE HERE
+    
     self.connected = 1 # indicate the success
     return
     
@@ -28947,6 +28971,8 @@ def disconnected(self, *args):
 
 
 
+
+
 </t>
 <t tx="rodrigob.20040125154815.3">@
 This methods edit the client node text, presenting the gui results.
@@ -28961,7 +28987,7 @@ def set_cursor_position(self, who, pos):
     Define the new position of someone cursor, so the local user can suspect future editions of the camarades. Used as a visual feedback of other user actions.
     """
     
-    raise NotImplentedError, "not yet"
+    raise NotImplementedError, "not yet implemented"
     
     return</t>
 <t tx="rodrigob.20040125154815.4">def set_text(self, new_text):
@@ -28971,6 +28997,7 @@ def set_cursor_position(self, who, pos):
     
     self.log( "Calling set_text '%s'"%(new_text), color="yellow" ) # for debugging
     
+    from ConcurrentEditable import ConcurrentEditableClient
     # maintain an unicode buffer equivalent
     ConcurrentEditableClient.set_text(self, new_text)
         
@@ -29568,8 +29595,7 @@ For more information about the code read the "LeoN.leo/Docs/developers docs/Code
     """
     &lt;&lt;&lt;&lt;&lt;&lt;&lt; ADD CONTENT HERE
     what other users (childrens) can do here (at the parent). 
-    The avatar instance is created when the user connects to the local node, and it define what he can do here.
-    
+    The avatar instance is created when the user connects to the local node, and it defines what he can do here.
     
     The server side representation of the user.
     There is one avatar instance per client connection to the server
@@ -29598,7 +29624,7 @@ For more information about the code read the "LeoN.leo/Docs/developers docs/Code
     @others</t>
 <t tx="rodrigob.20040125200531">class DummyChecker:
     """
-    give access to everyone
+    gives access to everyone
     """
     __implements__ = checkers.ICredentialsChecker
 
@@ -29708,7 +29734,7 @@ def remote_delete_text(self, startpos, length, timestamp, who=None):
 def perspective_collaborate_in(self, id):
     """
     Start collaborating with the node
-    realize site registration and return the necesarry data to configure the client (children)
+    proceeds with site registration and returns the necessary data to configure the client (children)
     the id is a unique identifier of the client (child) process
     """
     
@@ -30536,12 +30562,12 @@ for t_op in (self.HB + self.delayed_operations):
 @c</t>
 <t tx="rodrigob.20040130225148">def collaborate_in(self,):
     """
-    Request the actual state to the parent and install it locally, using 'self.set_state'
+    Requests the current state to the parent and install it locally, using 'self.set_state'
     
     Dummy implementation for testing purpose. This method should be overwritten to manage network methods.
     """
  
-    assert self.parent_perspective, "Need to be conected to a parent in order to start collaborating"   
+    assert self.parent_perspective, "Need to be conected to a parent in order to start collaborating"
 
     # remote get_state
     t_state = self.parent_perspective.get_state() # &lt;&lt;&lt; this should replaced by a network call
@@ -30553,12 +30579,19 @@ for t_op in (self.HB + self.delayed_operations):
     return</t>
 <t tx="rodrigob.20040130225148.1">def get_state(self,):
     """
-    The return all the data required to follow the actual session
+    This returns all the data required to be fully update regarding the current editing session
     """
     
     # sites index, SVT, MSV, HB, delayed_operations, text, state_vector
     
-    return self.sites_index, self.state_vector_table, self.minimum_state_vector, self.HB, self.delayed_operations, self.text_buffer, self.state_vector
+    return (self.sites_index,
+            self.state_vector_table,
+            self.minimum_state_vector,
+            self.HB,
+            self.delayed_operations,
+            self.text_buffer,
+            self.state_vector)
+            
 </t>
 <t tx="rodrigob.20040130225208">def set_state(self, state):
     """

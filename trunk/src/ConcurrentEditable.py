@@ -1293,7 +1293,7 @@ def Convert_AA(Oa, Ob):
 class ConcurrentEditableServer(ConcurrentEditable):
     """
     Simple Observer and operations repeater.
-    It manage all the conection/disconnection syncronization problems.
+    Manages all connection/disconnection syncronization problems.
     """
     
     def __init__(self, text=u""):
@@ -1305,7 +1305,7 @@ class ConcurrentEditableServer(ConcurrentEditable):
         # init the internal ConcurrentEditable
         ConcurrentEditable.__init__(self, None, 0) # (self, site_index, num_of_sites)
         
-        self.connected_sites = {} # the mapping between the connected sites and they site_index
+        self.connected_sites = {} # the mapping between the connected sites and their site_index
         self.indexed_sites   = {} # the reverse map of connected_sites
         
         self.text_buffer = text
@@ -1483,11 +1483,11 @@ class ConcurrentEditableServer(ConcurrentEditable):
         
         # first send to other users to enhance responsiveness
         for t_index in xrange(len(self.state_vector)):
-            if t_index == Onew["source_site"]: continue # do not send back to the emisor	
+            if t_index == Onew["source_site"]: continue # do not send back to the emissor	
             self.send_operation(t_index, Onew) # send it
     
         
-        ConcurrentEditable.apply(self, Onew) # apply localy
+        ConcurrentEditable.apply(self, Onew) # apply locally
         
         return 
     
@@ -1756,7 +1756,7 @@ class ConcurrentEditableClient(ConcurrentEditable):
     
         for t_op in self.HB:
             if t_op["timestamp"] == timestamp:
-                print "<strange> Strange network conditions have created a twin message reception. Will be omited. (twin: %s, recieved: %s)"%(t_op, str((in_op, args, kw)))
+                print "<strange> Strange network conditions have created a twin message reception. Will be ommited. (twin: %s, recieved: %s)"%(t_op, str((in_op, args, kw)))
                 return
     
         ConcurrentEditable.receive_operation(self, in_op, *args, **kw) # receive the operation
@@ -2197,12 +2197,12 @@ class ConcurrentEditableNode(ConcurrentEditable):
     #@+node:rodrigob.20040130225148:collaborate_in
     def collaborate_in(self,):
         """
-        Request the actual state to the parent and install it locally, using 'self.set_state'
+        Requests the current state to the parent and install it locally, using 'self.set_state'
         
         Dummy implementation for testing purpose. This method should be overwritten to manage network methods.
         """
      
-        assert self.parent_perspective, "Need to be conected to a parent in order to start collaborating"   
+        assert self.parent_perspective, "Need to be conected to a parent in order to start collaborating"
     
         # remote get_state
         t_state = self.parent_perspective.get_state() # <<< this should replaced by a network call
@@ -2263,12 +2263,19 @@ class ConcurrentEditableNode(ConcurrentEditable):
     #@+node:rodrigob.20040130225148.1:get_state
     def get_state(self,):
         """
-        The return all the data required to follow the actual session
+        This returns all the data required to be fully update regarding the current editing session
         """
         
         # sites index, SVT, MSV, HB, delayed_operations, text, state_vector
         
-        return self.sites_index, self.state_vector_table, self.minimum_state_vector, self.HB, self.delayed_operations, self.text_buffer, self.state_vector
+        return (self.sites_index,
+                self.state_vector_table,
+                self.minimum_state_vector,
+                self.HB,
+                self.delayed_operations,
+                self.text_buffer,
+                self.state_vector)
+                
     #@-node:rodrigob.20040130225148.1:get_state
     #@+node:rodrigob.20040128012459:collect_garbage
     def collect_garbage(self):

@@ -204,7 +204,7 @@ class Chalks:
         #@+node:rodrigob.20040125200531:dummy checker
         class DummyChecker:
             """
-            give access to everyone
+            gives access to everyone
             """
             __implements__ = checkers.ICredentialsChecker
         
@@ -413,7 +413,7 @@ class Chalks:
     def is_dirty(self):
         """
         Indicates if the contents of the file have changed since last saved.
-        Use a hash function
+        Uses a hash function
         """
         
         return self.saved_version_hash != hash(self.text_widget.get("1.0", END))
@@ -750,7 +750,7 @@ class Chalks:
             
             self.redirecting = None
             self.app = app
-            self.app.log_widget.tag_config("stdout", foreground="gray")
+            self.app.log_widget.tag_config("stdout", foreground="gray45")
             
             self.redirect() # redirect stderr and stdout to the log panel
             return
@@ -1111,11 +1111,9 @@ class Chalks:
         top = Toplevel(self.root)
         top.title("Connect to ...")
     
-        t_text = Label(top, text="fill all the entry spaces,")
-        t_text.pack()
-    
         #|-|-|
-        t_frame = Frame(top, borderwidth=2, relief=GROOVE)
+        
+        t_frame = LabelFrame(top, text="Enter remote server info", padx=5, pady=5)#Frame(top, borderwidth=2, relief=GROOVE)
         
         t_text = Label(t_frame, text="Address:")
         t_text.grid(row=0, column=0, pady=5)
@@ -1137,7 +1135,7 @@ class Chalks:
         t_text.grid(row=1, column=2, columnspan=2, sticky=E)
         
         #-|-|-
-        tt_frame = Frame(t_frame) 
+        tt_frame = LabelFrame(top, text="Identify yourself", padx=5, pady=5)#Frame(top, borderwidth=2, relief=GROOVE)#Frame(t_frame) 
         
         t_text = Label(tt_frame, text="Nickname:")
         t_text.grid(row=2, column=0)
@@ -1149,16 +1147,16 @@ class Chalks:
         t_text = Label(tt_frame, text="e.g. : mike")
         t_text.grid(row=3, column=0, columnspan=2, sticky=E)
         
-        tt_frame.grid(row=2, column=0, columnspan=2, sticky=W, pady=5)
         #-|-|-
-        
-        t_frame.pack(ipadx= 5)    
+        t_frame.pack(ipadx = 5)
+        tt_frame.pack(ipadx = 5)        
         #|-|-|
         
         t_frame = Frame(top)
         
         button_close = Button(t_frame, text="Close", command= top.destroy)
         button_close.pack(side=RIGHT, padx=10)
+    
         
         #@    << connect to callback >>
         #@+node:rodrigob.20040125213003:<< connect to callback >>
@@ -1185,8 +1183,7 @@ class Chalks:
                     print "you canceled the connection process"
                     return
             
-        
-            port     = port_entry.get()
+            port     = int(port_entry.get()) # connect_to_parent now expects an int as the port
             address  = address_entry.get()  
             nickname = nickname_entry.get()
             
@@ -1432,10 +1429,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         """
         Connect as a children to another node
         """
-        
-        self.nickname = nickname
-        
-        # at connection need to enable the chat system # <<<< EDIT CODE HERE
+        assert isinstance(port, int), 'port must be integer'
+        self.nickname = nickname    
         
         factory = pb.PBClientFactory()
         reactor.connectTCP(address, port, factory)
@@ -1462,14 +1457,30 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     
     def start_collaborating(self, ret_tuple):
         """
-        Callback for the connection procedure.
+        Callback for the connection procedure.        
         """
         insert_index = self.text_widget.index("insert")
         
-        site_index, num_of_sites, base_state_vector, base_text, ops_list = ret_tuple
-            
-        # init the internal ConcurrentEditable		
-        ConcurrentEditable.__init__(self, site_index, num_of_sites) # site_index, num_of_sites # the clients has site_index 1, thus state_vector == [server, client]
+        assert len(ret_tuple) == 7, 'wrong number of state parameters received'
+        """ What's returned by get_state():
+        return  self.sites_index,
+                self.state_vector_table,
+                self.minimum_state_vector,
+                self.HB,
+                self.delayed_operations,
+                self.text_buffer,
+                self.state_vector
+        
+        """
+        #site_index, num_of_sites, base_state_vector, base_text, ops_list = ret_tuple
+        t_sites_index, t_state_vector_table, t_msv, t_hb, t_delayed_operations , base_text, base_state_vector = ret_tuple
+        ops_list = [] 
+        num_of_sites = len(t_sites_index)
+        #site_index = max(t_sites_index.keys())  # <<<< is it safe to assume my site_id is the largest one returned from parent current state ?
+        # init the internal ConcurrentEditable
+        
+        from ConcurrentEditable import ConcurrentEditable
+        ConcurrentEditable.__init__(self, 1,2) # site_index, num_of_sites) # site_index, num_of_sites # the clients has site_index 1, thus state_vector == [server, client]
     
         self.set_text(base_text)
     
@@ -1493,7 +1504,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         self.log("delayed_operations after the connection %s"% self.delayed_operations, color="yellow") # just for debugging
         self.log("self.state_vector %s" % self.state_vector, color="yellow") # just for debugging
     
-    
+        # upon connection we need to enable the chat system # <<<< EDIT CODE HERE
+        
         self.connected = 1 # indicate the success
         return
         
@@ -1526,6 +1538,8 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
     
     
     
+    
+    
     #@-node:rodrigob.20040125154815.2:connect to/disconnect from parent node
     #@+node:rodrigob.20040125154815.3:edit content
     #@+at
@@ -1544,7 +1558,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         Define the new position of someone cursor, so the local user can suspect future editions of the camarades. Used as a visual feedback of other user actions.
         """
         
-        raise NotImplentedError, "not yet"
+        raise NotImplementedError, "not yet implemented"
         
         return
     #@nonl
@@ -1556,6 +1570,7 @@ class ChalksNode(ConcurrentEditableNode, pb.Referenceable):
         
         self.log( "Calling set_text '%s'"%(new_text), color="yellow" ) # for debugging
         
+        from ConcurrentEditable import ConcurrentEditableClient
         # maintain an unicode buffer equivalent
         ConcurrentEditableClient.set_text(self, new_text)
             
@@ -2313,8 +2328,7 @@ class ChalksPerspective(pb.Avatar):
     """
     <<<<<<< ADD CONTENT HERE
     what other users (childrens) can do here (at the parent). 
-    The avatar instance is created when the user connects to the local node, and it define what he can do here.
-    
+    The avatar instance is created when the user connects to the local node, and it defines what he can do here.
     
     The server side representation of the user.
     There is one avatar instance per client connection to the server
@@ -2360,7 +2374,7 @@ class ChalksPerspective(pb.Avatar):
     def perspective_collaborate_in(self, id):
         """
         Start collaborating with the node
-        realize site registration and return the necesarry data to configure the client (children)
+        proceeds with site registration and returns the necessary data to configure the client (children)
         the id is a unique identifier of the client (child) process
         """
         
