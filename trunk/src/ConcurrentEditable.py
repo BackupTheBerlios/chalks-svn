@@ -261,7 +261,6 @@ class ConcurrentEditable:
 
         self.text_buffer = ""
         
-        return
         
     def get_text(self):
         """
@@ -826,22 +825,22 @@ def IT (Oa, Ob):
     Return a transformed Oa, named Ooa, such that the impact of the independent operation Ob (against Oa) is efectively included into Oa.
     Also define the timestamp of the virtual operation.
     """
-
+    
     if Check_RA(Oa):
-        #print "Check_BO(\n\t%s, \n\t%s \n)\t\t=> %s"%(Oa, Ob, Check_BO(Oa, Ob)) # just for debugging
-        if Check_BO(Oa, Ob):
-             Ooa = Convert_AA(Oa, Ob)
-        else:
-             Ooa = Oa 
+         #print "Check_BO(\n\t%s, \n\t%s \n)\t\t=> %s"%(Oa, Ob, Check_BO(Oa, Ob)) # just for debugging
+         if Check_BO(Oa, Ob):
+              Ooa = Convert_AA(Oa, Ob)
+         else:
+              Ooa = Oa 
     elif T(Oa) == "Insert" and T(Ob) == "Insert":
          Ooa = IT_II(Oa, Ob)
     elif T(Oa) == "Insert" and T(Ob) == "Delete":
-        Ooa = IT_ID(Oa, Ob)
+         Ooa = IT_ID(Oa, Ob)
     elif T(Oa) == "Delete" and T(Ob) == "Insert":
-        Ooa = IT_DI(Oa, Ob)
+         Ooa = IT_DI(Oa, Ob)
     else: # if T(Oa) == "Delete" and T(Ob) == "Delete"
-        Ooa = IT_DD(Oa, Ob)
-        
+         Ooa = IT_DD(Oa, Ob)
+         
     
     Ooa["source_site"] = Oa["source_site"]
     Ooa["timestamp"]   = list(Oa["timestamp"]) # copy
@@ -1024,7 +1023,6 @@ class Operation(dict):
         for k in kws.keys():
             d[k] = kws[k]
                     
-        return
 
     def __eq__(self, other): 
         """
@@ -1309,7 +1307,6 @@ class ConcurrentEditableServer(ConcurrentEditable):
         self.text_buffer = text
         self.base_text   = text
         self.base_state_vector = list(self.state_vector) # a copy # base_state_vector is the state associated to the base_text
-        return
         
         
     def generate_operation(self, type, pos, data, **kws):
