@@ -19,7 +19,7 @@
 # 27/01/04 Renamed MultiEdit as Chalks. Working. RodrigoB.
 # 20/02/04 Frozen. RodrigoB.
 # 25/08/04 Project ressurected. Ricardo Niederberger Cabral joined development 
-# efforts. Logs are now keept in the berlios svn server.
+# efforts. Logs are now kept in the berlios svn server.
 #@-at
 #@@c
 
@@ -232,7 +232,7 @@ class Chalks:
             else: # got it
                 self.server_port = port
                 print "Starting Chalks service at chalks://localhost:%i" % port
-                print "Knowing your internet address (i.e. your IP) other users can connect themself to your session using the port %i." % port  #<<<<< this should be replaced by a friendlier popup or message
+                #print "Knowing your internet address (i.e. your IP) other users can connect themself to your session using the port %i." % port  #<<<<< this should be replaced by a friendlier popup or message
                 self.chalks_service = pb_service
                 break # stop creating web services
                 
@@ -1704,13 +1704,13 @@ class ChalksNode(ConcurrentEditableNode):
         """
     
         self.avatar = avatar
-        # us avatar is the us perspective ot the parent ChalksNode
+        #our avatar is the our perspective to the parent ChalksNode
         self.parent_perspective = avatar
         self.parent_avatar.mind = avatar # set the avatar perspective (important)
         print "Registering parent perspective %s" % avatar 
     
             
-        # we obtain us site_id
+        # we obtain our site_id
         t_address = self.avatar.broker.transport.getHost()
         self.site_id = hash("%s:%i" % (t_address.host, t_address.port))
     
@@ -2289,7 +2289,7 @@ class ChalksNode(ConcurrentEditableNode):
                     old_insert = index_to_list(old_insert)
                         
                     if t_range: # if the old_insert touch a range
-                        # t_range store the range that touch us index. We know that the ranges are ordered from little to bigger. So we cut the old_to_send_ranges list (but including the touching range).		
+                        # t_range store the range that touch our index. We know that the ranges are ordered from little to bigger. So we cut the old_to_send_ranges list (but including the touching range).		
                         # convert the tuple of "line.column" indexes to a list of indexes.
                         iter_ranges = iter(ranges)
                         ranges= []
@@ -2297,7 +2297,7 @@ class ChalksNode(ConcurrentEditableNode):
                             ranges.append((t_index, iter_ranges.next()))
                         ranges = ranges[:ranges.index(index_to_list(t_range)) + 1]
                     else:
-                        # we gonna have to search the ranges, knowing that they do not touch us index
+                        # we gonna have to search the ranges, knowing that they do not touch our index
                         t_ranges = []
                         for i in xrange(0, len(ranges), 2):	
                             stop   = index_to_list(ranges[i+1])
@@ -2512,8 +2512,8 @@ class ChalksNode(ConcurrentEditableNode):
     #@+node:rodrigob.20040127182438:remote callable methods
     #@+at
     # The ChalksNode is a referenceable object that is passed at connection, 
-    # define what us 'parent' (the node to which we connected) can do on the 
-    # local node.
+    # which defines what our 'parent' (the node to which we connected) can do 
+    # on the local node.
     #@-at
     #@@c
     #@nonl
@@ -2696,7 +2696,7 @@ class ChalksAvatar(pb.Avatar, pb.Referenceable):
         if self.mind: self.mind.site_id = site_id
         
         assert self.mind, ChalksError("Avatar without mind trying to collaborate in")
-        self.node.add_site(self.mind) # we register us perspective in the parent
+        self.node.add_site(self.mind) # we register our perspective in the parent
         print "Registering child perspective %s" % self.mind
         
         # we obtain and return the required data to start the session in the child

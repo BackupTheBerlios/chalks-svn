@@ -25,16 +25,16 @@
 </v>
 </v>
 </v>
-<v t="rodrigob.20040824110326.1"><vh>Docs</vh>
+<v t="rodrigob.20040824110326.1" a="E"><vh>Docs</vh>
 <v t="rodrigob.20040826155317" a="EM"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
-<v t="rodrigob.20040908003956" a="E"><vh>Latex</vh>
+<v t="rodrigob.20040908003956"><vh>Latex</vh>
 <v t="rodrigob.20040908003956.1" a="E"
 marks="rodrigob.20040913233519,"
 expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234027,"><vh>@thin doc/design.tex</vh></v>
 <v t="rodrigob.20040908004300"><vh>@read-only doc/Makefile</vh></v>
 </v>
 <v t="rodrigob.20040831002540"><vh>Distribution files</vh>
-<v t="rodrigob.20040826154516" a="E" tnodeList="rodrigob.20040826154516,rodrigob.20040826154830,rodrigob.20040826154614,rodrigob.20040826154614.1,rodrigob.20040826154830.1,rodrigob.20040826154830.2,rodrigob.20040826154830.3,rodrigob.20040826155317"><vh>@nosentinelsfile README</vh>
+<v t="rodrigob.20040826154516" tnodeList="rodrigob.20040826154516,rodrigob.20040826154830,rodrigob.20040826154614,rodrigob.20040826154614.1,rodrigob.20040826154830.1,rodrigob.20040826154830.2,rodrigob.20040826154830.3,rodrigob.20040826155317"><vh>@nosentinelsfile README</vh>
 <v t="rodrigob.20040826154830"><vh>&lt;&lt;legal declaration&gt;&gt;</vh></v>
 <v t="rodrigob.20040826154614"><vh>&lt;&lt;what is Chalks ?&gt;&gt;</vh></v>
 <v t="rodrigob.20040826154614.1"><vh>&lt;&lt;features&gt;&gt;</vh></v>
@@ -43,7 +43,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040826154830.3"><vh>&lt;&lt;usage&gt;&gt;</vh></v>
 <v t="rodrigob.20040826155317" a="M"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
 </v>
-<v t="rodrigob.20040831001818" a="E" tnodeList="rodrigob.20040831001818,rodrigob.20040826155317"><vh>@nosentinelsfile AUTHORS</vh>
+<v t="rodrigob.20040831001818" tnodeList="rodrigob.20040831001818,rodrigob.20040826155317"><vh>@nosentinelsfile AUTHORS</vh>
 <v t="rodrigob.20040826155317" a="M"><vh>&lt;&lt;credits&gt;&gt;</vh></v>
 </v>
 <v t="rodrigob.20040831002026" a="E" tnodeList="rodrigob.20040831002026"><vh>@nosentinelsfile COPYING</vh></v>
@@ -55,7 +55,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.123103131341"><vh>LeoN release 0.1.0</vh></v>
 <v t="rodrigob.20040918184418"><vh>Chalks initial logs</vh></v>
 </v>
-<v t="rodrigob.121403173614.9"><vh>Old LeoN (to purge) Docs</vh>
+<v t="rodrigob.121403173614.9" a="E"><vh>Old LeoN (to purge) Docs</vh>
 <v t="rodrigob.121403173614.4" a="E"><vh>&lt;&lt; release status &gt;&gt;</vh></v>
 <v t="rodrigob.122403213028"><vh>&lt;&lt; legal declaration &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.57"><vh>General view of the system</vh>
@@ -78,8 +78,8 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.123103123839"><vh>see image misc/admin_gui.png</vh></v>
 </v>
 </v>
-<v t="rodrigob.122403220526.1"><vh>developers docs</vh>
-<v t="niederberger.20040825214919"><vh>old (from LeoN)</vh>
+<v t="rodrigob.122403220526.1" a="E"><vh>developers docs</vh>
+<v t="niederberger.20040825214919" a="E"><vh>old (from LeoN)</vh>
 <v t="niederberger.20040825221501"><vh>&lt;&lt; LeoNtest docs &gt;&gt; (about LeoN tests)</vh>
 <v t="niederberger.20040825221501.1"><vh>&lt;&lt; usage &gt;&gt;</vh></v>
 </v>
@@ -89,16 +89,16 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 </v>
 <v t="niederberger.20040825221442"><vh>Outline transfer format</vh></v>
-<v t="niederberger.20040825221401"><vh>About the LeoChecker, LeoAvatar, and where is the Realm hidden</vh>
+<v t="niederberger.20040825221401" a="E"><vh>About the LeoChecker, LeoAvatar, and where is the Realm hidden</vh>
 <v t="niederberger.20040825221401.1" a="E"><vh>Server login (server side login classes)</vh>
 <v t="niederberger.20040825221401.2"><vh>class LeoChecker</vh></v>
 <v t="niederberger.20040825221401.3"><vh>class LeoAvatar</vh></v>
 <v t="niederberger.20040825221401.4"><vh>requestAvatar (CollaborativeOutline.requestAvatar)</vh></v>
-<v t="niederberger.20040825221401.5"><vh>Perspectives</vh>
+<v t="niederberger.20040825221401.5" a="E"><vh>Perspectives</vh>
 <v t="niederberger.20040825221401.6" a="E"><vh>class OutlinePerspective</vh>
 <v t="niederberger.20040825221401.7"><vh>Own account editing</vh></v>
 <v t="niederberger.20040825221401.8"><vh>Messages and presence methods</vh></v>
-<v t="niederberger.20040825221401.9"><vh>Outline editing methods</vh>
+<v t="niederberger.20040825221401.9" a="E"><vh>Outline editing methods</vh>
 <v t="niederberger.20040825221401.10"><vh>helpers functions (data&lt;-&gt;outline)</vh>
 <v t="niederberger.20040825221401.11"><vh>outline_to_data</vh></v>
 <v t="niederberger.20040825221401.12"><vh>data_to_outline</vh></v>
@@ -120,7 +120,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="niederberger.20040825221401.25"><vh>upload outline</vh></v>
 <v t="niederberger.20040825221401.26"><vh>download outline</vh></v>
 </v>
-<v t="niederberger.20040825221401.27"><vh>Edit nodes</vh>
+<v t="niederberger.20040825221401.27" a="E"><vh>Edit nodes</vh>
 <v t="niederberger.20040825221401.28"><vh>lock/unlock</vh></v>
 <v t="niederberger.20040825221401.29"><vh>update node</vh></v>
 <v t="niederberger.20040825221401.30"><vh>collaborate in/out</vh></v>
@@ -160,14 +160,14 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.121403173614.60"><vh>About ConcurrentEditableClient and ConcurrentEditableServer</vh></v>
 <v t="rodrigob.121403173614.37"><vh>Release file tree</vh></v>
 </v>
-<v t="rodrigob.121403173614.20"><vh>forum/mail_list posts</vh>
+<v t="rodrigob.121403173614.20" a="E"><vh>forum/mail_list posts</vh>
 <v t="rodrigob.121403173614.21"><vh>Leo over network requirements (original post)</vh>
 <v t="rodrigob.121403173614.22" a="E"><vh>&lt;&lt; Step one, Merging &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.23" a="E"><vh>&lt;&lt; Step two, Publishing &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.24" a="E"><vh>&lt;&lt; Step three, Interacting by turns &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.25" a="E"><vh>&lt;&lt; Step four, Realtime interaction &gt;&gt;</vh></v>
 </v>
-<v t="rodrigob.121403173614.26"><vh>LeoN development status</vh>
+<v t="rodrigob.121403173614.26" a="E"><vh>LeoN development status</vh>
 <v t="rodrigob.121403173614.27"><vh>LeoN development status</vh></v>
 <v t="rodrigob.121403173614.28"><vh>LeoN development status II</vh></v>
 <v t="rodrigob.121403173614.29"><vh>LeoN development status III</vh></v>
@@ -204,15 +204,15 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 </v>
 </v>
-<v t="rodrigob.121403173614.14"><vh>Design notes</vh>
-<v t="rodrigob.121403173614.20"><vh>forum/mail_list posts</vh>
+<v t="rodrigob.121403173614.14" a="E"><vh>Design notes</vh>
+<v t="rodrigob.121403173614.20" a="E"><vh>forum/mail_list posts</vh>
 <v t="rodrigob.121403173614.21"><vh>Leo over network requirements (original post)</vh>
 <v t="rodrigob.121403173614.22" a="E"><vh>&lt;&lt; Step one, Merging &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.23" a="E"><vh>&lt;&lt; Step two, Publishing &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.24" a="E"><vh>&lt;&lt; Step three, Interacting by turns &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.25" a="E"><vh>&lt;&lt; Step four, Realtime interaction &gt;&gt;</vh></v>
 </v>
-<v t="rodrigob.121403173614.26"><vh>LeoN development status</vh>
+<v t="rodrigob.121403173614.26" a="E"><vh>LeoN development status</vh>
 <v t="rodrigob.121403173614.27"><vh>LeoN development status</vh></v>
 <v t="rodrigob.121403173614.28"><vh>LeoN development status II</vh></v>
 <v t="rodrigob.121403173614.29"><vh>LeoN development status III</vh></v>
@@ -285,7 +285,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.123103165427"><vh>GNU GPL</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040824110326.2"><vh>Reference code</vh>
+<v t="rodrigob.20040824110326.2" a="E"><vh>Reference code</vh>
 <v t="niederberger.20040911012711"><vh>Web</vh>
 <v t="niederberger.20040911012711.1"><vh>Pages classes</vh></v>
 <v t="niederberger.20040911012711.2"><vh>Chalks model adaptator</vh></v>
@@ -293,9 +293,9 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040119132949"><vh>class FileStack</vh>
 <v t="rodrigob.20040122143140"><vh>test_FileStack</vh></v>
 </v>
-<v t="rodrigob.121403173614.220"><vh>Old LeoN (to purge) Reference code</vh>
+<v t="rodrigob.121403173614.220" a="E"><vh>Old LeoN (to purge) Reference code</vh>
 <v t="rodrigob.121403173614.221" a="E"><vh>Deprecated code</vh>
-<v t="rodrigob.121403173614.222"><vh>file /usr/local/leo/leo_cvs/leo/leon.py</vh>
+<v t="rodrigob.121403173614.222" a="E"><vh>file /usr/local/leo/leo_cvs/leo/leon.py</vh>
 <v t="rodrigob.121403173614.223"><vh>&lt;&lt; Import pychecker &gt;&gt;</vh></v>
 <v t="rodrigob.121403173614.224"><vh>go</vh></v>
 <v t="rodrigob.121403173614.225" a="E"><vh>leo.leoOpen</vh>
@@ -1689,6 +1689,8 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.121403173614.1321" a="E"><vh>Code</vh>
 <v t="niederberger.20040825222327" a="E"><vh>Things left to do</vh>
 <v t="niederberger.20040825222327.1" a="E"><vh>High</vh>
+<v t="niederberger.20040920181441"><vh>Another rendezvous bug</vh></v>
+<v t="niederberger.20040920180258"><vh>Disconnect bug</vh></v>
 <v t="rodrigob.20040915113450"><vh>Code problems</vh></v>
 <v t="rodrigob.20040918192751"><vh>Rendez Vous crash the program if pc is without internet</vh></v>
 </v>
@@ -1700,7 +1702,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 </v>
 <v t="rodrigob.20040125160038" a="E"><vh>Code perspectives</vh>
-<v t="rodrigob.20040129141624" a="M"><vh>network</vh>
+<v t="rodrigob.20040129141624" a="EM"><vh>network</vh>
 <v t="rodrigob.20040913233519" a="M"><vh>&lt;&lt;about the connections process&gt;&gt;</vh></v>
 <v t="rodrigob.20040125154815.1" a="EM"><vh>class ChalksNode</vh>
 <v t="rodrigob.20040125154815.2" a="EM"><vh>connect to/disconnect from parent node</vh>
@@ -1717,7 +1719,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040125154815.4" a="EM"><vh>set text</vh></v>
 <v t="rodrigob.20040125154815.5"><vh>insert text</vh></v>
 <v t="rodrigob.20040125154815.6" a="M"><vh>delete text</vh></v>
-<v t="rodrigob.20040125154815.8"><vh>fill body</vh>
+<v t="rodrigob.20040125154815.8" a="E"><vh>fill body</vh>
 <v t="rodrigob.20040125154815.9" a="E"><vh>helpers functions</vh>
 <v t="rodrigob.20040125154815.10"><vh>&lt;&lt; def index_to_list &gt;&gt;</vh></v>
 <v t="rodrigob.20040125154815.11"><vh>&lt;&lt; def in_range &gt;&gt;</vh></v>
@@ -1735,7 +1737,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040125154815.7"><vh>send operation</vh></v>
 </v>
 <v t="rodrigob.20040127182438" a="E"><vh>remote callable methods</vh>
-<v t="rodrigob.20040127182530"><vh>messages and presence methods</vh>
+<v t="rodrigob.20040127182530" a="E"><vh>messages and presence methods</vh>
 <v t="rodrigob.20040127184605" a="M"><vh>send message</vh></v>
 <v t="rodrigob.20040127185444" a="M"><vh>get users list</vh></v>
 <v t="rodrigob.20040127184605.1"><vh>set presence</vh></v>
@@ -1762,7 +1764,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040129165804.2"><vh>del clients (server)</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040128011921"><vh>network methods</vh>
+<v t="rodrigob.20040128011921" a="E"><vh>network methods</vh>
 <v t="rodrigob.20040128011921.1" a="E"><vh>connect to parent </vh>
 <v t="rodrigob.20040130224144" a="M"><vh>old</vh></v>
 <v t="rodrigob.20040129181502"><vh>get_data</vh></v>
@@ -1778,7 +1780,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040128012627"><vh>generate operations</vh></v>
 <v t="rodrigob.20040909033320"><vh>set text</vh></v>
 </v>
-<v t="rodrigob.121403173614.1509" a="M"><vh>ConcurrentEditable</vh>
+<v t="rodrigob.121403173614.1509" a="EM"><vh>ConcurrentEditable</vh>
 <v t="rodrigob.121403173614.1510"><vh>receive operation</vh></v>
 <v t="rodrigob.121403173614.1511"><vh>apply</vh></v>
 <v t="rodrigob.121403173614.1512"><vh>execute</vh>
@@ -1881,7 +1883,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040125154815.4" a="EM"><vh>set text</vh></v>
 <v t="rodrigob.20040125154815.5"><vh>insert text</vh></v>
 <v t="rodrigob.20040125154815.6" a="M"><vh>delete text</vh></v>
-<v t="rodrigob.20040125154815.8"><vh>fill body</vh>
+<v t="rodrigob.20040125154815.8" a="E"><vh>fill body</vh>
 <v t="rodrigob.20040125154815.9" a="E"><vh>helpers functions</vh>
 <v t="rodrigob.20040125154815.10"><vh>&lt;&lt; def index_to_list &gt;&gt;</vh></v>
 <v t="rodrigob.20040125154815.11"><vh>&lt;&lt; def in_range &gt;&gt;</vh></v>
@@ -1899,7 +1901,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040125154815.7"><vh>send operation</vh></v>
 </v>
 <v t="rodrigob.20040127182438" a="E"><vh>remote callable methods</vh>
-<v t="rodrigob.20040127182530"><vh>messages and presence methods</vh>
+<v t="rodrigob.20040127182530" a="E"><vh>messages and presence methods</vh>
 <v t="rodrigob.20040127184605" a="M"><vh>send message</vh></v>
 <v t="rodrigob.20040127185444" a="M"><vh>get users list</vh></v>
 <v t="rodrigob.20040127184605.1"><vh>set presence</vh></v>
@@ -1918,7 +1920,7 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 <v t="rodrigob.20040129165804.2"><vh>del clients (server)</vh></v>
 </v>
 </v>
-<v t="rodrigob.20040128011921"><vh>network methods</vh>
+<v t="rodrigob.20040128011921" a="E"><vh>network methods</vh>
 <v t="rodrigob.20040128011921.1" a="E"><vh>connect to parent </vh>
 <v t="rodrigob.20040130224144" a="M"><vh>old</vh></v>
 <v t="rodrigob.20040129181502"><vh>get_data</vh></v>
@@ -1960,10 +1962,10 @@ expanded="rodrigob.20040908172407,rodrigob.20040908010357.1,rodrigob.20040913234
 </v>
 <v t="rodrigob.20040119132914" a="E"
 marks="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125150558,rodrigob.20040125153141,rodrigob.20040125200531,rodrigob.20040123131236.1,rodrigob.20040129131141,rodrigob.20040125204408,rodrigob.20040123123802.1,rodrigob.20040123133928,niederberger.20040911130819,rodrigob.20040125213003,rodrigob.20040123123802,rodrigob.20040122173128,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040909060311,rodrigob.20040125154815.4,rodrigob.20040125154815.6,rodrigob.20040127184605,rodrigob.20040127185444,rodrigob.20040920122333,rodrigob.20040125194534,rodrigob.20040126020641,"
-expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040912225813,rodrigob.20040125154815.3,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
+expanded="rodrigob.20040119152542,rodrigob.20040123131236,rodrigob.20040125153141,rodrigob.20040121151612,rodrigob.20040122173046,rodrigob.20040123123802.1,rodrigob.20040125210836,rodrigob.20040123124005,rodrigob.20040124184444,rodrigob.20040125154636,rodrigob.20040121150952.7,rodrigob.20040123134358,rodrigob.20040121153312,rodrigob.20040123132311.1,rodrigob.20040125154815.1,rodrigob.20040125154815.2,rodrigob.20040913221730,rodrigob.20040912225813,rodrigob.20040125154815.3,rodrigob.20040125154815.8,rodrigob.20040125154815.9,rodrigob.20040125154815.14,rodrigob.20040127182438,rodrigob.20040127182530,rodrigob.20040125194534,rodrigob.20040915120517,"><vh>@thin Chalks.py</vh></v>
 <v t="rodrigob.121403173614.1502"
 marks="rodrigob.121403173614.1509,rodrigob.121403173614.1532,rodrigob.121403173614.1533,rodrigob.121403173614.1535,rodrigob.121403173614.1536,rodrigob.121403173614.1544,rodrigob.20040121155420,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040130224144,rodrigob.20040130225148,rodrigob.20040130225208,rodrigob.20040130225148.1,rodrigob.20040128012459,"
-expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1516,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040128011921.1,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
+expanded="rodrigob.121403173614.1503,rodrigob.121403173614.1508,rodrigob.121403173614.1516,rodrigob.121403173614.1530,rodrigob.121403173614.1531,rodrigob.121403173614.1537,rodrigob.121403173614.1540,rodrigob.121403173614.1541,rodrigob.20040121154800,rodrigob.20040128011809,rodrigob.20040129165804,rodrigob.20040129165804.1,rodrigob.20040128011921,rodrigob.20040128011921.1,rodrigob.20040130225148,"><vh>@thin ConcurrentEditable.py</vh></v>
 <v t="rodrigob.20040912220039"
 marks="rodrigob.20040912220039.14,rodrigob.20040912220039.15,rodrigob.20040912220039.16,rodrigob.20040912220039.17,rodrigob.20040912220039.18,rodrigob.20040912220039.19,rodrigob.20040912220039.21,rodrigob.20040912220039.22,rodrigob.20040912220039.23,rodrigob.20040912220039.25,rodrigob.20040912220039.26,rodrigob.20040912220039.27,rodrigob.20040912220039.28,rodrigob.20040912220039.29,rodrigob.20040912220039.30,rodrigob.20040912220039.31,rodrigob.20040912220039.32,rodrigob.20040912220039.33,rodrigob.20040912220039.34,rodrigob.20040912220039.35,rodrigob.20040912220039.37,rodrigob.20040912220039.38,rodrigob.20040912220039.39,rodrigob.20040912220039.40,rodrigob.20040912220039.42,rodrigob.20040912220039.43,rodrigob.20040912220039.44,rodrigob.20040912220039.45,rodrigob.20040912220039.47,rodrigob.20040912220039.48,rodrigob.20040912220039.49,rodrigob.20040912220039.50,rodrigob.20040912220039.52,rodrigob.20040912220039.53,rodrigob.20040912220039.54,rodrigob.20040912220039.55,rodrigob.20040912220039.57,rodrigob.20040912220039.58,rodrigob.20040912220039.59,rodrigob.20040912220039.60,rodrigob.20040912220039.62,rodrigob.20040912220039.63,rodrigob.20040912220039.64,rodrigob.20040912220039.65,rodrigob.20040912220039.66,rodrigob.20040912220039.67,rodrigob.20040912220039.68,rodrigob.20040912220039.69,rodrigob.20040912220039.70,rodrigob.20040912220039.71,rodrigob.20040912220039.72,rodrigob.20040912220039.73,rodrigob.20040912220039.75,rodrigob.20040912220039.76,rodrigob.20040912220039.77,rodrigob.20040912220039.78,rodrigob.20040912220039.79,rodrigob.20040912220039.80,rodrigob.20040912220039.81,rodrigob.20040912220039.82,rodrigob.20040912220039.83,rodrigob.20040912220039.84,rodrigob.20040912220039.85,rodrigob.20040912220039.86,rodrigob.20040912220039.87,rodrigob.20040912220039.88,rodrigob.20040912220039.89,rodrigob.20040912220039.90,rodrigob.20040912220039.92,rodrigob.20040912220039.93,rodrigob.20040912220039.94,rodrigob.20040912220039.95,rodrigob.20040912220039.96,rodrigob.20040912220039.97,rodrigob.20040912220039.98,rodrigob.20040912220039.100,rodrigob.20040912220039.101,rodrigob.20040912220039.102,rodrigob.20040912220039.103,rodrigob.20040912220039.104,rodrigob.20040912220039.105,rodrigob.20040912220039.107,rodrigob.20040912220039.108,rodrigob.20040912220039.110,rodrigob.20040912220039.111,rodrigob.20040912220039.113,rodrigob.20040912220039.114,rodrigob.20040912220039.115,rodrigob.20040912220039.116,rodrigob.20040912220039.118,rodrigob.20040912220039.119,rodrigob.20040912220039.120,rodrigob.20040912220039.121,rodrigob.20040912220039.122,rodrigob.20040912220039.123,rodrigob.20040912220039.124,rodrigob.20040912220039.125,rodrigob.20040912220039.126,rodrigob.20040912220039.127,rodrigob.20040912220039.128,rodrigob.20040912220039.129,rodrigob.20040912220039.130,rodrigob.20040912220039.131,rodrigob.20040912220039.132,rodrigob.20040912220039.133,rodrigob.20040912220039.134,rodrigob.20040912220039.136,rodrigob.20040912220039.137,rodrigob.20040912220039.138,rodrigob.20040912220039.139,rodrigob.20040912220039.140,rodrigob.20040912220039.141,rodrigob.20040912220039.142,rodrigob.20040912220039.143,rodrigob.20040912220039.144,rodrigob.20040912220039.145,rodrigob.20040912220039.146,rodrigob.20040912220039.147,rodrigob.20040912220039.148,rodrigob.20040912220039.149,rodrigob.20040912220039.150,rodrigob.20040912220039.151,rodrigob.20040912220039.152,rodrigob.20040912220039.153,rodrigob.20040912220039.154,"
 expanded="rodrigob.20040912220039.13,"><vh>@thin Rendezvous.py</vh></v>
@@ -1982,7 +1984,7 @@ expanded="rodrigob.20040912211426.2,"><vh>@thin Test_ChalksServerMonitor.py</vh>
 </v>
 </v>
 </v>
-<v t="rodrigob.20040129132740"><vh>docs</vh>
+<v t="rodrigob.20040129132740" a="E"><vh>docs</vh>
 <v t="rodrigob.20040129130513.1"><vh>Unicode utils...</vh>
 <v t="rodrigob.20040129130513.2"><vh>isUnicode</vh></v>
 <v t="rodrigob.20040129130513.3"><vh>isValidEncoding</vh></v>
@@ -1996,8 +1998,8 @@ expanded="rodrigob.20040912211426.2,"><vh>@thin Test_ChalksServerMonitor.py</vh>
 <v t="rodrigob.20040123132311.1" a="E"><vh>&lt;&lt; chalks help &gt;&gt;</vh>
 <v t="rodrigob.20040126020116"><vh>network graph (about Server, Client, Children, Parent, and Trees)</vh></v>
 </v>
-<v t="rodrigob.122403220526.1"><vh>developers docs</vh>
-<v t="niederberger.20040825214919"><vh>old (from LeoN)</vh>
+<v t="rodrigob.122403220526.1" a="E"><vh>developers docs</vh>
+<v t="niederberger.20040825214919" a="E"><vh>old (from LeoN)</vh>
 <v t="niederberger.20040825221501"><vh>&lt;&lt; LeoNtest docs &gt;&gt; (about LeoN tests)</vh>
 <v t="niederberger.20040825221501.1"><vh>&lt;&lt; usage &gt;&gt;</vh></v>
 </v>
@@ -2007,16 +2009,16 @@ expanded="rodrigob.20040912211426.2,"><vh>@thin Test_ChalksServerMonitor.py</vh>
 </v>
 </v>
 <v t="niederberger.20040825221442"><vh>Outline transfer format</vh></v>
-<v t="niederberger.20040825221401"><vh>About the LeoChecker, LeoAvatar, and where is the Realm hidden</vh>
+<v t="niederberger.20040825221401" a="E"><vh>About the LeoChecker, LeoAvatar, and where is the Realm hidden</vh>
 <v t="niederberger.20040825221401.1" a="E"><vh>Server login (server side login classes)</vh>
 <v t="niederberger.20040825221401.2"><vh>class LeoChecker</vh></v>
 <v t="niederberger.20040825221401.3"><vh>class LeoAvatar</vh></v>
 <v t="niederberger.20040825221401.4"><vh>requestAvatar (CollaborativeOutline.requestAvatar)</vh></v>
-<v t="niederberger.20040825221401.5"><vh>Perspectives</vh>
+<v t="niederberger.20040825221401.5" a="E"><vh>Perspectives</vh>
 <v t="niederberger.20040825221401.6" a="E"><vh>class OutlinePerspective</vh>
 <v t="niederberger.20040825221401.7"><vh>Own account editing</vh></v>
 <v t="niederberger.20040825221401.8"><vh>Messages and presence methods</vh></v>
-<v t="niederberger.20040825221401.9"><vh>Outline editing methods</vh>
+<v t="niederberger.20040825221401.9" a="E"><vh>Outline editing methods</vh>
 <v t="niederberger.20040825221401.10"><vh>helpers functions (data&lt;-&gt;outline)</vh>
 <v t="niederberger.20040825221401.11"><vh>outline_to_data</vh></v>
 <v t="niederberger.20040825221401.12"><vh>data_to_outline</vh></v>
@@ -2038,7 +2040,7 @@ expanded="rodrigob.20040912211426.2,"><vh>@thin Test_ChalksServerMonitor.py</vh>
 <v t="niederberger.20040825221401.25"><vh>upload outline</vh></v>
 <v t="niederberger.20040825221401.26"><vh>download outline</vh></v>
 </v>
-<v t="niederberger.20040825221401.27"><vh>Edit nodes</vh>
+<v t="niederberger.20040825221401.27" a="E"><vh>Edit nodes</vh>
 <v t="niederberger.20040825221401.28"><vh>lock/unlock</vh></v>
 <v t="niederberger.20040825221401.29"><vh>update node</vh></v>
 <v t="niederberger.20040825221401.30"><vh>collaborate in/out</vh></v>
@@ -2069,7 +2071,7 @@ expanded="rodrigob.20040912211426.2,"><vh>@thin Test_ChalksServerMonitor.py</vh>
 <v t="rodrigob.121403173614.25" a="E"><vh>&lt;&lt; Step four, Realtime interaction &gt;&gt;</vh></v>
 </v>
 </v>
-<v t="rodrigob.121403173614.58"><vh>Code explanation</vh>
+<v t="rodrigob.121403173614.58" a="TV"><vh>Code explanation</vh>
 <v t="rodrigob.010104213529"><vh>&lt;&lt; notation &gt;&gt;</vh></v>
 </v>
 <v t="niederberger.20040906222819"><vh>General view of the system</vh></v>
@@ -2309,12 +2311,12 @@ CollaborativeOutline is a collaborative outline and is a Realm and has a LeoChec
         #  dettach us from the selected node        
         self.selected_node.users[self.name].remove(self)
         if not self.selected_node.users[self.name]: # if there are no more clients connected
-            del self.selected_node.users[self.name]  # forget us name
+            del self.selected_node.users[self.name]  # forget our name
             
         # dettach from the CollaborativeOutline
         self.Outline.users[self.name].remove(self)
         if not self.Outline.users[self.name]: # if there are no more clients connected
-            del self.Outline.users[self.name]  # forget us name
+            del self.Outline.users[self.name]  # forget our name
             
         #  dettach us from the base node        
         if self.base_node.base_node_of.has_key(self.name):
@@ -2486,7 +2488,7 @@ def remote_get_outline(self,):
 </t>
 <t tx="niederberger.20040825221401.14">def remote_select_node(self, path):
     """
-    Set us selected node and
+    Set our selected node and
     return the content of the selected node.
     """
     
@@ -2991,7 +2993,7 @@ def remote_collaborate_out(self):
         raiseLeoError("You have not logged in the node, so you are not able to edit it.")
 
     kws["source_site"] = self.site_index # if this perspective manage the call, it has to comes from that source
-    kws["who"] = self.name # stamp the operation with us name
+    kws["who"] = self.name # stamp the operation with our name
     
     # apply		
     self.selected_node.receive_operation(ConcurrentEditable.Operation(*args, **kws))
@@ -3257,7 +3259,7 @@ def remote_set_permissions(self, name, rpath, permissions):
 </t>
 <t tx="niederberger.20040825221442">@nocolor
 There are outlines transfers, at node paste, copy and at clients connection.
-To transfer the outline we use us own dummy transfer format.
+To transfer the outline we use our own dummy transfer format.
 
 The format is an abuse of python data objects, and it has some similarities with the leo xml format.
 The data object is a tuple of two elements 
@@ -3539,6 +3541,37 @@ components.registerAdapter(ChalksModel, Chalks, interfaces.IModel)
     port_entry.delete(0, END); port_entry.insert(END, str(server['port']))
     
 </t>
+<t tx="niederberger.20040920180258">
+&lt;local&gt; Exception in Tkinter callback
+&lt;local&gt; Traceback (most recent call last):
+&lt;local&gt;   File "E:\PYTHON23\lib\lib-tk\Tkinter.py", line 1345, in __call__
+&lt;local&gt;     return self.func(*args)
+&lt;local&gt;   File "C:\Documents and Settings\rodrigob\Escritorio\chalks\src\Chalks.py", line 1409, in onDisconnect
+&lt;local&gt;     self.node.disconnect_from_server()
+&lt;local&gt;   File "C:\Documents and Settings\rodrigob\Escritorio\chalks\src\Chalks.py", line 1786, in disconnect_from_server
+&lt;local&gt;     deferred = self.avatar.callRemote("collaborate_out")
+&lt;local&gt; AttributeError: ChalksNode instance has no attribute 'avatar'
+
+
+When a parent disconnects, we need to send the collaborate_out msg to all of it's children. Code for that is on ChalksNode.remote_send_message(). We need to refactor that code out of remote_send_message, since sending commands to all children is a common thing and will be needed by other methods later.</t>
+<t tx="niederberger.20040920181441">Started listening local network for Chalks servers ...
+Registering your server with rendezvous ...
+Traceback (most recent call last):
+  File "C:\prj\chalks\src\Chalks.py", line 2898, in ?
+    app = Chalks()
+  File "C:\prj\chalks\src\Chalks.py", line 299, in __init__
+    self.server_monitor.registerService(self.service_name, self.server_address,
+self.server_port, user_name)
+  File "C:\prj\chalks\src\Chalks.py", line 2883, in registerService
+    r.registerService(info)
+  File "C:\prj\chalks\src\Rendezvous.py", line 1656, in registerService
+    self.checkService(info)
+  File "C:\prj\chalks\src\Rendezvous.py", line 1735, in checkService
+    raise NonUniqueNameException
+Rendezvous.NonUniqueNameException
+
+
+Happened when starting two instances one immediately after the other. Seeding the random number generator with system time should fix it.</t>
 <t tx="rodrigob.010104175231"></t>
 <t tx="rodrigob.010104211709"></t>
 <t tx="rodrigob.010104212717">no real requirement right now, but issues we should think about:
@@ -4449,7 +4482,7 @@ RodrigoB.</t>
 about step4
 -----------
 
-The code is ready and running since wednesday (mercredi) on the morning, but until now I'm  grumbling-grumbling with the code to get it working as supposed; I have found some minor bugs and solved some conceptuals problems and bugs. Debugging code of someelse algorithm is notoriously harder than working on your own ideas but the work give his fruits and each day we are one step nearer to us dreams.
+The code is ready and running since wednesday (mercredi) on the morning, but until now I'm  grumbling-grumbling with the code to get it working as supposed; I have found some minor bugs and solved some conceptuals problems and bugs. Debugging code of someelse algorithm is notoriously harder than working on your own ideas but the work give his fruits and each day we are one step nearer to our dreams.
 Most of the hard problems are due to some ambiguities or not so clear ideas in the papers, so I have to crunch my brain to guess the correct way to manage the presented abstractions (or apply a 'guess, try, evaluate' strategy).
 
 Due to this problems, and after five days of debugging work I will delay the code release until I get the unit test passed, this should not take more than a week more (I hope so, but you never know if the actual bug is or not the last one).
@@ -4606,18 +4639,29 @@ Actually LeoN is getting near and near to the Non Return Line (an amount of code
 To my eyes there are three dangers:
 - PB will overload the bandwith
 - Problems during adaptation of ConcurrentTextEdition for concurrent outline edition.</t>
-<t tx="rodrigob.121403173614.37">Binary package:
+<t tx="rodrigob.121403173614.37">Binary package
+--------------
+chalks.exe
+README
+COPYING
+AUTHORS
+chalks.ico (should be embedded inside the executable later)
 
-Source package:
-
+Source package
+--------------
 Chalks.leo
 README
+COPYING
+AUTHORS
 
 src/
-    Chalks.py
+    Chalks.py (main executable script)
     Chalks.xhtml
     *.py
     Test_*.py
+    setup.cfg (for generating RPMs)
+    setup.py (distutil install script)
+    
 </t>
 <t tx="rodrigob.121403173614.38">Having done a Concurrent Text Edition system how to implement a Conccurrent Outline Edition system ?
 
@@ -5082,7 +5126,7 @@ Reactor, deferred and PB are a must to understand the code, take a look to them.
 
 Essentially we have the two sides client and server.
 
-The clients are constructed as a bunch of hooks to Leo, including the installation of a reactor under the hood of the gui. Then after connection we receive a Perspective from the server, that allow us to translate events in server events, and receive the answer. The server side will receive the event, process it and propagate it to all the interested clients (including if necessary the generator).
+The clients are constructed as a bunch of hooks to Leo, including the installation of a reactor under the hood of the gui. Then after connection we receive a Perspective from the server, that allows us to translate events in server events, and receive the answer. The server side will receive the event, process it and propagate it to all the interested clients (including if necessary the generator).
 The outline actions are undoed, send to the server, and the propagation will generate the local event. The body actions are managed by the concurrent edition system, that take care of the body editions and the operations emisions.
 
 Look at the specific code perspectives for the hooks, the outline events management and the client side concurrent edition.
@@ -5090,7 +5134,7 @@ Look at the specific code perspectives for the hooks, the outline events managem
 
 The server side is a little more complex.
 
-First we do not use the Leo outlines representation, we use our own, that is simpler and fits much better us purpose (Leo take to much care of visualization, LeoServer use the simplest "good enough" approach). As a rough picture the server maintain his own outline representation. That representation is stored in the disk (stored) at the end of the server execution (and restored at restart).
+First we do not use the Leo outlines representation, we use our own, that is simpler and fits much better our purpose (Leo take to much care of visualization, LeoServer use the simplest "good enough" approach). As a rough picture the server maintain his own outline representation. That representation is stored in the disk (stored) at the end of the server execution (and restored at restart).
 In that representation each node maintain his content, his permissions and manage concurrent edition sessions (see CollaborativeOutline and CollaborativeNode classes). 
 
 In LeoN each node is identified via an url. At each request the web publisher retrieve the indicated node and transform it in a html page (see the "Web" code perspective).
@@ -28040,7 +28084,7 @@ receive_op = receive_operation # alias
     assert t_index &lt; len(self.state_vector), "Received an operation from a source_site outside the state_vector range"
     self.state_vector[t_index] += 1
     
-    # Update the State Vector Table (what we know about the status of each site, including us self)
+    # Update the State Vector Table (what we know about the status of each site, including ourself)
     self.state_vector_table[EOnew["source_site"]] = list(EOnew["timestamp"]) # update state_vector_table (via a list copy)
 
     if (len(HB) % 10) == 0: # call the garbage collector (over a dummy periodic condition)
@@ -30304,7 +30348,7 @@ for port in xrange(pb.portno, pb.portno+10):
     else: # got it
         self.server_port = port
         print "Starting Chalks service at chalks://localhost:%i" % port
-        print "Knowing your internet address (i.e. your IP) other users can connect themself to your session using the port %i." % port  #&lt;&lt;&lt;&lt;&lt; this should be replaced by a friendlier popup or message
+        #print "Knowing your internet address (i.e. your IP) other users can connect themself to your session using the port %i." % port  #&lt;&lt;&lt;&lt;&lt; this should be replaced by a friendlier popup or message
         self.chalks_service = pb_service
         break # stop creating web services
         
@@ -30919,7 +30963,7 @@ self.deletion_buffer = (startpos, t_len)
 old_insert = index_to_list(old_insert)
     
 if t_range: # if the old_insert touch a range
-    # t_range store the range that touch us index. We know that the ranges are ordered from little to bigger. So we cut the old_to_send_ranges list (but including the touching range).		
+    # t_range store the range that touch our index. We know that the ranges are ordered from little to bigger. So we cut the old_to_send_ranges list (but including the touching range).		
     # convert the tuple of "line.column" indexes to a list of indexes.
     iter_ranges = iter(ranges)
     ranges= []
@@ -30927,7 +30971,7 @@ if t_range: # if the old_insert touch a range
         ranges.append((t_index, iter_ranges.next()))
     ranges = ranges[:ranges.index(index_to_list(t_range)) + 1]
 else:
-    # we gonna have to search the ranges, knowing that they do not touch us index
+    # we gonna have to search the ranges, knowing that they do not touch our index
     t_ranges = []
     for i in xrange(0, len(ranges), 2):	
         stop   = index_to_list(ranges[i+1])
@@ -31269,7 +31313,7 @@ def perspective_collaborate_in(self, site_id):
     if self.mind: self.mind.site_id = site_id
     
     assert self.mind, ChalksError("Avatar without mind trying to collaborate in")
-    self.node.add_site(self.mind) # we register us perspective in the parent
+    self.node.add_site(self.mind) # we register our perspective in the parent
     print "Registering child perspective %s" % self.mind
     
     # we obtain and return the required data to start the session in the child
@@ -31294,7 +31338,7 @@ def perspective_collaborate_out(self):
     return
     </t>
 <t tx="rodrigob.20040127182438">@
-The ChalksNode is a referenceable object that is passed at connection, define what us 'parent' (the node to which we connected) can do on the local node.
+The ChalksNode is a referenceable object that is passed at connection, which defines what our 'parent' (the node to which we connected) can do on the local node.
 @c</t>
 <t tx="rodrigob.20040127182530">@
 &lt;&lt;&lt; EXPLAIN HERE
@@ -32180,9 +32224,9 @@ for t_op in (self.HB + self.delayed_operations):
     Dummy implementation for testing purpose. This method should be overwritten to manage network methods.
     """
     
-    # delete us parent references
+    # delete our parent references
     
-    # delete us childrens references
+    # delete our children references
 
     return</t>
 <t tx="rodrigob.20040824110326">@language plain</t>
@@ -32777,13 +32821,13 @@ def logged_in(self, avatar):
     """
 
     self.avatar = avatar
-    # us avatar is the us perspective ot the parent ChalksNode
+    #our avatar is the our perspective to the parent ChalksNode
     self.parent_perspective = avatar
     self.parent_avatar.mind = avatar # set the avatar perspective (important)
     print "Registering parent perspective %s" % avatar 
 
         
-    # we obtain us site_id
+    # we obtain our site_id
     t_address = self.avatar.broker.transport.getHost()
     self.site_id = hash("%s:%i" % (t_address.host, t_address.port))
 

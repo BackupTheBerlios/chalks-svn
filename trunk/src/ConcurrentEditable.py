@@ -406,7 +406,7 @@ class ConcurrentEditable:
         assert t_index < len(self.state_vector), "Received an operation from a source_site outside the state_vector range"
         self.state_vector[t_index] += 1
         
-        # Update the State Vector Table (what we know about the status of each site, including us self)
+        # Update the State Vector Table (what we know about the status of each site, including ourself)
         self.state_vector_table[EOnew["source_site"]] = list(EOnew["timestamp"]) # update state_vector_table (via a list copy)
     
         if (len(HB) % 10) == 0: # call the garbage collector (over a dummy periodic condition)
@@ -2182,9 +2182,9 @@ class ConcurrentEditableNode(ConcurrentEditable):
         Dummy implementation for testing purpose. This method should be overwritten to manage network methods.
         """
         
-        # delete us parent references
+        # delete our parent references
         
-        # delete us childrens references
+        # delete our children references
     
         return
     #@nonl
