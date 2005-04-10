@@ -3,12 +3,14 @@
     <File name="./src/Chalks.n" subtype="Code" buildaction="Compile" dependson="" data="" />
     <File name="./src/ConcurrentEdition.n" subtype="Code" buildaction="Compile" dependson="" data="" />
     <File name="./src/Network.n" subtype="Code" buildaction="Compile" dependson="" data="" />
-    <File name="./src/chalks.gladep" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
     <File name="./src/chalks.glade" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
     <File name="./AUTHORS" subtype="Code" buildaction="Nothing" dependson="" data="" />
     <File name="./COPYING" subtype="Code" buildaction="Nothing" dependson="" data="" />
     <File name="./README" subtype="Code" buildaction="Nothing" dependson="" data="" />
     <File name="./src/ConcurrentEditionWidget.n" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name="./src/Gui.n" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name="./src/TestConcurrentEdition.n" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name="./src/TestNetwork.n" subtype="Code" buildaction="Compile" dependson="" data="" />
   </Contents>
   <References>
     <Reference type="Gac" refto="glade-sharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" localcopy="True" />

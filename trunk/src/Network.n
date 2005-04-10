@@ -2,16 +2,100 @@
 
 */
 
+/*
+10/04/2003 Drafting the architecture. Rodrigob.
+
+*/
+
 using System;
+
+using System.Runtime.Remoting;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Tcp;
+
 
 namespace Chalks.Network
 {
 
-	interface INode
-	{
-	
-	
-	}
+    class ConcurrentEditableNodeProxy :MarshalByRefObject
+    // manage the network calls to the local calls
+    // all his public methods are exposed to remote calls
+    // this is the object that is passed to other nodes when login
+    {
+        this(local_node)
+        {
+            ;
+        }
 
+        public receive_operation(op)
+        {
+            ;
+        }
+
+        public receive_message(message)
+        {
+            ;
+        }
+
+    }
+
+    class NetworkNode
+    {
+        public this() // <<< has to pass default parameters: password, port
+        {
+            ;
+        }
+            
+        # region Methods used by the Gui
+        public send_message(site_id, message) 
+        // sends a message to another user
+        { 
+            ;
+        }
+
+        public get_own_uri() 
+        // get the uri of the published object
+        { 
+            ;
+        }
+
+        public get_users_list() 
+        // retrieve the map of username->site_id
+        { 
+            ;
+        }
+
+        public discover_nodes() 
+        // return a list of published documents->uri
+        // this method use RendezVous services 
+        { 
+            ;
+        }
+
+        public change_password() 
+        // change the access password for the local document
+        { 
+            ;
+        }
+        #endregion
+
+        
+        #region Methods used by the ConcurrentEditable object
+
+        public send_operation() 
+        // broadcast an operation to the other sites
+        { 
+            ;
+        }
+
+        public get_site_id() 
+        // return the unique site id for the local document
+        {
+            ;
+        }
+
+        #endregion
+
+    }
 
 }
