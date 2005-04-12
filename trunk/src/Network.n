@@ -13,6 +13,7 @@ using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 
+using Chalks.ConcurrentEdition;
 
 namespace Chalks.Network
 {
@@ -22,24 +23,24 @@ namespace Chalks.Network
     // all his public methods are exposed to remote calls
     // this is the object that is passed to other nodes when login
     {
-        this(local_node)
+        this(local_node :NetworkNode)
         {
             ;
         }
 
-        public receive_operation(op)
+        public receive_operation(op :Operation) :void
         {
             ;
         }
 
-        public receive_message(message)
+        public receive_message(message :string) :void
         {
             ;
         }
 
     }
 
-    class NetworkNode
+    public class NetworkNode
     {
         public this() // <<< has to pass default parameters: password, port
         {
@@ -47,32 +48,32 @@ namespace Chalks.Network
         }
             
         # region Methods used by the Gui
-        public send_message(site_id, message) 
+        public send_message(site_id :int, message :string) :void 
         // sends a message to another user
         { 
             ;
         }
 
-        public get_own_uri() 
+        public get_own_uri() :void
         // get the uri of the published object
         { 
             ;
         }
 
-        public get_users_list() 
+        public get_users_list() :void
         // retrieve the map of username->site_id
         { 
             ;
         }
 
-        public discover_nodes() 
+        public discover_nodes() :void
         // return a list of published documents->uri
         // this method use RendezVous services 
         { 
             ;
         }
 
-        public change_password() 
+        public change_password() :void
         // change the access password for the local document
         { 
             ;
@@ -82,13 +83,13 @@ namespace Chalks.Network
         
         #region Methods used by the ConcurrentEditable object
 
-        public send_operation() 
+        public send_operation() :void
         // broadcast an operation to the other sites
         { 
             ;
         }
 
-        public get_site_id() 
+        public get_site_id() :void
         // return the unique site id for the local document
         {
             ;

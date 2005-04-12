@@ -7,15 +7,15 @@ using Gtk;
 
 namespace Chalks
 {
-	module Chalks 
-	{ /** This module instanciate the Chalks application */
+    module Chalks 
+    { // This module instanciate the Chalks application
 	
-		public Main() : void
-		{
-			Application.Init();
-			def _ = Gui.ChalksWindow();
-			Application.Run();
-		}
-	}
-	
+        public Main() : void
+        {
+            Application.Init();
+            def _ = Gui.ChalksWindow();
+            Application.Run();
+        }
+    }
+    
 }

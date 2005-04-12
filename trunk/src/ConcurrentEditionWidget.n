@@ -5,22 +5,34 @@ using GtkSourceView;
 namespace Chalks.ConcurrentEditionWidget
 {
 
-    class ConcurrentEditionWidget : GtkSourceView, Chalks.ConcurrentEdition.ITextBuffer
+    public class ConcurrentEditionWidget : SourceView, Chalks.ConcurrentEdition.ITextBuffer
     {
 	
-	this()
+	public this()
         {
+            ShowLineNumbers = true;
             ;
         }
 
         #region ITextBuffer interface implementation, methods accessed by ConcurrentEditable
 
-        public insert_text()
+        public get_text() :string
+        { 
+            "dummy text";
+        }
+
+
+        public set_text(text:string) :void
         { 
             ;
         }
 
-        public delete_text()
+        public insert_text(offset:int, text:string) :void
+        { 
+            ;
+        }
+
+        public delete_text(offset:int, length:int) :void
         {
             ;
         }
