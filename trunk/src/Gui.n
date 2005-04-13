@@ -5,6 +5,7 @@
 using System;
 using Gtk;
 using Glade;
+
 // Look at 
 // http://www.mono-project.com/GtkSharp 
 // http://primates.ximian.com/~edasque/projects/Tutorial/glade2.html 
@@ -17,15 +18,16 @@ namespace Chalks.Gui
     
     public class ChalksWindow 
     {
+        glade_resource_name :string;
+
         public this() 
         {
 
             Application.Init ();
-
-            //def gxml = Glade.XML("../../src/chalks.glade", "chalks_window", null);
-
+            
+            glade_resource_name = "chalks.glade";
             // chalks.glade file included as a resource "-res:chalks.glade"
-            def gxml = Glade.XML(null, "chalks.glade", "chalks_window", null);
+            def gxml = Glade.XML(null, glade_resource_name, "chalks_window", null);
             
             
             // Connect the custom widget with the existing layout
@@ -45,21 +47,125 @@ namespace Chalks.Gui
         on_chalks_window_delete_event( _ :object, args :DeleteEventArgs) : void 
         {
             Application.Quit ();
-            args.RetVal = true;
+            //args.RetVal = true;
         }
         
         on_new_menu_item_activate (o :object,  args : EventArgs) : void
         {
-            
+            // confirm that the user want to close the current session
+            //<<<
+
+            // do I save the current file before closing ?
+            //<<<
+
+            // kill the current server and document
+            //<<<
+
+            // start a new fresh server, and a new fresh document
+            //<<<
+            ;
         }
         
-        	   
+        on_open_menu_item_activate (o :object,  args : EventArgs) : void
+        {
+            
+            //def _ = OpenFileDialog();
+            /*def menu_item = o :> MenuItem;
+            
+            Console.WriteLine(menu_item.Name);
+            
+            def dialog = 
+            match(menu_item.Name)
+            {
+                | "open_menu_item" => FileSelection("Open a text file");
+                | "save_menu_item" => FileEntry("Save the current text file");
+                | _ => null;
+                  
+            };*/
+
+            
+            /*def dialog_name = "open_file_dialog";
+            def gxml = Glade.XML(null, glade_resource_name, dialog_name, null);
+            def dialog = gxml.GetWidget(dialog_name) :> Dialog;*/
+            
+            def dialog = FileSelection("Open a text to edit");
+            def ret = dialog.Run() :> ResponseType;
+            match(ret)
+            {
+                | ResponseType.Ok => 
+                    Console.WriteLine ( "Ok");
+                    Console.WriteLine ( dialog.Filename );
+                    Console.WriteLine ( dialog.ToString );
+
+                | ResponseType.Cancel => Console.WriteLine ( "Canceled" );
+                | _ => Console.WriteLine ( "Unknown answer" );
+            }
+
+            dialog.Destroy();
+        }
+        
+        on_save_menu_item_activate(o :object,  args : EventArgs) : void
+        {
+
+            // if out file object already exist
+            // simply flush the data
+            // <<<
+
+            // if it does not exist
+            // call the SaveAs menu
+            on_save_as_menu_item_activate(o, args);
+        }
+
+        on_save_as_menu_item_activate(o :object,  args : EventArgs) : void
+        {
+                        
+            //def dialog = File???("Save current document as...");
+            // Could not found the default Gtk.Dialog
+            def dialog_name = "save_file_dialog";
+            def gxml = Glade.XML(null, glade_resource_name, dialog_name, null);
+            def dialog = gxml.GetWidget(dialog_name) :> FileChooserDialog; //Dialog;
+
+            def ret = dialog.Run() :> ResponseType;
+            match(ret)
+            {
+                | ResponseType.Ok => 
+                    Console.WriteLine ( "Ok");
+                    Console.WriteLine ( dialog.Filename );
+                    Console.WriteLine ( dialog.GetType().ToString() );
+                    Console.WriteLine ( dialog.ToString );
+                    // create new out file object
+                    // <<<
+
+                    // if out file object already exist 
+                    // close it
+                    // <<<
+
+                    // flush the data to the new out file object
+                    // <<<
+
+                | ResponseType.Cancel => Console.WriteLine ( "Canceled" );
+                | _ => Console.WriteLine ( "Unknown answer" );
+            }
+
+            dialog.Destroy();
+        }
+
         on_quit_menu_item_activate(o :object,  args : EventArgs) : void
         {
             Application.Quit();
             // TODO The application quit only at the second click 
             // (need to do something to EventArgs ?)
         }
+    
+        on_about_menu_item_activate(o :object,  args : EventArgs) : void
+        {                       
+            def dialog_name = "about_dialog";
+            def gxml = Glade.XML(null, glade_resource_name, dialog_name, null);
+            def dialog = gxml.GetWidget(dialog_name) :> Dialog;
+            def ret = dialog.Run() :> ResponseType;
+            dialog.Destroy();
+        }
+
             
         #endregion
         
