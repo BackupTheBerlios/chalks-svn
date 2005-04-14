@@ -3,6 +3,7 @@
 */
 
 using System;
+using System.IO;
 using Gtk;
 using Glade;
 
@@ -16,22 +17,27 @@ using Chalks.ConcurrentEditionWidget;
 namespace Chalks.Gui
 {
     
-    public class ChalksWindow 
+    public class ChalksWindow
     {
         glade_resource_name :string;
+        
+        mutable current_file_path :string;
+        chalks_window :Window;
+        cce_widget :ConcurrentEditionWidget; // cce == ConcurrentEdition
 
-        public this() 
+        public this()
         {
+            current_file_path = null;
 
             Application.Init ();
             
             glade_resource_name = "chalks.glade";
             // chalks.glade file included as a resource "-res:chalks.glade"
             def gxml = Glade.XML(null, glade_resource_name, "chalks_window", null);
-            
+            chalks_window = gxml.GetWidget("chalks_window") :> Window;
             
             // Connect the custom widget with the existing layout
-            def cce_widget = ConcurrentEditionWidget(); // cce == ConcurrentEdition
+            cce_widget = ConcurrentEditionWidget(); // cce == ConcurrentEdition
             def scrolledwindow3 = gxml.GetWidget("scrolledwindow3") :> ScrolledWindow;
             scrolledwindow3.Add(cce_widget);
             scrolledwindow3.ShowAll();
@@ -63,6 +69,8 @@ namespace Chalks.Gui
 
             // start a new fresh server, and a new fresh document
             //<<<
+
+            // change the window title
             ;
         }
         
@@ -83,11 +91,31 @@ namespace Chalks.Gui
                   
             };*/
 
+
+            /*
+			| "Open" =>
+                                def stream = IO.StreamReader (fs.Filename);
+				input.Buffer.Text = stream.ReadToEnd();
+ 
+			| "Save as..." =>
+				def s = IO.StreamWriter(fs.Filename);
+				s.Write(input.Buffer.Text);
+				s.Close();
+
+            */
+
             
             /*def dialog_name = "open_file_dialog";
             def gxml = Glade.XML(null, glade_resource_name, dialog_name, null);
             def dialog = gxml.GetWidget(dialog_name) :> Dialog;*/
             
+            // if editing, confirm that the user wants to kill the session
+            //<<<
+
+            // kill the current session
+            //<<<
+
+            // select the file to open
             def dialog = FileSelection("Open a text to edit");
             def ret = dialog.Run() :> ResponseType;
             match(ret)
@@ -96,6 +124,14 @@ namespace Chalks.Gui
                     Console.WriteLine ( "Ok");
                     Console.WriteLine ( dialog.Filename );
                     Console.WriteLine ( dialog.ToString );
+                    // read the file
+                    def stream = IO.StreamReader (dialog.Filename);
+                    def text = stream.ReadToEnd();
+                    stream.Close();
+                    current_file_path = dialog.Filename;
+                    // set the text in the current node
+                    //<<< cce_widget.set_text(); ? is this good ? should not be in the node ?
+
 
                 | ResponseType.Cancel => Console.WriteLine ( "Canceled" );
                 | _ => Console.WriteLine ( "Unknown answer" );
@@ -108,12 +144,17 @@ namespace Chalks.Gui
         {
 
             // if out file object already exist
-            // simply flush the data
-            // <<<
-
-            // if it does not exist
-            // call the SaveAs menu
-            on_save_as_menu_item_activate(o, args);
+            if(current_file_path != null) {   
+                // simply flush the data
+                def stream = IO.StreamWriter(current_file_path);
+                stream.Write(cce_widget.get_text());
+                stream.Close();
+            }
+            else {
+                // if it does not exist
+                // call the SaveAs menu
+                on_save_as_menu_item_activate(o, args);
+            }
         }
 
         on_save_as_menu_item_activate(o :object,  args : EventArgs) : void
@@ -129,18 +170,23 @@ namespace Chalks.Gui
             match(ret)
             {
                 | ResponseType.Ok => 
-                    Console.WriteLine ( "Ok");
+                  Console.WriteLine ( "Ok");
                     Console.WriteLine ( dialog.Filename );
                     Console.WriteLine ( dialog.GetType().ToString() );
                     Console.WriteLine ( dialog.ToString );
-                    // create new out file object
-                    // <<<
 
-                    // if out file object already exist 
-                    // close it
-                    // <<<
-
+                    current_file_path = dialog.Filename;
                     // flush the data to the new out file object
+                    def stream = IO.StreamWriter(current_file_path);
+                    stream.Write(cce_widget.get_text());
+                    stream.Close();
+
+                    // change the window title
+                    // <<<
+                    def filename = Path.GetFileName(current_file_path);
+                    chalks_window.Title = filename;
+
+                    // change the RendezVous published object
                     // <<<
 
                 | ResponseType.Cancel => Console.WriteLine ( "Canceled" );
@@ -166,10 +212,9 @@ namespace Chalks.Gui
             dialog.Destroy();
         }
 
-            
+    
         #endregion
-        
-    }
     
+    } // end of ChalksWindow class
     
-}
+} // end of namespace
