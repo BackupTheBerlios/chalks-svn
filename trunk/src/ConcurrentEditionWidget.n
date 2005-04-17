@@ -14,6 +14,8 @@ namespace Chalks.ConcurrentEditionWidget
             ;
         }
 
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
+
         #region ITextBuffer interface implementation, methods accessed by ConcurrentEditable and Gui
         
         public get_text() :string
@@ -28,6 +30,7 @@ namespace Chalks.ConcurrentEditionWidget
         }
         #endregion
 
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
 
         #region ITextBuffer interface implementation, methods accessed by ConcurrentEditable
 

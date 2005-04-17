@@ -1,0 +1,22 @@
+/*
+Test the Network class
+*/
+
+namespace Network
+{    
+    using NUnit.Framework;
+
+    [TestFixture]
+    public class NetworkTest
+    {
+        [Test]
+        public DummyTest() :void
+        {
+            def a = 5;
+            def b = 5;
+            
+            Assert.AreEqual(a, b);
+        }
+    }
+    
+}

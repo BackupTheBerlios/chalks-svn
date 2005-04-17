@@ -1,54 +1,159 @@
 /*
-
+The classes that manage the Human Machine Interface
 */
 
 using System;
 using System.IO;
+using System.Collections;
+using System.Guid;
+
 using Gtk;
 using Glade;
-
-// Look at 
+// For Glade usage look at 
 // http://www.mono-project.com/GtkSharp 
 // http://primates.ximian.com/~edasque/projects/Tutorial/glade2.html 
 // for some hints
 
+using Nini.Config;
+
 using Chalks.ConcurrentEditionWidget;
+using Chalks.ConcurrentEdition;
+using Chalks.Network;
+using Chalks.Gui.ChalksWindow; // access to the log function
 
 namespace Chalks.Gui
 {
     
     public class ChalksWindow
     {
-        glade_resource_name :string;
+        static public glade_resource_name :string = "chalks.glade";
         
+        static config_source_name :string = "chalks.config";
+        config_source :ConfigSourceBase;
+
         mutable current_file_path :string;
         chalks_window :Window;
+        static mutable messages_textview :TextView = null;
+        command_entry :Entry;
+
         cce_widget :ConcurrentEditionWidget; // cce == ConcurrentEdition
+        concurrent_editable :ConcurrentEditable;
+        network_node :NetworkNode;
+            
+        commands_past_stack :Stack;
+        commands_future_stack :Stack;
+
 
         public this()
         {
+            // load configurations
+            try {
+                config_source = XmlConfigSource(config_source_name) :ConfigSourceBase;
+            } 
+            catch { 
+                | e is System.IO.FileNotFoundException =>
+                  config_source = create_default_config_source();
+                | _ => ();
+            }
+            config_source.AutoSave = true; // save at each change
+            
+           
+            // create our special widget
+            cce_widget = ConcurrentEditionWidget(); // cce == ConcurrentEdition
+            cce_widget.CanFocus = true;
+
+            // create the window
             current_file_path = null;
 
             Application.Init ();
             
-            glade_resource_name = "chalks.glade";
             // chalks.glade file included as a resource "-res:chalks.glade"
             def gxml = Glade.XML(null, glade_resource_name, "chalks_window", null);
             chalks_window = gxml.GetWidget("chalks_window") :> Window;
-            
+            messages_textview = gxml.GetWidget("messages_textview") :> TextView;
+            command_entry = gxml.GetWidget("command_entry") :> Entry;
+            commands_past_stack  = Stack();
+            commands_future_stack = Stack();
+
+
             // Connect the custom widget with the existing layout
-            cce_widget = ConcurrentEditionWidget(); // cce == ConcurrentEdition
             def scrolledwindow3 = gxml.GetWidget("scrolledwindow3") :> ScrolledWindow;
             scrolledwindow3.Add(cce_widget);
             scrolledwindow3.ShowAll();
 
             gxml.Autoconnect (this);
+
+            // instanciate the core objects
+            concurrent_editable = ConcurrentEditable(cce_widget);
+            network_node = NetworkNode(concurrent_editable);
+
+            // run
+            cce_widget.HasFocus = true;
             Application.Run();
         }
         
+
+        create_default_config_source() :ConfigSourceBase
+        { // creates the default configuration file
+
+            def config_source = XmlConfigSource();
+            
+            config_source.AddConfig("User");
+            config_source.Configs["User"].Set("nickname", "");
+
+            config_source.AddConfig("Preferences");
+
+            config_source.Save(config_source_name);
+            config_source;
+
+            /* // some Nini examples
+            IConfig config = source.Configs["Logging"];
+            logFileNameText.Text = config.Get ("File Name");
+            maxFileSizeText.Text = config.GetString ("MaxFileSize");
+            userNameText.Text = source.Configs["User"].GetInt ("Name");
+            source.Save();*/
+
+        }
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
+
+        #region Methods called by Network
         
-        /* Connect the Signals defined in Glade */
+        public receive_message(from :Guid, message :string) :void
+        {
+            log("received a message");
+
+            /*if() {
+                test ;
+            }*/
+            // buffer.Insert(ref iter, "\n" + message); 
+            // could be InsertWithTag
+
+        }
+
+        #endregion
+
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
+
+        static public log(message:string) :void
+        { // the global log method
+            if (messages_textview != null) 
+            {
+                def buffer = messages_textview.Buffer;
+                mutable iter = buffer.EndIter.Copy();
+                buffer.Insert(ref iter, "\n" + message); 
+                // could be InsertWithTag
+            } 
+            else 
+            {
+                Console.WriteLine(message);
+            }
+        }
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
+
         #region SignalsHandlers
+        // Connect the Signals defined in Glade
         
         on_chalks_window_delete_event( _ :object, args :DeleteEventArgs) : void 
         {
@@ -56,6 +161,7 @@ namespace Chalks.Gui
             //args.RetVal = true;
         }
         
+        #region Menu items Handlers
         on_new_menu_item_activate (o :object,  args : EventArgs) : void
         {
             // confirm that the user want to close the current session
@@ -124,6 +230,9 @@ namespace Chalks.Gui
                     Console.WriteLine ( "Ok");
                     Console.WriteLine ( dialog.Filename );
                     Console.WriteLine ( dialog.ToString );
+                    
+                    // <<< reading a new file should be managed at the ConcurrentEdition level
+
                     // read the file
                     def stream = IO.StreamReader (dialog.Filename);
                     def text = stream.ReadToEnd();
@@ -196,14 +305,14 @@ namespace Chalks.Gui
             dialog.Destroy();
         }
 
-        on_quit_menu_item_activate(o :object,  args : EventArgs) : void
+        on_quit_menu_item_activate(o :object,  args : EventArgs) :void
         {
             Application.Quit();
             // TODO The application quit only at the second click 
             // (need to do something to EventArgs ?)
         }
     
-        on_about_menu_item_activate(o :object,  args : EventArgs) : void
+        on_about_menu_item_activate(o :object,  args : EventArgs) :void
         {                       
             def dialog_name = "about_dialog";
             def gxml = Glade.XML(null, glade_resource_name, dialog_name, null);
@@ -211,10 +320,148 @@ namespace Chalks.Gui
             def ret = dialog.Run() :> ResponseType;
             dialog.Destroy();
         }
+        
+        on_connect_menu_item_activate(o :object,  args : EventArgs) :void
+        {
+            // Check nickname
+            mutable nickname = config_source.Configs["User"].GetString("nickname", "");;
 
-    
+            
+            when (nickname == "") {
+                def dialog = ChooseNicknameDialog();
+                def ret = dialog.Run();
+                match(ret) {
+                    | ResponseType.Ok => 
+                      nickname = dialog.nickname_entry.Text;
+                      config_source.Configs["User"].Set("nickname", nickname);
+                    | _ => log( "Canceled" );
+                }
+            }
+             
+            // Select connection
+            when (nickname != "") {
+
+                log("Your nickname is: " + nickname );
+
+
+                def connect_dialog = ConnectionDialog();
+                def ret = connect_dialog.Run();
+                match(ret)
+                {
+                    | ResponseType.Ok => 
+                      // connect to the server
+                      ();
+                    | ResponseType.Cancel => log( "Canceled" );
+                    | _ => ();
+                }
+
+                ;
+            } // end of when
+        }
+
+        on_disconnect_menu_item_activate(o :object,  args : EventArgs) :void
+        {
+            ;
+        }
+
+        on_preferences_menu_item_activate(o :object,  args : EventArgs) :void
+        {
+            ;
+        }
+
         #endregion
-    
+
+        on_command_entry_activate(o :object, args :EventArgs) :void
+        {
+            log(command_entry.Text);
+            commands_past_stack.Push(command_entry.Text);
+            command_entry.Text = "";
+            commands_future_stack.Clear();
+        }
+
+        on_command_entry_key_press_event(o :object, args :KeyPressEventArgs) :void
+        {
+            match ( args.Event.Key )
+            {
+                | Gdk.Key.Up => 
+                  commands_future_stack.Push(command_entry.Text);
+                  try {
+                      command_entry.Text = commands_past_stack.Pop() :>string;
+                  } catch { |_ => ();}
+                  
+                | Gdk.Key.Down => 
+                  commands_past_stack.Push(command_entry.Text);
+                  try {
+                      command_entry.Text = commands_future_stack.Pop() :>string;
+                  } catch { |_ => ();}
+                  
+                | _ => 
+                  log("Pressed " +  args.Event.Key.ToString() );
+            }
+        }
+
+        #endregion    
     } // end of ChalksWindow class
+
+    class ConnectionDialog
+    {
+
+        dialog :Dialog;
+        
+        public this() 
+        { 
+            def dialog_name = "connection_dialog";
+            def gxml = Glade.XML(null, ChalksWindow.glade_resource_name, dialog_name, null);
+
+            dialog = gxml.GetWidget(dialog_name) :>Dialog;       
+            gxml.Autoconnect (this);
+        }
+        
+        public Run() :ResponseType
+        {
+            def ret = dialog.Run() :>ResponseType;
+            dialog.Destroy();
+            ret;
+        }
+        
+        
+    } // end of class ConnectToDialog
+
+    class ChooseNicknameDialog
+    {
+        dialog :Dialog;
+        public nickname_entry :Entry;
+        ok_button :Button;
+
+        public this()
+        { 
+            def dialog_name = "choose_nickname_dialog";
+            def gxml = Glade.XML(null, ChalksWindow.glade_resource_name, dialog_name, null);
+            
+            dialog = gxml.GetWidget(dialog_name) :>Dialog;
+            nickname_entry = gxml.GetWidget("nickname_entry") :>Entry;
+            ok_button = gxml.GetWidget("ok_button") :>Button;
+            gxml.Autoconnect (this);
+
+            nickname_entry.Text = System.Environment.UserName;
+        }
+        
+        public Run() :ResponseType
+        {
+            def ret = dialog.Run() :>ResponseType;
+            dialog.Destroy();
+            ret;
+        }
+        
+        
+        on_nickname_entry_changed(o :object, args :EventArgs) :void
+        {
+            if (nickname_entry.Text.Length < 3)
+                ok_button.Sensitive = false;
+            else
+                ok_button.Sensitive = true;
+        }            
+
+    } // end of class ChooseNicknameDialog
     
 } // end of namespace

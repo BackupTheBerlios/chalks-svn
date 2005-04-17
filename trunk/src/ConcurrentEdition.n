@@ -22,7 +22,11 @@ You need this documents to understand the code.
 */
 
 using System;
+using System.IO;
+using System.Guid;
 using Chalks;
+using Chalks.Network;
+using Chalks.Gui.ChalksWindow; // get access to log function
 
 namespace Chalks.ConcurrentEdition
 {	  
@@ -34,20 +38,86 @@ namespace Chalks.ConcurrentEdition
 
 	// Definition of the members
         network_node  :Chalks.Network.NetworkNode;
+        text_buffer :ITextBuffer;
 
-        this(site_id :int)
+        site_id :Guid;
+
+        public this(text_buffer_instance :ITextBuffer)
         {
+            site_id = Guid.Empty;
+            text_buffer = text_buffer_instance;
+
+            log("Concurrent editable instance created");
             ;   
+            
         }
         
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+        #region Methods used by Gui
         
         public get_network_node() :Chalks.Network.NetworkNode
         {
             network_node;
         }
 
+        public save_file(file_path :string) :void
+        {
+            def file_extension =  Path.GetExtension(file_path);
+            match(file_extension)
+            {
+                | ".txt" =>
+                    def stream = IO.StreamWriter(file_path);
+                    stream.Write(text_buffer.get_text());
+                    stream.Close();
+                  
+                | _ => 
+                  Console.WriteLine("Do not know how to save the content in the format " + file_extension);
+              }
+        }
+
+        #endregion
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+        #region Methods used by ConcurrentEditionWidget
         
-    }
+        public generate_operation() :void
+        {
+            assert(this.site_id != Guid.Empty);
+            ;
+        }
+        #endregion
+
+        
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+        
+        #region Methods used by Network
+
+        public set_network_interface(network_node_instance :NetworkNode) :void
+        {
+
+            log("ConcurrentEditable has setup his network interface");
+            ;
+        }
+
+        public receive_operation(op :Operation) :void
+        {
+            ;
+        }
+
+        public add_site(site_id :Guid) :void
+        {
+            ;
+        }
+
+        public delete_site(site_id :Guid) :void
+        {
+            ;
+        }
+        #endregion
+        
+    } // end of class ConcurrentEditable
     
     
     public interface ITextBuffer

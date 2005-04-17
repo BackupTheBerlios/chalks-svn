@@ -54,16 +54,17 @@ Using
 
 To be written
 
-                     Chalks authors
--------------------------------------------------------------
+
+Chalks authors
+--------------
+
 Rodrigo Benenson Díaz (rodrig.benenson at gmail.com)
 Ricardo Niederberger Cabral (ncabral at terra.com.br)
--------------------------------------------------------------
+
 
 - The collaborative editing code is based research papers of Chengzheng Sun.
+  http://www.cit.gu.edu.au/~scz/
 
-  
-
-
-
-
+- This software employs the Nini software library
+  Nini Configuration Project. Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
+  http://nini.sf.net

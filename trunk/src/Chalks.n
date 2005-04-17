@@ -1,5 +1,5 @@
 /*
-
+Main executable, instanciate the application
 */
 
 using System;
@@ -10,8 +10,9 @@ namespace Chalks
     module Chalks 
     { // This module instanciate the Chalks application
 	
-        public Main() : void
-        {
+        Main() : void
+        {            
+            // init the application
             Application.Init();
             def _ = Gui.ChalksWindow();
             Application.Run();

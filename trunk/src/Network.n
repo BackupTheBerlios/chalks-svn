@@ -8,13 +8,16 @@
 */
 
 using System;
+using System.Guid;
 
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 
 using Chalks.ConcurrentEdition;
+using Chalks.Gui.ChalksWindow;
 
+            
 namespace Chalks.Network
 {
 
@@ -42,9 +45,14 @@ namespace Chalks.Network
 
     public class NetworkNode
     {
-        public this() // <<< has to pass default parameters: password, port
+
+        // <<< has to pass default parameters: password, port
+        public this(cce :ConcurrentEditable) 
         {
-            ;
+            // register ourself with the cce object (we give him network access)
+            cce.set_network_interface(this); 
+
+            log("Network instance created");
         }
             
         # region Methods used by the Gui
@@ -60,10 +68,10 @@ namespace Chalks.Network
             ;
         }
 
-        public get_users_list() :void
-        // retrieve the map of username->site_id
+        public get_site_nickname(site :Guid) :string
+        // return the nickname of a remote user
         { 
-            ;
+            "non_implemented_nickname";
         }
 
         public discover_nodes() :void
@@ -89,10 +97,10 @@ namespace Chalks.Network
             ;
         }
 
-        public get_site_id() :void
+        public get_site_id() : Guid
         // return the unique site id for the local document
         {
-            ;
+            System.Guid.NewGuid();
         }
 
         #endregion

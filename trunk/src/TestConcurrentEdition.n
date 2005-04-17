@@ -1,0 +1,22 @@
+/*
+Test the ConcurrentEdition
+*/
+
+namespace ConcurrentEdition
+{    
+    using NUnit.Framework;
+
+    [TestFixture]
+    public class ConcurrentEditionTest
+    {
+        [Test]
+        public DummyTest() :void
+        {
+            def a = 5;
+            def b = 5;
+            
+            Assert.AreEqual(a, b);
+        }
+    }
+    
+}
