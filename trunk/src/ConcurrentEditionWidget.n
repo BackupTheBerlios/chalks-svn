@@ -1,6 +1,16 @@
+/*
+This documents define the widget where multiple users write in the same time.
+*/
+
+// A good TextViewer tutorial
+// http://www.moeraki.com/pygtktutorial/pygtk2tutorial/ch-TextViewWidget.html
 
 using System;
+using Gtk;
 using GtkSourceView;
+
+using Nemerle.Collections;
+using Nemerle.Utility;
 
 namespace Chalks.ConcurrentEditionWidget
 {
@@ -11,7 +21,77 @@ namespace Chalks.ConcurrentEditionWidget
 	public this()
         {
             ShowLineNumbers = true;
+           
+
+            // create the base Tags
+            def to_send_tag = TextTag("to_send");
+            //to_send_tag.Style = Pango.Style.Oblique;
+            to_send_tag.ForegroundGdk = Gdk.Color(165b, 165b, 165b);
+            to_send_tag.Underline = Pango.Underline.Low;
+            Buffer.TagTable.Add(to_send_tag);
+
+
+            // simple test
+            def t_tag = create_user_tag(Guid.NewGuid());
+            Buffer.TagTable.Add(t_tag);
+
+            mutable iter = Buffer.StartIter.Copy();
+            Buffer.InsertWithTags(ref iter, "hello world\n", array[t_tag]);
+            Buffer.InsertWithTags(ref iter, "This text has to be sent\n", array[to_send_tag]);
+
             ;
+        }
+
+        
+        create_user_tag( site_id :Guid) :TextTag
+        { // create a new tag with a new color
+
+            def tag = TextTag(site_id.ToString());
+            
+            def hsv_to_rgb(h :float, s :float, v :float) :array[float]
+            {                
+                if (s == 0.0f) 
+                    array [v, v, v];
+                else {
+                    def i = Math.Floor((h*6.0f) :>double) :>float; 
+                    def ii = i :>int;
+                    def f = (h*6.0f) - i;
+                    def p = v*(1.0f - s);
+                    def q = v*(1.0f - s*f);
+                    def t = v*(1.0f - s*(1.0f-f));
+                    
+                    if (ii%6 == 0) 
+                        array [v, t, p];
+                    else match (ii) {
+                        | 1 => array [q,v,p];
+                        | 2 => array [p,v,t];
+                        | 3 => array [p,q,v];
+                        | 4 => array [t,p,v];
+                        | 5 => array [v,p,q];
+                        | _ => array [q,v,p];
+                    }
+                        
+                }
+            }; // end of hsv_to_rgb
+
+
+            // find a pleasant color randomly            
+           
+            // hue == tint is random
+            // saturation: 0.0 white, 1.0 intense color
+            def rgb = hsv_to_rgb(Random().NextDouble() :>float, 0.20f, 1.0f ); 
+            // rgb to color, color to tag
+            def rgb_bytes = array(rgb.Length)  :array[byte];
+            for(mutable c=0; c < rgb.Length; c++ )
+                rgb_bytes[c] = (rgb[c] * 255f) :>byte;
+
+
+            def background_color = Gdk.Color(rgb_bytes[0],rgb_bytes[1],rgb_bytes[2]);
+            tag.BackgroundGdk = background_color;            
+
+            // how to show who wrote a text
+            // http://svn.myrealbox.com/source/trunk/gtk-sharp/sample/GtkDemo/DemoHyperText.cs
+            tag;
         }
 
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
@@ -20,13 +100,14 @@ namespace Chalks.ConcurrentEditionWidget
         
         public get_text() :string
         { 
-            "dummy text";
+            Buffer.Text;
         }
 
 
         public set_text(text:string) :void
         { 
-            ;
+            // <<< has to do any check before doing this ?
+            Buffer.Text = text;
         }
         #endregion
 
@@ -36,6 +117,9 @@ namespace Chalks.ConcurrentEditionWidget
 
         public insert_text(offset:int, text:string) :void
         { 
+            // check the tags of the user ? the user Id has to be included ?
+            //ffun(foo = 3:int);
+
             ;
         }
 

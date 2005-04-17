@@ -26,6 +26,7 @@ namespace Chalks.Gui
     
     public class ChalksWindow
     {
+        #region Properties
         static public glade_resource_name :string = "chalks.glade";
         
         static config_source_name :string = "chalks.config";
@@ -34,6 +35,7 @@ namespace Chalks.Gui
         mutable current_file_path :string;
         chalks_window :Window;
         static mutable messages_textview :TextView = null;
+        static mutable messages_textview_endmark :TextMark = null;
         command_entry :Entry;
 
         cce_widget :ConcurrentEditionWidget; // cce == ConcurrentEdition
@@ -42,7 +44,7 @@ namespace Chalks.Gui
             
         commands_past_stack :Stack;
         commands_future_stack :Stack;
-
+        #endregion
 
         public this()
         {
@@ -56,8 +58,7 @@ namespace Chalks.Gui
                 | _ => ();
             }
             config_source.AutoSave = true; // save at each change
-            
-           
+                  
             // create our special widget
             cce_widget = ConcurrentEditionWidget(); // cce == ConcurrentEdition
             cce_widget.CanFocus = true;
@@ -70,7 +71,12 @@ namespace Chalks.Gui
             // chalks.glade file included as a resource "-res:chalks.glade"
             def gxml = Glade.XML(null, glade_resource_name, "chalks_window", null);
             chalks_window = gxml.GetWidget("chalks_window") :> Window;
+
             messages_textview = gxml.GetWidget("messages_textview") :> TextView;
+            {
+                def buffer = messages_textview.Buffer;
+                messages_textview_endmark = buffer.CreateMark("end", buffer.EndIter, false);
+            }
             command_entry = gxml.GetWidget("command_entry") :> Entry;
             commands_past_stack  = Stack();
             commands_future_stack = Stack();
@@ -132,23 +138,32 @@ namespace Chalks.Gui
 
         #endregion
 
-
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
+        
+        #region Global log method
+        static public log(message :string) :void 
+        { // alias method
+            log(message, array[]:array[TextTag]);
+        }
 
-        static public log(message:string) :void
+        static public log(message :string, tags :array[TextTag]) :void
         { // the global log method
-            if (messages_textview != null) 
+            if (   (messages_textview         != null) 
+                && (messages_textview_endmark != null)) 
             {
                 def buffer = messages_textview.Buffer;
                 mutable iter = buffer.EndIter.Copy();
-                buffer.Insert(ref iter, "\n" + message); 
-                // could be InsertWithTag
-            } 
+                //buffer.Insert(ref iter, "\n" + message); 
+                buffer.InsertWithTags(ref iter, "\n" + message, tags);
+                messages_textview.ScrollMarkOnscreen(messages_textview_endmark);
+                
+            }
             else 
             {
                 Console.WriteLine(message);
             }
         }
+        #endregion
 
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
 
@@ -401,8 +416,11 @@ namespace Chalks.Gui
         }
 
         #endregion    
+
+
     } // end of ChalksWindow class
 
+    #region Helper Dialogs classes
     class ConnectionDialog
     {
 
@@ -427,6 +445,7 @@ namespace Chalks.Gui
         
     } // end of class ConnectToDialog
 
+    #region Choose Nickname Dialog
     class ChooseNicknameDialog
     {
         dialog :Dialog;
@@ -463,5 +482,8 @@ namespace Chalks.Gui
         }            
 
     } // end of class ChooseNicknameDialog
-    
+    #endregion
+
+    #endregion
+
 } // end of namespace

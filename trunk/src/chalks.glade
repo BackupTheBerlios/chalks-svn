@@ -245,17 +245,11 @@
 	    <widget class="GtkVPaned" id="vpaned1">
 	      <property name="border_width">5</property>
 	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="has_focus">True</property>
-	      <property name="position">0</property>
 
 	      <child>
 		<widget class="GtkScrolledWindow" id="scrolledwindow3">
 		  <property name="height_request">100</property>
 		  <property name="visible">True</property>
-		  <property name="has_default">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="has_focus">True</property>
 		  <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 		  <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 		  <property name="shadow_type">GTK_SHADOW_NONE</property>
@@ -273,9 +267,7 @@
 
 	      <child>
 		<widget class="GtkScrolledWindow" id="scrolledwindow1">
-		  <property name="height_request">50</property>
 		  <property name="visible">True</property>
-		  <property name="can_focus">True</property>
 		  <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 		  <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 		  <property name="shadow_type">GTK_SHADOW_IN</property>
@@ -285,13 +277,13 @@
 		    <widget class="GtkTextView" id="messages_textview">
 		      <property name="height_request">0</property>
 		      <property name="visible">True</property>
-		      <property name="sensitive">False</property>
+		      <property name="tooltip" translatable="yes">Logs area</property>
 		      <property name="editable">False</property>
-		      <property name="overwrite">True</property>
-		      <property name="accepts_tab">True</property>
+		      <property name="overwrite">False</property>
+		      <property name="accepts_tab">False</property>
 		      <property name="justification">GTK_JUSTIFY_LEFT</property>
 		      <property name="wrap_mode">GTK_WRAP_NONE</property>
-		      <property name="cursor_visible">True</property>
+		      <property name="cursor_visible">False</property>
 		      <property name="pixels_above_lines">0</property>
 		      <property name="pixels_below_lines">0</property>
 		      <property name="pixels_inside_wrap">0</property>
@@ -327,7 +319,6 @@
 		  <property name="width_request">30</property>
 		  <property name="height_request">21</property>
 		  <property name="visible">True</property>
-		  <property name="has_focus">True</property>
 		  <property name="has_resize_grip">True</property>
 		</widget>
 		<packing>
@@ -341,8 +332,8 @@
 	      <child>
 		<widget class="GtkEntry" id="command_entry">
 		  <property name="visible">True</property>
-		  <property name="sensitive">False</property>
-		  <property name="has_default">True</property>
+		  <property name="tooltip" translatable="yes">Commands input area</property>
+		  <property name="can_default">True</property>
 		  <property name="can_focus">True</property>
 		  <property name="extension_events">GDK_EXTENSION_EVENTS_ALL</property>
 		  <property name="editable">True</property>
@@ -352,7 +343,7 @@
 		  <property name="has_frame">True</property>
 		  <property name="invisible_char">*</property>
 		  <property name="activates_default">False</property>
-		  <signal name="key_press_event" handler="on_command_entry_key_press_event" last_modification_time="Sun, 17 Apr 2005 01:43:36 GMT"/>
+		  <signal name="key_press_event" handler="on_command_entry_key_press_event" after="yes" last_modification_time="Sun, 17 Apr 2005 01:43:36 GMT"/>
 		  <signal name="activate" handler="on_command_entry_activate" last_modification_time="Sun, 17 Apr 2005 02:30:42 GMT"/>
 		</widget>
 		<packing>

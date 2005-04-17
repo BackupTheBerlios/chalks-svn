@@ -1,0 +1,38 @@
+TODO
+
+
+Chalks
+
+* When the window is close, the program does not quit
+
+Gui
+
+* Add Gtk.ToolTipsData tooltips over the main text that shows the author of a paragraph. 
+* When the user press Key.Up in the Command Entry this one should not lost the focus.
+
+
+ConcurrentEditableWidget
+
+* How to set the tag for new text
+* Intercept the DeleteRange and the InserText events
+* Implement the interface
+
+
+ConcurrentEditable
+
+* Implement the interface
+* Write the tests
+
+Network
+
+* Implement the interface
+* Write the tests
+
+Documentation
+
+* Explain the dia diagram
+
+
+Distribution
+
+* Choose the distribution system
