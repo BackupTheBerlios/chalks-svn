@@ -379,9 +379,9 @@ namespace Chalks.ConcurrentEdition
             ;
         }
 
-        ToString() :void        
+        public override ToString() :string
         {
-            ;
+            "";
         }
 
         set_timestamp() :void        

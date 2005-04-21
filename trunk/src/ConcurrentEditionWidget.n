@@ -12,26 +12,34 @@ using GtkSourceView;
 using Nemerle.Collections;
 using Nemerle.Utility;
 
+using Chalks.Gui.ChalksWindow; // access to the log function
+
 namespace Chalks.ConcurrentEditionWidget
 {
 
     public class ConcurrentEditionWidget : SourceView, Chalks.ConcurrentEdition.ITextBuffer
     {
-	
+
+	static to_send_tag :TextTag = TextTag("to_send");
+        static mutable applying_operation :bool = false;
+        
 	public this()
         {
-            ShowLineNumbers = true;
+            
+	    ShowLineNumbers = true;
            
-
             // create the base Tags
-            def to_send_tag = TextTag("to_send");
+            //to_send_tag = TextTag("to_send");
             //to_send_tag.Style = Pango.Style.Oblique;
             to_send_tag.ForegroundGdk = Gdk.Color(165b, 165b, 165b);
             to_send_tag.Underline = Pango.Underline.Low;
             Buffer.TagTable.Add(to_send_tag);
-
-
-            // simple test
+            
+            // register handlers
+            this.Buffer.InsertText += on_insert_text_event;
+            this.Buffer.DeleteRange += on_delete_range_event;
+            
+            // simple tag tests
             def t_tag = create_user_tag(Guid.NewGuid());
             Buffer.TagTable.Add(t_tag);
 
@@ -39,15 +47,129 @@ namespace Chalks.ConcurrentEditionWidget
             Buffer.InsertWithTags(ref iter, "hello world\n", array[t_tag]);
             Buffer.InsertWithTags(ref iter, "This text has to be sent\n", array[to_send_tag]);
 
+            // programatic "silent" insertion
+            applying_operation = true;
+            mutable start_iter1 = iter.Copy();
+            mutable start_iter2 = iter.Copy();
+            def end_iter = iter.Copy();
+            this.Buffer.Insert(ref start_iter1, "This text has to be inserted without raising a handler\n");
+            this.Buffer.ApplyTag(t_tag, start_iter2, end_iter);
+            applying_operation = false;
+            
+            // programatic "silent" deletion
+
+
+           
+            // end of simple tag tests   
             ;
         }
 
         
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
+
+        #region User insertions and deletions events handlers
+        
+        /*
+        //OnCopyClipboard
+        //OnCutClipboard
+     
+        //OnDeleteFromCursor (DeleteType type, int count) 
+        
+        OnKeyPressEvent( _event :Gdk.EventKey) :bool
+        {
+            log("hi there !");
+            true; // block the next handlers
+        }
+         
+        on_insert_text_event( o :object, args :InsertTextArgs) :void
+        {
+            log("hi there !");
+           
+            def cursor_iter = this.Buffer.GetIterAtMark(Buffer.InsertMark);
+            def start_iter = cursor_iter.Copy(); // can I do this _faster_ ?
+            def end_iter = cursor_iter.Copy(); // can I do this _faster_ ?
+
+            // the handler is called after the text was inserted
+            start_iter.BackwardChars(args.Str.Length); 
+            
+            Buffer.ApplyTag(to_send_tag, start_iter, end_iter);
+                
+            log(String.Format("Inserting at offset {0} the text: {1}", cursor_iter.Offset.ToString(), args.Str));
+            
+            ;
+        }
+
+        
+        OnInsertAtCursor (str :string) :void
+        {
+            mutable cursor_iter = Buffer.GetIterAtMark(Buffer.InsertMark);
+            log(String.Format("Inserting at offset {0} the text: {1}", cursor_iter.Offset.ToString(), str));
+            Buffer.InsertWithTags(ref cursor_iter, str, array[to_send_tag]);
+            ;
+        }
+        
+        */
+
+        protected override OnPasteClipboard () :void
+        {
+            log("hi there !");
+            ;
+        }
+        
+        on_insert_text_event(o :object, args :InsertTextArgs) :void
+        { // args.Length :int, Pos :TextIter, Text :string
+
+            when(!applying_operation) // detect if programatical or not
+            { // inserted manually
+
+                // apply to_send_tag
+                def start_iter = args.Pos.Copy(); // can I do this _faster_ ?
+                def end_iter = args.Pos.Copy(); // can I do this _faster_ ?
+                //def start_iter = TextIter();
+                //def end_iter = TextIter();
+                //start_iter.Offset = args.Pos.Offset;
+                //end_iter.Offset = args.Pos.Offset;
+                
+                // the handler is called after the text was inserted
+                start_iter.BackwardChars(args.Length); 
+
+                Buffer.RemoveAllTags(start_iter, end_iter);
+                Buffer.ApplyTag(to_send_tag, start_iter, end_iter);
+                log(String.Format("Applying exclusive tag {0} from {1} to {2}", to_send_tag.Name.ToString(), start_iter.Offset.ToString(), end_iter.Offset.ToString())); 
+                
+                ;
+            }
+            
+            log("Inserted at offset " + args.Pos.Offset.ToString() + String.Format(" {0} chars that forms the text: {1}", args.Length, args.Text));
+
+            ;
+        }
+
+
+        
+        [GLib.ConnectBefore] // need to be static to be ConnectedBefore
+	protected static on_delete_range_event(o :object, args :DeleteRangeArgs) :void
+        {
+            when(!applying_operation) // detect if programatical or not
+            {
+                log($"Will delete text in the range: $(args.Start.Offset), $(args.End.Offset). Length : $(args.End.Offset - args.Start.Offset)");
+            }
+            
+            ;
+        }
+
+        #endregion
+        
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
+
+        #region Helpers
+                
         create_user_tag( site_id :Guid) :TextTag
         { // create a new tag with a new color
 
             def tag = TextTag(site_id.ToString());
             
+            // local helper function
             def hsv_to_rgb(h :float, s :float, v :float) :array[float]
             {                
                 if (s == 0.0f) 
@@ -74,7 +196,7 @@ namespace Chalks.ConcurrentEditionWidget
                 }
             }; // end of hsv_to_rgb
 
-
+        
             // find a pleasant color randomly            
            
             // hue == tint is random
@@ -94,6 +216,8 @@ namespace Chalks.ConcurrentEditionWidget
             tag;
         }
 
+        #endregion
+                
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
 
         #region ITextBuffer interface implementation, methods accessed by ConcurrentEditable and Gui
@@ -119,12 +243,19 @@ namespace Chalks.ConcurrentEditionWidget
         { 
             // check the tags of the user ? the user Id has to be included ?
             //ffun(foo = 3:int);
+            
+            applying_operation = true;
+
+            applying_operation = false;
 
             ;
         }
 
         public delete_text(offset:int, length:int) :void
         {
+            applying_operation = true;
+
+            applying_operation = false;
             ;
         }
 
@@ -132,3 +263,64 @@ namespace Chalks.ConcurrentEditionWidget
 	
     }
 }
+
+/*
+class SourceViewTest
+{
+	static string filename;
+
+	static void Main (string[] args)
+	{
+		if (args.Length != 1 || !File.Exists (args[0]))
+			PrintUsage ();
+		filename = args[0];
+
+		Application.Init ();
+		new SourceViewTest ();
+		Application.Run ();
+	}
+
+	static void PrintUsage ()
+	{
+		Console.WriteLine ("usage: SourceViewTest.exe <csfile>");
+		Environment.Exit (0);
+	}
+
+	SourceViewTest ()
+	{
+		Window win = new Window ("SourceView test");
+		win.SetDefaultSize (600, 400);
+		win.WindowPosition = WindowPosition.Center;
+		win.DeleteEvent += new DeleteEventHandler (OnWinDelete);
+		win.Add (CreateView ());
+		win.ShowAll ();
+	}
+
+	ScrolledWindow CreateView ()
+	{
+		ScrolledWindow sw = new ScrolledWindow ();
+		SourceView view = new SourceView (CreateBuffer ());
+		sw.Add (view);
+		return sw;
+	}
+
+	SourceBuffer CreateBuffer ()
+	{
+		SourceLanguagesManager manager = new SourceLanguagesManager ();
+		SourceLanguage lang = manager.GetLanguageFromMimeType ("text/x-csharp");
+
+		SourceBuffer buffer = new SourceBuffer (lang);
+		buffer.Highlight = true;
+		StreamReader sr = File.OpenText (filename);
+		buffer.Text = sr.ReadToEnd ();
+		sr.Close ();
+		return buffer;
+	}
+
+	void OnWinDelete (object sender, DeleteEventArgs a)
+	{
+		Application.Quit ();
+		a.RetVal = true;
+	}
+}
+*/

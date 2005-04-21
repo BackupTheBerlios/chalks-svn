@@ -4,7 +4,7 @@ DllResources = -r:System.Runtime.Remoting.dll -pkg:glade-sharp-2.0 -pkg:gtk-shar
 Resources =  -res:chalks.glade -res:chalks.ico
 
 chalks: chalks.glade chalks.ico Chalks.n Gui.n ConcurrentEditionWidget.n ConcurrentEdition.n Network.n
-	ncc -out:"chalks.exe" $(DllResources) $(Resources) Chalks.n Gui.n ConcurrentEditionWidget.n ConcurrentEdition.n Network.n
+	ncc.exe -out:"chalks.exe" $(DllResources) $(Resources) Chalks.n Gui.n ConcurrentEditionWidget.n ConcurrentEdition.n Network.n
 
 
 test: test_network.dll test_cce.dll

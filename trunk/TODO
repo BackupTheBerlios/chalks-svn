@@ -1,9 +1,8 @@
 TODO
 
+Documentation
 
-Chalks
-
-* When the window is close, the program does not quit
+* Explain the dia diagram
 
 Gui
 
@@ -13,9 +12,17 @@ Gui
 
 ConcurrentEditableWidget
 
-* How to set the tag for new text
-* Intercept the DeleteRange and the InserText events
+* Clean up all the comments
+* Implement delete handler, can it be static and access to all the required elements ?
+* How to avoid tags to copied when copy and paste (with mouse) (using ApplyTag handler and aplying_operation ?)
+* Intercept the TextView events (and not the TextBuffer ones..)
 * Implement the interface
+
+
+Network
+
+* Implement the interface
+* Write the tests
 
 
 ConcurrentEditable
@@ -23,14 +30,10 @@ ConcurrentEditable
 * Implement the interface
 * Write the tests
 
-Network
 
-* Implement the interface
-* Write the tests
+Chalks
 
-Documentation
-
-* Explain the dia diagram
+* When the window is close, the program does not quit
 
 
 Distribution

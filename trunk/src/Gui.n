@@ -173,7 +173,8 @@ namespace Chalks.Gui
         on_chalks_window_delete_event( _ :object, args :DeleteEventArgs) : void 
         {
             Application.Quit ();
-            //args.RetVal = true;
+            args.RetVal = true;
+            ;
         }
         
         #region Menu items Handlers
@@ -403,15 +404,20 @@ namespace Chalks.Gui
                   try {
                       command_entry.Text = commands_past_stack.Pop() :>string;
                   } catch { |_ => ();}
+                  //command_entry.GrabFocus();
+                  //command_entry.GrabDefault();
+                  //true;
                   
                 | Gdk.Key.Down => 
                   commands_past_stack.Push(command_entry.Text);
                   try {
                       command_entry.Text = commands_future_stack.Pop() :>string;
                   } catch { |_ => ();}
+                  //false;
                   
                 | _ => 
                   log("Pressed " +  args.Event.Key.ToString() );
+                  //false;
             }
         }
 
