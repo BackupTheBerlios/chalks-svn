@@ -46,6 +46,8 @@ namespace Chalks.Network
     public class NetworkNode
     {
 
+        public site_id :Guid = System.Guid.NewGuid();
+        
         // <<< has to pass default parameters: password, port
         public this(cce :ConcurrentEditable) 
         {
@@ -100,7 +102,7 @@ namespace Chalks.Network
         public get_site_id() : Guid
         // return the unique site id for the local document
         {
-            System.Guid.NewGuid();
+            site_id;
         }
 
         #endregion

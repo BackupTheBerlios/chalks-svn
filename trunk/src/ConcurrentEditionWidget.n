@@ -13,6 +13,7 @@ using Nemerle.Collections;
 using Nemerle.Utility;
 
 using Chalks.Gui.ChalksWindow; // access to the log function
+using Chalks.ConcurrentEdition;
 
 namespace Chalks.ConcurrentEditionWidget
 {
@@ -22,9 +23,11 @@ namespace Chalks.ConcurrentEditionWidget
 
 	static to_send_tag :TextTag = TextTag("to_send");
         static mutable applying_operation :bool = false;
+        gui :Gui.ChalksWindow;
         
-	public this()
+	public this(_gui :Gui.ChalksWindow)
         {
+            gui = _gui;
             
 	    ShowLineNumbers = true;
            
@@ -38,6 +41,9 @@ namespace Chalks.ConcurrentEditionWidget
             // register handlers
             this.Buffer.InsertText += on_insert_text_event;
             this.Buffer.DeleteRange += on_delete_range_event;
+
+            // call flush_inserted_text each second
+            Timeout.Add(1000, flush_inserted_text); 
             
             // simple tag tests
             def t_tag = create_user_tag(Guid.NewGuid());
@@ -47,14 +53,16 @@ namespace Chalks.ConcurrentEditionWidget
             Buffer.InsertWithTags(ref iter, "hello world\n", array[t_tag]);
             Buffer.InsertWithTags(ref iter, "This text has to be sent\n", array[to_send_tag]);
 
+            /*
             // programatic "silent" insertion
             applying_operation = true;
             mutable start_iter1 = iter.Copy();
             mutable start_iter2 = iter.Copy();
             def end_iter = iter.Copy();
-            this.Buffer.Insert(ref start_iter1, "This text has to be inserted without raising a handler\n");
-            this.Buffer.ApplyTag(t_tag, start_iter2, end_iter);
+            Buffer.Insert(ref start_iter1, "This text has to be inserted without raising a handler\n");
+            Buffer.ApplyTag(t_tag, start_iter2, end_iter);
             applying_operation = false;
+            */
             
             // programatic "silent" deletion
 
@@ -64,6 +72,53 @@ namespace Chalks.ConcurrentEditionWidget
             ;
         }
 
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+        flush_inserted_text() :bool
+        {
+            /* Insertions are flushed:
+               - each second
+               - each time someone ends a word
+               - each time someone ends a phrase
+            */
+
+            mutable found_a_region = false;
+            
+            def start_iter = this.Buffer.StartIter.Copy();
+            def end_iter = this.Buffer.StartIter.Copy();
+
+            found_a_region = start_iter.HasTag(to_send_tag);
+            end_iter.ForwardToTagToggle(to_send_tag); // go to the first Toggle
+            
+            
+            // search the first to_send tagger region
+            when (! found_a_region) {
+                start_iter.ForwardToTagToggle(to_send_tag);
+                end_iter.ForwardToTagToggle(to_send_tag);
+                
+                found_a_region = ! start_iter.Equal(Buffer.EndIter);
+            }
+
+            //log($"flush: $(found_a_region) first region at [$(start_iter.Offset),$(end_iter.Offset)]");
+            
+            while(found_a_region)
+            { // iterate over the different regions
+                def text = Buffer.GetSlice(start_iter, end_iter, false);
+                def pos = start_iter.Offset;
+                gui.concurrent_editable.generate_operation(OperationType.Insert, pos, text);
+                Buffer.RemoveTag(to_send_tag, start_iter, end_iter);
+
+                // jump to the next section
+                start_iter.ForwardToTagToggle(to_send_tag);
+                end_iter.ForwardToTagToggle(to_send_tag);
+                start_iter.ForwardToTagToggle(to_send_tag);
+                end_iter.ForwardToTagToggle(to_send_tag);
+
+                found_a_region = ! start_iter.Equal(Buffer.EndIter);
+            }
+
+            true; // return true to be called periodically
+        }
         
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
 
@@ -153,6 +208,8 @@ namespace Chalks.ConcurrentEditionWidget
             when(!applying_operation) // detect if programatical or not
             {
                 log($"Will delete text in the range: $(args.Start.Offset), $(args.End.Offset). Length : $(args.End.Offset - args.Start.Offset)");
+
+                //gui.concurrent_editable.generate_operation();
             }
             
             ;

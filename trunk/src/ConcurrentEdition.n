@@ -16,10 +16,6 @@ Search at http://www.researchindex.com for the files:
 You need this documents to understand the code.
 */
 
-/*
-10/04/2003 Drafting the architecture. Rodrigob.
-
-*/
 
 using System;
 using System.IO;
@@ -40,8 +36,8 @@ namespace Chalks.ConcurrentEdition
         network_node  :Chalks.Network.NetworkNode;
         text_buffer :ITextBuffer;
 
-        site_id :Guid;
-
+        mutable site_id :Guid;
+        
         public this(text_buffer_instance :ITextBuffer)
         {
             site_id = Guid.Empty;
@@ -82,11 +78,31 @@ namespace Chalks.ConcurrentEdition
 
         #region Methods used by ConcurrentEditionWidget
         
-        public generate_operation() :void
+        public generate_operation(optype :OperationType, pos :int, text :string) :void
         {
             assert(this.site_id != Guid.Empty);
+            assert(optype == OperationType.Insert);
+
+            log($"generating insert($(pos), '$(text)')");
+            // create operation object
+            // apply localy
+            // send to the peers
             ;
         }
+        public generate_operation(optype :OperationType, pos :int, length :int) :void
+        {
+            assert(this.site_id != Guid.Empty);
+            assert(optype == OperationType.Delete);
+
+            log($"generating delete($(pos), $(length))");
+            // create operation object
+            // apply localy
+            // send to the peers
+            ;
+        }
+
+
+        
         #endregion
 
         
@@ -97,6 +113,7 @@ namespace Chalks.ConcurrentEdition
         public set_network_interface(network_node_instance :NetworkNode) :void
         {
 
+            site_id = network_node_instance.site_id;
             log("ConcurrentEditable has setup his network interface");
             ;
         }
@@ -299,7 +316,7 @@ namespace Chalks.ConcurrentEdition
             ;
         }
 
-        T(o :Operation) :OperationsType
+        T(o :Operation) :OperationType
         { // Return the type of operation ("Insert" or "Delete")
            o.Type;
         }
@@ -361,16 +378,37 @@ namespace Chalks.ConcurrentEdition
     
     }
 
-    public enum OperationsType { |Insert |Delete |SetText };
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+    #region Definition of the Operation class
+    
+    public enum OperationType { |Insert |Delete |SetText };
 
-    public class Operation // :dict
+    public class Operation
     {
 
         // Definitions of members
-        public Type :OperationsType;
-
-        this()
+        public Type :OperationType;
+        public Pos  :int;
+        public Text :string;
+        public Length :int;
+        
+        this(optype :OperationType, pos :int, text :string)
         {
+            assert(optype == OperationType.Insert);
+            Type = optype;
+            Pos = pos;
+            Text = text;
+            Length = 0;
+            ;
+        }
+
+        this(optype :OperationType, pos :int, length :int)
+        {
+            assert(optype != OperationType.Delete);
+            Type = optype;
+            Pos = pos;
+            Length = length;
+            Text = "";
             ;
         }
 
@@ -395,5 +433,8 @@ namespace Chalks.ConcurrentEdition
         }
 
     }
-
+    #endregion
+    
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+        
 } // end of the namespace Chalks.ConcurrentEditable

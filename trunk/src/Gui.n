@@ -39,7 +39,7 @@ namespace Chalks.Gui
         command_entry :Entry;
 
         cce_widget :ConcurrentEditionWidget; // cce == ConcurrentEdition
-        concurrent_editable :ConcurrentEditable;
+        public concurrent_editable :ConcurrentEditable;
         network_node :NetworkNode;
             
         commands_past_stack :Stack;
@@ -60,7 +60,7 @@ namespace Chalks.Gui
             config_source.AutoSave = true; // save at each change
                   
             // create our special widget
-            cce_widget = ConcurrentEditionWidget(); // cce == ConcurrentEdition
+            cce_widget = ConcurrentEditionWidget(this); // cce == ConcurrentEdition
             cce_widget.CanFocus = true;
 
             // create the window
@@ -92,9 +92,9 @@ namespace Chalks.Gui
             // instanciate the core objects
             concurrent_editable = ConcurrentEditable(cce_widget);
             network_node = NetworkNode(concurrent_editable);
-
+            
             // run
-            cce_widget.HasFocus = true;
+            cce_widget.HasFocus = true; //start with focus on the main text
             Application.Run();
         }
         
@@ -158,7 +158,7 @@ namespace Chalks.Gui
                 messages_textview.ScrollMarkOnscreen(messages_textview_endmark);
                 
             }
-            else 
+            else
             {
                 Console.WriteLine(message);
             }
@@ -170,7 +170,7 @@ namespace Chalks.Gui
         #region SignalsHandlers
         // Connect the Signals defined in Glade
         
-        on_chalks_window_delete_event( _ :object, args :DeleteEventArgs) : void 
+        on_chalks_window_delete_event( _o :object, args :DeleteEventArgs) : void 
         {
             Application.Quit ();
             args.RetVal = true;
