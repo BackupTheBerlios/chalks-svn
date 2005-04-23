@@ -178,7 +178,7 @@ namespace Chalks.Gui
         }
         
         #region Menu items Handlers
-        on_new_menu_item_activate (o :object,  args : EventArgs) : void
+        on_new_menu_item_activate (_o :object,  args : EventArgs) : void
         {
             // confirm that the user want to close the current session
             //<<<
@@ -196,7 +196,7 @@ namespace Chalks.Gui
             ;
         }
         
-        on_open_menu_item_activate (o :object,  args : EventArgs) : void
+        on_open_menu_item_activate (_o :object,  args : EventArgs) : void
         {
             
             //def _ = OpenFileDialog();
@@ -282,7 +282,7 @@ namespace Chalks.Gui
             }
         }
 
-        on_save_as_menu_item_activate(o :object,  args : EventArgs) : void
+        on_save_as_menu_item_activate(_o :object,  args : EventArgs) : void
         {
                         
             //def dialog = File???("Save current document as...");
@@ -321,14 +321,14 @@ namespace Chalks.Gui
             dialog.Destroy();
         }
 
-        on_quit_menu_item_activate(o :object,  args : EventArgs) :void
+        on_quit_menu_item_activate(_o :object,  args : EventArgs) :void
         {
             Application.Quit();
             // TODO The application quit only at the second click 
             // (need to do something to EventArgs ?)
         }
     
-        on_about_menu_item_activate(o :object,  args : EventArgs) :void
+        on_about_menu_item_activate(_o :object,  args : EventArgs) :void
         {                       
             def dialog_name = "about_dialog";
             def gxml = Glade.XML(null, glade_resource_name, dialog_name, null);
@@ -336,8 +336,9 @@ namespace Chalks.Gui
             def ret = dialog.Run() :> ResponseType;
             dialog.Destroy();
         }
-        
-        on_connect_menu_item_activate(o :object,  args : EventArgs) :void
+
+        #region Connection and disconnection
+        on_connect_menu_item_activate(_o :object,  args : EventArgs) :void
         {
             // Check nickname
             mutable nickname = config_source.Configs["User"].GetString("nickname", "");;
@@ -375,19 +376,59 @@ namespace Chalks.Gui
             } // end of when
         }
 
-        on_disconnect_menu_item_activate(o :object,  args : EventArgs) :void
+        on_disconnect_menu_item_activate(_o :object,  args : EventArgs) :void
         {
+            ;
+        }
+        #region
+
+
+        #region Edit submenu
+
+        on_copy_menu_item_activate(_o :object,  args : EventArgs) :void
+        {
+            def clipboard = cce_widget.GetClipboard(Gdk.Selection.Clipboard);
+            cce_widget.Buffer.CopyClipboard(clipboard);
+        }
+
+        on_cut_menu_item_activate(o :object,  args : EventArgs) :void
+        {   // copy and delete
+            on_copy_menu_item_activate(o,  args);
+            on_delete_menu_item_activate(o,  args);
             ;
         }
 
-        on_preferences_menu_item_activate(o :object,  args : EventArgs) :void
+        on_paste_menu_item_activate(_o :object,  args : EventArgs) :void
         {
+            def clipboard = cce_widget.GetClipboard(Gdk.Selection.Clipboard);
+            cce_widget.Buffer.PasteClipboard(clipboard);
             ;
         }
+
+
+        on_delete_menu_item_activate(_o :object,  args : EventArgs) :void
+        {
+            cce_widget.Buffer.DeleteSelection(true, true);
+            /*
+            mutable start_iter = TextIter();
+            mutable end_iter = TextIter();
+                      
+            def clipboard = cce_widget.GetClipboard(Gdk.Selection.Clipboard);
+            def non_zero_selection = cce_widget.Buffer.GetSelectionBounds(out start_iter, out end_iter);
+            when(non_zero_selection)
+                cce_widget.Buffer.Delete(ref start_iter, ref end_iter);*/
+            ;
+        }
+
+        on_preferences_menu_item_activate(_o :object,  args : EventArgs) :void
+        {
+            log("to be implemented");
+        }
+        #endregion
 
         #endregion
 
-        on_command_entry_activate(o :object, args :EventArgs) :void
+        on_command_entry_activate(_o :object, args :EventArgs) :void
         {
             log(command_entry.Text);
             commands_past_stack.Push(command_entry.Text);
@@ -395,7 +436,7 @@ namespace Chalks.Gui
             commands_future_stack.Clear();
         }
 
-        on_command_entry_key_press_event(o :object, args :KeyPressEventArgs) :void
+        on_command_entry_key_press_event(_o :object, args :KeyPressEventArgs) :void
         {
             match ( args.Event.Key )
             {
@@ -479,7 +520,7 @@ namespace Chalks.Gui
         }
         
         
-        on_nickname_entry_changed(o :object, args :EventArgs) :void
+        on_nickname_entry_changed(_o :object, args :EventArgs) :void
         {
             if (nickname_entry.Text.Length < 3)
                 ok_button.Sensitive = false;

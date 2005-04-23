@@ -50,7 +50,7 @@
 		      <accelerator key="C" modifiers="GDK_MOD1_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image8">
+			<widget class="GtkImage" id="image11">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-connect</property>
 			  <property name="icon_size">1</property>
@@ -72,7 +72,7 @@
 		      <accelerator key="D" modifiers="GDK_MOD1_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image9">
+			<widget class="GtkImage" id="image12">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-disconnect</property>
 			  <property name="icon_size">1</property>
@@ -160,6 +160,7 @@
 		      <property name="visible">True</property>
 		      <property name="label">gtk-cut</property>
 		      <property name="use_stock">True</property>
+		      <signal name="activate" handler="on_cut_menu_item_activate" last_modification_time="Sat, 23 Apr 2005 20:18:51 GMT"/>
 		    </widget>
 		  </child>
 
@@ -168,6 +169,7 @@
 		      <property name="visible">True</property>
 		      <property name="label">gtk-copy</property>
 		      <property name="use_stock">True</property>
+		      <signal name="activate" handler="on_copy_menu_item_activate" last_modification_time="Sat, 23 Apr 2005 20:18:51 GMT"/>
 		    </widget>
 		  </child>
 
@@ -176,6 +178,7 @@
 		      <property name="visible">True</property>
 		      <property name="label">gtk-paste</property>
 		      <property name="use_stock">True</property>
+		      <signal name="activate" handler="on_paste_menu_item_activate" last_modification_time="Sat, 23 Apr 2005 20:18:51 GMT"/>
 		    </widget>
 		  </child>
 
@@ -184,6 +187,7 @@
 		      <property name="visible">True</property>
 		      <property name="label">gtk-delete</property>
 		      <property name="use_stock">True</property>
+		      <signal name="activate" handler="on_delete_menu_item_activate" last_modification_time="Sat, 23 Apr 2005 20:45:17 GMT"/>
 		    </widget>
 		  </child>
 

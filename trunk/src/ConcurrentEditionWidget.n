@@ -41,6 +41,7 @@ namespace Chalks.ConcurrentEditionWidget
             // register handlers
             this.Buffer.InsertText += on_insert_text_event;
             this.Buffer.DeleteRange += on_delete_range_event;
+            //this.Buffer.PasteClipboard += on_paste_clipboard_event;
 
             // call flush_inserted_text each second
             Timeout.Add(1000, flush_inserted_text); 
@@ -49,8 +50,11 @@ namespace Chalks.ConcurrentEditionWidget
             def t_tag = create_user_tag(Guid.NewGuid());
             Buffer.TagTable.Add(t_tag);
 
+            
             mutable iter = Buffer.StartIter.Copy();
+            applying_operation = true;
             Buffer.InsertWithTags(ref iter, "hello world\n", array[t_tag]);
+            applying_operation = false;
             Buffer.InsertWithTags(ref iter, "This text has to be sent\n", array[to_send_tag]);
 
             /*
@@ -106,7 +110,8 @@ namespace Chalks.ConcurrentEditionWidget
                 def text = Buffer.GetSlice(start_iter, end_iter, false);
                 def pos = start_iter.Offset;
                 gui.concurrent_editable.generate_operation(OperationType.Insert, pos, text);
-                Buffer.RemoveTag(to_send_tag, start_iter, end_iter);
+                //Buffer.RemoveTag(to_send_tag, start_iter, end_iter);
+                Buffer.RemoveAllTags(start_iter, end_iter); // inserted text has no tag
 
                 // jump to the next section
                 start_iter.ForwardToTagToggle(to_send_tag);
@@ -122,55 +127,71 @@ namespace Chalks.ConcurrentEditionWidget
         
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
 
-        #region User insertions and deletions events handlers
+        #region Buffer insertions and deletions events handlers
         
-        /*
-        //OnCopyClipboard
-        //OnCutClipboard
-     
-        //OnDeleteFromCursor (DeleteType type, int count) 
-        
+        /*        
         OnKeyPressEvent( _event :Gdk.EventKey) :bool
         {
             log("hi there !");
             true; // block the next handlers
-        }
-         
-        on_insert_text_event( o :object, args :InsertTextArgs) :void
-        {
-            log("hi there !");
-           
-            def cursor_iter = this.Buffer.GetIterAtMark(Buffer.InsertMark);
-            def start_iter = cursor_iter.Copy(); // can I do this _faster_ ?
-            def end_iter = cursor_iter.Copy(); // can I do this _faster_ ?
-
-            // the handler is called after the text was inserted
-            start_iter.BackwardChars(args.Str.Length); 
-            
-            Buffer.ApplyTag(to_send_tag, start_iter, end_iter);
-                
-            log(String.Format("Inserting at offset {0} the text: {1}", cursor_iter.Offset.ToString(), args.Str));
-            
-            ;
-        }
-
-        
-        OnInsertAtCursor (str :string) :void
-        {
-            mutable cursor_iter = Buffer.GetIterAtMark(Buffer.InsertMark);
-            log(String.Format("Inserting at offset {0} the text: {1}", cursor_iter.Offset.ToString(), str));
-            Buffer.InsertWithTags(ref cursor_iter, str, array[to_send_tag]);
-            ;
-        }
-        
+        }         
         */
 
+        protected override OnCopyClipboard():void
+        { // avoid to copy the tags too
+            mutable start_iter = TextIter();
+            mutable end_iter = TextIter();
+                      
+            def clipboard = this.GetClipboard(Gdk.Selection.Clipboard);
+            def non_zero_selection = this.Buffer.GetSelectionBounds( out start_iter, out end_iter);
+            when(non_zero_selection) {
+                def text = this.Buffer.GetSlice(start_iter, end_iter, false);
+                clipboard.SetText(text);
+            }
+            ;
+        }
+
+    
+    
         protected override OnPasteClipboard () :void
         {
-            log("hi there !");
+            log("TextView.OnPasteClipboard called");
+            def clipboard = this.GetClipboard(Gdk.Selection.Clipboard);
+            // eliminate the tags in the clipboard
+            // we do this getting only the text and setting only the text
+            def PasteReceived ( clipboard :Clipboard, text :string) :void
+            {
+                //this.Buffer.InsertAtCursor(text);
+                clipboard.SetText(text);
+            }
+
+            clipboard.RequestText ( ClipboardTextReceivedFunc (PasteReceived));
+
+            
+            this.Buffer.PasteClipboard(clipboard);
             ;
         }
         
+        /*[GLib.ConnectBefore] // need to be static to be ConnectedBefore
+        protected static on_paste_clipboard_event(_o :object, args :EventArgs) :bool
+        {
+            log("hi there !");
+            false;
+
+            when (false) {
+            def clipboard = this.GetClipboard (Gdk.Selection.Clipboard);
+
+            def PasteReceived ( clipboard :Clipboard, text :string) :void
+            {
+                this.Buffer.InsertAtCursor(text);
+            }
+
+            clipboard.RequestText ( ClipboardTextReceivedFunc (PasteReceived));
+            
+            true; // avoid the call of the following registered handlers
+            }
+        }*/
+
         on_insert_text_event(o :object, args :InsertTextArgs) :void
         { // args.Length :int, Pos :TextIter, Text :string
 
@@ -190,12 +211,12 @@ namespace Chalks.ConcurrentEditionWidget
 
                 Buffer.RemoveAllTags(start_iter, end_iter);
                 Buffer.ApplyTag(to_send_tag, start_iter, end_iter);
-                log(String.Format("Applying exclusive tag {0} from {1} to {2}", to_send_tag.Name.ToString(), start_iter.Offset.ToString(), end_iter.Offset.ToString())); 
+                //log(String.Format("Applying exclusive tag {0} from {1} to {2}", to_send_tag.Name.ToString(), start_iter.Offset.ToString(), end_iter.Offset.ToString())); 
                 
                 ;
             }
             
-            log("Inserted at offset " + args.Pos.Offset.ToString() + String.Format(" {0} chars that forms the text: {1}", args.Length, args.Text));
+            // log("Inserted at offset " + args.Pos.Offset.ToString() + String.Format(" {0} chars that forms the text: {1}", args.Length, args.Text));
 
             ;
         }
