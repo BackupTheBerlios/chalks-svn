@@ -12,12 +12,8 @@ Gui
 
 ConcurrentEditableWidget
 
-* Clean up all the comments
-* Implement delete handler, can it be static and access to all the required elements ?
-* How to avoid tags to copied when copy and paste with mouse ? (or paste with keyshorcut) (using ApplyTag handler and aplying_operation ?)
-* Implement the interface
 * Trigger flush when finishing a word or a phrase, slowdown the automatic flush timer
-
+* How to avoid tags to copied when copy and paste ? (has to manage the clipboard data reception or the TextBuffer.PasteClipboard)
 
 Network
 

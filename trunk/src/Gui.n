@@ -38,7 +38,7 @@ namespace Chalks.Gui
         static mutable messages_textview_endmark :TextMark = null;
         command_entry :Entry;
 
-        cce_widget :ConcurrentEditionWidget; // cce == ConcurrentEdition
+        public cce_widget :ConcurrentEditionWidget; // cce == ConcurrentEdition
         public concurrent_editable :ConcurrentEditable;
         network_node :NetworkNode;
             
@@ -91,7 +91,7 @@ namespace Chalks.Gui
 
             // instanciate the core objects
             concurrent_editable = ConcurrentEditable(cce_widget);
-            network_node = NetworkNode(concurrent_editable);
+            network_node = NetworkNode(this, concurrent_editable);
             
             // run
             cce_widget.HasFocus = true; //start with focus on the main text

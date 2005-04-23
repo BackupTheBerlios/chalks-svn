@@ -143,7 +143,7 @@ namespace Chalks.ConcurrentEdition
         
         This interface is then implemented by the element that presents the
         */
-        insert_text(offset:int, text:string):void;
+        insert_text(site_id :Guid, offset:int, text:string):void;
         // Due of UTF-8 encoding character counts are referred to as "offsets", 
         // this is consistent with the GTK code
         

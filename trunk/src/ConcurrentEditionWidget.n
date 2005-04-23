@@ -23,7 +23,7 @@ namespace Chalks.ConcurrentEditionWidget
 
 	static to_send_tag :TextTag = TextTag("to_send");
         static mutable applying_operation :bool = false;
-        gui :Gui.ChalksWindow;
+        static mutable gui :Gui.ChalksWindow;
         
 	public this(_gui :Gui.ChalksWindow)
         {
@@ -46,33 +46,17 @@ namespace Chalks.ConcurrentEditionWidget
             // call flush_inserted_text each second
             Timeout.Add(1000, flush_inserted_text); 
             
-            // simple tag tests
-            def t_tag = create_user_tag(Guid.NewGuid());
-            Buffer.TagTable.Add(t_tag);
 
+            // simple tests
+            insert_text(Guid.NewGuid(), 0, "hello world\n");
             
-            mutable iter = Buffer.StartIter.Copy();
-            applying_operation = true;
-            Buffer.InsertWithTags(ref iter, "hello world\n", array[t_tag]);
-            applying_operation = false;
-            Buffer.InsertWithTags(ref iter, "This text has to be sent\n", array[to_send_tag]);
+            mutable iter = Buffer.EndIter.Copy();
+            def to_be_deleted = "damn! I'm trapped";
+            Buffer.Insert(ref iter, "This text has to be sent\n" + to_be_deleted);
 
-            /*
-            // programatic "silent" insertion
-            applying_operation = true;
-            mutable start_iter1 = iter.Copy();
-            mutable start_iter2 = iter.Copy();
-            def end_iter = iter.Copy();
-            Buffer.Insert(ref start_iter1, "This text has to be inserted without raising a handler\n");
-            Buffer.ApplyTag(t_tag, start_iter2, end_iter);
-            applying_operation = false;
-            */
+            delete_text(iter.Offset - to_be_deleted.Length, to_be_deleted.Length);
+            // end of simple tests
             
-            // programatic "silent" deletion
-
-
-           
-            // end of simple tag tests   
             ;
         }
 
@@ -137,61 +121,6 @@ namespace Chalks.ConcurrentEditionWidget
         }         
         */
 
-        protected override OnCopyClipboard():void
-        { // avoid to copy the tags too
-            mutable start_iter = TextIter();
-            mutable end_iter = TextIter();
-                      
-            def clipboard = this.GetClipboard(Gdk.Selection.Clipboard);
-            def non_zero_selection = this.Buffer.GetSelectionBounds( out start_iter, out end_iter);
-            when(non_zero_selection) {
-                def text = this.Buffer.GetSlice(start_iter, end_iter, false);
-                clipboard.SetText(text);
-            }
-            ;
-        }
-
-    
-    
-        protected override OnPasteClipboard () :void
-        {
-            log("TextView.OnPasteClipboard called");
-            def clipboard = this.GetClipboard(Gdk.Selection.Clipboard);
-            // eliminate the tags in the clipboard
-            // we do this getting only the text and setting only the text
-            def PasteReceived ( clipboard :Clipboard, text :string) :void
-            {
-                //this.Buffer.InsertAtCursor(text);
-                clipboard.SetText(text);
-            }
-
-            clipboard.RequestText ( ClipboardTextReceivedFunc (PasteReceived));
-
-            
-            this.Buffer.PasteClipboard(clipboard);
-            ;
-        }
-        
-        /*[GLib.ConnectBefore] // need to be static to be ConnectedBefore
-        protected static on_paste_clipboard_event(_o :object, args :EventArgs) :bool
-        {
-            log("hi there !");
-            false;
-
-            when (false) {
-            def clipboard = this.GetClipboard (Gdk.Selection.Clipboard);
-
-            def PasteReceived ( clipboard :Clipboard, text :string) :void
-            {
-                this.Buffer.InsertAtCursor(text);
-            }
-
-            clipboard.RequestText ( ClipboardTextReceivedFunc (PasteReceived));
-            
-            true; // avoid the call of the following registered handlers
-            }
-        }*/
-
         on_insert_text_event(o :object, args :InsertTextArgs) :void
         { // args.Length :int, Pos :TextIter, Text :string
 
@@ -199,12 +128,8 @@ namespace Chalks.ConcurrentEditionWidget
             { // inserted manually
 
                 // apply to_send_tag
-                def start_iter = args.Pos.Copy(); // can I do this _faster_ ?
-                def end_iter = args.Pos.Copy(); // can I do this _faster_ ?
-                //def start_iter = TextIter();
-                //def end_iter = TextIter();
-                //start_iter.Offset = args.Pos.Offset;
-                //end_iter.Offset = args.Pos.Offset;
+                def start_iter = args.Pos.Copy(); // can I do this faster ?
+                def end_iter = args.Pos.Copy(); 
                 
                 // the handler is called after the text was inserted
                 start_iter.BackwardChars(args.Length); 
@@ -228,11 +153,11 @@ namespace Chalks.ConcurrentEditionWidget
         {
             when(!applying_operation) // detect if programatical or not
             {
-                log($"Will delete text in the range: $(args.Start.Offset), $(args.End.Offset). Length : $(args.End.Offset - args.Start.Offset)");
-
-                //gui.concurrent_editable.generate_operation();
+                // log($"Will delete text in the range: $(args.Start.Offset), $(args.End.Offset). Length : $(args.End.Offset - args.Start.Offset)");
+                def pos = args.Start.Offset;
+                def length = args.End.Offset - pos;
+                gui.concurrent_editable.generate_operation(OperationType.Delete, pos, length);
             }
-            
             ;
         }
 
@@ -242,10 +167,11 @@ namespace Chalks.ConcurrentEditionWidget
 
         #region Helpers
                 
-        create_user_tag( site_id :Guid) :TextTag
+        create_site_tag( site_id :Guid) :TextTag
         { // create a new tag with a new color
 
             def tag = TextTag(site_id.ToString());
+            Buffer.TagTable.Add(tag); // add it to the widget
             
             // local helper function
             def hsv_to_rgb(h :float, s :float, v :float) :array[float]
@@ -317,28 +243,54 @@ namespace Chalks.ConcurrentEditionWidget
 
         #region ITextBuffer interface implementation, methods accessed by ConcurrentEditable
 
-        public insert_text(offset:int, text:string) :void
-        { 
-            // check the tags of the user ? the user Id has to be included ?
-            //ffun(foo = 3:int);
+        public insert_text(site_id :Guid, offset:int, text:string) :void
+        {
+            mutable site_tag = Buffer.TagTable.Lookup(site_id.ToString());
+
+            when (site_tag == null) // check if user exist
+                site_tag = create_site_tag(site_id); // create a new tag for a new user
+                
+            mutable iter = Buffer.GetIterAtOffset(offset);
             
             applying_operation = true;
-
+            Buffer.InsertWithTags(ref iter, text, array[site_tag]);
+            //Buffer.Insert(ref iter, text);
             applying_operation = false;
-
             ;
         }
 
         public delete_text(offset:int, length:int) :void
         {
+            mutable start_iter = Buffer.GetIterAtOffset(offset);
+            mutable end_iter = Buffer.GetIterAtOffset(offset + length);
+            
             applying_operation = true;
-
+            Buffer.Delete(ref start_iter, ref end_iter);
             applying_operation = false;
             ;
         }
 
         #endregion
-	
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+        #region Methods accessed by Network
+        public set_site_id(site_id :Guid) :void
+        {
+            // create the local tag
+            // this allow to distinguish local text (white background) to other users ones (colored background)
+
+            // check if local user exist
+            mutable site_tag = Buffer.TagTable.Lookup(site_id.ToString());
+            when (site_tag == null) 
+                site_tag = create_site_tag(site_id); // create a new tag for a new user
+                
+            // set background as white
+            site_tag.BackgroundGdk = Gdk.Color(255b, 255b, 255b);
+            ;
+        }
+        
+        #endregion
     }
 }
 

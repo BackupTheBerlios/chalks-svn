@@ -15,7 +15,8 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 
 using Chalks.ConcurrentEdition;
-using Chalks.Gui.ChalksWindow;
+using Chalks.Gui;
+using Chalks.Gui.ChalksWindow; // give access to the log
 
             
 namespace Chalks.Network
@@ -47,10 +48,15 @@ namespace Chalks.Network
     {
 
         public site_id :Guid = System.Guid.NewGuid();
+
+        gui :ChalksWindow;
         
         // <<< has to pass default parameters: password, port
-        public this(cce :ConcurrentEditable) 
+        public this(_gui :ChalksWindow, cce :ConcurrentEditable) 
         {
+            gui = _gui; // store the gui reference
+            gui.cce_widget.set_site_id(site_id); // configure the cce_widget
+            
             // register ourself with the cce object (we give him network access)
             cce.set_network_interface(this); 
 
