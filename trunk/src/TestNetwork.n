@@ -17,7 +17,27 @@ namespace Network
     [TestFixture]
     public class NetworkTests
     {
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
+        #region Manual testing
+        public this()
+        {
+            Init();
+
+            TestChat();
+            
+            Dispose();
+        }
+        
+        static public Main() :void
+        {
+            _ = NetworkTests();
+        }
+
+        #endregion
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+        
         mutable nodes :array[NetworkNode] = array(5);
 
         [TestFixtureSetUp]

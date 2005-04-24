@@ -19,7 +19,7 @@ Network
 
 * Write the tests
 * Implement the interface
-* Write the tests
+* Revise the design. Where does the remote nodes nickname is keept ?
 
 
 ConcurrentEditable
