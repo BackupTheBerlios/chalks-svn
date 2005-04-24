@@ -1,7 +1,7 @@
 all: chalks.exe
 
 Compiler = ncc.exe
-DllResources = -r:System.Runtime.Remoting.dll -pkg:glade-sharp-2.0 -pkg:gtk-sharp-2.0 -pkg:gtksourceview-sharp -r:Nini.dll
+DllResources = -r:System.Runtime.Remoting.dll -r:System.dll -pkg:glade-sharp-2.0 -pkg:gtk-sharp-2.0 -pkg:gtksourceview-sharp -r:Nini.dll
 Resources =  -res:chalks.glade -res:chalks.ico
 Flags =
 
@@ -11,7 +11,7 @@ chalks.exe: chalks.glade chalks.ico Chalks.n Gui.n ConcurrentEditionWidget.n Con
 
 
 test: test_network.dll test_cce.dll
-	nunit-console test_cce.dll test_network.dll
+	nunit-console test_cce.dll test_network.dll /labels
 
 test_network.dll: TestNetwork.n Network.n ConcurrentEdition.n Gui.n ConcurrentEditionWidget.n
 	$(Compiler) $(Flags) -t:library -out:"test_network.dll" -r:nunit.framework.dll $(DllResources) TestNetwork.n Network.n ConcurrentEdition.n Gui.n ConcurrentEditionWidget.n

@@ -24,7 +24,7 @@ using Chalks.Gui.ChalksWindow; // access to the log function
 namespace Chalks.Gui
 {
     
-    public class ChalksWindow
+    public class ChalksWindow :IGuiForNetwork
     {
         #region Properties
         static public glade_resource_name :string = "chalks.glade";
@@ -38,7 +38,7 @@ namespace Chalks.Gui
         static mutable messages_textview_endmark :TextMark = null;
         command_entry :Entry;
 
-        public cce_widget :ConcurrentEditionWidget; // cce == ConcurrentEdition
+        cce_widget :ConcurrentEditionWidget; // cce == ConcurrentEdition
         public concurrent_editable :ConcurrentEditable;
         network_node :NetworkNode;
             
@@ -122,8 +122,13 @@ namespace Chalks.Gui
         }
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
 
-        #region Methods called by Network
-        
+        #region Methods called by Network, implementation of IGuiForNetwork
+
+        public set_site_id(site_id :Guid) :void
+        {
+            cce_widget.set_site_id(site_id);
+        }
+
         public receive_message(from :Guid, message :string) :void
         {
             log("received a message");
@@ -532,5 +537,12 @@ namespace Chalks.Gui
     #endregion
 
     #endregion
+
+
+    public interface IGuiForNetwork
+    { // Elements of ChalksWindow used by the Network Module
+        set_site_id(site_id :Guid) :void;
+        receive_message(from :Guid, message :string) :void;
+    }
 
 } // end of namespace

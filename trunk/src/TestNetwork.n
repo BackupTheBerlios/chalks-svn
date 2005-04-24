@@ -3,44 +3,58 @@ Test the Network class
 */
 
 using System;
+
+using Chalks.Gui;
 using Chalks.Network;
+using Chalks.ConcurrentEdition;
+using Chalks.ConcurrentEditionWidget;
+
 
 namespace Network
 {    
     using NUnit.Framework;
 
     [TestFixture]
-    module NetworkTest
+    public class NetworkTests
     {
 
-        mutable nodes :array[NetworkNode];
+        mutable nodes :array[NetworkNode] = array(5);
 
         [TestFixtureSetUp]
-        Init() :void
+        public Init() :void
         {
 
-            def dummy_gui = GuiForNetwork();
+            Console.WriteLine("Doing the Network tests setup");
             
             // Create 5 nodes
-            
+            for(mutable c=0; c<nodes.Length; c+=1) {
+            //foreach(n in nodes) {
+                def dummy_gui = GuiForNetworkTest();
+                def dummy_ce = CeForNetworkTest();
+
+                nodes[c] = NetworkNode(dummy_gui, dummy_ce);
+            }
             
             // Connects them as shown in chalks/doc/schemas/network_example 
-
-                     
+            
+            //nodes[1].start_collaborating("Node1", nodes[0].get_uri());
+            
+            
             ;
         }
 
         [TestFixtureTearDown]
-        Dispose() :void
+        public Dispose() :void
         {
             ;
         }
     
         
         [Test]
-        TestChat() :void
+        public TestChat() :void
         {
-            
+
+            Console.WriteLine("Running test chat");
             // Send a message from one node
             
 
@@ -62,23 +76,66 @@ namespace Network
 
     #region Helper classes
 
-    public class GuiForNetwork
+    public class GuiForNetworkTest :IGuiForNetwork
     {
         // implements the basic methods that Network uses from Gui
+
+        
+        public this()
+        {
+            ;
+        }
+
+        public set_site_id(site_id :Guid) :void
+        {
+            Console.WriteLine($"Gui: set_site_id($(site_id.ToString()))");
+            ;
+        }
+        
+        public receive_message(from :Guid, message :string) :void
+        {
+            Console.WriteLine($"Gui: Received from $(from.ToString()) the message $(message)");
+            ;
+        }
+        
+    }
+    
+
+
+    public class CeForNetworkTest :ICeForNetwork
+    {
+        // implements the basic methods that Network uses from ConcurrentEdition.ConcurrentEditable
 
         public this()
         {
             ;
         }
         
-        public receive_message() :void
+        public set_network_interface(network_node_instance :NetworkNode) :void
         {
-            Console.WriteLine($"Received a message");
+            Console.WriteLine($"Ce: Setting network interface using instance $(network_node_instance.ToString())");
             ;
         }
-        
+
+        public receive_operation(op :Operation) :void
+        {
+            Console.WriteLine($"Ce: Received operation $(op.ToString())");
+            ;
+        }
+
+        public add_site(site_id :Guid) :void
+        {
+            Console.WriteLine($"Ce: Adding site $(site_id.ToString())");
+            ;
+        }
+
+        public delete_site(site_id :Guid) :void
+        {
+            Console.WriteLine($"Ce: Deleting site $(site_id.ToString())");
+            ;
+        }
+
     }
-    
 
     #endregion
 

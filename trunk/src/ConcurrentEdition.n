@@ -27,7 +27,7 @@ using Chalks.Gui.ChalksWindow; // get access to log function
 namespace Chalks.ConcurrentEdition
 {	  
 	  
-    public class ConcurrentEditable
+    public class ConcurrentEditable :ICeForNetwork
     { /*This is the core object of Chalks.
 	This class defines an object that is able to manage concurrent edition from diferent sites.
         */
@@ -43,7 +43,7 @@ namespace Chalks.ConcurrentEdition
             site_id = Guid.Empty;
             text_buffer = text_buffer_instance;
 
-            log("Concurrent editable instance created");
+            //log("Concurrent editable instance created");
             ;   
             
         }
@@ -51,11 +51,6 @@ namespace Chalks.ConcurrentEdition
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
         #region Methods used by Gui
-        
-        public get_network_node() :Chalks.Network.NetworkNode
-        {
-            network_node;
-        }
 
         public save_file(file_path :string) :void
         {
@@ -108,13 +103,13 @@ namespace Chalks.ConcurrentEdition
         
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
         
-        #region Methods used by Network
+        #region Methods used by Network, implementation of ICeForNetwork
 
         public set_network_interface(network_node_instance :NetworkNode) :void
         {
 
             site_id = network_node_instance.site_id;
-            log("ConcurrentEditable has setup his network interface");
+            //log("ConcurrentEditable has setup his network interface");
             ;
         }
 
@@ -392,7 +387,7 @@ namespace Chalks.ConcurrentEdition
         public Text :string;
         public Length :int;
         
-        this(optype :OperationType, pos :int, text :string)
+        public this(optype :OperationType, pos :int, text :string)
         {
             assert(optype == OperationType.Insert);
             Type = optype;
@@ -402,7 +397,7 @@ namespace Chalks.ConcurrentEdition
             ;
         }
 
-        this(optype :OperationType, pos :int, length :int)
+        public this(optype :OperationType, pos :int, length :int)
         {
             assert(optype != OperationType.Delete);
             Type = optype;
@@ -412,6 +407,16 @@ namespace Chalks.ConcurrentEdition
             ;
         }
 
+        public this(optype :OperationType, text :string)
+        {
+            assert(optype != OperationType.SetText);
+            Type = optype;
+            Pos = 0;
+            Length = 0;
+            Text = "";
+            ;
+        }
+        
         Equal() :void        
         {
             ;
@@ -436,5 +441,14 @@ namespace Chalks.ConcurrentEdition
     #endregion
     
     // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+
+    public interface ICeForNetwork
+    { // Elements of ConcurrentEditable used by the Network module
+        set_network_interface(network_node_instance :NetworkNode) :void;
+        receive_operation(op :Operation) :void;
+        add_site(site_id :Guid) :void;
+        delete_site(site_id :Guid) :void;
+    }
         
 } // end of the namespace Chalks.ConcurrentEditable

@@ -274,7 +274,7 @@ namespace Chalks.ConcurrentEditionWidget
 
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
-        #region Methods accessed by Network
+        #region Methods accessed by Gui
         public set_site_id(site_id :Guid) :void
         {
             // create the local tag
@@ -291,7 +291,12 @@ namespace Chalks.ConcurrentEditionWidget
         }
         
         #endregion
-    }
+    } // end of class ConcurrentEditionWidget
+
+
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+    
 }
 
 /*
