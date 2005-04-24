@@ -2,21 +2,85 @@
 Test the Network class
 */
 
+using System;
+using Chalks.Network;
+
 namespace Network
 {    
     using NUnit.Framework;
 
     [TestFixture]
-    public class NetworkTest
+    module NetworkTest
     {
-        [Test]
-        public DummyTest() :void
+
+        mutable nodes :array[NetworkNode];
+
+        [TestFixtureSetUp]
+        Init() :void
         {
+
+            def dummy_gui = GuiForNetwork();
+            
+            // Create 5 nodes
+            
+            
+            // Connects them as shown in chalks/doc/schemas/network_example 
+
+                     
+            ;
+        }
+
+        [TestFixtureTearDown]
+        Dispose() :void
+        {
+            ;
+        }
+    
+        
+        [Test]
+        TestChat() :void
+        {
+            
+            // Send a message from one node
+            
+
+            // way one second
+            
+            // check that every node has received it 
+
+            
             def a = 5;
             def b = 5;
             
             Assert.AreEqual(a, b);
         }
+        
+    } // end of module
+
+
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+    #region Helper classes
+
+    public class GuiForNetwork
+    {
+        // implements the basic methods that Network uses from Gui
+
+        public this()
+        {
+            ;
+        }
+        
+        public receive_message() :void
+        {
+            Console.WriteLine($"Received a message");
+            ;
+        }
+        
     }
     
-}
+
+    #endregion
+
+    
+} // end of namespace

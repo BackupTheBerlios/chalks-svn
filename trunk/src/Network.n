@@ -22,6 +22,7 @@ using Chalks.Gui.ChalksWindow; // give access to the log
 namespace Chalks.Network
 {
 
+    
     class ConcurrentEditableNodeProxy :MarshalByRefObject
     // manage the network calls to the local calls
     // all his public methods are exposed to remote calls
@@ -44,6 +45,8 @@ namespace Chalks.Network
 
     }
 
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+            
     public class NetworkNode
     {
 
