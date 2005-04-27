@@ -17,10 +17,13 @@ ConcurrentEditableWidget
 
 Network
 
+* Implement asynchronous calls 
+   http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpguide/html/cpconasynchronousremoting.asp
+   http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpguide/html/cpconRemotingExampleAsynchronousRemoting.asp
+
 * Write the tests
 * Implement the interface
-* Revise the design. Where does the remote nodes nickname is keept ?
-
+* Implement a better way to obtain self_ip (similar to chalks0 technique)
 
 ConcurrentEditable
 

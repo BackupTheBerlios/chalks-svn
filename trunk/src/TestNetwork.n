@@ -52,7 +52,7 @@ namespace Network
                 def dummy_gui = GuiForNetworkTest();
                 def dummy_ce = CeForNetworkTest();
 
-                nodes[c] = NetworkNode(dummy_gui, dummy_ce);
+                nodes[c] = NetworkNode(dummy_gui, dummy_ce, $"node$(c)");
             }
             
             // Connects them as shown in chalks/doc/schemas/network_example 
@@ -74,7 +74,9 @@ namespace Network
         public TestChat() :void
         {
 
-            Console.WriteLine("Running test chat");
+            Console.WriteLine("TestChat not yet implemented");
+            //Console.WriteLine("Running test chat");
+
             // Send a message from one node
             
 
@@ -153,6 +155,25 @@ namespace Network
         {
             Console.WriteLine($"Ce: Deleting site $(site_id.ToString())");
             ;
+        }
+
+                public get_status() :ConcurrentEditableNodeStatus
+        { // return a copy of the node status, to initialize another node
+            
+            def status = ConcurrentEditableNodeStatus();
+
+            //status.Text = Text.Copy();
+            //status.HB = HB.Copy();
+            //status.SV = SV.Copy();
+                        
+            status;
+        }
+
+        public set_status(status :ConcurrentEditableNodeStatus) :void
+        { // (re)initialize the internal state (occurs when entering in an existing session)
+
+            ;
+
         }
 
     }

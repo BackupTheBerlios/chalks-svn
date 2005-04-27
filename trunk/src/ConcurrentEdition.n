@@ -24,6 +24,8 @@ using Chalks;
 using Chalks.Network;
 using Chalks.Gui.ChalksWindow; // get access to log function
 
+using System.Runtime.Remoting;
+
 namespace Chalks.ConcurrentEdition
 {	  
 	  
@@ -127,7 +129,30 @@ namespace Chalks.ConcurrentEdition
         {
             ;
         }
+
+        public get_status() :ConcurrentEditableNodeStatus
+        { // return a copy of the node status, to initialize another node
+            
+            def status = ConcurrentEditableNodeStatus();
+
+            //status.Text = Text.Copy();
+            //status.HB = HB.Copy();
+            //status.SV = SV.Copy();
+                        
+            status;
+        }
+
+        public set_status(status :ConcurrentEditableNodeStatus) :void
+        { // (re)initialize the internal state (occurs when entering in an existing session)
+
+            ;
+
+        }
         #endregion
+
+
+
+
         
     } // end of class ConcurrentEditable
     
@@ -375,9 +400,11 @@ namespace Chalks.ConcurrentEdition
 
     // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
     #region Definition of the Operation class
+
     
     public enum OperationType { |Insert |Delete |SetText };
 
+    [Serializable]
     public class Operation
     {
 
@@ -386,6 +413,8 @@ namespace Chalks.ConcurrentEdition
         public Pos  :int;
         public Text :string;
         public Length :int;
+        public SourceSite :Guid;
+        //public TimeStamp :array[];
         
         public this(optype :OperationType, pos :int, text :string)
         {
@@ -442,6 +471,26 @@ namespace Chalks.ConcurrentEdition
     
     // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
+    #region
+
+    [Serializable]
+    public class ConcurrentEditableNodeStatus
+    {
+        public Text :string;
+        public HB : array[Operation];
+        public SV : array[uint];
+        
+        public this()
+        {
+            ;
+        }
+    }
+    
+    
+    #endregion
+    
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
 
     public interface ICeForNetwork
     { // Elements of ConcurrentEditable used by the Network module
@@ -449,6 +498,8 @@ namespace Chalks.ConcurrentEdition
         receive_operation(op :Operation) :void;
         add_site(site_id :Guid) :void;
         delete_site(site_id :Guid) :void;
+        get_status() :ConcurrentEditableNodeStatus;
+        set_status(status :ConcurrentEditableNodeStatus) :void;
     }
         
-} // end of the namespace Chalks.ConcurrentEditable
+} // end the namespace Chalks.ConcurrentEditable

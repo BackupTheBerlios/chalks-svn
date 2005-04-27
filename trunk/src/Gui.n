@@ -166,6 +166,7 @@ namespace Chalks.Gui
             else
             {
                 Console.WriteLine(message);
+                Console.Out.Flush();
             }
         }
         #endregion

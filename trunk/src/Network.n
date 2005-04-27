@@ -7,6 +7,8 @@
 
 */
 
+using Nemerle.Collections; // For Hashtable
+
 using System;
 using System.Guid;
 
@@ -17,6 +19,8 @@ using System.Runtime.Remoting.Channels.Tcp;
 using Chalks.ConcurrentEdition;
 using Chalks.Gui;
 using Chalks.Gui.ChalksWindow; // give access to the log
+
+
 
             
 namespace Chalks.Network
@@ -36,16 +40,27 @@ namespace Chalks.Network
             
             ;
         }
-
         
-        public login(nickname :string, password :string) :ConcurrentEditableNodeProxy
+        public login(site_id :Guid,
+                     nickname :string, password :string
+                     ) :ConcurrentEditableNodeProxy * Guid * string
         {
+            when (local_node.remote_sites.Contains(site_id))
+                throw RemotingException("Fatal error: overlapping site_ids");
+
+            when (nickname.Length < 3)
+                throw RemotingException("Nickname has to have at least three characters");
+
             if (local_node.is_equal_to_password(password)) {
-                local_node.self_node_proxy;
+
+                //
+                
+                // return a reference to a concurrenteditablenodeproxy
+                (ConcurrentEditableNodeProxy(site_id, local_node),
+                local_node.site_id, local_node.nickname);
             }
             else {
                 throw RemotingException("Password does not match");
-                null;
             }  
         }
     } // end of AuthenticationRealm class
@@ -59,20 +74,25 @@ namespace Chalks.Network
     {
 
         local_node :NetworkNode;
+        remote_site_id :Guid;
         
-        public this(_local_node :NetworkNode)
+        public this(_site_id :Guid, _local_node :NetworkNode)
         {
             local_node = _local_node; // this object is private
+            // store the id of the remote node that uses the reference to this proxy instance
+            remote_site_id = _site_id; 
             ;
         }
 
 
-        public add_node(remote_node :ConcurrentEditableNodeProxy) :Operation
+        public add_node(remote_node :ConcurrentEditableNodeProxy) :ConcurrentEditableNodeStatus
         { // a remote node connects himself
           // return the "Set text" operation and send all the HB  
-            
-            
-          Operation(OperationType.SetText, "hello world");
+
+          // register the new remote_node_proxy reference
+          local_node.remote_sites[remote_site_id] = remote_node;
+
+          local_node.cce.get_status();
         }
         
         
@@ -102,61 +122,92 @@ namespace Chalks.Network
             
     public class NetworkNode
     {
-        service_name = "chalks";
+        static default_service_name = "chalks";
+        min_port = 1080;
+        max_port = 1090;
         
         public site_id :Guid = System.Guid.NewGuid();
 
         gui :IGuiForNetwork;
-
-        password :string;
+        public cce :ICeForNetwork;
+        
+        public mutable nickname :string = "";
+        mutable password :string = "";
 
         authentication_realm :AuthenticationRealm;
         self_uri :string;
-        public self_node_proxy :ConcurrentEditableNodeProxy;
+
+        // site_id => ConcurrentEditableNodeProxy references (give access to other sites)
+        public remote_sites :Hashtable[Guid, ConcurrentEditableNodeProxy] = Hashtable();
+        // site_id => ConcurrentEditableNodeProxy instances (give access from other sites)
+        public local_proxies :Hashtable[Guid, ConcurrentEditableNodeProxy] = Hashtable();
+        // site_id => nickname
+        public sites_nicknames :Hashtable[Guid, string] = Hashtable(); 
         
-        // <<< has to pass default parameters: password, port
-        public this(_gui :IGuiForNetwork, cce :ICeForNetwork) 
+        
+        
+        public this(_gui :IGuiForNetwork, _cce :ICeForNetwork)
         {
+            this(_gui, _cce, default_service_name);
+            // service_name management is a trick for tests,
+            // it should not be used in the application
+        }
+                
+        public this(_gui :IGuiForNetwork, _cce :ICeForNetwork, service_name :string) 
+        {
+            
             gui = _gui; // store the gui reference
             gui.set_site_id(site_id); // configure the cce_widget
 
+            cce = _cce; // store concurrent editable reference
+            
             // search channel for the service
-
             mutable channel = null :TcpChannel;
             mutable found_port = false;
-            def min_port = 1080;
-            def max_port = 1180;
             mutable port = min_port;
 
             while( (!found_port) && port <= max_port)
             {
                 try {
-                    channel = TcpChannel (port);
+                    channel = /*Remoting.Channels.Tcp.*/TcpServerChannel ("", port);
                     ChannelServices.RegisterChannel (channel);
                     found_port = true;
                 }
                 catch {
-                    | e is  Net.Sockets.SocketException => // raised by occupied ports
-                      ChannelServices.UnregisterChannel (channel);
-                      port +=1; 
-                    //| _ => (); // other exception are not managed
-                }
-            }
+                    e => match(e)
+                    {
+                        | _ is Net.Sockets.SocketException // raised by occupied ports
+                        // | _ is System.Runtime.Remoting.RemotingException // raised by already occupied uri
+                        =>
+                          ChannelServices.UnregisterChannel (channel);
+                          port +=1;
+                          //Console.WriteLine($"Going to tests port $(port.ToString())");
+                          // Console.Out.Flush();
+                          
+                          //| _ => (); // other exception are not managed
+                      }
+                      
+                  }
+              }
+              
             
-            //assert(found_port < max_port,
+            //Assert.IsTrue(found_port < max_port,
             //       $"Could not find an aviable port in the range $(min_port)-> $(max_port)");
 
-            //Console.WriteLine($"Found available port $(port)");
-            
-            
-            // create the proxy that remote nodes will access
-            self_node_proxy = ConcurrentEditableNodeProxy(this);
+            Console.WriteLine($"Found available port $(port)");
+            Console.Out.Flush();
+
             
             // Publish the authentification service
             authentication_realm = AuthenticationRealm(this);
             _ = RemotingServices.Marshal (authentication_realm, service_name);
+       
+            //Console.WriteLine($"obj_ref $(obj_ref.ToString()) $(obj_ref.URI)");
 
-            // get self ip
+            // obtain the uri of the published object
+            // take a look at
+            // http://www.thinktecture.com/Resources/RemotingFAQ/GETMARSHALBYREFOBJECTSURL.html
+            // get self_ip // <<< should use a better method
             def host = Net.Dns.GetHostByName(Net.Dns.GetHostName());
             def self_ip = Net.IPAddress(host.AddressList[0].Address).ToString();
             
@@ -180,8 +231,10 @@ namespace Chalks.Network
         # region Methods used by the Gui
 
 
-        public start_collaborating(nickname :string, uri :string) :bool
-        {
+        public start_collaborating(uri :string) :bool
+        { // this implement the protocol described in the schema at
+          // chalks/doc/schemas/chalks.dia
+          
             mutable ret = true;
             try {
             
@@ -191,20 +244,31 @@ namespace Chalks.Network
 
                 // requesting the realm remote object
                 ChannelServices.RegisterChannel (TcpChannel (0)); // create a client channel
-                def remote_authentication_realm = Activator.GetObject(
-                                                               typeof(AuthenticationRealm),
-                                                               uri
-                                                               ) :> AuthenticationRealm; 
+
+
+                def remote_authentication_realm =
+                    Activator.GetObject( typeof(AuthenticationRealm), uri) :> AuthenticationRealm; 
                 log("Starting authentication process");
-                def remote_node = remote_authentication_realm.login(nickname, password);
+                def (parent_node, parent_site_id, parent_nickname) =
+                    remote_authentication_realm.login(site_id, nickname, password);
+
+
+                def self_node_proxy = ConcurrentEditableNodeProxy(parent_site_id, this);
+                def parent_status = parent_node.add_node(self_node_proxy);
+
+                // store the references
+                remote_sites[parent_site_id] = parent_node;
+                local_proxies[parent_site_id] = self_node_proxy;
+                sites_nicknames[parent_site_id] = parent_nickname;
                 
-                def first_operation = remote_node.add_node(self_node_proxy);
-                // first operation is of type OperationType.SetText
-                // the remote node then send all his HB
+                cce.set_status(parent_status);
+                
                 ;
             }
             catch {
-                | _ => ret = false;
+                | e =>
+                  ret = false;
+                  log($"Connection failed : $(e.Message)")
             }
 
             ret;
@@ -225,10 +289,10 @@ namespace Chalks.Network
             ;
         }
 
-        public get_site_nickname(site :Guid) :string
+        public get_site_nickname(site_id :Guid) :string
         // return the nickname of a remote user
-        { 
-            "get_site_nickname_is_not_implemented";
+        {
+            sites_nicknames[site_id];
         }
 
         public discover_nodes() :void
@@ -238,6 +302,12 @@ namespace Chalks.Network
             ;
         }
 
+        public set_nickname(_nickname:string) :void
+        {
+            nickname = _nickname;
+            // this event should be propagated to the remote nodes
+        }
+        
         public set_password() :void
         // set the access password for the local document
         // it is also the password used to connect to other nodes
@@ -252,7 +322,8 @@ namespace Chalks.Network
 
         public send_operation() :void
         // broadcast an operation to the other sites
-        { 
+        {
+            // <<< this method has to use an asynchronous system
             ;
         }
 
