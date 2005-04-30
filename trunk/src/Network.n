@@ -166,47 +166,43 @@ namespace Chalks.Network
             while( (!found_port) && port <= max_port)
             {
                 try {
-                    channel = /*Remoting.Channels.Tcp.*/TcpServerChannel ("", port);
+                    channel = /*Remoting.Channels.Tcp.*/ TcpServerChannel("", port);
                     ChannelServices.RegisterChannel (channel);
                     found_port = true;
                 }
                 catch {
                     e => match(e)
                     {
-                        | _ is Net.Sockets.SocketException // raised by occupied ports
-                        // | _ is System.Runtime.Remoting.RemotingException // raised by already occupied uri
+                        | _ is Net.Sockets.SocketException
+                        // raised by occupied ports
+
+                        //| _ is System.Runtime.Remoting.RemotingException
+                        // raised by already occupied uri
+
                         =>
                           ChannelServices.UnregisterChannel (channel);
                           port +=1;
-                          //Console.WriteLine($"Going to tests port $(port.ToString())");
-                          // Console.Out.Flush();
+                          //Console.WriteLine($"Going to tests port $(port.ToString())"); 
+                          //Console.Out.Flush();
                           
-                          //| _ => (); // other exception are not managed
+                        //| _ => (); // other exception are not managed
                       }
                       
                   }
               }
               
-            
-            //Assert.IsTrue(found_port < max_port,
-            //       $"Could not find an aviable port in the range $(min_port)-> $(max_port)");
 
-            Console.WriteLine($"Found available port $(port)");
-            Console.Out.Flush();
+            assert(port < max_port,
+                   $"Could not find an aviable port in the range $(min_port)-> $(max_port)");
 
+            Console.WriteLine($"Found available port $(port)"); Console.Out.Flush();
             
             // Publish the authentification service
             authentication_realm = AuthenticationRealm(this);
             _ = RemotingServices.Marshal (authentication_realm, service_name);
        
-            //Console.WriteLine($"obj_ref $(obj_ref.ToString()) $(obj_ref.URI)");
-
             // obtain the uri of the published object
-            // take a look at
-            // http://www.thinktecture.com/Resources/RemotingFAQ/GETMARSHALBYREFOBJECTSURL.html
-            // get self_ip // <<< should use a better method
-            def host = Net.Dns.GetHostByName(Net.Dns.GetHostName());
-            def self_ip = Net.IPAddress(host.AddressList[0].Address).ToString();
+            def self_ip = find_self_ip();
             
             // set the uri
             self_uri = $"tcp://$(self_ip):$(port)/$(service_name)";
@@ -215,7 +211,6 @@ namespace Chalks.Network
             cce.set_network_interface(this);
 
             log($"Chalks service aviable at:\n$(self_uri)\n");
-
         }
 
         public is_equal_to_password(credential :string) :bool
@@ -227,28 +222,25 @@ namespace Chalks.Network
         
         # region Methods used by the Gui
 
-
         public start_collaborating(uri :string) :bool
         { // this implement the protocol described in the schema at
           // chalks/doc/schemas/chalks.dia
           
             mutable ret = true;
             try {
-            
-                
                 log($"Starting collaboration with $(uri)");
                 log("Trying to connect");
 
                 // requesting the realm remote object
-                ChannelServices.RegisterChannel (TcpClientChannel ()); // create a client channel
+                ChannelServices.RegisterChannel(TcpClientChannel ()); // create a client channel
 
                 def remote_authentication_realm =
                     Activator.GetObject( typeof(AuthenticationRealm), uri) :> AuthenticationRealm; 
                 log("Starting authentication process");
                 def (parent_node, parent_site_id, parent_nickname) =
                     remote_authentication_realm.login(site_id, nickname, password);
-
-
+                
+                log("Credentials accepted, retrieving document");
                 def self_node_proxy = ConcurrentEditableNodeProxy(parent_site_id, this);
                 def parent_status = parent_node.add_node(self_node_proxy);
 
@@ -256,19 +248,19 @@ namespace Chalks.Network
                 remote_sites[parent_site_id] = parent_node;
                 local_proxies[parent_site_id] = self_node_proxy;
                 sites_nicknames[parent_site_id] = parent_nickname;
-                
+
+                log("Starting collaboration");
                 cce.set_status(parent_status);
-                
-                ;
             }
             catch {
                 | e =>
                   ret = false;
-                  log($"Connection failed : $(e.Message)")
+                  log($"Connection failed : $(e.Message)");
+                  //throw e; // just for debugging
             }
 
             ret;
-        }
+        } // end of start_collaborating
         
 
         public delegate receive_message_delegate(_ :string) :void;
@@ -277,13 +269,12 @@ namespace Chalks.Network
         { // sends a message to another user
             // when site_id == Guid.Empty, the message is a broadcast
 
-            def remote_async_callback(async_result :IAsyncResult) :void 
+            def async_callback(async_result :IAsyncResult) :void 
             { // local definition of the remote method callback
                 def _delegate = ((async_result :> AsyncResult).AsyncDelegate) :>receive_message_delegate;
                 // receive_message returns void, so, we only show success
                 log("Message sent to $(site_id.ToString()) was received");
                 //+ _delegate.EndInvoke(async_result).ToString() );
-                    
             }
 
             
@@ -291,71 +282,57 @@ namespace Chalks.Network
             { // local helper function that send a message to a remote instance
               // the action is asyncronous
                 
-                //site.receive_message(message);
                 def remote_method_delegate = receive_message_delegate(site.receive_message);
-                def args = array[message]; // <<<
-                def callback = /*null;*/  remote_async_callback;
-
-                //async_call(remote_method_delegate, args, callback)
-                def remote_callback = AsyncCallback(callback);
-                def rem_async_res =
-                    remote_method_delegate.BeginInvoke(message, remote_callback, null);// :IAsyncResult;
-                //rem_async_res is of type :IAsyncResult
+                _ = remote_method_delegate.BeginInvoke(message,
+                                                       AsyncCallback(async_callback), null);
             }
             
             if (   site_id != Guid.Empty //adressed message
                 && remote_sites.ContainsKey(site_id)) { // and we know the adressee
                     def site = remote_sites[site_id];
                     send_a_message(site, message);
-                    
-                ; // return void
             } // if we do not know the adressee, we broadcast the message
-
+            
             else { // broadcast message
-                foreach(site in remote_sites.Values) {
+                foreach(site in remote_sites.Values)
                     send_a_message(site, message);
-                    
-                    
-                }
-                ; // return void
             }
-            ;
+            ; // return void
         }
 
+        
         public get_self_uri() :string
-        // get the uri of the published object
-        { 
+        {// get the uri of the published object
             self_uri;
         }
 
         public get_site_nickname(site_id :Guid) :string
-        // return the nickname of a remote user
-        {
+        { // return the nickname of a remote user
             sites_nicknames[site_id];
         }
 
         public discover_nodes() :void
-        // return a list of published documents->uri
-        // this method use RendezVous services 
-        { 
+        { // return a list of published documents->uri
+          // this method use RendezVous services 
+
             ;
         }
 
-        public set_nickname(_nickname:string) :void
+        public set_nickname(_nickname :string) :void
         {
             nickname = _nickname;
             // this event should be propagated to the remote nodes
         }
         
-        public set_password() :void
-        // set the access password for the local document
-        // it is also the password used to connect to other nodes
-        {
+        public set_password(_password :string) :void
+        { // set the access password for the local document
+          // it is also the password used to connect to other nodes
             // if users are already connected to the local node, disconnect them, they need a new credential
             ;
         }
         #endregion
 
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
         
         #region Methods used by the ConcurrentEditable object
 
@@ -363,19 +340,13 @@ namespace Chalks.Network
         
         public send_operation(op :Operation) :void
         { // broadcast an operation to the other sites
-            foreach(site in remote_sites.Values) {
-                //site.receive_operation(op);
-                def remote_method_delegate = receive_operation_delegate(site.receive_operation);
-                def args = array[op]; // <<<
-                def callback = null;
-                //async_call(remote_method_delegate, args, null);
-                def remote_callback = AsyncCallback(callback);
-                def rem_async_res =
-                    remote_method_delegate.BeginInvoke(op, remote_callback, null) :IAsyncResult;
-                //rem_async_res is of type :IAsyncResult
-            }
             
-            ;
+            foreach(site in remote_sites.Values) {
+                def remote_method_delegate = receive_operation_delegate(site.receive_operation);
+                _ =  remote_method_delegate.BeginInvoke(op,
+                                                        AsyncCallback(null), null);
+            }
+            ; // return void
         }
 
         public get_site_id() : Guid
@@ -385,24 +356,17 @@ namespace Chalks.Network
 
         #endregion
 
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
         #region Helpers methods
 
-        // << This method can not exist ... sorry
-        /*async_call(remote_method_delegate :object, args :array[object],
-                   callback :object) :IAsyncResult
-        { // creates an asynchronous call and attach a callback method
-            //http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpguide/html/cpconasynchronousremoting.asp
-            //http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpguide/html/cpconRemotingExampleAsynchronousRemoting.asp
-            // http://msdn.microsoft.com/msdnmag/issues/01/08/Async/
-
-            def remote_callback = AsyncCallback(callback);
-            def rem_async_res =
-                    remote_method_delegate.BeginInvoke(remote_callback, args) :IAsyncResult;
-            //rem_async_res.AsyncWaitHandle.WaitOne();
-            rem_async_res;
-        }*/
-        
+        find_self_ip() :string
+        { // <<< should use a better method
+            def host = Net.Dns.GetHostByName(Net.Dns.GetHostName());
+            def ip = Net.IPAddress(host.AddressList[0].Address).ToString();
+            ip;
+        }
+               
         #endregion
         
     } // end of class NetworkNode
