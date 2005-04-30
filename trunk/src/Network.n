@@ -2,11 +2,6 @@
 
 */
 
-/*
-10/04/2003 Drafting the architecture. Rodrigob.
-
-*/
-
 using Nemerle.Collections; // For Hashtable
 
 using System;
@@ -15,6 +10,8 @@ using System.Guid;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
+using System.Runtime.Remoting.Messaging;
+using System.Threading;
 
 using Chalks.ConcurrentEdition;
 using Chalks.Gui;
@@ -243,8 +240,7 @@ namespace Chalks.Network
                 log("Trying to connect");
 
                 // requesting the realm remote object
-                ChannelServices.RegisterChannel (TcpChannel (0)); // create a client channel
-
+                ChannelServices.RegisterChannel (TcpClientChannel ()); // create a client channel
 
                 def remote_authentication_realm =
                     Activator.GetObject( typeof(AuthenticationRealm), uri) :> AuthenticationRealm; 
@@ -274,19 +270,62 @@ namespace Chalks.Network
             ret;
         }
         
-        
-        public send_message(site_id :int, message :string) :void 
-        { // sends a message to another user
-          // when site_id == Guid.Empty, the message is a broadcast
 
-          
+        public delegate receive_message_delegate(_ :string) :void;
+        
+        public send_message(site_id :Guid, message :string) :void 
+        { // sends a message to another user
+            // when site_id == Guid.Empty, the message is a broadcast
+
+            def remote_async_callback(async_result :IAsyncResult) :void 
+            { // local definition of the remote method callback
+                def _delegate = ((async_result :> AsyncResult).AsyncDelegate) :>receive_message_delegate;
+                // receive_message returns void, so, we only show success
+                log("Message sent to $(site_id.ToString()) was received");
+                //+ _delegate.EndInvoke(async_result).ToString() );
+                    
+            }
+
+            
+            def send_a_message(site :ConcurrentEditableNodeProxy, message :string) :void
+            { // local helper function that send a message to a remote instance
+              // the action is asyncronous
+                
+                //site.receive_message(message);
+                def remote_method_delegate = receive_message_delegate(site.receive_message);
+                def args = array[message]; // <<<
+                def callback = /*null;*/  remote_async_callback;
+
+                //async_call(remote_method_delegate, args, callback)
+                def remote_callback = AsyncCallback(callback);
+                def rem_async_res =
+                    remote_method_delegate.BeginInvoke(message, remote_callback, null);// :IAsyncResult;
+                //rem_async_res is of type :IAsyncResult
+            }
+            
+            if (   site_id != Guid.Empty //adressed message
+                && remote_sites.ContainsKey(site_id)) { // and we know the adressee
+                    def site = remote_sites[site_id];
+                    send_a_message(site, message);
+                    
+                ; // return void
+            } // if we do not know the adressee, we broadcast the message
+
+            else { // broadcast message
+                foreach(site in remote_sites.Values) {
+                    send_a_message(site, message);
+                    
+                    
+                }
+                ; // return void
+            }
             ;
         }
 
-        public get_self_uri() :void
+        public get_self_uri() :string
         // get the uri of the published object
         { 
-            ;
+            self_uri;
         }
 
         public get_site_nickname(site_id :Guid) :string
@@ -320,21 +359,52 @@ namespace Chalks.Network
         
         #region Methods used by the ConcurrentEditable object
 
-        public send_operation() :void
-        // broadcast an operation to the other sites
-        {
-            // <<< this method has to use an asynchronous system
+        public delegate receive_operation_delegate(_ :Operation) :void;
+        
+        public send_operation(op :Operation) :void
+        { // broadcast an operation to the other sites
+            foreach(site in remote_sites.Values) {
+                //site.receive_operation(op);
+                def remote_method_delegate = receive_operation_delegate(site.receive_operation);
+                def args = array[op]; // <<<
+                def callback = null;
+                //async_call(remote_method_delegate, args, null);
+                def remote_callback = AsyncCallback(callback);
+                def rem_async_res =
+                    remote_method_delegate.BeginInvoke(op, remote_callback, null) :IAsyncResult;
+                //rem_async_res is of type :IAsyncResult
+            }
+            
             ;
         }
 
         public get_site_id() : Guid
-        // return the unique site id for the local document
-        {
+        { // return the unique site id for the local document
             site_id;
         }
 
         #endregion
 
+
+        #region Helpers methods
+
+        // << This method can not exist ... sorry
+        /*async_call(remote_method_delegate :object, args :array[object],
+                   callback :object) :IAsyncResult
+        { // creates an asynchronous call and attach a callback method
+            //http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpguide/html/cpconasynchronousremoting.asp
+            //http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpguide/html/cpconRemotingExampleAsynchronousRemoting.asp
+            // http://msdn.microsoft.com/msdnmag/issues/01/08/Async/
+
+            def remote_callback = AsyncCallback(callback);
+            def rem_async_res =
+                    remote_method_delegate.BeginInvoke(remote_callback, args) :IAsyncResult;
+            //rem_async_res.AsyncWaitHandle.WaitOne();
+            rem_async_res;
+        }*/
+        
+        #endregion
+        
     } // end of class NetworkNode
 
 }

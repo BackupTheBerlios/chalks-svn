@@ -24,7 +24,8 @@ namespace Network
         {
             Init();
 
-            TestChat();
+            TestMessageBroadcast();
+            //TestAdressedMessage();
             
             Dispose();
         }
@@ -37,9 +38,17 @@ namespace Network
         #endregion
 
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
-        
-        mutable nodes :array[NetworkNode] = array(5);
 
+        #region Global variables
+        mutable nodes :array[NetworkNode] = array(5);
+        mutable guis :array[GuiForNetworkTest] = array(5);
+
+        #endregion
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+        #region TestFixture SetUp and TearDown
+        
         [TestFixtureSetUp]
         public Init() :void
         {
@@ -52,12 +61,17 @@ namespace Network
                 def dummy_gui = GuiForNetworkTest();
                 def dummy_ce = CeForNetworkTest();
 
+                guis[c] = dummy_gui;
                 nodes[c] = NetworkNode(dummy_gui, dummy_ce, $"node$(c)");
+                nodes[c].set_nickname($"Node$(c)");
             }
+
             
-            // Connects them as shown in chalks/doc/schemas/network_example 
-            
-            //nodes[1].start_collaborating("Node1", nodes[0].get_uri());
+            // Connects them as shown in chalks/doc/schemas/network_example
+            nodes[1].start_collaborating(nodes[0].get_self_uri());
+            nodes[2].start_collaborating(nodes[0].get_self_uri());
+            nodes[3].start_collaborating(nodes[0].get_self_uri());
+            nodes[4].start_collaborating(nodes[3].get_self_uri());
             
             
             ;
@@ -69,29 +83,81 @@ namespace Network
             ;
         }
     
+        #endregion
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+        #region Chat tests (adressed messages and broadcasted messages)
         
         [Test]
-        public TestChat() :void
+        public TestMessageBroadcast() :void
         {
 
-            Console.WriteLine("TestChat not yet implemented");
-            //Console.WriteLine("Running test chat");
+            Console.WriteLine("TestMessageBroadcast not yet implemented");
+            //Console.WriteLine("Running TestMessageBroadcast");
 
-            // Send a message from one node
+            def test_message = "Hello everyone !";
+            def message_emitter = 3;
             
-
+            // send a broadcast
+            nodes[message_emitter].send_message(Guid.Empty, test_message);
+                      
             // way one second
+            // <<< ?
             
             // check that every node has received it 
+            for(mutable c=0; c<4; c+=1) {
+                when(c != message_emitter)
+                    Assert.AreEqual(test_message, guis[c].received_messages);
+            }
+                
+            ;
+        }
+
+        [Test]
+        public TestAdressedMessage() :void
+        {
+
+            Console.WriteLine("TestAdressedMessage not yet implemented");
+            //Console.WriteLine("Running test TestAdressedMessage");
 
             
-            def a = 5;
-            def b = 5;
+            def test_message = "Hello you !";
+            def message_emitter = 3;
+            def message_adressee = 1;
             
-            Assert.AreEqual(a, b);
+            // send the message
+            nodes[message_emitter].send_message(Guid.Empty, test_message);
+                      
+            // way one second
+            // <<< ?
+            
+            // check that every node has received it 
+            for(mutable c=0; c<4; c+=1) {
+                when(c != message_emitter)
+                    if (c == message_adressee)
+                        Assert.AreEqual(test_message, guis[c].received_messages);
+                    else
+                        Assert.AreEqual("", guis[c].received_messages);
+            }
+                
+            ;
+
+            
         }
+
+        #endregion
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+        #region Operations emission reception tests
+
+        // <<< TO BE IMPLEMENTED
+
+        #endregion
         
-    } // end of module
+        
+    } // end of NetworkTests class
 
 
     // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
@@ -102,6 +168,7 @@ namespace Network
     {
         // implements the basic methods that Network uses from Gui
 
+        public mutable received_messages = "";
         
         public this()
         {
@@ -117,6 +184,7 @@ namespace Network
         public receive_message(from :Guid, message :string) :void
         {
             Console.WriteLine($"Gui: Received from $(from.ToString()) the message $(message)");
+            received_messages += message;
             ;
         }
         
@@ -157,7 +225,7 @@ namespace Network
             ;
         }
 
-                public get_status() :ConcurrentEditableNodeStatus
+        public get_status() :ConcurrentEditableNodeStatus
         { // return a copy of the node status, to initialize another node
             
             def status = ConcurrentEditableNodeStatus();

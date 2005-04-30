@@ -12,14 +12,14 @@ Gui
 
 ConcurrentEditableWidget
 
+* Reenable use of SourceView, disabled because of Gtk 1.0/2.0 compilation issues, has to be solved. Disabling is just a workarround (how does Monodev solve this issue ?)
 * Trigger flush when finishing a word or a phrase, slowdown the automatic flush timer
 * How to avoid tags to copied when copy and paste ? (has to manage the clipboard data reception or the TextBuffer.PasteClipboard)
 
 Network
 
+* Solve the bug in Network.n->382 
 * Implement asynchronous calls 
-   http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpguide/html/cpconasynchronousremoting.asp
-   http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpguide/html/cpconRemotingExampleAsynchronousRemoting.asp
 
 * Write the tests
 * Implement the interface

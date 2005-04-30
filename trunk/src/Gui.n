@@ -104,7 +104,7 @@ namespace Chalks.Gui
 
             def config_source = XmlConfigSource();
             
-            config_source.AddConfig("User");
+            _ = config_source.AddConfig("User");
             config_source.Configs["User"].Set("nickname", "");
 
             config_source.AddConfig("Preferences");
@@ -158,7 +158,6 @@ namespace Chalks.Gui
             {
                 def buffer = messages_textview.Buffer;
                 mutable iter = buffer.EndIter.Copy();
-                //buffer.Insert(ref iter, "\n" + message); 
                 buffer.InsertWithTags(ref iter, "\n" + message, tags);
                 messages_textview.ScrollMarkOnscreen(messages_textview_endmark);
                 

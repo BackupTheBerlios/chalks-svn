@@ -7,7 +7,7 @@ This documents define the widget where multiple users write in the same time.
 
 using System;
 using Gtk;
-using GtkSourceView;
+//using GtkSourceView;
 
 using Nemerle.Collections;
 using Nemerle.Utility;
@@ -18,7 +18,7 @@ using Chalks.ConcurrentEdition;
 namespace Chalks.ConcurrentEditionWidget
 {
 
-    public class ConcurrentEditionWidget : SourceView, Chalks.ConcurrentEdition.ITextBuffer
+    public class ConcurrentEditionWidget : TextView/*SourceView*/, Chalks.ConcurrentEdition.ITextBuffer
     {
 
 	static to_send_tag :TextTag = TextTag("to_send");
@@ -29,7 +29,7 @@ namespace Chalks.ConcurrentEditionWidget
         {
             gui = _gui;
             
-	    ShowLineNumbers = true;
+	    //ShowLineNumbers = true;
            
             // create the base Tags
             //to_send_tag = TextTag("to_send");
@@ -76,13 +76,13 @@ namespace Chalks.ConcurrentEditionWidget
             def end_iter = this.Buffer.StartIter.Copy();
 
             found_a_region = start_iter.HasTag(to_send_tag);
-            end_iter.ForwardToTagToggle(to_send_tag); // go to the first Toggle
+            _ = end_iter.ForwardToTagToggle(to_send_tag); // go to the first Toggle
             
             
             // search the first to_send tagger region
             when (! found_a_region) {
-                start_iter.ForwardToTagToggle(to_send_tag);
-                end_iter.ForwardToTagToggle(to_send_tag);
+                _ = start_iter.ForwardToTagToggle(to_send_tag);
+                _ = end_iter.ForwardToTagToggle(to_send_tag);
                 
                 found_a_region = ! start_iter.Equal(Buffer.EndIter);
             }
@@ -98,10 +98,10 @@ namespace Chalks.ConcurrentEditionWidget
                 Buffer.RemoveAllTags(start_iter, end_iter); // inserted text has no tag
 
                 // jump to the next section
-                start_iter.ForwardToTagToggle(to_send_tag);
-                end_iter.ForwardToTagToggle(to_send_tag);
-                start_iter.ForwardToTagToggle(to_send_tag);
-                end_iter.ForwardToTagToggle(to_send_tag);
+                _ = start_iter.ForwardToTagToggle(to_send_tag);
+                _ = end_iter.ForwardToTagToggle(to_send_tag);
+                _ = start_iter.ForwardToTagToggle(to_send_tag);
+                _ = end_iter.ForwardToTagToggle(to_send_tag);
 
                 found_a_region = ! start_iter.Equal(Buffer.EndIter);
             }
@@ -121,7 +121,7 @@ namespace Chalks.ConcurrentEditionWidget
         }         
         */
 
-        on_insert_text_event(o :object, args :InsertTextArgs) :void
+        on_insert_text_event(_o :object, args :InsertTextArgs) :void
         { // args.Length :int, Pos :TextIter, Text :string
 
             when(!applying_operation) // detect if programatical or not
@@ -132,7 +132,7 @@ namespace Chalks.ConcurrentEditionWidget
                 def end_iter = args.Pos.Copy(); 
                 
                 // the handler is called after the text was inserted
-                start_iter.BackwardChars(args.Length); 
+                _ = start_iter.BackwardChars(args.Length); 
 
                 Buffer.RemoveAllTags(start_iter, end_iter);
                 Buffer.ApplyTag(to_send_tag, start_iter, end_iter);
@@ -149,7 +149,7 @@ namespace Chalks.ConcurrentEditionWidget
 
         
         [GLib.ConnectBefore] // need to be static to be ConnectedBefore
-	protected static on_delete_range_event(o :object, args :DeleteRangeArgs) :void
+	protected static on_delete_range_event(_o :object, args :DeleteRangeArgs) :void
         {
             when(!applying_operation) // detect if programatical or not
             {
