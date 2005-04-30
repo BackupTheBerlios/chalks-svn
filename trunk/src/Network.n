@@ -34,7 +34,9 @@ namespace Chalks.Network
         public this(_local_node :NetworkNode)
         {
             local_node = _local_node; // this object is private
-            
+
+            // just for debugging
+            log($"AuthenticationRealm instance created $(this.GetHashCode())"); 
             ;
         }
         
@@ -49,10 +51,7 @@ namespace Chalks.Network
                 throw RemotingException("Nickname has to have at least three characters");
 
             if (local_node.is_equal_to_password(password)) {
-
-                //
-                
-                // return a reference to a concurrenteditablenodeproxy
+                // give access to the local node, send us identifiers
                 (ConcurrentEditableNodeProxy(site_id, local_node),
                 local_node.site_id, local_node.nickname);
             }
@@ -199,7 +198,8 @@ namespace Chalks.Network
             
             // Publish the authentification service
             authentication_realm = AuthenticationRealm(this);
-            _ = RemotingServices.Marshal (authentication_realm, service_name);
+            _ = RemotingServices.Marshal (authentication_realm,
+                                          service_name, typeof(AuthenticationRealm));
        
             // set the uri of the published object
             def self_ip = find_self_ip();
@@ -227,6 +227,7 @@ namespace Chalks.Network
             mutable ret = true;
             try {
                 log($"Starting collaboration with $(uri)");
+                log($"Client : $(this.self_uri) -> Server $(uri)"); // just for debugging
                 log("Trying to connect");
 
                 // requesting the realm remote object
@@ -254,7 +255,7 @@ namespace Chalks.Network
                 | e =>
                   ret = false;
                   log($"Connection failed : $(e.Message)");
-                  //throw e; // just for debugging
+                  throw e; // just for debugging
             }
 
             ret;
