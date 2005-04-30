@@ -5,6 +5,8 @@
 using Nemerle.Collections; // For Hashtable
 
 using System;
+using System.Net;
+using System.IO;
 using System.Guid;
 
 using System.Runtime.Remoting;
@@ -18,8 +20,6 @@ using Chalks.Gui;
 using Chalks.Gui.ChalksWindow; // give access to the log
 
 
-
-            
 namespace Chalks.Network
 {
 
@@ -201,10 +201,8 @@ namespace Chalks.Network
             authentication_realm = AuthenticationRealm(this);
             _ = RemotingServices.Marshal (authentication_realm, service_name);
        
-            // obtain the uri of the published object
+            // set the uri of the published object
             def self_ip = find_self_ip();
-            
-            // set the uri
             self_uri = $"tcp://$(self_ip):$(port)/$(service_name)";
 
             // register ourself with the cce object (we give him network access)
@@ -361,9 +359,25 @@ namespace Chalks.Network
         #region Helpers methods
 
         find_self_ip() :string
-        { // <<< should use a better method
-            def host = Net.Dns.GetHostByName(Net.Dns.GetHostName());
-            def ip = Net.IPAddress(host.AddressList[0].Address).ToString();
+        { // get the best estimate of our network ip
+            
+            mutable ip="127.0.0.1";
+            
+            try {
+                def url = "http://imgseek.sourceforge.net/cgi-bin/getMyAddress.pl";
+                def http_web_request = WebRequest.Create(url);
+                http_web_request.Method = "GET";
+                def http_web_response = http_web_request.GetResponse();
+                def stream = StreamReader(http_web_response.GetResponseStream());
+                ip = stream.ReadToEnd();
+                stream.Close();
+            }
+            catch { // could not do the webpage trick
+                | e =>
+                    def host = Net.Dns.GetHostByName(Net.Dns.GetHostName());
+                    ip = Net.IPAddress(host.AddressList[0].Address).ToString();      
+            }
+    
             ip;
         }
                

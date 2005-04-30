@@ -18,12 +18,8 @@ ConcurrentEditableWidget
 
 Network
 
-* Solve the bug in Network.n->382 
-* Implement asynchronous calls 
-
-* Write the tests
-* Implement the interface
-* Implement a better way to obtain self_ip (similar to chalks0 technique)
+* Make the Chat Test pass
+* Write an Operation Transmission test
 
 ConcurrentEditable
 
