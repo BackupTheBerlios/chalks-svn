@@ -9,6 +9,56 @@ namespace ConcurrentEdition
     [TestFixture]
     public class ConcurrentEditionTest
     {
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+        #region Global variables
+        mutable nodes :array[NetworkNode] = array(5);
+
+        #endregion
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+        #region TestFixture SetUp and TearDown
+        
+        [TestFixtureSetUp]
+        public Init() :void
+        {
+
+            Console.WriteLine("Doing the Network tests setup");
+            
+            // Create 5 nodes
+            for(mutable c=0; c<nodes.Length; c+=1) {
+            //foreach(n in nodes) {
+                def dummy_gui = GuiForNetworkTest();
+                def dummy_ce = CeForNetworkTest();
+
+                guis[c] = dummy_gui;
+                nodes[c] = NetworkNode(dummy_gui, dummy_ce, $"node$(c)");
+                nodes[c].set_nickname($"Node$(c)");
+            }
+
+            
+            // Connects them as shown in chalks/doc/schemas/network_example
+            nodes[1].start_collaborating(nodes[0].get_self_uri());
+            nodes[2].start_collaborating(nodes[0].get_self_uri());
+            nodes[3].start_collaborating(nodes[0].get_self_uri());
+            nodes[4].start_collaborating(nodes[3].get_self_uri());
+            
+            
+            ;
+        }
+
+        [TestFixtureTearDown]
+        public Dispose() :void
+        {
+            ;
+        }
+    
+        #endregion
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+        
         [Test]
         public DummyTest() :void
         {
@@ -17,6 +67,39 @@ namespace ConcurrentEdition
             
             Assert.AreEqual(a, b);
         }
+        
+    } // end of class ConcurrentEditionTest
+
+
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+    #region Helper classes
+
+    public class GuiForNetworkTest :IGuiForNetwork
+    {
+        // implements the basic methods that Network uses from Gui
+
+        public mutable received_messages = "";
+        
+        public this()
+        {
+            ;
+        }
+
+        public set_site_id(site_id :Guid) :void
+        {
+            Console.WriteLine($"Gui: set_site_id($(site_id.ToString()))");
+            ;
+        }
+        
+        public receive_message(from :Guid, message :string) :void
+        {
+            Console.WriteLine($"Gui: Received from $(from.ToString()) the message $(message)");
+            received_messages += message;
+            ;
+        }
+        
     }
+    #endregion
     
-}
+} // end of namespace

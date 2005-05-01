@@ -259,15 +259,16 @@ namespace Chalks.ConcurrentEditionWidget
             ;
         }
 
-        public delete_text(offset:int, length:int) :void
+        public delete_text(offset:int, length:int) :string
         {
             mutable start_iter = Buffer.GetIterAtOffset(offset);
             mutable end_iter = Buffer.GetIterAtOffset(offset + length);
-            
+
+            def deleted_text =  Buffer.GetSlice(start_iter, end_iter, true);
             applying_operation = true;
             Buffer.Delete(ref start_iter, ref end_iter);
             applying_operation = false;
-            ;
+            deleted_text;
         }
 
         #endregion

@@ -61,6 +61,7 @@ class ConcurrentEditable:
             print "Site %s;%s; '%s'; receiving %s"%(self.site_index, self.state_vector, self.get_text(), t_op)
     
         
+
         if is_causally_ready(t_op, self): 		# check if it is causally ready
             self.apply(t_op) # execute it (apply to local buffer)
                 
@@ -175,6 +176,8 @@ class ConcurrentEditable:
             self.collect_garbage()
     
         return
+
+    
     def execute(self, EO, splitted_part=0):
         """
         Modify the text buffer.
@@ -199,7 +202,9 @@ class ConcurrentEditable:
             
         return
         
-    redo = execute # alias    def insert_text(self, startpos, data, op=None):
+    redo = execute # alias
+
+    def insert_text(self, startpos, data, op=None):
         """
         the op argument is used to obtain extra information in some specific posible implementations
         """
@@ -207,6 +212,7 @@ class ConcurrentEditable:
         self.text_buffer = self.text_buffer[:startpos] + data + self.text_buffer[startpos:]
         
         return
+    
     def delete_text(self, startpos, length, op=None):
         """
         the op argument is used to obtain extra information in some specific posible implementations
@@ -506,7 +512,9 @@ def GOT( Onew, HB):
                 # (c)
                 EOnew = LIT(Oonew, HB[k:])
             
-    return EOnewdef LIT(O, OL):
+    return EOnew
+
+def LIT(O, OL):
     """
     Inclusion transform over a list
     """
@@ -538,6 +546,8 @@ def reverse(in_list):
     t_list.reverse() # in place operator
     
     return t_list
+
+
 def IT (Oa, Ob):
     """
     Inclusion Transform.

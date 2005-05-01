@@ -146,6 +146,13 @@ namespace Chalks.Gui
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
         
         #region Global log method
+        static verbosity_level = 1;
+        
+        static public log( verbosity :int, message :string) :void
+        { // various verbosity levels
+            when(verbosity <= verbosity_level) log(message);
+        }
+        
         static public log(message :string) :void 
         { // alias method
             log(message, array[]:array[TextTag]);

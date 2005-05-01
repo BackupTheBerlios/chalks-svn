@@ -17,9 +17,12 @@ You need this documents to understand the code.
 */
 
 
+using Nemerle.Collections;
+
 using System;
 using System.IO;
 using System.Guid;
+
 using Chalks;
 using Chalks.Network;
 using Chalks.Gui.ChalksWindow; // get access to log function
@@ -30,21 +33,50 @@ namespace Chalks.ConcurrentEdition
 {	  
 	  
     public class ConcurrentEditable :ICeForNetwork
-    { /*This is the core object of Chalks.
-	This class defines an object that is able to manage concurrent edition from diferent sites.
-        */
-
-	// Definition of the members
+    { //This is the core object of Chalks.
+      //This class defines an object that is able to manage concurrent edition from diferent sites.
+      	// Definition of the members
         network_node  :Chalks.Network.NetworkNode;
+
+
+        // internal state
+        mutable site_id :Guid;
+        state_vector :Hashtable[Guid, int]; 
+                
+        state_vector_table :Hashtable[Guid, Hashtable[Guid, int]];
+        minimum_state_vector :Hashtable[Guid, int]; 
+
+        HB :Chalks.ArrayList[Operation]; // history buffer
+        delayed_operations :Chalks.ArrayList[Operation]; 
+
         text_buffer :ITextBuffer;
 
-        mutable site_id :Guid;
-        
+
+        // Constructors
         public this(text_buffer_instance :ITextBuffer)
         {
             site_id = Guid.Empty;
             text_buffer = text_buffer_instance;
 
+            // intialize the internal state
+
+            /*
+            def __init__(self, site_index, num_of_sites):
+            //if site_index == None then the site is and Observer
+            
+            self.site_index   = site_index
+            self.state_vector = [0] * num_of_sites
+            
+            self.state_vector_table   = [[0]* num_of_sites]* num_of_sites # required by the garbage collector (SVT)
+            self.minimum_state_vector = [0]*num_of_sites # required by the garbage collector (MSV)
+            
+            if self.site_index != None:
+               self.state_vector_table [self.site_index] = self.state_vector # link with local state_vector
+  
+            self.HB = [] # history buffer
+            self.delayed_operations = [] 
+            */
+            
             //log("Concurrent editable instance created");
             ;   
             
@@ -116,17 +148,65 @@ namespace Chalks.ConcurrentEdition
         }
 
         public receive_operation(op :Operation) :void
-        {
-            ;
-        }
+        { // receive an operation to execute
+          // check if it is causally ready
+          // if not delay it
+          // else execute it
+          // if executed check the delayed buffer to check for operation that now can be operated (and so on until no operation is executable)
+          // ---
+          // The workflow is receive->apply->execute
 
+            log(1, $"Site $(site_id);%(state_vector); receiving $(op)");
+
+            if( is_causally_ready(op) ) { // if it is causally ready
+
+                // execute it (apply to local buffer)
+                apply(op); 
+                
+                // check the delayed buffer to check for operation that now can be operated
+                // (and so on until no operation is executable)			
+                mutable applied_an_operation = true;
+                
+                while (applied_an_operation){
+
+                    applied_an_operation = false;
+                    def iterator = delayed_operations.GetEnumerator();
+                    mutable t_op = iterator.Current :> Operation;
+                    
+                    do {
+                        t_op = iterator.Current :> Operation;
+                        when ( is_causally_ready(t_op) ) {
+                            apply(t_op);
+                            delayed_operations.Remove(t_op);
+                            applied_an_operation = true;
+                        }
+                    } while (   iterator.MoveNext() // returns false at the end of the list
+                             && (applied_an_operation == false) )
+                    
+                } // end of while
+                
+            }
+            else{ // if not causally ready we delay it
+                delayed_operations.Add(op);
+            }
+        
+
+            log(1, $"Site $(site_id); HB $(HB)");
+            log(1, $"Site $(site_id);%(state_vector); delayed_ops: $(delayed_operations)\n");
+            ;
+        } // end of receive_operation
+
+        
         public add_site(site_id :Guid) :void
         {
+            throw Exception("to be implemented");
             ;
         }
 
         public delete_site(site_id :Guid) :void
-        {
+        { // erase a reference to a site
+
+            throw Exception("to be implemented");
             ;
         }
 
@@ -150,34 +230,391 @@ namespace Chalks.ConcurrentEdition
         }
         #endregion
 
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+        
+        #region Private methods (related to the concurrent edition algorithm)
+
+        
+        apply(o_new :Operation) :void
+        {
+
+            
+            ;
+        }
+        
+        execute(eo :Operation, splitted_part :bool) :void
+        { // Modify the text buffer.
+          // The lost information is stored into the operators for future undos.
+
+            if (eo.is_splitted) {
+                execute(eo.splitted_head, true); //splitted_part = true
+                execute(eo.splitted_tail, true); //splitted_part = true
+            }
+            else {
+                match (T(eo)) {
+                    | OperationType.Insert =>
+                      text_buffer.insert_text(site_id, P(eo), S(eo));
+                      
+                    | OperationType.Delete =>
+                      // stores the erased text for future undos
+                      eo.deleted_text = text_buffer.delete_text(P(eo), L(eo));
+                      
+                    | _ => throw Exception("Tried to execute an Unmanaged Operation type $(eo)");
+                }
+            }
+            ;
+        }
+        
+        execute(eo :Operation) :void
+        {
+            execute(eo, false); // if omited, it is not a splitted_part operation
+        }
+
+        redo(op :Operation) :void
+        { // an alias
+            execute(op); 
+        }
 
 
+        
+        collect_garbage() :void
+        {
+            ;
+        }
 
+        update_SVT() :void
+        {
+            ;
+        }
+
+        #endregion
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+        
+        #region Internal GOT algorithm functions
+        
+        is_causally_ready(op :Operation) :bool
+        { // Definition 5: Conditions for executing remote operations
+          //  
+          // Let O be an operation generated at site s and timestamped by SVo .
+          // O is causally-ready for execution at site d (d != s) with a state vector SVd
+          // only if the following conditions are satisfied:
+          // 1. SVo [s] = SVd [s] + 1, and
+          // 2. SVo [i] <= SVd [i], for all i in {0,1, ..., N - 1} and i != s.
+
+
+            def SVd = this.state_vector;
+            def SVo = op.TimeStamp;
+            def s  = op.SourceSite;
+            
+            // <<< to be implemented
+            
+            true;
+        }
+
+        check_total_ordering() :void
+        {
+            ;
+        }
+
+        // Definition 1: Causal ordering relation "->"
+        // 
+        // Given two operations Oa and Ob , generated at sites i and j, then Oa -> Ob , 
+        // iff:
+        //     1. i = j and the generation of Oa happened before the generation of Ob , 
+        // or
+        //     2. i != j and the execution of Oa at site j happened before the 
+        // generation of Ob , or
+        //     3. there exists an operation Ox, such that Oa -> Ox and Ox -> Ob.
+        // 
+        // Definition 2: Dependent and independent operations
+        // 
+        // Given any two operations Oa and Ob.
+        //     1. Ob is said to be dependent on Oa iff Oa -> Ob.
+        //     2. Oa and Ob are said to be independent (or concurrent) iff neither Oa 
+        // -> Ob , nor Ob -> Oa , which is expressed as Oa || Ob.
+        // 
+        // (nor == not or; 0,0 => 1 , 0 else)
+        // 
+
+        are_dependent(oa :Operation, ob :Operation) :bool
+        { // Implement a less than strict check.
+          // Will return true if (Oa->Ob) or if there is a Ox such as (Oa->Ox and Ox->Ob)
+          // After reading in detail the papers I propose:
+          //  Oa -> Ob iff :
+          //  if i==j: return SVoa[i] < SVob[i]
+          //  else:    return SVoa[i] <= SVob[i]
+
+            def i = oa.SourceSite;
+            def j = ob.SourceSite;
+    
+    
+            if (i == j) oa.TimeStamp[i] <  ob.TimeStamp[i];
+            else oa.TimeStamp[i] <= ob.TimeStamp[i];
+        }
+
+        
+        are_concurrent(oa :Operation, ob :Operation) :bool        
+        { // Check if both operations are independent (or concurrent)
+          // return Oa->Ob nor Ob->Oa
+          // (nor == not or; 0,0 => 1 , 0 else)
+
+            //not (are_dependent(oa,ob) or are_dependent(ob,oa) );
+            ! (are_dependent(oa,ob) || are_dependent(ob,oa) );
+        }
+        
+        are_independent :Operation * Operation -> bool = are_concurrent; // just an alias
+        
+        GOT() :void
+        {
+            ;
+        }
+
+
+        LIT(o :Operation, ol :Chalks.ArrayList[Operation]) :Operation
+        { // Inclusion transform over a list
+            
+            if (ol.Count == 0) {
+                o;
+            }
+            else {
+                LIT( IT(o, ol[0]),
+                     ol.GetRange(1, (ol.Count -1)) // ol[1:]
+                     );
+            }
+        }
+        
+        LET(o :Operation, ol :Chalks.ArrayList[Operation]) :Operation
+        { // Exclusion transform over a list
+
+            if (ol.Count == 0) {
+                o;
+            }
+            else {
+                LET( ET(o, ol[0]),
+                     ol.GetRange(1, (ol.Count -1)) // ol[1:]
+                     );
+            }
+        }
+
+
+        IT(oa :Operation, ob :Operation) :Operation
+        {
+            oa;
+        }
+
+        
+        IT_II(oa :Operation, ob :Operation) :Operation
+        {
+            if ( P (oa) < P (ob) ) {
+                oa;
+            }
+            else {
+                Op( OperationType.Insert, P(oa) + L(ob), S(oa));
+            }
+        }
+
+        IT_ID() :void        
+        {
+            ;
+        }
+
+        IT_DI() :void        
+        {
+            ;
+        }
+
+        IT_DD() :void        
+        {
+            ;
+        }
+
+        ET(oa :Operation, ob :Operation) :Operation
+        {
+            oa;
+        }
+
+        ET_II(oa :Operation, ob :Operation) :Operation
+        {
+            if ( P(oa) <= P(ob) ) {
+                oa;
+            }
+            else if ( P(oa) >= (P(ob) + L(ob)) ) {
+                Op( OperationType.Insert, P(oa) - L(ob),  S(oa));
+            }
+            else {
+                def ooa = Op( OperationType.Insert, P(oa) - P(ob), S(oa) );
+                Save_RA(ooa, ob);
+                ooa;
+            }
+        }
+
+        ET_ID() :void        
+        {
+            ;
+        }
+
+        ET_DI() :void 
+        {
+            ;
+        }
+        
+        ET_DD() :void        
+        {
+            ;
+        }
+
+        #endregion
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+        
+        #region Helper method to keep a clear syntax
+
+        // Syntax shortcuts
+        T(o :Operation) :OperationType
+        { // Return the type of operation ("Insert" or "Delete")
+           o.Type;
+        }
+
+        P(o :Operation) :int        
+        {// Return the position where the operation is executed.
+            o.Pos;
+        }
+
+        L(o :Operation) :int
+        { // Return length of the deletion operation.
+          // For safness if the operation is no a deletion it return the length of the inserted text. (stricly it should raise an error...)
+
+            match(o.Type)
+            {
+              | OperationType.Delete => o.Length;
+              | OperationType.Insert => o.Text.Length;
+              | _ => throw Exception("L(o) invalid for $(o.ToString())");
+            }
+        }
+
+        S(o :Operation) :string
+        { // Return the string that the insert operation is trying to insert.
+            assert(o.Type == OperationType.Insert,
+                   "S(o) is only valid for Insertion operation.");
+            o.Text;
+        }
+
+
+        reversed( in_list :Chalks.ArrayList[Operation]) :Chalks.ArrayList[Operation]
+        { //Helper function used to have a compact notation
+
+            def out_list = in_list.Clone(); //create a copy
+            out_list.Reverse(); //in place operator
+            out_list;
+        }
+
+        
+        Splitted(o1 :Operation, o2 :Operation) :Operation
+        { // Return an operation that is splitted.
+          // (this should used in function 'execute' and 'undo')
+
+            assert (T(o1) == T(o2),
+                    "Splitted operations are of different types, this is not sane.");
+            
+            assert( !(o1.is_splitted || o2.is_splitted),
+                   "Recursive splitted operation not yet supported" );
+            
+            assert(T(o1) == OperationType.Delete,
+                   "Splitted(o1,o2) is not implemented for operations of type $(T(o1).ToString())");
+            mutable oo_pos = 0;
+            mutable oo_length = 0;
+            
+            match(())
+            {
+              | _ when P(o1) < P(o2) =>
+                  oo_pos =  P(o1);
+                  oo_length =  ( P(o2) + L(o2) ) - P(o1);
+
+              | _ when P(o1) > P(o2) =>
+                  oo_pos = P(o2);
+                  oo_length = ( P(o1) + L(o1) ) - P(o2);
+                  
+              | _ =>
+                  throw
+                  Exception("Weird split P(O1) == P(O2) ($(o1.ToString()), $(o2.ToString())");                }
+
+            def oo = Operation(T(o1), oo_pos, oo_length);
+            oo.is_splitted = true;
+            oo.splitted_head = o1;
+            oo.splitted_tail = o2;
+
+            oo;
+        }
+
+        // Lost information
+        Check_LI() :void        
+        {
+            ;
+        }
+
+        Save_LI() :void        
+        {
+            ;
+        }
+
+        Recover_LI() :void        
+        {
+            ;
+        }
+
+        // Relative adresses
+        Check_RA(oa :Operation) :bool    
+        { // Is Oa relatively addressed ?
+                
+            oa.relatively_addressed == true;
+        }
+
+        Save_RA(oa :Operation, ob :Operation) :void
+        { // Stores the information to mark Oa as having a relative address to over Ob.
+            
+            log(2, $"called Save_RA($oa, $ob)"); // just for debugging
+            
+            oa.relatively_addressed = true;
+            oa.base_operation = ob;
+            oa.delta_pos = P(oa) - P(ob); // Abis = P(Obbis) + A.delta_pos
+            ;
+        }
+
+        
+        Check_BO(oa :Operation, ob :Operation) :bool        
+        { //Ob is the base operation of Oa ? (in the relative address context)
+
+            // look at the definition of Equals in the Operation class
+            ob.Equals( oa.base_operation );
+        }
+
+        Convert_AA(oa :Operation, ob :Operation) :Operation
+        { // Obtain Oaa, which is an absolute address operation based on Oa,
+          // over the relative position of Ob.
+            
+            assert( Check_BO(oa,ob), "Convert_AA: Ob is not the base_operation of Oa" );
+            log(2, $"called Convert_AA($oa, $ob)"); // just for debugging
+            
+            match(T(oa)) {
+                | OperationType.Insert =>
+                  Operation( oa.Type,	oa.delta_pos + ob.Pos, oa.Text );
+
+                | OperationType.Delete =>
+                  Operation( oa.Type,	oa.delta_pos + ob.Pos, oa.Length );
+                  
+                | _ => throw Exception( $"Convert_AA, unmanaged operation type $(oa.Type)");
+            }
+        }
+
+        #endregion
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
         
     } // end of class ConcurrentEditable
     
-    
-    public interface ITextBuffer
-    { /**
-        This interface define a recipient where the ConcurrentEdition system store the up to date version of the text.
-        
-        This interface is then implemented by the element that presents the
-        */
-        insert_text(site_id :Guid, offset:int, text:string):void;
-        // Due of UTF-8 encoding character counts are referred to as "offsets", 
-        // this is consistent with the GTK code
-        
-        delete_text(offset:int, length:int):void;
-        
-        get_text():string;
-        // return all the text in the buffer
-        
-        set_text(text:string):void;
-        // overwrite the buffer text content
-    }
-    
 
-    class pConcurrentEditable
+    class pConcurrentEditable // methods in the old python implementation
     {
 
         public this()
@@ -195,27 +632,8 @@ namespace Chalks.ConcurrentEdition
             ;
         }
 
-        apply() :void
-        {
-            ;
-        }
-
-        execute() :void
-        {
-            ;
-        }
-
+        
         delete_text() :void
-        {
-            ;
-        }
-
-        collect_garbage() :void
-        {
-            ;
-        }
-
-        update_SVT() :void
         {
             ;
         }
@@ -236,186 +654,48 @@ namespace Chalks.ConcurrentEdition
         }
 
 
-        #region Internal GOT algorithm functions
         
-        is_causally_ready() :void
-        {
-            ;
-        }
-
-        check_total_ordering() :void
-        {
-            ;
-        }
-
-        are_dependent() :void
-        {
-            ;
-        }
-
-        are_concurrent() :void        
-        {
-            ;
-        }
-
-        GOT() :void
-        {
-            ;
-        }
-
-        LET() :void
-        {
-            ;
-        }
-
-        reverse() :void
-        {
-            ;
-        }
-
-        IT() :void        
-        {
-            ;
-        }
-
-        IT_II() :void        
-        {
-            ;
-        }
-
-        IT_ID() :void        
-        {
-            ;
-        }
-
-        IT_DI() :void        
-        {
-            ;
-        }
-
-        IT_DD() :void        
-        {
-            ;
-        }
-
-        ET() :void       
-        {
-            ;
-        }
-
-        ET_II() :void        
-        {
-            ;
-        }
-
-        ET_ID() :void        
-        {
-            ;
-        }
-
-        ET_DI() :void 
-        {
-            ;
-        }
         
-        ET_DD() :void        
-        {
-            ;
-        }
-
-        #endregion
-
-        #region Helper method to keep a clear syntax
-        Op() :void        
-        {
-            ;
-        }
-
-        op() :void        
-        {
-            ;
-        }
-
-        T(o :Operation) :OperationType
-        { // Return the type of operation ("Insert" or "Delete")
-           o.Type;
-        }
-
-        P() :void        
-        {
-            ;
-        }
-
-        L() :void        
-        {
-            ;
-        }
-
-        S() :void        
-        {
-            ;
-        }
-
-        Splitted() :void        
-        {
-            ;
-        }
-
-        Check_LI() :void        
-        {
-            ;
-        }
-
-        Save_LI() :void        
-        {
-            ;
-        }
-
-        Recover_LI() :void        
-        {
-            ;
-        }
-
-        Check_RA() :void        
-        {
-            ;
-        }
-
-        Save_RA() :void        
-        {
-            ;
-        }
-
-        Check_BO() :void        
-        {
-            ;
-        }
-
-        Convert_AA() :void        
-        {
-            ;
-        }
-    
-    }
+        
+        
+    } 
 
     // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
     #region Definition of the Operation class
-
     
     public enum OperationType { |Insert |Delete |SetText };
 
+    type Op = Operation;
+    type op = Operation;
+    
     [Serializable]
     public class Operation
     {
 
         // Definitions of members
         public Type :OperationType;
-        public Pos  :int;
-        public Text :string;
-        public Length :int;
+        public mutable Pos  :int;
+        public mutable Text :string;
+        public mutable Length :int;
         public SourceSite :Guid;
-        //public TimeStamp :array[];
+        public TimeStamp :Hashtable[Guid, int];
+
+        // non trivial cases members
+        public mutable deleted_text :string; // deletions
+  
+        public mutable is_splitted :bool; // splits
+        public mutable splitted_head :Operation;
+        public mutable splitted_tail :Operation;
+
+        public mutable relatively_addressed :bool; // relative addresses
+        public mutable base_operation :Operation;
+        public mutable delta_pos :int;
+
+        public mutable lost_information :object; // lost information
+        public mutable LI_base_op :Operation;
+
         
+        // Constructors
         public this(optype :OperationType, pos :int, text :string)
         {
             assert(optype == OperationType.Insert);
@@ -445,7 +725,8 @@ namespace Chalks.ConcurrentEdition
             Text = "";
             ;
         }
-        
+
+        // Methods
         Equal() :void        
         {
             ;
@@ -453,7 +734,7 @@ namespace Chalks.ConcurrentEdition
 
         public override ToString() :string
         {
-            "";
+            $"$Type $Pos $Length $Text $SourceSite"; // <<< implement better
         }
 
         set_timestamp() :void        
@@ -466,19 +747,27 @@ namespace Chalks.ConcurrentEdition
             ;
         }
 
-    }
+        public Equals(op :Operation) :bool
+        {
+            // same place, same moment
+            (SourceSite.Equals(op.SourceSite)) && (TimeStamp.Equals(op.TimeStamp)); 
+        }
+
+    } // end of class Operation
+
     #endregion
     
     // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
-    #region
+    #region Concurrent Editable node Status
 
     [Serializable]
     public class ConcurrentEditableNodeStatus
-    {
-        public Text :string;
-        public HB : array[Operation];
-        public SV : array[uint];
+    { // this class is a container to initialize a new node into a running session
+        
+        public mutable Text :string;
+        public mutable HB : array[Operation];
+        public mutable SV : array[uint];
         
         public this()
         {
@@ -491,6 +780,24 @@ namespace Chalks.ConcurrentEdition
     
     // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
+    public interface ITextBuffer
+    { // This interface define a recipient where the ConcurrentEdition system store the up to date version of the text.
+        
+        insert_text(site_id :Guid, offset:int, text:string):void;
+        // Due of UTF-8 encoding character counts are referred to as "offsets", 
+        // this is consistent with the GTK code
+        
+        delete_text(offset:int, length:int): string;
+        // returns the deleted text
+        
+        get_text():string;
+        // return all the text in the buffer
+        
+        set_text(text:string):void;
+        // overwrite the buffer text content
+    }
+    
+
 
     public interface ICeForNetwork
     { // Elements of ConcurrentEditable used by the Network module
@@ -501,5 +808,55 @@ namespace Chalks.ConcurrentEdition
         get_status() :ConcurrentEditableNodeStatus;
         set_status(status :ConcurrentEditableNodeStatus) :void;
     }
-        
+
+
+
+    
 } // end the namespace Chalks.ConcurrentEditable
+
+//namespace Nemerle.Collections
+namespace Chalks
+{
+
+    public class ArrayList['t] : System.Collections.ArrayList
+    {
+        public  Add(value : 't) : void
+        {
+            base.Add(value : object);
+        }
+        
+        public Remove(value :  't) : void 
+        {
+            _ = base.Remove(value : object);
+        }
+        
+        public Insert(index : int, value :  't) : void 
+        {
+            _ = base.Insert(index, value : object);
+        }
+        
+        public Contains(value :  't) : bool 
+        {
+            base.Contains(value : object);
+        }
+        
+        public  Item[index : int] : 't 
+        {
+            get 
+            { 
+                (base[index] :>  't); 
+            }
+        }
+
+        public GetRange (index :int, count :int)  :ArrayList['t]
+        {
+            base.GetRange(index, count) :> ArrayList['t];
+        }
+
+        public Clone() :ArrayList['t]
+        {
+            base.Clone() :> ArrayList['t];
+        }
+        
+    } // end of type ArrayList['t]
+}
