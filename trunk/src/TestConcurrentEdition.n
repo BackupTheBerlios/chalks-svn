@@ -12,7 +12,7 @@ namespace ConcurrentEdition
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
         #region Global variables
-        mutable nodes :array[NetworkNode] = array(5);
+        //mutable sites :array[ConcurrentEditable] = array(3);
 
         #endregion
 
@@ -24,10 +24,12 @@ namespace ConcurrentEdition
         public Init() :void
         {
 
-            Console.WriteLine("Doing the Network tests setup");
-            
+            Console.WriteLine("Doing the ConcurrentEdition tests setup");
+            Console.Out.Flush();
+
+            /*
             // Create 5 nodes
-            for(mutable c=0; c<nodes.Length; c+=1) {
+            for(mutable c=0; c<sites.Length; c+=1) {
             //foreach(n in nodes) {
                 def dummy_gui = GuiForNetworkTest();
                 def dummy_ce = CeForNetworkTest();
@@ -43,7 +45,7 @@ namespace ConcurrentEdition
             nodes[2].start_collaborating(nodes[0].get_self_uri());
             nodes[3].start_collaborating(nodes[0].get_self_uri());
             nodes[4].start_collaborating(nodes[3].get_self_uri());
-            
+            */
             
             ;
         }
@@ -60,8 +62,31 @@ namespace ConcurrentEdition
 
         
         [Test]
-        public DummyTest() :void
-        {
+        public TestConcurrentEditable1() :void
+        { // The test case that we gonna use for debugging is the same case presented at
+          // "A generic operation transformation scheme for consistency maintenance
+          // in real-time cooperative editing systems", Fig 1;
+          // which suggest an interesing scenario.
+          //
+          // Here the operatations are:
+          //  - O1 Insert 0 "ABC"
+          //  - O2 Insert O "BCD"
+          //  - O3 Delete 1 2
+          //  - O4 Insert 2 "c"
+          // So the final result should be "ABCcD" in the three sites.
+          //
+          // Site 0: (generate O1) O1 O2 O4 O3
+          // Site 1: (gen O2) O2 O1 (gen O3) O3 O4
+          // Site 2: O2 (gen 04) 03 01
+          //    
+          // The event sequence is:
+          // S0(O1);S1(O2);S2O2;S1O1;S0O2;S2(O4);S0O4;S1(03);S2O3;S0O3;S1O4;S2O1. 
+          // 
+          // It also test the garbage collector as indicated in the figure 3 of
+          // sun98achieving.pdf, page 20.
+
+
+            
             def a = 5;
             def b = 5;
             
@@ -103,3 +128,627 @@ namespace ConcurrentEdition
     #endregion
     
 } // end of namespace
+
+/*
+def get_test_suite():
+    """
+    run the tests
+    """
+    
+    global dbg
+    dbg = 0
+    
+    import unittest
+    TestSuite = unittest.TestSuite()
+    TestSuite.addTest(unittest.FunctionTestCase(TestConcurrentEditable1))
+    TestSuite.addTest(unittest.FunctionTestCase(TestConcurrentEditable2))
+    TestSuite.addTest(unittest.FunctionTestCase(TestConcurrentEditableServer))
+        
+    return TestSuite
+#@+node:rodrigob.121403173614.1548:TestConcurrentEditable1
+
+def TestConcurrentEditable1():
+    """
+    The test case that we gonna use for debugging is the same case presented at "A generic operation transformation scheme for consistency maintenance in real-time cooperative editing systems", Fig 1; wich suggest an interesing scenario.
+    Here the operatations are:
+        - O1 Insert 0 "ABC"
+        - O2 Insert O "BCD"
+        - O3 Delete 1 2
+        - O4 Insert 2 "c"
+    So the final result should be "ABCcD" in the three sites.
+    
+    Site 0: (generate O1) O1 O2 O4 O3
+    Site 1: (gen O2) O2 O1 (gen O3) O3 O4
+    Site 2: O2 (gen 04) 03 01
+    
+    The event sequence is:
+        S0(O1);S1(O2);S2O2;S1O1;S0O2;S2(O4);S0O4;S1(03);S2O3;S0O3;S1O4;S2O1. 
+        
+    It also test the garbage collector as indicated in the figure 3 of sun98achieving.pdf, page 20.
+    """
+    
+    print "-"*15
+    print "Read docstring of TestConcurrentEditable1 for more info about this test.\n"
+    
+    # Create three site instances
+    num_sites = 3
+    site0 = ConcurrentEditable(0, num_sites) # site_index, num_of_sites
+    site1 = ConcurrentEditable(1, num_sites)
+    site2 = ConcurrentEditable(2, num_sites)
+    
+    # Apply the operations in each site (following the order of the picture)
+    
+    O1 = site0.gen_op("Insert", 0, u"ABC", dbg_name="O1")  # generate and apply locally the operation
+    O2 = site1.gen_Op("Insert", u"BCD", 0, dbg_name="O2") # test the alias
+    site2.receive_op(O2)
+    site1.receive_op(O1)
+    site0.receive_op(O2)
+    O4 = site2.gen_op("Insert", 2, u"c", dbg_name="O4") 
+    site0.receive_op(O4)			
+    #print "\ntest blocked..."; return # please erase this line
+    O3 = site1.gen_op("Delete", 1, 2, dbg_name="O3")
+    site2.receive_op(O3)
+    site0.receive_op(O3)
+    site1.receive_op(O4)			
+    site2.receive_op(O1)
+    
+    
+    if dbg>=4:
+        for t_op in [ O1, O2, O3, O4]:
+            print t_op
+            
+    if 1:
+        # this messages are the same of figure 3. sun98achieving.pdf, page 20.
+        site1.update_SVT(0, site0.state_vector) # message to put to date the other sites
+        site2.update_SVT(0, site0.state_vector)
+
+        site0.collect_garbage()
+        site1.collect_garbage()
+        site2.collect_garbage() # at site2 two operations should be deleted
+    
+
+    
+    if dbg>=0:
+        print "\nFinal HBs"
+        for t_site in [site0, site1, site2]:
+            print "Site %s;%s;MSV %s;\nHB\n\t%s\n"%(t_site.site_index, t_site.state_vector, t_site.minimum_state_vector, "\n\t".join([str(x) for x in t_site.HB]))
+    
+    # Show the final result at each site (expecting "ABCC'D")
+
+    res_text = lambda x: "OK."*x or "FAILED."*(not x)
+
+    print "\nFinal results:"	
+    
+    success = 1
+    for t_site in [site0, site1, site2]:
+        t_res = (t_site.get_text() == u"ABCcD" and not t_site.delayed_operations)
+        success = success and t_res
+        print "Site %s;%s; '%s'; delayed_ops: %s; %s"%(t_site.site_index, t_site.state_vector, t_site.get_text(), t_site.delayed_operations, res_text(t_res))
+
+
+    if success:
+        print "\nTest successfull."
+    else:
+        print "\nTest FAILED. Expecting the same result at the three sites: 'ABCcD', and no delayed operations left in the buffer."
+
+
+    return success
+
+#@-node:rodrigob.121403173614.1548:TestConcurrentEditable1
+#@+node:rodrigob.121403173614.1549:TestConcurrentEditable2
+
+def TestConcurrentEditable2():
+    """
+    Second test is similar to Test1 but with other operations. Try to test other code areas (i.e. Lost Information cases)
+    
+    The test case that we gonna use for debugging is the same case presented at "A generic operation transformation scheme for consistency maintenance in real-time cooperative editing systems", Fig 1; wich suggest an interesing scenario.
+    Here the operatations are:
+        - O1 Insert 0 "ABC"
+        - O2 Insert O "BCD"
+        - O3 Insert 5 "c"
+        - O4 Delete 0 3
+    So the final result should be ABCc in the three sites.
+    
+    Site 0: (generate O1) O1 O2 O4 O3
+    Site 1: (gen O2) O2 O1 (gen O3) O3 O4
+    Site 2: O2 (gen 04) 03 01
+    
+    The event sequence is:
+        S0(O1);S1(O2);S2O2;S1O1;S0O2;S2(O4);S0O4;S1(03);S2O3;S0O3;S1O4;S2O1. 
+        
+    It also test the garbage collector as indicated in the figure 3 of sun98achieving.pdf, page 20.
+    """
+    
+    print "-"*15
+    print "Read docstring of TestConcurrentEditable2 for more info about this test.\n"
+    
+    # Create three site instances
+    num_sites = 3
+    site0 = ConcurrentEditable(0, num_sites) # site_index, num_of_sites
+    site1 = ConcurrentEditable(1, num_sites)
+    site2 = ConcurrentEditable(2, num_sites)
+    
+    # Apply the operations in each site (following the order of the picture)
+    
+    O1 = site0.gen_op("Insert", 0, u"ABC", dbg_name="O1")  # generate and apply locally the operation
+    O2 = site1.gen_Op("Insert", u"BCD", 0, dbg_name="O2") # test alias
+    site2.receive_op(O2)
+    site1.receive_op(O1)
+    site0.receive_op(O2)
+    O4 = site2.gen_op("Delete", 0, 3, dbg_name="O3")
+    site0.receive_op(O4)			
+    #print "\ntest blocked..."; return # please erase this line
+    O3 = site1.gen_op("Insert", 5, u"c", dbg_name="O4")
+    site2.receive_op(O3)
+    site0.receive_op(O3)
+    site1.receive_op(O4)			
+    site2.receive_op(O1)
+    
+    if 1:
+        # this messages are the same of figure 3. sun98achieving.pdf, page 20.
+        site1.update_SVT(0, site0.state_vector) # message to put to date the other sites
+        site2.update_SVT(0, site0.state_vector)
+
+        site0.collect_garbage()
+        site1.collect_garbage()
+        site2.collect_garbage()
+    
+    if dbg>=4:
+        for t_op in [ O1, O2, O3, O4]:
+            print t_op
+    
+    if dbg>=0:
+        print "\nFinal HBs"
+        for t_site in [site0, site1, site2]:
+            print "Site %s;%s;MSV %s;\nHB\n\t%s\n"%(t_site.site_index, t_site.state_vector, t_site.minimum_state_vector, "\n\t".join([str(x) for x in t_site.HB]))
+
+    
+    # Show the final result at each site (expecting "ABCC'D")
+
+    res_text = lambda x: "OK."*x or "FAILED."*(not x)
+
+    print "\nFinal results:"	
+    
+    success = 1
+    for t_site in [site0, site1, site2]:
+        t_res = (t_site.get_text() == u"ABCc" and not t_site.delayed_operations)
+        success = success and t_res
+        print "Site %s;%s; '%s'; delayed_ops: %s; %s"%(t_site.site_index, t_site.state_vector, t_site.get_text(), t_site.delayed_operations, res_text(t_res))
+
+
+    if success:
+        print "\nTest successfull."
+    else:
+        print "\nTest FAILED. Expecting the same result at the three sites: 'ABCc', and no delayed operations left in the buffer."
+
+
+    return success
+#@-node:rodrigob.121403173614.1549:TestConcurrentEditable2
+#@+node:rodrigob.121403173614.1550:TestConcurrentEditableServer
+def TestConcurrentEditableServer():
+    """
+    Run almost exactly the same case of TestConcurrentEditable1 but using a Star network; with one central server and three clients connecting to it.
+    """
+    
+    #global dbg
+    #dbg = 0 #1 # ;P
+    
+    # when dbg==1 this is a __very__ verbose test, but it allow a good tracking of every event.
+    
+    print "-"*15
+    print "Read docstring of TestConcurrentEditableServer for more info about this test.\n"
+    
+    # creates server
+    server = ConcurrentEditableServer()
+    
+    # connect site 0 and 1
+    site0 = ConcurrentEditableClient(server)
+    site1 = ConcurrentEditableClient(server)
+    
+    global sent_test_operations; 	sent_test_operations = [] # used for delaying the transmissions in the test
+    
+    # start editions
+    # Apply the operations in each site (following the order of the picture)
+    O1 = site0.gen_op("Insert", 0, u"ABC", dbg_name="O1", gen_site="0") # generate and apply locally the operation
+    O2 = site1.gen_Op("Insert", u"BCD", 0, dbg_name="O2", gen_site="1") # test the alias
+
+    # O*_toS* is an operation that was sent by the server to the client. This object is delayed to simulate delays in the transmissions lines.
+    # the order of reception of commands is similar of the TestConcurrentEditable1
+    server.receive_op(O2); 
+    if dbg>=1: print "sent_test_operations %s\n"%sent_test_operations
+    [O2_toS0] = sent_test_operations; sent_test_operations = []	
+    server.receive_operation(O1);
+    if dbg>=1: print "sent_test_operations %s\n"%sent_test_operations
+    [O1_toS1] = sent_test_operations; sent_test_operations = []	
+    
+    # connect site 2 (to test connection during sessions)
+    site2 = ConcurrentEditableClient()	
+    site2.connect_to_server(server)
+    
+    if dbg>=1:
+        print
+        print "Server; %s; '%s'; HB %s"%(server.state_vector, server.get_text(), server.HB )
+        print "Site 0; %s; '%s'; HB %s"%( site0.state_vector,  site0.get_text(),  site0.HB )
+        print "Site 1; %s; '%s'; HB %s"%( site1.state_vector,  site1.get_text(),  site1.HB )
+        print "Site 2; %s; '%s'; HB %s"%( site2.state_vector,  site2.get_text(),  site2.HB )
+        print
+    
+    sent_test_operations = []
+    
+    # continue editions
+    site1.receive_op(O1_toS1) # receive delayed operations sent by the server
+    site0.receive_op(O2_toS0)
+    O4 = site2.gen_op("Insert", 2, u"c", dbg_name="O4", gen_site="2") 
+    server.receive_op(O4); O4_toS0, O4_toS1 = sent_test_operations; 
+    if dbg>=1: print "sent_test_operations %s\n"%sent_test_operations
+    sent_test_operations = []	
+
+    
+    # test disconnection and site_index reusage (for reconnetion connection)
+    if dbg>=1: 
+        print "\nDisconnectiong S2"
+        
+    server.del_client(site2)	
+    if dbg>=1: print "\nReconnection S2"
+    site2 = ConcurrentEditableClient()	
+    site2.connect_to_server(server)
+    if dbg>=1: 
+        print "Site2 after reconnecting"
+        print "Site 2; %s; '%s'; HB %s"%( site2.state_vector,  site2.get_text(),  site2.HB )
+        print
+    
+    site0.receive_op(O4_toS0)
+    O3 = site1.gen_op("Delete", 1, 2, dbg_name="O3", gen_site="1")
+    server.receive_op(O3);	
+    if dbg>=1: print "sent_test_operations %s\n"%sent_test_operations
+    O3_toS0, O3_toS2 = sent_test_operations; sent_test_operations = []	
+    site2.receive_op(O3_toS2)
+    site0.receive_op(O3_toS0)
+    site1.receive_op(O4_toS1)
+    
+    # Original sequence------------------
+    #O1 = site0.gen_op("Insert", 0, u"ABC", dbg_name="O1")  # generate and apply locally the operation
+    #O2 = site1.gen_Op("Insert", u"BCD", 0, dbg_name="O2") # test alias
+    #site2.receive_op(O2)
+    #site1.receive_op(O1)
+    #site0.receive_op(O2)
+    #O4 = site2.gen_op("Delete", 0, 3, dbg_name="O3")
+    #site0.receive_op(O4)			
+    #print "\ntest blocked..."; return # please erase this line
+    #O3 = site1.gen_op("Insert", 5, u"c", dbg_name="O4")
+    #site2.receive_op(O3)
+    #site0.receive_op(O3)
+    #site1.receive_op(O4)			
+    #site2.receive_op(O1)
+    # ------------------
+
+    if dbg>=1:	
+        print
+        print "Server; %s; '%s'; HB %s"%(server.state_vector, server.get_text(), server.HB )
+        print "Site 0; %s; '%s'; HB %s"%( site0.state_vector,  site0.get_text(),  site0.HB )
+        print "Site 1; %s; '%s'; HB %s"%( site1.state_vector,  site1.get_text(),  site1.HB )
+        print "Site 2; %s; '%s'; HB %s"%( site2.state_vector,  site2.get_text(),  site2.HB )
+        print
+        
+    
+    if dbg>=1:
+        print "\nDirty HBs"
+        for t_site in [server, site0, site1, site2]:
+            print "Site %s;%s;HB %s; delayed_ops %s"%(t_site.site_index, t_site.state_vector, t_site.HB, t_site.delayed_operations)
+        print
+            
+    if 1:
+        # this messages are the same of figure 3. sun98achieving.pdf, page 20.
+        site1.update_SVT(0, site0.state_vector) # message to put to date the other sites
+        site2.update_SVT(0, site0.state_vector)
+        if dbg>=1: print "Manually collecting the garbage in all sites"
+        server.collect_garbage()
+        site0.collect_garbage()
+        site1.collect_garbage()
+        site2.collect_garbage()
+    
+    # --------	
+    # disconnect
+    if dbg>=1: print "Disconnecting the three sites."
+    server.del_client(site0)	
+    server.del_client(site1)	
+    server.del_client(site2)	
+    # --------------
+        
+    if dbg>=0:
+        print "\nFinal HBs"
+        for t_site in [site0, site1, site2]:
+            print "Site %s;%s;MSV %s;\nHB\n\t%s\n"%(t_site.site_index, t_site.state_vector, t_site.minimum_state_vector, "\n\t".join([str(x) for x in t_site.HB]))
+    
+    # Show the final result at each site (expecting "ABCC'D")
+
+    res_text = lambda x: "OK."*x or "FAILED."*(not x)
+
+    print "\nFinal results:"	
+    
+    success = 1
+    for t_site in [server, site0, site1, site2]:
+        t_res = (t_site.get_text() == u"AcBCD" and not t_site.delayed_operations)
+        success = success and t_res
+        print "Site %s;%s; '%s'; delayed_ops: %s; %s"%(t_site.site_index, t_site.state_vector, t_site.get_text(), t_site.delayed_operations, res_text(t_res))
+
+
+    if success:
+        print "\nTest successfull."
+    else:
+        print "\nTest FAILED. Expecting the same result at the three sites: 'AcBCD', and no delayed operations left in the buffer."
+
+
+    return success
+#@nonl
+#@-node:rodrigob.121403173614.1550:TestConcurrentEditableServer
+#@+node:rodrigob.20040121155542:TestConcurrentEditableNode
+def TestConcurrentEditableNode():
+    """
+    Run almost exactly the same case of TestConcurrentEditable1 but using a 'relay network'; with three nodes S1 connect to S2 and S0 connecto to S1.
+    """
+    
+    raise NotImplementedError
+    
+    return
+    
+#@+node:rodrigob.20040128013509:TestConcurrentEditable1
+
+def TestConcurrentEditable1():
+    """
+    The test case that we gonna use for debugging is the same case presented at "A generic operation transformation scheme for consistency maintenance in real-time cooperative editing systems", Fig 1; wich suggest an interesing scenario.
+    Here the operatations are:
+        - O1 Insert 0 "ABC"
+        - O2 Insert O "BCD"
+        - O3 Delete 1 2
+        - O4 Insert 2 "c"
+    So the final result should be "ABCcD" in the three sites.
+    
+    Site 0: (generate O1) O1 O2 O4 O3
+    Site 1: (gen O2) O2 O1 (gen O3) O3 O4
+    Site 2: O2 (gen 04) 03 01
+    
+    The event sequence is:
+        S0(O1);S1(O2);S2O2;S1O1;S0O2;S2(O4);S0O4;S1(03);S2O3;S0O3;S1O4;S2O1. 
+        
+    It also test the garbage collector as indicated in the figure 3 of sun98achieving.pdf, page 20.
+    """
+    
+    print "-"*15
+    print "Read docstring of TestConcurrentEditable1 for more info about this test.\n"
+    
+    # Create three site instances
+    num_sites = 3
+    site0 = ConcurrentEditable(0, num_sites) # site_index, num_of_sites
+    site1 = ConcurrentEditable(1, num_sites)
+    site2 = ConcurrentEditable(2, num_sites)
+    
+    # Apply the operations in each site (following the order of the picture)
+    
+    O1 = site0.gen_op("Insert", 0, u"ABC", dbg_name="O1")  # generate and apply locally the operation
+    O2 = site1.gen_Op("Insert", u"BCD", 0, dbg_name="O2") # test the alias
+    site2.receive_op(O2)
+    site1.receive_op(O1)
+    site0.receive_op(O2)
+    O4 = site2.gen_op("Insert", 2, u"c", dbg_name="O4") 
+    site0.receive_op(O4)			
+    #print "\ntest blocked..."; return # please erase this line
+    O3 = site1.gen_op("Delete", 1, 2, dbg_name="O3")
+    site2.receive_op(O3)
+    site0.receive_op(O3)
+    site1.receive_op(O4)			
+    site2.receive_op(O1)
+    
+    
+    if dbg>=4:
+        for t_op in [ O1, O2, O3, O4]:
+            print t_op
+            
+    if 1:
+        # this messages are the same of figure 3. sun98achieving.pdf, page 20.
+        site1.update_SVT(0, site0.state_vector) # message to put to date the other sites
+        site2.update_SVT(0, site0.state_vector)
+
+        site0.collect_garbage()
+        site1.collect_garbage()
+        site2.collect_garbage() # at site2 two operations should be deleted
+    
+
+    
+    if dbg>=0:
+        print "\nFinal HBs"
+        for t_site in [site0, site1, site2]:
+            print "Site %s;%s;MSV %s;\nHB\n\t%s\n"%(t_site.site_index, t_site.state_vector, t_site.minimum_state_vector, "\n\t".join([str(x) for x in t_site.HB]))
+    
+    # Show the final result at each site (expecting "ABCC'D")
+
+    res_text = lambda x: "OK."*x or "FAILED."*(not x)
+
+    print "\nFinal results:"	
+    
+    success = 1
+    for t_site in [site0, site1, site2]:
+        t_res = (t_site.get_text() == u"ABCcD" and not t_site.delayed_operations)
+        success = success and t_res
+        print "Site %s;%s; '%s'; delayed_ops: %s; %s"%(t_site.site_index, t_site.state_vector, t_site.get_text(), t_site.delayed_operations, res_text(t_res))
+
+
+    if success:
+        print "\nTest successfull."
+    else:
+        print "\nTest FAILED. Expecting the same result at the three sites: 'ABCcD', and no delayed operations left in the buffer."
+
+
+    return success
+
+#@-node:rodrigob.20040128013509:TestConcurrentEditable1
+#@+node:rodrigob.20040128013523:TestConcurrentEditableServer
+def TestConcurrentEditableServer():
+    """
+    Run almost exactly the same case of TestConcurrentEditable1 but using a Star network; with one central server and three clients connecting to it.
+    """
+    
+    #global dbg
+    #dbg = 0 #1 # ;P
+    
+    # when dbg==1 this is a __very__ verbose test, but it allow a good tracking of every event.
+    
+    print "-"*15
+    print "Read docstring of TestConcurrentEditableServer for more info about this test.\n"
+    
+    # creates server
+    server = ConcurrentEditableServer()
+    
+    # connect site 0 and 1
+    site0 = ConcurrentEditableClient(server)
+    site1 = ConcurrentEditableClient(server)
+    
+    global sent_test_operations; 	sent_test_operations = [] # used for delaying the transmissions in the test
+    
+    # start editions
+    # Apply the operations in each site (following the order of the picture)
+    O1 = site0.gen_op("Insert", 0, u"ABC", dbg_name="O1", gen_site="0") # generate and apply locally the operation
+    O2 = site1.gen_Op("Insert", u"BCD", 0, dbg_name="O2", gen_site="1") # test the alias
+
+    # O*_toS* is an operation that was sent by the server to the client. This object is delayed to simulate delays in the transmissions lines.
+    # the order of reception of commands is similar of the TestConcurrentEditable1
+    server.receive_op(O2); 
+    if dbg>=1: print "sent_test_operations %s\n"%sent_test_operations
+    [O2_toS0] = sent_test_operations; sent_test_operations = []	
+    server.receive_operation(O1);
+    if dbg>=1: print "sent_test_operations %s\n"%sent_test_operations
+    [O1_toS1] = sent_test_operations; sent_test_operations = []	
+    
+    # connect site 2 (to test connection during sessions)
+    site2 = ConcurrentEditableClient()	
+    site2.connect_to_server(server)
+    
+    if dbg>=1:
+        print
+        print "Server; %s; '%s'; HB %s"%(server.state_vector, server.get_text(), server.HB )
+        print "Site 0; %s; '%s'; HB %s"%( site0.state_vector,  site0.get_text(),  site0.HB )
+        print "Site 1; %s; '%s'; HB %s"%( site1.state_vector,  site1.get_text(),  site1.HB )
+        print "Site 2; %s; '%s'; HB %s"%( site2.state_vector,  site2.get_text(),  site2.HB )
+        print
+    
+    sent_test_operations = []
+    
+    # continue editions
+    site1.receive_op(O1_toS1) # receive delayed operations sent by the server
+    site0.receive_op(O2_toS0)
+    O4 = site2.gen_op("Insert", 2, u"c", dbg_name="O4", gen_site="2") 
+    server.receive_op(O4); O4_toS0, O4_toS1 = sent_test_operations; 
+    if dbg>=1: print "sent_test_operations %s\n"%sent_test_operations
+    sent_test_operations = []	
+
+    
+    # test disconnection and site_index reusage (for reconnetion connection)
+    if dbg>=1: 
+        print "\nDisconnectiong S2"
+        
+    server.del_client(site2)	
+    if dbg>=1: print "\nReconnection S2"
+    site2 = ConcurrentEditableClient()	
+    site2.connect_to_server(server)
+    if dbg>=1: 
+        print "Site2 after reconnecting"
+        print "Site 2; %s; '%s'; HB %s"%( site2.state_vector,  site2.get_text(),  site2.HB )
+        print
+    
+    site0.receive_op(O4_toS0)
+    O3 = site1.gen_op("Delete", 1, 2, dbg_name="O3", gen_site="1")
+    server.receive_op(O3);	
+    if dbg>=1: print "sent_test_operations %s\n"%sent_test_operations
+    O3_toS0, O3_toS2 = sent_test_operations; sent_test_operations = []	
+    site2.receive_op(O3_toS2)
+    site0.receive_op(O3_toS0)
+    site1.receive_op(O4_toS1)
+    
+    # Original sequence------------------
+    #O1 = site0.gen_op("Insert", 0, u"ABC", dbg_name="O1")  # generate and apply locally the operation
+    #O2 = site1.gen_Op("Insert", u"BCD", 0, dbg_name="O2") # test alias
+    #site2.receive_op(O2)
+    #site1.receive_op(O1)
+    #site0.receive_op(O2)
+    #O4 = site2.gen_op("Delete", 0, 3, dbg_name="O3")
+    #site0.receive_op(O4)			
+    #print "\ntest blocked..."; return # please erase this line
+    #O3 = site1.gen_op("Insert", 5, u"c", dbg_name="O4")
+    #site2.receive_op(O3)
+    #site0.receive_op(O3)
+    #site1.receive_op(O4)			
+    #site2.receive_op(O1)
+    # ------------------
+
+    if dbg>=1:	
+        print
+        print "Server; %s; '%s'; HB %s"%(server.state_vector, server.get_text(), server.HB )
+        print "Site 0; %s; '%s'; HB %s"%( site0.state_vector,  site0.get_text(),  site0.HB )
+        print "Site 1; %s; '%s'; HB %s"%( site1.state_vector,  site1.get_text(),  site1.HB )
+        print "Site 2; %s; '%s'; HB %s"%( site2.state_vector,  site2.get_text(),  site2.HB )
+        print
+        
+    
+    if dbg>=1:
+        print "\nDirty HBs"
+        for t_site in [server, site0, site1, site2]:
+            print "Site %s;%s;HB %s; delayed_ops %s"%(t_site.site_index, t_site.state_vector, t_site.HB, t_site.delayed_operations)
+        print
+            
+    if 1:
+        # this messages are the same of figure 3. sun98achieving.pdf, page 20.
+        site1.update_SVT(0, site0.state_vector) # message to put to date the other sites
+        site2.update_SVT(0, site0.state_vector)
+        if dbg>=1: print "Manually collecting the garbage in all sites"
+        server.collect_garbage()
+        site0.collect_garbage()
+        site1.collect_garbage()
+        site2.collect_garbage()
+    
+    # --------	
+    # disconnect
+    if dbg>=1: print "Disconnecting the three sites."
+    server.del_client(site0)	
+    server.del_client(site1)	
+    server.del_client(site2)	
+    # --------------
+        
+    if dbg>=0:
+        print "\nFinal HBs"
+        for t_site in [site0, site1, site2]:
+            print "Site %s;%s;MSV %s;\nHB\n\t%s\n"%(t_site.site_index, t_site.state_vector, t_site.minimum_state_vector, "\n\t".join([str(x) for x in t_site.HB]))
+    
+    # Show the final result at each site (expecting "ABCC'D")
+
+    res_text = lambda x: "OK."*x or "FAILED."*(not x)
+
+    print "\nFinal results:"	
+    
+    success = 1
+    for t_site in [server, site0, site1, site2]:
+        t_res = (t_site.get_text() == u"AcBCD" and not t_site.delayed_operations)
+        success = success and t_res
+        print "Site %s;%s; '%s'; delayed_ops: %s; %s"%(t_site.site_index, t_site.state_vector, t_site.get_text(), t_site.delayed_operations, res_text(t_res))
+
+
+    if success:
+        print "\nTest successfull."
+    else:
+        print "\nTest FAILED. Expecting the same result at the three sites: 'AcBCD', and no delayed operations left in the buffer."
+
+
+    return success
+#@nonl
+#@-node:rodrigob.20040128013523:TestConcurrentEditableServer
+#@-node:rodrigob.20040121155542:TestConcurrentEditableNode
+#@-node:rodrigob.121403173614.1547:Tests (ConcurrentEditable)
+#@-others
+
+
+if __name__ == "__main__":
+    import unittest
+    unittest.TextTestRunner().run(get_test_suite())
+
+#@-node:rodrigob.121403173614.1502:@thin ConcurrentEditable.py
+#@-leo
+*/
