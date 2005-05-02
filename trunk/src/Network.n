@@ -48,17 +48,22 @@ namespace Chalks.Network
                 throw RemotingException("Fatal error: overlapping site_ids");
 
             when (nickname.Length < 3)
-                throw RemotingException("Nickname has to have at least three characters");
+                throw RemotingException(
+                $"Nickname has to have at least three characters. Yours was '$(nickname)'.");
 
-            if (local_node.is_equal_to_password(password)) {
-                // give access to the local node, send us identifiers
-                (ConcurrentEditableNodeProxy(site_id, local_node),
-                local_node.site_id, local_node.nickname);
-            }
-            else {
+            when ( ! local_node.is_equal_to_password(password) )
                 throw RemotingException("Password does not match");
-            }  
+            
+            
+            log(1, $"Site $(site_id) named as '$(nickname)' was accepted in the realm");
+            
+            // give access to the local node, send us identifiers
+            (ConcurrentEditableNodeProxy(site_id, local_node),
+             local_node.site_id, local_node.nickname);
+            
+            //(null :ConcurrentEditableNodeProxy, Guid.Empty, ""); // <<< just as a test
         }
+        
     } // end of AuthenticationRealm class
         
     // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
@@ -236,8 +241,8 @@ namespace Chalks.Network
                 def remote_authentication_realm =
                     Activator.GetObject( typeof(AuthenticationRealm), uri) :> AuthenticationRealm; 
                 log("Starting authentication process");
-                def (parent_node, parent_site_id, parent_nickname) =
-                    remote_authentication_realm.login(site_id, nickname, password);
+                def ret_tuple = remote_authentication_realm.login(site_id, nickname, password);
+                def (parent_node, parent_site_id, parent_nickname) = ret_tuple;
                 
                 log("Credentials accepted, retrieving document");
                 def self_node_proxy = ConcurrentEditableNodeProxy(parent_site_id, this);
@@ -255,7 +260,8 @@ namespace Chalks.Network
                 | e =>
                   ret = false;
                   log($"Connection failed : $(e.Message)");
-                  throw e; // just for debugging
+                  when (Chalks.Gui.ChalksWindow.verbosity_level > 1)
+                        throw e; // just for debugging
             }
 
             ret;

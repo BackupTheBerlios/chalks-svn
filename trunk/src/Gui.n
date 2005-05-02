@@ -146,7 +146,7 @@ namespace Chalks.Gui
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
         
         #region Global log method
-        static verbosity_level = 1;
+        static public verbosity_level = 1;
         
         static public log( verbosity :int, message :string) :void
         { // various verbosity levels
@@ -371,16 +371,44 @@ namespace Chalks.Gui
             when (nickname != "") {
 
                 log("Your nickname is: " + nickname );
-
+                // set nickname
+                network_node.set_nickname(nickname);
 
                 def connect_dialog = ConnectionDialog();
                 def ret = connect_dialog.Run();
                 match(ret)
                 {
-                    | ResponseType.Ok => 
-                      // connect to the server
-                      ();
-                    | ResponseType.Cancel => log( "Canceled" );
+                    | ResponseType.Ok =>
+                      
+                      // request password
+                      def password_dialog = EnterPasswordDialog();
+                      def ret = password_dialog.Run();
+                      match(ret)
+                      {
+                          | ResponseType.Ok =>
+                            // set password
+                            def password = password_dialog.password_entry.Text;
+                            network_node.set_password(password);
+                            
+                            // obtain the uri and connect to the server
+                            def ip_and_port = connect_dialog.server_entry.Text; // 0.0.0.0:0
+                            def uri = $"tcp://$(ip_and_port)/chalks"  ;
+                            _ = network_node.start_collaborating(uri); // start the show !
+                            
+                            
+                          | ResponseType.Cancel =>
+                            log( "Canceled" );
+                            
+                      
+                          | _ => ();
+                            
+                      }
+                      
+                     
+                    | ResponseType.Cancel =>
+                        log( "Canceled" );
+                        
+                      
                     | _ => ();
                 }
 
@@ -484,13 +512,16 @@ namespace Chalks.Gui
     {
 
         dialog :Dialog;
+        public server_entry :Entry;
         
         public this() 
         { 
             def dialog_name = "connection_dialog";
+            def server_entry_name = "server_entry";
             def gxml = Glade.XML(null, ChalksWindow.glade_resource_name, dialog_name, null);
 
-            dialog = gxml.GetWidget(dialog_name) :>Dialog;       
+            dialog = gxml.GetWidget(dialog_name) :>Dialog;
+            server_entry = gxml.GetWidget(server_entry_name) :>Entry;       
             gxml.Autoconnect (this);
         }
         
@@ -541,6 +572,35 @@ namespace Chalks.Gui
         }            
 
     } // end of class ChooseNicknameDialog
+    #endregion
+
+
+    #region Enter Password Dialog
+    class EnterPasswordDialog
+    {
+        dialog :Dialog;
+        public password_entry :Entry;
+
+        public this()
+        { 
+            def dialog_name = "enter_password_dialog";
+            def gxml = Glade.XML(null, ChalksWindow.glade_resource_name, dialog_name, null);
+            
+            dialog = gxml.GetWidget(dialog_name) :>Dialog;
+            password_entry = gxml.GetWidget("password_entry") :>Entry;
+            gxml.Autoconnect (this);
+            
+        }
+        
+        public Run() :ResponseType
+        {
+            def ret = dialog.Run() :>ResponseType;
+            dialog.Destroy();
+            ret;
+        }
+        
+        
+    } // end of class EnterPasswordDialog
     #endregion
 
     #endregion
