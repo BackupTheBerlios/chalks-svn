@@ -53,7 +53,7 @@ namespace Chalks.Gui
                 config_source = XmlConfigSource(config_source_name) :ConfigSourceBase;
             } 
             catch { 
-                | e is System.IO.FileNotFoundException =>
+                | _e is System.IO.FileNotFoundException =>
                   config_source = create_default_config_source();
                 | _ => ();
             }
@@ -107,7 +107,7 @@ namespace Chalks.Gui
             _ = config_source.AddConfig("User");
             config_source.Configs["User"].Set("nickname", "");
 
-            config_source.AddConfig("Preferences");
+            _ = config_source.AddConfig("Preferences");
 
             config_source.Save(config_source_name);
             config_source;

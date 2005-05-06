@@ -44,7 +44,7 @@ namespace Chalks.ConcurrentEditionWidget
             //this.Buffer.PasteClipboard += on_paste_clipboard_event;
 
             // call flush_inserted_text each second
-            Timeout.Add(1000, flush_inserted_text); 
+            _ = Timeout.Add(1000, flush_inserted_text); 
             
 
             // simple tests
@@ -54,7 +54,7 @@ namespace Chalks.ConcurrentEditionWidget
             def to_be_deleted = "damn! I'm trapped";
             Buffer.Insert(ref iter, "This text has to be sent\n" + to_be_deleted);
 
-            delete_text(iter.Offset - to_be_deleted.Length, to_be_deleted.Length);
+            _ = delete_text(iter.Offset - to_be_deleted.Length, to_be_deleted.Length);
             // end of simple tests
             
             ;
@@ -151,12 +151,13 @@ namespace Chalks.ConcurrentEditionWidget
         [GLib.ConnectBefore] // need to be static to be ConnectedBefore
 	protected static on_delete_range_event(_o :object, args :DeleteRangeArgs) :void
         {
+            
             when(!applying_operation) // detect if programatical or not
             {
                 // log($"Will delete text in the range: $(args.Start.Offset), $(args.End.Offset). Length : $(args.End.Offset - args.Start.Offset)");
                 def pos = args.Start.Offset;
                 def length = args.End.Offset - pos;
-                gui.concurrent_editable.generate_operation(OperationType.Delete, pos, length);
+                _ = gui.concurrent_editable.generate_operation(OperationType.Delete, pos, length);
             }
             ;
         }

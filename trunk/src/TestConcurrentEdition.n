@@ -2,18 +2,49 @@
 Test the ConcurrentEdition
 */
 
-namespace ConcurrentEdition
-{    
-    using NUnit.Framework;
+using NUnit.Framework;
 
+using System;
+
+using Chalks.Network;
+
+namespace Chalks.ConcurrentEdition
+{    
+    
     [TestFixture]
-    public class ConcurrentEditionTest
+    public class ConcurrentEditionTests
     {
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
-        #region Global variables
-        //mutable sites :array[ConcurrentEditable] = array(3);
+        #region Manual testing
+        public this()
+        {
+            Init();
 
+            TestConcurrentEditable1();
+            //TestConcurrentEditable2();
+            
+            Dispose();
+        }
+        
+        static public Main() :void
+        {
+            _ = ConcurrentEditionTests();
+        }
+
+        #endregion
+
+        
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+        #region Global variables
+
+        static verbosity=2;
+        static num_of_sites = 3;
+        mutable sites :array[ConcurrentEditable] = array(num_of_sites);
+        mutable text_buffers :array[TextBufferForCeTest] = array(num_of_sites);
+        mutable network_nodes :array[NetworkForCeTest] = array(num_of_sites);
+        
         #endregion
 
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
@@ -26,26 +57,15 @@ namespace ConcurrentEdition
 
             Console.WriteLine("Doing the ConcurrentEdition tests setup");
             Console.Out.Flush();
-
-            /*
-            // Create 5 nodes
-            for(mutable c=0; c<sites.Length; c+=1) {
-            //foreach(n in nodes) {
-                def dummy_gui = GuiForNetworkTest();
-                def dummy_ce = CeForNetworkTest();
-
-                guis[c] = dummy_gui;
-                nodes[c] = NetworkNode(dummy_gui, dummy_ce, $"node$(c)");
-                nodes[c].set_nickname($"Node$(c)");
-            }
-
             
-            // Connects them as shown in chalks/doc/schemas/network_example
-            nodes[1].start_collaborating(nodes[0].get_self_uri());
-            nodes[2].start_collaborating(nodes[0].get_self_uri());
-            nodes[3].start_collaborating(nodes[0].get_self_uri());
-            nodes[4].start_collaborating(nodes[3].get_self_uri());
-            */
+            // Create 3 sites
+            for(mutable c=0; c<sites.Length; c+=1) {
+                text_buffers[c] = TextBufferForCeTest();
+                sites[c] = ConcurrentEditable(text_buffers[c]);
+
+                network_nodes[c] = NetworkForCeTest();
+                sites[c].set_network_interface(network_nodes[c]);
+            }
             
             ;
         }
@@ -85,13 +105,100 @@ namespace ConcurrentEdition
           // It also test the garbage collector as indicated in the figure 3 of
           // sun98achieving.pdf, page 20.
 
+            // Apply the operations in each site (following the order of the picture)
 
+            // generate and apply locally the operation
+            def O1 = sites[0].generate_operation(
+                                OperationType.Insert, 0, "ABC"); // dbg_name="O1");
+            def O2 = sites[1].generate_operation(
+                                OperationType.Insert, 0,  "BCD"); // dbg_name="O2"); 
             
-            def a = 5;
-            def b = 5;
+            sites[2].receive_operation(O2);
+            sites[1].receive_operation(O1);
+            sites[0].receive_operation(O2);
             
-            Assert.AreEqual(a, b);
+            def O4 = sites[2].generate_operation(
+                                OperationType.Insert, 2, "c"); // dbg_name="O4");
+          
+            sites[0].receive_operation(O4);
+            
+            def O3 = sites[1].generate_operation(
+                                OperationType.Delete, 1, 2); // dbg_name="O3");
+            
+            sites[2].receive_operation(O3);
+            sites[0].receive_operation(O3);
+            sites[1].receive_operation(O4);		
+            sites[2].receive_operation(O1);
+            
+            
+            when(verbosity>=4)
+              foreach( t_op in [ O1, O2, O3, O4])
+                Console.WriteLine(t_op.ToString());
+            
+            when( true ) {
+                // this messages are the same of figure 3. sun98achieving.pdf, page 20.
+                
+                // message to put to date the other sites
+                sites[1].update_SVT(network_nodes[0].get_site_id(), sites[0].get_SV()); 
+                sites[2].update_SVT(network_nodes[0].get_site_id(), sites[0].get_SV());
+                
+                sites[0].collect_garbage();
+                sites[1].collect_garbage();
+                sites[2].collect_garbage(); // at sites[2] two operations should be deleted
+            }
+            
+            when (verbosity>=0) {
+                Console.WriteLine("\nFinal HBs");
+                
+                foreach( t_site in sites) {
+                    def sv = t_site.get_SV();
+                    def msv = t_site.get_MSV();
+                    def HB = t_site.get_HB();
+                    Console.WriteLine( $"Site $(t_site);$(sv); MSV $(msv);" );
+                    Console.WriteLine("HB");
+                    foreach(op in HB) Console.WriteLine($"\t$(op)");
+                }
+                Console.Out.Flush();
+            }
+            
+            // Show the final result at each site (expecting "ABCcD")
+            
+            def res_text(x :bool){ if(x) "OK." else "FAILED." }
+            
+            Console.WriteLine("\nFinal results:");
+            
+            mutable success = true;
+            
+            foreach(c  in range(num_of_sites)) {
+                def t_site = sites[c];
+                def t_text = text_buffers[c].get_text();
+                def t_sv   = t_site.get_SV();
+                def t_msv  = t_site.get_MSV();
+                def t_HB   = t_site.get_HB();
+                def t_delayed_ops = t_site.get_delayed_operations();
+                
+                def t_res = (t_text == "ABCcD") && (len(t_delayed_ops) == 0);
+                
+                success = success && t_res;
+
+                Console.WriteLine(  $"Site $(t_site);$(t_sv);'$(t_text)';"
+                                  + $"delayed_ops: $(t_delayed_ops); $(res_text(t_res))");
+            }
+
+            Console.Out.Flush();
+                
+            Assert.IsTrue(success, "\nTest FAILED. Expecting the same result at the three sites: 'ABCcD', and no delayed operations left in the buffer.");
+            
+        } // of TestConcurrentEditable1
+        
+        
+        [Test]
+        public TestConcurrentEditable2() :void
+        {
+            
+            Assert.IsTrue(true);
         }
+        
         
     } // end of class ConcurrentEditionTest
 
@@ -100,31 +207,51 @@ namespace ConcurrentEdition
 
     #region Helper classes
 
-    public class GuiForNetworkTest :IGuiForNetwork
-    {
-        // implements the basic methods that Network uses from Gui
-
-        public mutable received_messages = "";
+    public class TextBufferForCeTest :ITextBuffer
+    { // basic implementation of a TextBuffer, not guaranteed to be Unicode complaint
         
-        public this()
-        {
-            ;
-        }
+        mutable text = "";
 
-        public set_site_id(site_id :Guid) :void
-        {
-            Console.WriteLine($"Gui: set_site_id($(site_id.ToString()))");
-            ;
+        public insert_text(site_id :Guid, offset:int, _text:string):void
+        { // Due of UTF-8 encoding character counts are referred to as "offsets", 
+          // this is consistent with the GTK code
+            
+            text.Insert(offset, _text);
         }
         
-        public receive_message(from :Guid, message :string) :void
-        {
-            Console.WriteLine($"Gui: Received from $(from.ToString()) the message $(message)");
-            received_messages += message;
-            ;
+        public delete_text(offset:int, length:int): string
+        { // returns the deleted text
+            text.Remove(offset, length);
+        }
+        
+        public get_text():string
+        { // return all the text in the buffer
+            text;
+        }
+        
+        public set_text(_text:string):void
+        { // overwrite the buffer text content
+            text = _text;
         }
         
     }
+
+    public class NetworkForCeTest :INetworkForCe
+    {
+        site_id :Guid = Guid.NewGuid();
+
+        public get_site_id() :Guid
+        {
+            site_id;
+        }
+
+        public send_operation( _op:Operation) :void
+        {
+            ; // dummy implementation
+            // for the tests the operations are sent 'manually' to control the order of arrival
+        }
+    }
+    
     #endregion
     
 } // end of namespace

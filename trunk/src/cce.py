@@ -223,7 +223,9 @@ class ConcurrentEditable:
         op["deleted_text"] = t_text[startpos:(startpos+length)]
         self.text_buffer = ''.join(t_text[:startpos] + t_text[(startpos+length):])	
             
-        return    def undo(self, EO):
+        return
+
+    def undo(self, EO):
         """
         Undo an operation. Return the text to his previous state.
         The undo operation supose that EO is the last operation executed over the buffer.
@@ -246,6 +248,7 @@ class ConcurrentEditable:
         
         
         return
+    
     
     def collect_garbage(self):
         """
@@ -299,6 +302,7 @@ class ConcurrentEditable:
             print "Site %s; after garbage collector; HB %s"%(self.site_index, map(lambda x: "{from S%i%s}"%(x["source_site"], x["timestamp"]) , HB))
             
         return deleted_operations_list
+    
     def update_SVT(self, site_index, state_vector):
         """
         update_StateVectorTable

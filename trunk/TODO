@@ -3,16 +3,18 @@ TODO
 Documentation
 
 * Explain the dia diagram
+* Fill the web layout of the design documentation
 
 Gui
 
-* Add Gtk.ToolTipsData tooltips over the main text that shows the author of a paragraph. 
 * When the user press Key.Up in the Command Entry this one should not lost the focus.
-
+---
+* Add Gtk.ToolTipsData tooltips over the main text that shows the author of a paragraph. 
 
 ConcurrentEditableWidget
 
 * Reenable use of SourceView, disabled because of Gtk 1.0/2.0 compilation issues, has to be solved. Disabling is just a workarround (how does Monodev solve this issue ?)
+---
 * Trigger flush when finishing a word or a phrase, slowdown the automatic flush timer
 * How to avoid tags to copied when copy and paste ? (has to manage the clipboard data reception or the TextBuffer.PasteClipboard)
 
@@ -20,16 +22,18 @@ Network
 
 * Make the Chat Test pass
 * Write an Operation Transmission test
+* When loading the document, the download should show a progress bar. How to this in a remotign schema ? How does the design have to be modified ?
+   
 
 ConcurrentEditable
 
 * Implement the interface
-* Write the tests
+* Make the test1 pass
 
 
 Chalks
 
-* When the window is close, the program does not quit
+* When the window is close, the program does not quit (need double click to quit)
 
 
 Distribution

@@ -59,7 +59,7 @@ namespace Chalks.Network
             
             // give access to the local node, send us identifiers
             (ConcurrentEditableNodeProxy(site_id, local_node),
-             local_node.site_id, local_node.nickname);
+             local_node.get_site_id(), local_node.nickname);
             
             //(null :ConcurrentEditableNodeProxy, Guid.Empty, ""); // <<< just as a test
         }
@@ -121,13 +121,13 @@ namespace Chalks.Network
 
     // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
             
-    public class NetworkNode
+    public class NetworkNode :INetworkForCe
     {
         static default_service_name = "chalks";
         min_port = 1080;
         max_port = 1090;
         
-        public site_id :Guid = System.Guid.NewGuid();
+        site_id :Guid = System.Guid.NewGuid();
 
         gui :IGuiForNetwork;
         public cce :ICeForNetwork;
@@ -391,5 +391,11 @@ namespace Chalks.Network
         #endregion
         
     } // end of class NetworkNode
+
+    public interface INetworkForCe
+    { // this are the methods that the ConcurrentEdition layer use of the NetworkNode object
+        get_site_id() :Guid;
+        send_operation( op:Operation) :void;
+    }
 
 }

@@ -36,11 +36,10 @@ namespace Chalks.ConcurrentEdition
     { //This is the core object of Chalks.
       //This class defines an object that is able to manage concurrent edition from diferent sites.
       	// Definition of the members
-        network_node  :Chalks.Network.NetworkNode;
-
-
-        // internal state
+        mutable network_node  :INetworkForCe;
         mutable site_id :Guid;
+        
+        // internal state
         state_vector :Hashtable[Guid, int]; 
                 
         state_vector_table :Hashtable[Guid, Hashtable[Guid, int]];
@@ -60,6 +59,7 @@ namespace Chalks.ConcurrentEdition
 
             // intialize the internal state
 
+            throw Exception("to be implemented");
             /*
             def __init__(self, site_index, num_of_sites):
             //if site_index == None then the site is and Observer
@@ -107,29 +107,37 @@ namespace Chalks.ConcurrentEdition
 
         #region Methods used by ConcurrentEditionWidget
         
-        public generate_operation(optype :OperationType, pos :int, text :string) :void
+        public generate_operation(optype :OperationType, pos :int, text :string) :Operation
         {
             assert(this.site_id != Guid.Empty);
             assert(optype == OperationType.Insert);
 
             log($"generating insert($(pos), '$(text)')");
+            //throw Exception("to be implemented");
             // create operation object
+            def op = Operation(optype, pos, text);
+            
             // apply localy
             // send to the peers
-            ;
+            
+            op;
         }
-        public generate_operation(optype :OperationType, pos :int, length :int) :void
+        
+        public generate_operation(optype :OperationType, pos :int, length :int) :Operation
         {
             assert(this.site_id != Guid.Empty);
             assert(optype == OperationType.Delete);
 
             log($"generating delete($(pos), $(length))");
+            //throw Exception("to be implemented");
             // create operation object
+            def op = Operation(optype, pos, length);
+
             // apply localy
             // send to the peers
-            ;
+            
+            op;
         }
-
 
         
         #endregion
@@ -139,10 +147,10 @@ namespace Chalks.ConcurrentEdition
         
         #region Methods used by Network, implementation of ICeForNetwork
 
-        public set_network_interface(network_node_instance :NetworkNode) :void
+        public set_network_interface(network_node_instance :INetworkForCe) :void
         {
-
-            site_id = network_node_instance.site_id;
+            network_node = network_node_instance;
+            site_id = network_node_instance.get_site_id();
             //log("ConcurrentEditable has setup his network interface");
             ;
         }
@@ -218,13 +226,16 @@ namespace Chalks.ConcurrentEdition
             //status.Text = Text.Copy();
             //status.HB = HB.Copy();
             //status.SV = SV.Copy();
-                        
+
+            throw Exception("to be implemented");
+            
             status;
         }
 
         public set_status(status :ConcurrentEditableNodeStatus) :void
         { // (re)initialize the internal state (occurs when entering in an existing session)
 
+            throw Exception("to be implemented");
             ;
 
         }
@@ -232,15 +243,160 @@ namespace Chalks.ConcurrentEdition
 
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
         
+        #region Method used for tests
+
+        override public ToString():string
+        {
+            $"Site $site_id";
+        }
+
+        public get_SV() :Hashtable[Guid, int] 
+        {
+            state_vector;
+        }
+        
+        public get_MSV() :Hashtable[Guid, int]
+        {
+            minimum_state_vector;
+        }
+
+        public get_HB() :ArrayList[Operation]
+        {
+            HB;
+        }
+        
+        public get_delayed_operations() :ArrayList[Operation]
+        {
+            delayed_operations;
+        }
+
+        
+        #endregion
+        
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+        
         #region Private methods (related to the concurrent edition algorithm)
 
         
         apply(o_new :Operation) :void
-        {
+        { // Algorithm 3: The undo/transform-do/transform-redo scheme (sun98generic)
+          //
+          // Given a new causally-ready operation Onew , and HB = [EO1,..., EOm,..., EOn ], the following steps are executed:
+          //  1. Undo operations in HB from right to left until
+          //     an operation EOm is found such that EOm => Onew .
+          //  2. Transform Onew into EOnew by applying the GOT control scheme. Then, do EOnew .
+          //  3. Transform each operation EOm+i in HB[m+1,n] into
+          //     the new execution form EO'm+i as follows:
+          //  - EO'm+1 := IT (EOm+1, EOnew ).
+          //  - For 2 <= i <= (n - m),
+          //      (1) TO := LET (EOm+i, reverse(HB[m+1,m+i - 1]) );
+          //      (2) EO'm+i := LIT (TO, [EOnew, EO'm+1,..., EO'm+i-1 ]).
+          //  Then, redo EO'm+1, EO'm+2, ..., EO'n , sequentially.
+          //
+          //  After the execution of the above steps, the contents of
+          //  the history buffer becomes: HB = [EO1,..., EOm, EOnew, EO'm+1,..., EO'n ].
+          //  ---
+          //  This function manage the History Buffer and update the State Vector Table.
 
+
+            assert(   T(o_new) == OperationType.Insert
+                   || T(o_new) == OperationType.Delete,
+                   "Invalid operation request.");
+
+            log(1, $"Site $(site_id);$(state_vector); '$(text_buffer.get_text())'; applying $(o_new)");
+    
+            // 1.
+            mutable m = 0; // manage the case HB == []
+            def undoed = ArrayList() :Chalks.ArrayList[Operation];
+              
+            {
+                def enumerator = range(len(HB), 0).GetEnumerator();
+                mutable not_in_total_ordering = true;
+                                
+                do{ //foreach( m in range(len(HB), 0) ) {	 // from right to left
+                    m = enumerator.Current;
+                    def EOm = HB[m];
+                    //log("check_total_ordering($(EOm), $(o_new)) => $(check_total_ordering(EOm, o_new))"); // just for debugging
+                    
+                    if (not check_total_ordering(EOm, o_new)) {
+                        undo(EOm);
+                        // operations do should not be erased from HB,
+                        // because they will later be transformed !
+                        undoed.Add(EOm);
+                    }
+                    else {
+                        not_in_total_ordering = false; // break;
+                    }
+                    
+                } while(enumerator.MoveNext() && not_in_total_ordering);
+                
+            }
             
+            when ( (len(HB) != 0)  && (len(undoed) == len(HB)) ) {
+                log(2, "No previous op found !");
+                m = -1; // to indicate that no previous op was found
+            }
+
+
+            // 2.
+            def eo_new = GOT( o_new, HB.Slice(':', m+1)); // pass o_new and HB = [EO1, EO2, ..., EOm ]
+            execute(eo_new);
+            // eo_new will be inserted after step 3 to follow better the paper notation.
+            log(2, "m $(m); [EO1, ..., EOm ] $(HB.Slice(':',m+1)); HB.Slice(m+1,':') $(HB.Slice(m+1,':'))");
+    
+        
+            // 3.
+            when (len(undoed) > 0) { // if there was an undo, then redo
+                
+                log(1, // just for debugging
+                    "Site $(site_id); '$(text_buffer.get_text())'; undoed $(undoed); executed $(eo_new);");
+                
+                def EOoL = ArrayList() :ArrayList[Operation]; // EO'm+1 List
+    
+                EOoL.Add( IT( HB[m+1], eo_new ) );
+                
+                foreach (i in range(1, len(undoed))) {
+                    // C# indexes start from 'zero' (in the paper they start from 'one')
+
+                    // paper [m+1,m+i - 1] -> c# [m+1:m+i +1]
+                    def TO = LET( HB[m+1+i], reversed(HB.Slice(m+1, m+i +1)));
+
+                    def t_list = ArrayList() :> ArrayList[Operation];
+                    t_list.Add(eo_new);  t_list.Append(EOoL);  //[eo_new] + EOoL
+                    EOoL.Add( LIT( TO, t_list) );
+                }
+                
+                //log(1, "m: $(m); len(EOoL) ($EOoL.Length);EOoL $(EOoL)"); // just for debugging
+                
+                foreach ( i in range(len(EOoL)) ) {			
+                    def t_op = EOoL[i];
+                    execute(t_op);
+                    HB[m+1+i] = t_op; // c# indexes start from 'zero'
+                }
+            } // end of 'when(undoed)'
+    
+            // After the execution of the above steps [...]
+            // HB = [EO1,..., EOm, eo_new, EO'm+1,..., EO'n ].
+            HB.Insert(m + 1, eo_new); // insert into the HB, just after EOm
+            
+            
+            // Update local State vector
+            def t_site_id = o_new.SourceSite;
+            
+            assert(state_vector.ContainsKey(t_site_id),
+                   "Received an operation from a source_site not listed in the state_vector");
+            state_vector[t_site_id] += 1;
+        
+            // Update the State Vector Table (via a copy)
+            // (it store what we know about the status of each site, including ourself)
+            state_vector_table[eo_new.SourceSite] = eo_new.TimeStamp.Clone();
+            
+            // call the garbage collector (over a dummy periodic condition)
+            when ((len(HB) % 10) == 0) collect_garbage();
+                                
             ;
         }
+
         
         execute(eo :Operation, splitted_part :bool) :void
         { // Modify the text buffer.
@@ -276,15 +432,34 @@ namespace Chalks.ConcurrentEdition
         }
 
 
-        
-        collect_garbage() :void
+        undo(op :Operation) :void
         {
+            throw Exception("to be implemented");
+            ;
+        }
+        
+        public collect_garbage() :void // public for tests
+        {
+            throw Exception("to be implemented");
             ;
         }
 
-        update_SVT() :void
-        {
-            ;
+        public update_SVT( site_id:Guid, state_vector :Hashtable[Guid, int]) :void 
+        { // public for tests
+          // update_StateVectorTable
+          //
+          // sun98achievings.pdf, page 19 paragraph 2.
+          // If one site happens to be silent for an unusually long period of time,
+          // other sites will not know what its state is [a 'mostly observer' site].
+          // Therefore, it is required for a site to broadcast a short state message
+          // containing its state vector when it has not generated an operation for a
+          // certain period of time and/or after executing a certain number of remote
+          // operations. Upon receiving a state message from a remote site r, site k
+          // simply updates its rth statve vecor in SVTk withe the piggybacked state vector.
+          // ---
+          // Can update the SVT sending dummy Insert(0, "") operations
+            
+            state_vector_table[site_id] = state_vector;
         }
 
         #endregion
@@ -308,12 +483,14 @@ namespace Chalks.ConcurrentEdition
             def s  = op.SourceSite;
             
             // <<< to be implemented
+            throw Exception("to be implemented");
             
             true;
         }
 
-        check_total_ordering() :void
+        check_total_ordering(_:Operation, _:Operation) :bool
         {
+            throw Exception("to be implemented");
             ;
         }
 
@@ -360,13 +537,15 @@ namespace Chalks.ConcurrentEdition
           // (nor == not or; 0,0 => 1 , 0 else)
 
             //not (are_dependent(oa,ob) or are_dependent(ob,oa) );
-            ! (are_dependent(oa,ob) || are_dependent(ob,oa) );
+            not (are_dependent(oa,ob) || are_dependent(ob,oa) );
         }
         
         are_independent :Operation * Operation -> bool = are_concurrent; // just an alias
+
         
-        GOT() :void
+        GOT(Onew :Operation, HB :Chalks.ArrayList[Operation]) :Operation
         {
+            throw Exception("to be implemented");
             ;
         }
 
@@ -400,6 +579,7 @@ namespace Chalks.ConcurrentEdition
 
         IT(oa :Operation, ob :Operation) :Operation
         {
+            throw Exception("to be implemented");
             oa;
         }
 
@@ -416,21 +596,25 @@ namespace Chalks.ConcurrentEdition
 
         IT_ID() :void        
         {
+            throw Exception("to be implemented");
             ;
         }
 
         IT_DI() :void        
         {
+            throw Exception("to be implemented");
             ;
         }
 
         IT_DD() :void        
         {
+            throw Exception("to be implemented");
             ;
         }
 
         ET(oa :Operation, ob :Operation) :Operation
         {
+            throw Exception("to be implemented");
             oa;
         }
 
@@ -451,16 +635,19 @@ namespace Chalks.ConcurrentEdition
 
         ET_ID() :void        
         {
+            throw Exception("to be implemented");
             ;
         }
 
         ET_DI() :void 
         {
+            throw Exception("to be implemented");
             ;
         }
         
         ET_DD() :void        
         {
+            throw Exception("to be implemented");
             ;
         }
 
@@ -500,7 +687,7 @@ namespace Chalks.ConcurrentEdition
             o.Text;
         }
 
-
+        
         reversed( in_list :Chalks.ArrayList[Operation]) :Chalks.ArrayList[Operation]
         { //Helper function used to have a compact notation
 
@@ -517,7 +704,7 @@ namespace Chalks.ConcurrentEdition
             assert (T(o1) == T(o2),
                     "Splitted operations are of different types, this is not sane.");
             
-            assert( !(o1.is_splitted || o2.is_splitted),
+            assert( not(o1.is_splitted || o2.is_splitted),
                    "Recursive splitted operation not yet supported" );
             
             assert(T(o1) == OperationType.Delete,
@@ -550,16 +737,19 @@ namespace Chalks.ConcurrentEdition
         // Lost information
         Check_LI() :void        
         {
+            throw Exception("to be implemented");
             ;
         }
 
         Save_LI() :void        
         {
+            throw Exception("to be implemented");
             ;
         }
 
         Recover_LI() :void        
         {
+            throw Exception("to be implemented");
             ;
         }
 
@@ -610,57 +800,12 @@ namespace Chalks.ConcurrentEdition
         #endregion
 
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
-        
+          
     } // end of class ConcurrentEditable
-    
 
-    class pConcurrentEditable // methods in the old python implementation
-    {
-
-        public this()
-        { 
-            ;
-        }
-        
-        public get_text() :void
-        {
-            ;
-        }
-
-        public receive_operation() :void
-        {
-            ;
-        }
-
-        
-        delete_text() :void
-        {
-            ;
-        }
-
-        generate_operation() :void
-        {
-            ;
-        }
-
-        gen_op() :void
-        {
-            ;
-        }
-
-        gen_Op() :void
-        {
-            ;
-        }
-
-
-        
-        
-        
-        
-    } 
-
+      
     // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+      
     #region Definition of the Operation class
     
     public enum OperationType { |Insert |Delete |SetText };
@@ -732,18 +877,20 @@ namespace Chalks.ConcurrentEdition
             ;
         }
 
-        public override ToString() :string
+        override public ToString() :string
         {
             $"$Type $Pos $Length $Text $SourceSite"; // <<< implement better
         }
 
         set_timestamp() :void        
         {
+            throw Exception("to be implemented");
             ;
         }
 
         get_timestamp() :void        
         {
+            throw Exception("to be implemented");
             ;
         }
 
@@ -771,6 +918,7 @@ namespace Chalks.ConcurrentEdition
         
         public this()
         {
+            throw Exception("to be implemented");
             ;
         }
     }
@@ -814,49 +962,5 @@ namespace Chalks.ConcurrentEdition
     
 } // end the namespace Chalks.ConcurrentEditable
 
-//namespace Nemerle.Collections
-namespace Chalks
-{
 
-    public class ArrayList['t] : System.Collections.ArrayList
-    {
-        public  Add(value : 't) : void
-        {
-            base.Add(value : object);
-        }
-        
-        public Remove(value :  't) : void 
-        {
-            _ = base.Remove(value : object);
-        }
-        
-        public Insert(index : int, value :  't) : void 
-        {
-            _ = base.Insert(index, value : object);
-        }
-        
-        public Contains(value :  't) : bool 
-        {
-            base.Contains(value : object);
-        }
-        
-        public  Item[index : int] : 't 
-        {
-            get 
-            { 
-                (base[index] :>  't); 
-            }
-        }
 
-        public GetRange (index :int, count :int)  :ArrayList['t]
-        {
-            base.GetRange(index, count) :> ArrayList['t];
-        }
-
-        public Clone() :ArrayList['t]
-        {
-            base.Clone() :> ArrayList['t];
-        }
-        
-    } // end of type ArrayList['t]
-}

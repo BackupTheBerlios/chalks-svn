@@ -1,0 +1,224 @@
+/*
+Helpers classes and Macros for the development.
+*/
+
+namespace Chalks {
+
+   
+    #region Typed ArrayList
+
+    public class ArrayList['t] : System.Collections.ArrayList
+    {
+        public  Add(value : 't) : void
+        {
+            _ = base.Add(value : object);
+        }
+
+        public  Append( arraylist : ArrayList['t]) : void
+        {
+            foreach(a in arraylist) _ = base.Add(a : object);
+        }
+
+        
+        public Remove(value :  't) : void 
+        {
+            _ = base.Remove(value : object);
+        }
+        
+        public Insert(index : int, value :  't) : void 
+        {
+            _ = base.Insert(index, value : object);
+        }
+        
+        public Contains(value :  't) : bool 
+        {
+            base.Contains(value : object);
+        }
+        
+        new public  Item[index : int] : 't 
+        {
+            get 
+            { 
+                base[index] :>  't; 
+            }
+
+            set 
+            { 
+                base[index] = value; 
+            }
+
+        }
+
+        new public GetRange (index :int, count :int)  :ArrayList['t]
+        {
+            base.GetRange(index, count) :> ArrayList['t];
+        }
+
+        new public Clone() :ArrayList['t]
+        {
+            base.Clone() :> ArrayList['t];
+        }
+
+        public Slice(start:int, stop:int) :ArrayList['t]
+        {
+            assert(start >=0, "Start index == $start is invalid ");
+            assert(stop < Count,
+                   "Trying to access at index $stop when the list $this only has $Count elements.");
+            //GetRange (int index, int count)
+            GetRange(start, start - stop); 
+        }
+
+        public Slice(_:string, stop:int) :ArrayList['t]
+        {
+            Slice(0, stop);
+        }
+        
+        public Slice(start:int, _:string) :ArrayList['t]
+        {
+            Slice(start, Count);
+        }
+
+        public Slice(_:char, stop:int) :ArrayList['t]
+        {
+            Slice(0, stop);
+        }
+        
+        public Slice(start:int, _:char) :ArrayList['t]
+        {
+            Slice(start, Count);
+        }
+
+    } // end of type ArrayList['t]
+
+    #endregion
+    
+    #region Pythonic syntax helpers
+
+
+    macro len(_list)
+    {
+        <[ $_list.Count; ]>
+    }
+
+
+
+    public class range :Nemerle.Collections.IEnumerable[int]
+    {
+        start :int;
+        stop :int;
+        
+        public this(_start:int, _stop:int)
+        {
+            (start, stop) = (_start, _stop);
+        }
+
+        public this(_stop:int)
+        {
+            (start, stop) = (0, _stop -1);
+        }
+
+        public GetEnumerator() :Nemerle.Collections.IEnumerator[int]
+        {
+            RangeEnumerator(start, stop);
+        }
+
+    }
+    
+    public class RangeEnumerator :Nemerle.Collections.IEnumerator[int]
+    {
+
+        
+        mutable counter :int;
+        start :int;
+        stop :int;
+        
+        public this(_start:int, _stop:int)
+        {
+            
+            if (_start >= _stop) (start, stop) = (_start, _stop);
+            else (start, stop) = (_stop, _start);
+            counter = start - 1;
+        }
+
+
+        public Current :int
+        {
+            get { counter; }
+        }
+
+        public MoveNext() :bool
+        {
+            counter +=1;
+
+            counter >= stop;
+        }
+
+        public Reset() :void
+        {
+            counter = start - 1;
+        }
+        
+    }
+
+    #endregion
+    
+        /*
+    #region Slices implementation
+    macro slice_with_start_and_stop(_list, start, stop)
+    syntax ("slice", _list, "[", start, ":", stop, "]")
+    {
+        <[
+          assert($start >=0, "Start index == $start is invalid ");
+          assert($stop < $_list.Count,
+               "Trying to access at index $stop when the list $_list only has $(_list.Count) elements.");
+        
+        $_list.GetRange($start, $start - $stop); //GetRange (int index, int count)
+          ]>
+    }
+    
+    macro slices_with_start(_list, start)
+    syntax ("slice", _list, "[", start, ":", "]")
+    {
+        <[
+        assert($start >=0, "Start index == $start is invalid ");            
+        $_list.GetRange($start, $_list.Count - $start);
+          ]>
+    }
+    
+    macro slice_with_stop(_list, stop)
+    syntax ("slice", _list, "[", ":", stop,"]")
+    {
+        <[
+          assert($stop < $_list.Count,
+               "Trying to access at index $stop when the list $_list only has $(_list.Count) elements.");
+        $_list.GetRange(0, $stop);
+          ]>
+    }
+    
+    #endregion
+     */
+   
+      
+    #region Logic operands
+
+    /*
+    macro @myand(a,b)
+    {
+       <[ $a && $b ]>;
+    }
+        
+    macro _or(a,b)
+    syntax(a, "or", b)
+    {
+        a || b;
+    }
+     */
+    
+    macro _not(a)
+    syntax("not", a)
+    {
+        <[ ! $a ]>
+    }
+    
+    #endregion
+}
