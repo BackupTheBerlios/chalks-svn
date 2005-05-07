@@ -55,10 +55,10 @@ namespace Chalks.ConcurrentEdition
         public Init() :void
         {
 
-            Console.WriteLine("Doing the ConcurrentEdition tests setup");
+            Console.Write("Doing the ConcurrentEdition tests setup. ");
             Console.Out.Flush();
             
-            // Create 3 sites
+            // create 3 sites
             for(mutable c=0; c<sites.Length; c+=1) {
                 text_buffers[c] = TextBufferForCeTest();
                 sites[c] = ConcurrentEditable(text_buffers[c]);
@@ -66,6 +66,14 @@ namespace Chalks.ConcurrentEdition
                 network_nodes[c] = NetworkForCeTest();
                 sites[c].set_network_interface(network_nodes[c]);
             }
+
+            // make each site award of the other ones
+            foreach(site in sites) {
+                foreach(network_node in network_nodes) {
+                    site.add_site(network_node.get_site_id()) }}
+                    
+            Console.WriteLine("Done.");
+            Console.Out.Flush();
             
             ;
         }
@@ -142,9 +150,9 @@ namespace Chalks.ConcurrentEdition
                 sites[1].update_SVT(network_nodes[0].get_site_id(), sites[0].get_SV()); 
                 sites[2].update_SVT(network_nodes[0].get_site_id(), sites[0].get_SV());
                 
-                sites[0].collect_garbage();
-                sites[1].collect_garbage();
-                sites[2].collect_garbage(); // at sites[2] two operations should be deleted
+                _ = sites[0].collect_garbage();
+                _ = sites[1].collect_garbage();
+                _ = sites[2].collect_garbage(); // at sites[2] two operations should be deleted
             }
             
             when (verbosity>=0) {
@@ -154,7 +162,7 @@ namespace Chalks.ConcurrentEdition
                     def sv = t_site.get_SV();
                     def msv = t_site.get_MSV();
                     def HB = t_site.get_HB();
-                    Console.WriteLine( $"Site $(t_site);$(sv); MSV $(msv);" );
+                    Console.WriteLine( $"$(t_site);$(sv); MSV $(msv);" );
                     Console.WriteLine("HB");
                     foreach(op in HB) Console.WriteLine($"\t$(op)");
                 }
@@ -181,7 +189,7 @@ namespace Chalks.ConcurrentEdition
                 
                 success = success && t_res;
 
-                Console.WriteLine(  $"Site $(t_site);$(t_sv);'$(t_text)';"
+                Console.WriteLine(  $"$(t_site);$(t_sv);'$(t_text)';"
                                   + $"delayed_ops: $(t_delayed_ops); $(res_text(t_res))");
             }
 

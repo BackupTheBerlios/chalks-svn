@@ -11,6 +11,7 @@ chalks.exe: chalks.glade chalks.ico Chalks.n Gui.n ConcurrentEditionWidget.n Con
 	$(Compiler) $(Flags) -out:"chalks.exe" $(DllResources) $(Resources) Chalks.n Gui.n ConcurrentEditionWidget.n ConcurrentEdition.n Network.n
 
 helpers.dll: Helpers.n
+	rm -f *.exe
 	$(Compiler) $(Flags)-r:Nemerle.Compiler.dll -t:dll -out:"helpers.dll" Helpers.n
 
 test: test_network.dll test_cce.dll
@@ -27,7 +28,8 @@ test_network.exe: TestNetwork.n Network.n ConcurrentEdition.n Gui.n ConcurrentEd
 	$(Compiler) $(Flags) -out:"test_network.exe" -r:nunit.framework.dll $(DllResources) TestNetwork.n Network.n ConcurrentEdition.n Gui.n ConcurrentEditionWidget.n helpers.dll
 
 test_cce.exe: TestConcurrentEdition.n ConcurrentEdition.n Network.n Gui.n ConcurrentEditionWidget.n helpers.dll
-	$(Compiler) $(Flags) -out:"test_cce.exe" -r:nunit.framework.dll  $(DllResources) TestConcurrentEdition.n ConcurrentEdition.n Network.n Gui.n ConcurrentEditionWidget.n
+	rm -f test_cce.exe
+	$(Compiler) $(Flags) -out:"test_cce.exe" -r:System.dll -r:nunit.framework.dll  $(DllResources) TestConcurrentEdition.n ConcurrentEdition.n Network.n Gui.n ConcurrentEditionWidget.n
 
 clean:
 	rm -f *.exe *~ test_*.dll helpers.dll TestResult.xml chalks.config

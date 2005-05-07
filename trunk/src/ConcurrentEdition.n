@@ -40,13 +40,13 @@ namespace Chalks.ConcurrentEdition
         mutable site_id :Guid;
         
         // internal state
-        state_vector :Hashtable[Guid, int]; 
+        state_vector :Hashtable[Guid, int] = Hashtable(); 
                 
-        state_vector_table :Hashtable[Guid, Hashtable[Guid, int]];
-        minimum_state_vector :Hashtable[Guid, int]; 
+        state_vector_table :Hashtable[Guid, Hashtable[Guid, int]] = Hashtable();
+        minimum_state_vector :Hashtable[Guid, int] = Hashtable(); 
 
-        HB :Chalks.ArrayList[Operation]; // history buffer
-        delayed_operations :Chalks.ArrayList[Operation]; 
+        HB :Chalks.ArrayList[Operation] = ArrayList(); // history buffer
+        delayed_operations :Chalks.ArrayList[Operation] = ArrayList(); 
 
         text_buffer :ITextBuffer;
 
@@ -59,100 +59,158 @@ namespace Chalks.ConcurrentEdition
 
             // intialize the internal state
 
-            throw Exception("to be implemented");
-            /*
-            def __init__(self, site_index, num_of_sites):
-            //if site_index == None then the site is and Observer
+            // no site_id is aviable until network interface registration (set_network_interface)
+            // state_vector (id -> int) is empty, because no site_id is aviable
+
             
-            self.site_index   = site_index
-            self.state_vector = [0] * num_of_sites
+            // state_vector_table (id->(id->int)) is empty, because no site_id is aviable
+            // the SVT is required by the garbage collector
+            // minimum_state_vector (id->int) is empty, because no site_id is aviable
+            // the MSV is required by the garbage collector
             
-            self.state_vector_table   = [[0]* num_of_sites]* num_of_sites # required by the garbage collector (SVT)
-            self.minimum_state_vector = [0]*num_of_sites # required by the garbage collector (MSV)
+            // HB is an empty list
+            // delayed_operations is also an empty list
+
+            // initializations are done in set_network_interface, add_site and delete_site
             
-            if self.site_index != None:
-               self.state_vector_table [self.site_index] = self.state_vector # link with local state_vector
-  
-            self.HB = [] # history buffer
-            self.delayed_operations = [] 
-            */
             
             //log("Concurrent editable instance created");
             ;   
-            
         }
         
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
-        #region Methods used by Gui
-
-        public save_file(file_path :string) :void
-        {
-            def file_extension =  Path.GetExtension(file_path);
-            match(file_extension)
-            {
-                | ".txt" =>
-                    def stream = IO.StreamWriter(file_path);
-                    stream.Write(text_buffer.get_text());
-                    stream.Close();
-                  
-                | _ => 
-                  Console.WriteLine("Do not know how to save the content in the format " + file_extension);
-              }
-        }
-
-        #endregion
-
-        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
-
-        #region Methods used by ConcurrentEditionWidget
-        
-        public generate_operation(optype :OperationType, pos :int, text :string) :Operation
-        {
-            assert(this.site_id != Guid.Empty);
-            assert(optype == OperationType.Insert);
-
-            log($"generating insert($(pos), '$(text)')");
-            //throw Exception("to be implemented");
-            // create operation object
-            def op = Operation(optype, pos, text);
-            
-            // apply localy
-            // send to the peers
-            
-            op;
-        }
-        
-        public generate_operation(optype :OperationType, pos :int, length :int) :Operation
-        {
-            assert(this.site_id != Guid.Empty);
-            assert(optype == OperationType.Delete);
-
-            log($"generating delete($(pos), $(length))");
-            //throw Exception("to be implemented");
-            // create operation object
-            def op = Operation(optype, pos, length);
-
-            // apply localy
-            // send to the peers
-            
-            op;
-        }
-
-        
-        #endregion
-
-        
-        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
-        
         #region Methods used by Network, implementation of ICeForNetwork
 
         public set_network_interface(network_node_instance :INetworkForCe) :void
         {
             network_node = network_node_instance;
             site_id = network_node_instance.get_site_id();
+            
+            state_vector[site_id] = 0;
+            
+            state_vector_table[site_id] = state_vector; // link with local state_vector
+            minimum_state_vector[site_id] = 0;
+            
             //log("ConcurrentEditable has setup his network interface");
             ;
+        }
+        
+        public add_site(site_id :Guid) :void
+        { // called when we detect a new site collaborating
+
+            when(not state_vector.Contains(site_id)) { // security check
+                
+                // expand the state variables ---
+
+                // expand the local SV
+                state_vector[site_id] = 0; 
+                
+                // expand the entries in the SVT
+                foreach(sv in state_vector_table.Values) {
+                    when(not object.ReferenceEquals (sv, state_vector)) {
+                        sv[site_id] = 0; }}
+            
+                def t_sv = state_vector.Clone(); 
+                foreach(s_id in t_sv.Keys) t_sv[s_id] = 0; // create a blank state_vector
+                state_vector_table[site_id] = t_sv; // add it to the local SVT
+            
+                // expand the local MSV
+                minimum_state_vector[site_id] = 0;
+                
+                // assert state_vector.Keys == state_vector_table.Keys
+                // assert state_vector.Keys == minimum_state_vector.Keys
+                
+                // expand the timestamps of the stored operations (HB + delayed_operations) ---
+            
+                def expand_timestamp(op :Operation) :void // helper local function
+                {
+                    op.TimeStamp[site_id] = 0;
+                    
+                    when(op.relatively_addressed) expand_timestamp(op.base_operation);
+                    
+                    when(op.is_splitted) {
+                        expand_timestamp(op.splitted_head);
+                        expand_timestamp(op.splitted_tail);
+                    }
+                    
+                    when(op.lost_information != null) {
+                        expand_timestamp( (op.lost_information :>Operation) );
+                        expand_timestamp(op.LI_base_op); 
+                    }
+                }
+                
+                foreach(op in HB                ) expand_timestamp(op);
+                foreach(op in delayed_operations) expand_timestamp(op);
+
+
+                log(2, "After adding a site to the node");
+                log(2, "$this HB $HB");
+            }
+            ;
+        }
+
+        public delete_site(site_id :Guid) :void
+        { // erase a reference to a site
+          // called when we detect a site has quited the collaborating session
+          // essentially implemented to avoid inecessary memory and bandwith usage and
+          // to avoid a possible 'connect, disconnect, reconnect' denial of service attack
+
+            // contract the state variables ---
+            state_vector.Remove(site_id);
+
+            foreach(sv in state_vector_table.Values) sv.Remove(site_id);
+            state_vector_table.Remove(site_id);
+            minimum_state_vector.Remove(site_id);
+
+            
+            // contract the timestamps of the stored operations (HB + delayed_operations) ---
+
+            def contract_timestamp(op :Operation) :void // helper local function
+            {
+                op.TimeStamp[site_id] = 0;
+
+                when(op.relatively_addressed) contract_timestamp(op.base_operation);
+                
+                when(op.is_splitted) {
+                    contract_timestamp(op.splitted_head);
+                    contract_timestamp(op.splitted_tail);
+                }
+
+                when(op.lost_information != null) {
+                    contract_timestamp( (op.lost_information :>Operation) );
+                    contract_timestamp(op.LI_base_op); 
+                }
+            }
+
+            foreach(op in HB                ) contract_timestamp(op);
+            foreach(op in delayed_operations) contract_timestamp(op);
+                        
+            ;
+        }
+
+        public get_status() :ConcurrentEditableNodeStatus
+        { // return a copy of the node status, to initialize another node
+            
+            def status = ConcurrentEditableNodeStatus();
+
+            status.Text = String.Copy( text_buffer.get_text() );
+
+            status.SV = state_vector.Clone();
+            status.MSV = minimum_state_vector.Clone();
+
+            status.HB = HB.Clone();
+            status.delayed_operations = delayed_operations.Clone();
+                        
+            status;
+        }
+
+        public set_status(status :ConcurrentEditableNodeStatus) :void
+        { // (re)initialize the internal state (occurs when entering in an existing session)
+
+            throw Exception("to be implemented");
+            ;
+
         }
 
         public receive_operation(op :Operation) :void
@@ -164,7 +222,7 @@ namespace Chalks.ConcurrentEdition
           // ---
           // The workflow is receive->apply->execute
 
-            log(1, $"Site $(site_id);%(state_vector); receiving $(op)");
+            log(1, $"Site $(site_id);$(state_vector); receiving $(op)");
 
             if( is_causally_ready(op) ) { // if it is causally ready
 
@@ -200,49 +258,75 @@ namespace Chalks.ConcurrentEdition
         
 
             log(1, $"Site $(site_id); HB $(HB)");
-            log(1, $"Site $(site_id);%(state_vector); delayed_ops: $(delayed_operations)\n");
+            log(1, $"Site $(site_id);$(state_vector); delayed_ops: $(delayed_operations)\n");
             ;
         } // end of receive_operation
 
-        
-        public add_site(site_id :Guid) :void
-        {
-            throw Exception("to be implemented");
-            ;
-        }
-
-        public delete_site(site_id :Guid) :void
-        { // erase a reference to a site
-
-            throw Exception("to be implemented");
-            ;
-        }
-
-        public get_status() :ConcurrentEditableNodeStatus
-        { // return a copy of the node status, to initialize another node
-            
-            def status = ConcurrentEditableNodeStatus();
-
-            //status.Text = Text.Copy();
-            //status.HB = HB.Copy();
-            //status.SV = SV.Copy();
-
-            throw Exception("to be implemented");
-            
-            status;
-        }
-
-        public set_status(status :ConcurrentEditableNodeStatus) :void
-        { // (re)initialize the internal state (occurs when entering in an existing session)
-
-            throw Exception("to be implemented");
-            ;
-
-        }
         #endregion
 
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+        #region Methods used by ConcurrentEditionWidget
         
+        public generate_operation(optype :OperationType, pos :int, text :string) :Operation
+        { // The site generate an operation, and apply it locally.
+            
+            assert(this.site_id != Guid.Empty,
+                   "Can not generate operations before the network interface has been set");
+            assert(optype == OperationType.Insert);
+
+            // create operation object
+            def op = Operation(optype, pos, text, site_id, state_vector);
+            //log($"generating $op");
+            
+            // apply localy and send it to the peers
+            receive_operation(op);
+            
+            op;
+        }
+        
+        public generate_operation(optype :OperationType, pos :int, length :int) :Operation
+        { // The site generate an operation, and apply it locally.
+            assert(this.site_id != Guid.Empty,
+                   "Can not generate operations before the network interface has been set");
+            assert(optype == OperationType.Delete);
+
+            // create operation object
+            def op = Operation(optype, pos, length, site_id, state_vector);
+            //log($"generating $op");
+            
+            // apply localy and sent it to the peers
+            receive_operation(op);
+            
+            op;
+        }
+
+        
+        #endregion
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+        #region Methods used by Gui
+
+        public save_file(file_path :string) :void
+        {
+            def file_extension =  Path.GetExtension(file_path);
+            match(file_extension)
+            {
+                | ".txt" =>
+                    def stream = IO.StreamWriter(file_path);
+                    stream.Write(text_buffer.get_text());
+                    stream.Close();
+                  
+                | _ => 
+                  Console.WriteLine("Do not know how to save the content in the format " + file_extension);
+              }
+        }
+
+        #endregion
+        
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+                
         #region Method used for tests
 
         override public ToString():string
@@ -415,7 +499,7 @@ namespace Chalks.ConcurrentEdition
                       // stores the erased text for future undos
                       eo.deleted_text = text_buffer.delete_text(P(eo), L(eo));
                       
-                    | _ => throw Exception("Tried to execute an Unmanaged Operation type $(eo)");
+                    | _ => throw Exception("Tried to execute an unmanaged operation type $(eo)");
                 }
             }
             ;
@@ -438,10 +522,75 @@ namespace Chalks.ConcurrentEdition
             ;
         }
         
-        public collect_garbage() :void // public for tests
-        {
-            throw Exception("to be implemented");
-            ;
+        public collect_garbage() :ArrayList[Operation] // public for tests
+        { //
+          // Algorithm 4. The garbage collection procedure. sun98achieving (page 18, 19, 20).
+          // Scan HB from left to right. Let EO be the current operation under inspection.
+          // Suppose that EO was generated at site i and timestamped by SVEO.
+          //  (1) If SVEO [i] <= MSVk[i], then EO is removed from HB and continue scanning.
+          //  (2) Otherwise stop scanning and return.
+          //  
+          // (The garbage collection procedure can be invoked periodically, or
+          // after processing each remote operation/message, or
+          // when the number of buffered operations in HB goes beyond a preset threshold value.)
+    
+                    
+            // reference asignations (local aliases)
+            
+            def SVT = state_vector_table;
+            def MSV = minimum_state_vector;
+    
+        
+            log(1, $"Site $(site_id); before garbage collector; HB $(HB)");
+            //"%s" % map(lambda x: "{from S%i%s}"%(x["source_site"], x["timestamp"]) , HB)));
+        
+            // compute the MSV
+            foreach( site_id in MSV.Keys ) {
+                //MSV[i] = min( [ sv[i] for sv in SVT ] ) ;
+
+                def f(k:Guid, v:Hashtable[Guid, int], b:int) {
+                    System.Math.Min(v[site_id], b)
+                }
+                
+                MSV[site_id] =  SVT.Fold(0, f);
+            }
+        
+        
+            log(1, $"Site $(site_id); garbage collector; MSV $(MSV); SVT $(SVT);");
+            
+            // collect the garbage
+            def deleted_operations_list = ArrayList() :ArrayList[Operation];
+
+            // iterate over a copy of HB (to be able to mutate HB while iterating over it)
+            {
+                def enumerator = HB.Clone().GetEnumerator(); enumerator.Reset();
+                mutable condition = true;
+                while(enumerator.MoveNext() && condition) {
+
+                    def EO = enumerator.Current;
+                    def i    = EO.SourceSite;
+                    def SVEO = EO.TimeStamp;
+                
+                
+                    log(1,   $"Site $(site_id); garbage collector; EO $(EO);"
+                           + $"i $(i); $(SVEO[i])<=? $(MSV[i])" );
+            
+                    condition = SVEO[i] <= MSV[i];
+                    
+                    when ( condition ) {
+                        deleted_operations_list.Add(EO);
+                        HB.Remove(EO);
+                        
+                        log(1, $"Site $(site_id); garbage collector; removing $(EO)");
+                    }
+                    //if condition == false, stop scanning HB
+                } 
+            }
+            
+            log(1, $"Site $(site_id); after garbage collector; HB $(HB)");
+            //"%s"% map(lambda x: "{from S%i%s}"%(x["source_site"], x["timestamp"]) , HB)
+            
+            deleted_operations_list;
         }
 
         public update_SVT( site_id:Guid, state_vector :Hashtable[Guid, int]) :void 
@@ -480,12 +629,27 @@ namespace Chalks.ConcurrentEdition
 
             def SVd = this.state_vector;
             def SVo = op.TimeStamp;
-            def s  = op.SourceSite;
+            def op_site  = op.SourceSite;
+
             
-            // <<< to be implemented
-            throw Exception("to be implemented");
-            
-            true;
+            foreach (site_id in SVd.Keys) {
+                assert( SVo.Contains(site_id),
+                         "State vectors are not comparable, keys does not match "
+                       + $"SVd.Keys $(SVd.Keys) versus SVo.Keys $(SVo.Keys)" );
+            }
+            assert( op_site != Guid.Empty, $"The operation $op has no source site");
+
+            // 1.
+            def condition1 = ( SVo[op_site] == SVd[op_site] + 1 );
+
+            // 2.
+            mutable condition2 = true;
+            foreach( site_id in SVd.Keys ) {
+                when( site_id != op_site ) {
+                    condition2 = condition2 && (SVo[site_id] <= SVd[site_id]); }
+            }
+
+            condition1 && condition2; // return value
         }
 
         check_total_ordering(_:Operation, _:Operation) :bool
@@ -843,31 +1007,60 @@ namespace Chalks.ConcurrentEdition
         // Constructors
         public this(optype :OperationType, pos :int, text :string)
         {
+            this( optype, pos, text, Guid.Empty, Hashtable() );
+        }
+        
+        public this(optype :OperationType, pos :int, text :string,
+                    source_site :Guid, time_stamp :Hashtable[Guid, int])
+        {
             assert(optype == OperationType.Insert);
             Type = optype;
             Pos = pos;
             Text = text;
             Length = 0;
+
+            SourceSite = source_site;
+            TimeStamp = time_stamp.Clone();
             ;
         }
 
+        
         public this(optype :OperationType, pos :int, length :int)
         {
-            assert(optype != OperationType.Delete);
+            this( optype, pos, length, Guid.Empty, Hashtable() );
+        }
+        
+        public this(optype :OperationType, pos :int, length :int,
+                    source_site :Guid, time_stamp :Hashtable[Guid, int])
+        {
+            assert(optype == OperationType.Delete);
             Type = optype;
             Pos = pos;
             Length = length;
             Text = "";
+
+            SourceSite = source_site;
+            TimeStamp = time_stamp.Clone();
             ;
         }
 
+
         public this(optype :OperationType, text :string)
         {
-            assert(optype != OperationType.SetText);
+            this(optype, text, Guid.Empty, Hashtable() );
+        }
+
+        public this(optype :OperationType, text :string,
+                    source_site :Guid, time_stamp :Hashtable[Guid, int])
+        {
+            assert(optype == OperationType.SetText);
             Type = optype;
             Pos = 0;
             Length = 0;
             Text = "";
+
+            SourceSite = source_site;
+            TimeStamp = time_stamp.Clone();
             ;
         }
 
@@ -911,16 +1104,15 @@ namespace Chalks.ConcurrentEdition
     [Serializable]
     public class ConcurrentEditableNodeStatus
     { // this class is a container to initialize a new node into a running session
+      // all the value are set extenarlly, as this object was a structure
         
         public mutable Text :string;
-        public mutable HB : array[Operation];
-        public mutable SV : array[uint];
+        public mutable SV :Hashtable[Guid, int];
+        public mutable MSV :Hashtable[Guid, int]; 
+        public mutable HB :Chalks.ArrayList[Operation];
+        public mutable delayed_operations :Chalks.ArrayList[Operation];
         
-        public this()
-        {
-            throw Exception("to be implemented");
-            ;
-        }
+        // no need to implement a constructor
     }
     
     

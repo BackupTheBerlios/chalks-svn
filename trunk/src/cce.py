@@ -302,6 +302,7 @@ class ConcurrentEditable:
             print "Site %s; after garbage collector; HB %s"%(self.site_index, map(lambda x: "{from S%i%s}"%(x["source_site"], x["timestamp"]) , HB))
             
         return deleted_operations_list
+
     
     def update_SVT(self, site_index, state_vector):
         """

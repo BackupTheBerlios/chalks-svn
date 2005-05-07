@@ -7,6 +7,7 @@ namespace Chalks {
    
     #region Typed ArrayList
 
+    [System.Serializable]
     public class ArrayList['t] : System.Collections.ArrayList
     {
         public  Add(value : 't) : void
@@ -56,7 +57,18 @@ namespace Chalks {
 
         new public Clone() :ArrayList['t]
         {
-            base.Clone() :> ArrayList['t];
+            //base.Clone() :> ArrayList['t];
+
+            // <<< ugly hack, manual copy/clone
+            def new_list = ArrayList() :ArrayList['t];
+            foreach(item in this) new_list.Add(item);
+            new_list;
+        }
+
+
+        public GetEnumerator() : Nemerle.Collections.IEnumerator['t]
+        {
+            ArrayListEnumerator( base.GetEnumerator() ) :>  Nemerle.Collections.IEnumerator['t];
         }
 
         public Slice(start:int, stop:int) :ArrayList['t]
@@ -88,8 +100,46 @@ namespace Chalks {
             Slice(start, Count);
         }
 
+
+        override public ToString() :string
+        {
+            mutable text = "";
+
+            foreach(element in this) text += $"$element, ";
+
+            $"[ $text]";
+        }
+        
     } // end of type ArrayList['t]
 
+
+    public class ArrayListEnumerator['t] : Nemerle.Collections.IEnumerator['t]
+    {
+
+        array_list_enumerator :System.Collections.IEnumerator;
+        
+        public this(_array_list_enumerator :System.Collections.IEnumerator)
+        {
+            array_list_enumerator = _array_list_enumerator;
+        }
+        
+        public Current :'t
+        {
+            get { array_list_enumerator.Current :> 't }
+        }
+
+        public MoveNext() :bool
+        {
+            array_list_enumerator.MoveNext();
+        }
+
+        public Reset() :void
+        {
+            array_list_enumerator.Reset();
+        }
+    }
+
+    
     #endregion
     
     #region Pythonic syntax helpers
@@ -135,7 +185,7 @@ namespace Chalks {
         public this(_start:int, _stop:int)
         {
             
-            if (_start >= _stop) (start, stop) = (_start, _stop);
+            if (_start <= _stop) (start, stop) = (_start, _stop);
             else (start, stop) = (_stop, _start);
             counter = start - 1;
         }
@@ -143,14 +193,21 @@ namespace Chalks {
 
         public Current :int
         {
-            get { counter; }
+            get {
+                /*System.Console.WriteLine(
+                  $"RangeEnumerator (start, stop, counter) == $start, $stop, $counter");
+                  System.Console.Out.Flush();*/
+                counter;
+            }
         }
 
         public MoveNext() :bool
         {
+            /*System.Console.WriteLine(
+                   $"RangeEnumerator (start, stop, counter) == $start, $stop, $counter");
+             System.Console.Out.Flush();*/
             counter +=1;
-
-            counter >= stop;
+            counter <= stop;
         }
 
         public Reset() :void
