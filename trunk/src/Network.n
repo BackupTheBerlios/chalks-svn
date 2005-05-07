@@ -2,7 +2,7 @@
 
 */
 
-using Nemerle.Collections; // For Hashtable
+using Nemerle.Collections; // for Hashtable
 
 using System;
 using System.Net;
@@ -15,6 +15,7 @@ using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Remoting.Messaging;
 using System.Threading;
 
+using Chalks; 
 using Chalks.ConcurrentEdition;
 using Chalks.Gui;
 using Chalks.Gui.ChalksWindow; // give access to the log

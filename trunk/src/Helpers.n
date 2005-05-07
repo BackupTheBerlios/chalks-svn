@@ -4,6 +4,7 @@ Helpers classes and Macros for the development.
 
 namespace Chalks {
 
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
    
     #region Typed ArrayList
 
@@ -47,13 +48,15 @@ namespace Chalks {
             { 
                 base[index] = value; 
             }
-
         }
 
-        new public GetRange (index :int, count :int)  :ArrayList['t]
+        /*new public GetRange (index :int, count :int)  :ArrayList['t]
         {
             base.GetRange(index, count) :> ArrayList['t];
-        }
+            
+            System.InvalidCastException: Cannot cast from source type to destination type.
+
+         }*/
 
         new public Clone() :ArrayList['t]
         {
@@ -71,13 +74,25 @@ namespace Chalks {
             ArrayListEnumerator( base.GetEnumerator() ) :>  Nemerle.Collections.IEnumerator['t];
         }
 
-        public Slice(start:int, stop:int) :ArrayList['t]
+        public Slice(_start:int, _stop:int) :ArrayList['t]
         {
+            def start = _start;
+            mutable stop = _stop;
+
+            when(stop > Count) stop=Count; // always returns only what is aviable
+                        
+            
             assert(start >=0, "Start index == $start is invalid ");
-            assert(stop < Count,
-                   "Trying to access at index $stop when the list $this only has $Count elements.");
+            //assert(stop <= Count, $"Trying to access at index $(stop-1) the list $this only has $Count elements.");
+            assert(stop >= start);
+            
             //GetRange (int index, int count)
-            GetRange(start, start - stop); 
+            //GetRange(start, stop - start /*-1*/);
+            //workaround, creates a new list (destroying performance)
+
+            def array_list = ArrayList() :ArrayList['t];
+            foreach(c in range(start, stop)) array_list.Add(base[c]);
+            array_list;
         }
 
         public Slice(_:string, stop:int) :ArrayList['t]
@@ -141,6 +156,26 @@ namespace Chalks {
 
     
     #endregion
+
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+    
+    #region Hashtable with better ToString()
+
+    /*
+    public class Hashtable['k, 'v] :Nemerle.Collections.Hashtable['k, 'v]
+    {
+        override public ToString() :string
+        {
+            mutable text = "";
+            foreach((k,v) in this.KeyValuePairs) text += $"$(k):$(v),";
+
+            $"{ $text }";
+        }
+     }*/
+
+    #endregion
+
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
     
     #region Pythonic syntax helpers
 
@@ -164,7 +199,7 @@ namespace Chalks {
 
         public this(_stop:int)
         {
-            (start, stop) = (0, _stop -1);
+            (start, stop) = (0, _stop);
         }
 
         public GetEnumerator() :Nemerle.Collections.IEnumerator[int]
@@ -179,15 +214,22 @@ namespace Chalks {
 
         
         mutable counter :int;
+        delta :int;
         start :int;
         stop :int;
         
         public this(_start:int, _stop:int)
         {
-            
-            if (_start <= _stop) (start, stop) = (_start, _stop);
-            else (start, stop) = (_stop, _start);
-            counter = start - 1;
+            if (_start <= _stop) {
+                (start, stop) = (_start, _stop-1);
+                delta = +1;
+            }
+            else {
+                (start, stop) = (_start -1, _stop);
+                delta = -1;
+            }
+
+            counter = start - delta;
         }
 
 
@@ -195,8 +237,8 @@ namespace Chalks {
         {
             get {
                 /*System.Console.WriteLine(
-                  $"RangeEnumerator (start, stop, counter) == $start, $stop, $counter");
-                  System.Console.Out.Flush();*/
+                       $"RangeEnumerator Current (start, stop, delta, counter) == $start, $stop,  $delta, $counter");
+                 System.Console.Out.Flush();*/
                 counter;
             }
         }
@@ -204,20 +246,22 @@ namespace Chalks {
         public MoveNext() :bool
         {
             /*System.Console.WriteLine(
-                   $"RangeEnumerator (start, stop, counter) == $start, $stop, $counter");
+                   $"RangeEnumerator MoveNext (start, stop, delta, counter) == $start, $stop, $delta, $counter");
              System.Console.Out.Flush();*/
-            counter +=1;
+            counter += delta;
             counter <= stop;
         }
 
         public Reset() :void
         {
-            counter = start - 1;
+            counter = start - delta;
         }
         
     }
 
     #endregion
+
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
     
         /*
     #region Slices implementation
@@ -254,7 +298,8 @@ namespace Chalks {
     
     #endregion
      */
-   
+
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
       
     #region Logic operands
 
@@ -278,4 +323,7 @@ namespace Chalks {
     }
     
     #endregion
-}
+
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+    
+} // end of namespace

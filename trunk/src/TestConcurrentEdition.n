@@ -6,6 +6,7 @@ using NUnit.Framework;
 
 using System;
 
+using Nemerle.Collections;
 using Chalks.Network;
 
 namespace Chalks.ConcurrentEdition
@@ -45,6 +46,29 @@ namespace Chalks.ConcurrentEdition
         mutable text_buffers :array[TextBufferForCeTest] = array(num_of_sites);
         mutable network_nodes :array[NetworkForCeTest] = array(num_of_sites);
         
+        #endregion
+
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+        #region Helper methods
+
+        HashToString(hash :Hashtable[Guid, int]) :string
+        {
+            mutable text = "";
+            foreach((k,v) in hash.KeyValuePairs) text += $"$(k):$(v),";
+
+            $"{ $text }";
+        }
+
+        HashToString(hash :Hashtable[Guid, Hashtable[Guid,int]]) :string
+        {
+            mutable text = "";
+            foreach((k,v) in hash.KeyValuePairs) text += $"$(k):$(HashToString(v)),";
+
+            $"{ $text }";
+        }
+
         #endregion
 
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
@@ -162,7 +186,7 @@ namespace Chalks.ConcurrentEdition
                     def sv = t_site.get_SV();
                     def msv = t_site.get_MSV();
                     def HB = t_site.get_HB();
-                    Console.WriteLine( $"$(t_site);$(sv); MSV $(msv);" );
+                    Console.WriteLine( $"$(t_site);$(HashToString(sv)); MSV $(HashToString(msv));" );
                     Console.WriteLine("HB");
                     foreach(op in HB) Console.WriteLine($"\t$(op)");
                 }
@@ -189,7 +213,7 @@ namespace Chalks.ConcurrentEdition
                 
                 success = success && t_res;
 
-                Console.WriteLine(  $"$(t_site);$(t_sv);'$(t_text)';"
+                Console.WriteLine(  $"$(t_site);$(HashToString(t_sv));'$(t_text)';"
                                   + $"delayed_ops: $(t_delayed_ops); $(res_text(t_res))");
             }
 

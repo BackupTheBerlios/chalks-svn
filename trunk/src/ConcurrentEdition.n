@@ -17,13 +17,13 @@ You need this documents to understand the code.
 */
 
 
-using Nemerle.Collections;
-
 using System;
 using System.IO;
 using System.Guid;
 
-using Chalks;
+using Nemerle.Collections;
+
+using Chalks; 
 using Chalks.Network;
 using Chalks.Gui.ChalksWindow; // get access to log function
 
@@ -79,7 +79,7 @@ namespace Chalks.ConcurrentEdition
         }
         
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
-
+        
         #region Methods used by Network, implementation of ICeForNetwork
 
         public set_network_interface(network_node_instance :INetworkForCe) :void
@@ -275,8 +275,11 @@ namespace Chalks.ConcurrentEdition
                    "Can not generate operations before the network interface has been set");
             assert(optype == OperationType.Insert);
 
+            def t_SV = state_vector.Clone();
+            t_SV[site_id] += 1;
+            
             // create operation object
-            def op = Operation(optype, pos, text, site_id, state_vector);
+            def op = Operation(optype, pos, text, site_id, t_SV);
             //log($"generating $op");
             
             // apply localy and send it to the peers
@@ -291,8 +294,11 @@ namespace Chalks.ConcurrentEdition
                    "Can not generate operations before the network interface has been set");
             assert(optype == OperationType.Delete);
 
+            def t_SV = state_vector.Clone();
+            t_SV[site_id] += 1;
+
             // create operation object
-            def op = Operation(optype, pos, length, site_id, state_vector);
+            def op = Operation(optype, pos, length, site_id, t_SV);
             //log($"generating $op");
             
             // apply localy and sent it to the peers
@@ -394,10 +400,11 @@ namespace Chalks.ConcurrentEdition
             def undoed = ArrayList() :Chalks.ArrayList[Operation];
               
             {
-                def enumerator = range(len(HB), 0).GetEnumerator();
+                def enumerator = range(len(HB), 0).GetEnumerator(); enumerator.Reset();
                 mutable not_in_total_ordering = true;
-                                
-                do{ //foreach( m in range(len(HB), 0) ) {	 // from right to left
+                //foreach( m in range(len(HB), 0) ) {
+                // from right to left
+                while(enumerator.MoveNext() && not_in_total_ordering) {
                     m = enumerator.Current;
                     def EOm = HB[m];
                     //log("check_total_ordering($(EOm), $(o_new)) => $(check_total_ordering(EOm, o_new))"); // just for debugging
@@ -411,17 +418,15 @@ namespace Chalks.ConcurrentEdition
                     else {
                         not_in_total_ordering = false; // break;
                     }
-                    
-                } while(enumerator.MoveNext() && not_in_total_ordering);
-                
+                } 
             }
             
             when ( (len(HB) != 0)  && (len(undoed) == len(HB)) ) {
                 log(2, "No previous op found !");
                 m = -1; // to indicate that no previous op was found
             }
-
-
+              
+            
             // 2.
             def eo_new = GOT( o_new, HB.Slice(':', m+1)); // pass o_new and HB = [EO1, EO2, ..., EOm ]
             execute(eo_new);
@@ -518,6 +523,7 @@ namespace Chalks.ConcurrentEdition
 
         undo(op :Operation) :void
         {
+            
             throw Exception("to be implemented");
             ;
         }
@@ -629,7 +635,7 @@ namespace Chalks.ConcurrentEdition
 
             def SVd = this.state_vector;
             def SVo = op.TimeStamp;
-            def op_site  = op.SourceSite;
+            def op_site = op.SourceSite;
 
             
             foreach (site_id in SVd.Keys) {
@@ -708,9 +714,71 @@ namespace Chalks.ConcurrentEdition
 
         
         GOT(Onew :Operation, HB :Chalks.ArrayList[Operation]) :Operation
-        {
+        { // GOT: Generic Operation Transform
+          // Algorithm 2: The GOT control scheme (sun98generic) 
+          // Given a new causally-ready operation Onew , and HB = [EO1 , EO2, ..., EOm ].
+          // The following steps are executed to obtain EOnew :
+          //  
+          //   1. Scanning the HB from left to right to find the first operation EOk such that
+          // EOk || Onew (EOk and Onew are concurrent (or independent)).
+          // If no such an operation EOk is found, then EOnew := Onew.
+          //  
+          //   2. Otherwise, search the range of HB[k+1,m] to find all operations which
+          // are causally preceding Onew, and let EOL denote these operations.
+          // If EOL = [ ], then EOnew := LIT (Onew , HB[k,m]).
+          //
+          //   3. Otherwise, suppose EOL = [EOc1, ..., EOcr ], the following steps are executed:
+          //     (a) Get EOL' = [EO'c1, ..., EO'cr ] as follows:
+          //       i. EO'c1 := LET (EOc1, reverse(HB[k, c1 - 1]) ):
+          //       ii. For 2 <= i <= r,
+          //           TO := LET (EOci , reverse(HB[k, ci - 1]) );
+          //           EO'ci := LIT (TO, [EO'c1, ..., EO'ci-1]).
+          //     (b) O'new := LET (Onew, reverse(EOL') ).
+          //     (c) EOnew := LIT (O'new, HB[k,m]).
+            
             throw Exception("to be implemented");
-            ;
+            
+            /*
+            EOnew = Onew; // the default result
+              
+            for ( k in xrange(len(HB))) {
+                EOk = HB[k]
+                when ( are_concurrent(EOk, Onew) )
+                {
+                    EOL = HB[k+1:];
+                    c1 = k+1; 
+                    if ( EOL == [] )
+                    {
+                        EOnew = LIT(Onew, HB[k:]);
+                    }
+                    else
+                    {
+                        // (a) i.
+                        r = len(EOL); 
+                        
+                        EOLl = range(r); // EOLl <=> EOL'
+                        //print "GOT (a) i.; r %s; (k,c1 - 1) %s; len(HB) %s"%(r, (k,c1 - 1), len(HB)) // just for debugging
+                        
+                        EOLl[0] = LET(EOL[0], reverse(HB[k:c1 - 1 +1])); // +1 because in paper notation ranges are incluse, incluse ('[]'); while python they are incluse, exclusive ('[)')
+                        
+                        // (a) ii.
+                        for i in xrange(1,r)
+                        {
+                            TO = LET(EOL[i], reverse(HB[k: c1 + i - 1 + 1]));
+                            EOLl[i] = LIT(TO, EOLl[1:i-1+1]);
+                        }
+                
+                        // (b)
+                        Oonew = LET(Onew, reverse(EOLl));
+                        
+                        // (c)
+                        EOnew = LIT(Oonew, HB[k:]);
+                    }
+                }
+            }
+            
+            EOnew;
+             */
         }
 
 
@@ -722,7 +790,7 @@ namespace Chalks.ConcurrentEdition
             }
             else {
                 LIT( IT(o, ol[0]),
-                     ol.GetRange(1, (ol.Count -1)) // ol[1:]
+                     ol.Slice(1, ':') // ol[1:]
                      );
             }
         }
@@ -735,7 +803,7 @@ namespace Chalks.ConcurrentEdition
             }
             else {
                 LET( ET(o, ol[0]),
-                     ol.GetRange(1, (ol.Count -1)) // ol[1:]
+                     ol.Slice(1, ':') // ol[1:]
                      );
             }
         }
@@ -1072,19 +1140,16 @@ namespace Chalks.ConcurrentEdition
 
         override public ToString() :string
         {
-            $"$Type $Pos $Length $Text $SourceSite"; // <<< implement better
-        }
-
-        set_timestamp() :void        
-        {
-            throw Exception("to be implemented");
-            ;
-        }
-
-        get_timestamp() :void        
-        {
-            throw Exception("to be implemented");
-            ;
+            match(Type) {
+              | OperationType.Insert =>
+                  $"$Type $Pos $Text $SourceSite";
+              | OperationType.Delete =>
+                  $"$Type $Pos $Length $SourceSite";
+              | OperationType.SetText =>
+                  $"$Type $Text $SourceSite";
+              | _ =>
+                  $"$Type $Pos $Length $Text $SourceSite";
+            }
         }
 
         public Equals(op :Operation) :bool
