@@ -236,20 +236,20 @@ namespace Chalks.ConcurrentEdition
                 while (applied_an_operation){
 
                     applied_an_operation = false;
-                    def iterator = delayed_operations.GetEnumerator();
-                    mutable t_op = iterator.Current :> Operation;
+                    def enumerator = delayed_operations.GetEnumerator(); enumerator.Reset();
+                    mutable t_op = null : Operation;
                     
-                    do {
-                        t_op = iterator.Current :> Operation;
+                    while (   enumerator.MoveNext() // returns false at the end of the list
+                             && (applied_an_operation == false) ){
+                        t_op = enumerator.Current :> Operation;
                         when ( is_causally_ready(t_op) ) {
                             apply(t_op);
                             delayed_operations.Remove(t_op);
                             applied_an_operation = true;
                         }
-                    } while (   iterator.MoveNext() // returns false at the end of the list
-                             && (applied_an_operation == false) )
+                    }
                     
-                } // end of while
+                } // end of while applied_an_operation
                 
             }
             else{ // if not causally ready we delay it
@@ -396,7 +396,7 @@ namespace Chalks.ConcurrentEdition
             log(1, $"Site $(site_id);$(state_vector); '$(text_buffer.get_text())'; applying $(o_new)");
     
             // 1.
-            mutable m = 0; // manage the case HB == []
+            mutable m = -1; // manage the case HB == [] // (was  m = 0)
             def undoed = ArrayList() :Chalks.ArrayList[Operation];
               
             {
@@ -491,6 +491,7 @@ namespace Chalks.ConcurrentEdition
         { // Modify the text buffer.
           // The lost information is stored into the operators for future undos.
 
+            log(4, $"Executing $eo");
             if (eo.is_splitted) {
                 execute(eo.splitted_head, true); //splitted_part = true
                 execute(eo.splitted_tail, true); //splitted_part = true

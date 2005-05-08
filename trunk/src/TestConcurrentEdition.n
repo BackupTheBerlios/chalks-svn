@@ -142,30 +142,47 @@ namespace Chalks.ConcurrentEdition
             // generate and apply locally the operation
             def O1 = sites[0].generate_operation(
                                 OperationType.Insert, 0, "ABC"); // dbg_name="O1");
+            log(1, $"$(sites[0]) '$(text_buffers[0].get_text())'\n");
+            
             def O2 = sites[1].generate_operation(
-                                OperationType.Insert, 0,  "BCD"); // dbg_name="O2"); 
+                                OperationType.Insert, 0,  "BCD"); // dbg_name="O2");
+            log(1, $"$(sites[1]) '$(text_buffers[1].get_text())'\n");
             
             sites[2].receive_operation(O2);
+            log(1, $"$(sites[2]) '$(text_buffers[2].get_text())'\n");
+
             sites[1].receive_operation(O1);
+            log(1, $"$(sites[1]) '$(text_buffers[1].get_text())'\n");
+
             sites[0].receive_operation(O2);
+            log(1, $"$(sites[0]) '$(text_buffers[0].get_text())'\n");
+
             
             def O4 = sites[2].generate_operation(
                                 OperationType.Insert, 2, "c"); // dbg_name="O4");
-          
+            log(1, $"$(sites[2]) '$(text_buffers[2].get_text())'\n");
+            
             sites[0].receive_operation(O4);
+            log(1, $"$(sites[0]) '$(text_buffers[0].get_text())'\n");
             
             def O3 = sites[1].generate_operation(
                                 OperationType.Delete, 1, 2); // dbg_name="O3");
+            log(1, $"$(sites[1]) '$(text_buffers[1].get_text())'\n");
             
             sites[2].receive_operation(O3);
+            log(1, $"$(sites[2]) '$(text_buffers[2].get_text())'\n");
+
             sites[0].receive_operation(O3);
-            sites[1].receive_operation(O4);		
+            log(1, $"$(sites[0]) '$(text_buffers[0].get_text())'\n");
+
+            sites[1].receive_operation(O4);
+            log(1, $"$(sites[1]) '$(text_buffers[1].get_text())'\n");
+
             sites[2].receive_operation(O1);
+            log(1, $"$(sites[2]) '$(text_buffers[2].get_text())'\n");
             
             
-            when(verbosity>=4)
-              foreach( t_op in [ O1, O2, O3, O4])
-                Console.WriteLine(t_op.ToString());
+            foreach( t_op in [ O1, O2, O3, O4]) log(4, $"$(t_op.ToString())");
             
             when( true ) {
                 // this messages are the same of figure 3. sun98achieving.pdf, page 20.
@@ -231,6 +248,18 @@ namespace Chalks.ConcurrentEdition
             Assert.IsTrue(true);
         }
         
+
+        #region Helpers methods
+
+        static public log( verbosity_level :int, text :string) :void
+        {
+            when(verbosity >= verbosity_level ) {
+                Console.WriteLine(text);
+                Console.Out.Flush();
+            }
+        }
+        
+        #endregion
         
     } // end of class ConcurrentEditionTest
 
@@ -247,13 +276,16 @@ namespace Chalks.ConcurrentEdition
         public insert_text(site_id :Guid, offset:int, _text:string):void
         { // Due of UTF-8 encoding character counts are referred to as "offsets", 
           // this is consistent with the GTK code
-            
-            text.Insert(offset, _text);
+
+            ConcurrentEditionTests.log(4, $"Inserting text on the buffer $offset '$(_text)'");
+            text = text.Insert(offset, _text);
         }
         
         public delete_text(offset:int, length:int): string
         { // returns the deleted text
-            text.Remove(offset, length);
+            def deleted_text = text.Substring(offset, length);
+            text = text.Remove(offset, length);
+            deleted_text;
         }
         
         public get_text():string
