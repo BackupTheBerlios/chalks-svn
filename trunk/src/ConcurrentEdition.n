@@ -521,10 +521,38 @@ namespace Chalks.ConcurrentEdition
         }
 
 
-        undo(op :Operation) :void
-        {
+        undo(EO :Operation) :void
+        { // Undo an operation. Transform the text to his previous state.
+          // The undo operation supose that EO is the last operation executed over the buffer.
+
+
+            when(EO.relatively_addressed) {
+                throw Exception(
+                      "Undo of a relatively addressed operation is not managed/implemented");
+            }
             
-            throw Exception("to be implemented");
+            if (EO.is_splitted) {
+                undo(EO.splitted_head);
+                undo(EO.splitted_tail);
+            }
+            else {
+
+                match(T(EO)) {
+                  | OperationType.Delete =>
+                      assert( EO.deleted_text != null,
+                               "Undoable operation (no undo info stored)"
+                             + $"(deleted_text == $(EO.deleted_text))");
+                      // create the undo operation and execute it
+                      execute( Operation(OperationType.Insert, P(EO), EO.deleted_text) );
+                      
+                  | OperationType.Insert =>
+                      // create the undo operation and execute it
+                      execute( Operation(OperationType.Delete, P(EO), S(EO).Length ) ); 
+                      
+                  | _ =>
+                      throw Exception("Trying to undo an Unmanaged Operation.");
+                }
+            }
             ;
         }
         
@@ -658,10 +686,70 @@ namespace Chalks.ConcurrentEdition
             condition1 && condition2; // return value
         }
 
-        check_total_ordering(_:Operation, _:Operation) :bool
-        {
-            throw Exception("to be implemented");
-            ;
+        check_total_ordering( Oa :Operation, Ob :Operation) :bool
+        { // Check if Oa => Ob.
+          // Definition 6: Total ordering relation "=>"
+          // Given two operations Oa and Ob, generated at sites i and j and
+          // timestamped by SVOa and SVOb, respectively, then Oa => O b, iff:
+          //   1. sum(SVOa) < sum(SVOb), or
+          //   2. i < j when sum(SVOa) = sum(SVOb),
+          // where sum(SV) = $\sum_{i=0}^{N-1} SV[i]$.	
+            
+            #region local helper functions
+            def sum( t_list :Hashtable[Guid, int]) :int
+            { // sum = lambda t_list: reduce(lambda x,y: x+y, t_list)
+
+                def f(k:Guid, v:int, b:int) {
+                    v + b;
+                }
+                
+                t_list.Fold(0, f);
+            }
+
+
+            def is_minor(a :Guid, b:Guid) :bool
+            { // setup a total ordering between Guid
+              // simply interpret Guid as huge number, and compare them  
+
+                def a_array = a.ToByteArray();
+                def b_array = b.ToByteArray();
+                mutable c = 0;
+                for(c = 0;
+                       (c < a_array.Length)
+                    && (a_array[c] < b_array[c]);
+                    c+=1) ();
+
+                // if all the elements of a_array are minor than b_array
+                // then a < b
+                if (c == a_array.Length) {
+                    true;
+                }
+                else { // if not, a==b or a>b
+                    false;
+                }
+            }
+            #endregion
+            
+            def SVOa = Oa.TimeStamp;
+            def SVOb = Ob.TimeStamp;
+    
+            assert( (len(SVOa) != 0) && (len(SVOb) != 0),
+                   $"can not check operations without timestamp. (Oa:$(Oa); Ob:$(Ob))");
+
+            assert( len(SVOa) == len(SVOb),
+                     "can not check operations with timestamp of different length"
+                   + $"(with different keys) (Oa:$(Oa); Ob:$(Ob))");
+    
+            // 1.
+            def condition1 = sum(SVOa) < sum(SVOb);
+    
+            //2.
+            def i = Oa.SourceSite;
+            def j = Ob.SourceSite;
+    
+            def condition2 = (sum(SVOa) == sum(SVOb)) && is_minor(i, j); // ... and (i < j)
+        
+            condition1 || condition2;
         }
 
         // Definition 1: Causal ordering relation "->"
@@ -736,49 +824,53 @@ namespace Chalks.ConcurrentEdition
           //     (b) O'new := LET (Onew, reverse(EOL') ).
           //     (c) EOnew := LIT (O'new, HB[k,m]).
             
-            throw Exception("to be implemented");
             
-            /*
-            EOnew = Onew; // the default result
+            mutable EOnew = Onew; // the default result
               
-            for ( k in xrange(len(HB))) {
-                EOk = HB[k]
+            foreach ( k in range(len(HB))) {
+                def EOk = HB[k];
                 when ( are_concurrent(EOk, Onew) )
                 {
-                    EOL = HB[k+1:];
-                    c1 = k+1; 
-                    if ( EOL == [] )
+                    def EOL = HB.Slice(k+1, ':');
+                    def c1 = k+1; // it is this variable necessary ?
+                    
+                    if ( len(EOL) == 0 )
                     {
-                        EOnew = LIT(Onew, HB[k:]);
+                        EOnew = LIT(Onew, HB.Slice(k, ':'));
                     }
                     else
                     {
                         // (a) i.
-                        r = len(EOL); 
+                        def r = len(EOL); 
+    
+                        def EOLl = ArrayList(r) :ArrayList[Operation]; // EOLl <=> EOL'
+
+                        // just for debugging
+                        log(3,
+                            "GOT (a) i.; r $(r); (k,c1 - 1) $((k,c1 - 1)); len(HB) $(len(HB))");
                         
-                        EOLl = range(r); // EOLl <=> EOL'
-                        //print "GOT (a) i.; r %s; (k,c1 - 1) %s; len(HB) %s"%(r, (k,c1 - 1), len(HB)) // just for debugging
-                        
-                        EOLl[0] = LET(EOL[0], reverse(HB[k:c1 - 1 +1])); // +1 because in paper notation ranges are incluse, incluse ('[]'); while python they are incluse, exclusive ('[)')
+                        EOLl[0] = LET(EOL[0], reversed(HB.Slice(k,c1 - 1 +1)));
+                        // +1 because in paper notation ranges are incluse, incluse ('[]');
+                        // while in python  they are incluse, exclusive ('[)')
+                        // (this behaviour is copied in this pythonic nemerle code)
                         
                         // (a) ii.
-                        for i in xrange(1,r)
+                        foreach (i in range(1,r))
                         {
-                            TO = LET(EOL[i], reverse(HB[k: c1 + i - 1 + 1]));
-                            EOLl[i] = LIT(TO, EOLl[1:i-1+1]);
+                            def TO = LET(EOL[i], reversed(HB.Slice(k, c1 + i - 1 + 1)));
+                            EOLl[i] = LIT(TO, EOLl.Slice(1,i-1+1));
                         }
                 
                         // (b)
-                        Oonew = LET(Onew, reverse(EOLl));
+                        def Oonew = LET(Onew, reversed(EOLl));
                         
                         // (c)
-                        EOnew = LIT(Oonew, HB[k:]);
+                        EOnew = LIT(Oonew, HB.Slice(k,':'));
                     }
                 }
             }
             
             EOnew;
-             */
         }
 
 
@@ -809,78 +901,197 @@ namespace Chalks.ConcurrentEdition
         }
 
 
-        IT(oa :Operation, ob :Operation) :Operation
-        {
-            throw Exception("to be implemented");
-            oa;
+        IT(Oa :Operation, Ob :Operation) :Operation
+        { // Inclusion Transform.
+          // Return a transformed Oa, named Ooa, such that the impact of
+          // the independent operation Ob (against Oa) is efectively included into Oa.
+          // Also define the timestamp of the virtual operation.
+ 
+            def Ooa =
+            if ( Check_RA(Oa) ) {
+                //just for debugging
+                log(4, $"Check_BO(\n\t$(Oa), \n\t$(Ob) \n)\t\t=> $(Check_BO(Oa, Ob))");
+                
+                if ( Check_BO(Oa, Ob) ) {
+                    Convert_AA(Oa, Ob) }
+                else {
+                    Oa } }
+            else
+            match((T(Oa), T(Ob))) {
+              | (OperationType.Insert, OperationType.Insert) => IT_II(Oa, Ob)
+              | (OperationType.Insert, OperationType.Delete) => IT_ID(Oa, Ob)
+              | (OperationType.Delete, OperationType.Insert) => IT_DI(Oa, Ob)
+              | (OperationType.Delete, OperationType.Delete) => IT_DD(Oa, Ob)
+              | _ => IT_DD(Oa, Ob)                  
+            }; // end of 'def Ooa = ... ;'
+            
+            
+            Ooa.SourceSite = Oa.SourceSite;
+            Ooa.TimeStamp  = Oa.TimeStamp.Clone(); //copy
+    
+   	    log(2, $"IT(\n\t$(Oa), \n\t$(Ob)\n)\t\t=> $(Ooa);"); // just for debugging
+        
+            Ooa;
         }
 
         
-        IT_II(oa :Operation, ob :Operation) :Operation
+        IT_II(Oa :Operation, Ob :Operation) :Operation
         {
-            if ( P (oa) < P (ob) ) {
-                oa;
+            if ( P (Oa) < P (Ob) ) Oa
+            else Operation( OperationType.Insert, P(Oa) + L(Ob), S(Oa))
+        }
+
+        IT_ID(Oa :Operation, Ob :Operation) :Operation        
+        {
+            mutable Ooa = null :Operation;
+            
+            if (P(Oa) <= P(Ob)) {
+                Ooa = Oa }
+            else if ( P(Oa) > (P(Ob) + L(Ob)) ) {
+                Ooa = Operation( OperationType.Insert, P(Oa) - L(Ob), S(Oa) ) }
+            else {
+                Ooa = Operation( OperationType.Insert, P(Ob), S(Oa) );
+                Save_LI(Ooa, Oa, Ob );
+            }
+        
+            Ooa;
+        }
+
+        IT_DI(Oa :Operation, Ob :Operation) :Operation        
+        {
+            if ( P(Ob) >= (P(Oa) + L(Oa)) )
+                 Oa;
+            else if ( P(Oa) >= P(Ob) )
+                 Operation( OperationType.Delete, P(Oa) + L(Ob), L(Oa) );
+            else Splitted( Operation( OperationType.Delete, 
+                                      P(Oa), P(Ob) - P(Oa) ),
+                           Operation( OperationType.Delete,
+                                      P(Ob) + L(Ob), L(Oa) - (P(Ob) - P(Oa))) );          
+        }
+
+        IT_DD(Oa :Operation, Ob :Operation) :Operation        
+        {
+            mutable Ooa = null :Operation;
+            
+            if (P (Ob) >= (P(Oa) + L(Oa))) {
+                Ooa = Oa; }
+            else if (P(Oa) >= (P(Ob) + L(Ob))) {
+                Ooa = Operation( OperationType.Delete, P(Oa) - L(Ob), L(Oa)); }
+            else {
+                if ( (P(Ob) >= P(Oa)) && ((P(Oa) + L(Oa)) <= (P(Ob) + L(Ob))) ) {
+                    Ooa = Operation( OperationType.Delete, P(Oa), 0 )
+                }
+                else if ( (P(Ob) <= P(Oa)) && ((P(Oa) + L(Oa)) > (P(Ob) + L(Ob))) ) {
+                    Ooa = Operation( OperationType.Delete,
+                                     P(Ob), P(Oa) + L(Oa) - (P(Ob)+ L(Ob)) )
+                }
+                else if ( (P(Ob) > P(Oa)) && ((P(Ob) + L(Ob)) >= (P(Oa) + L(Oa))) ) {
+                    Ooa = Operation( OperationType.Delete, P(Oa), P(Ob) - P (Oa) )
+                }
+                else {
+                    Ooa = Op( OperationType.Delete, P(Oa), L(Oa) - L(Ob) )
+                }
+            
+                Save_LI(Ooa, Oa, Ob); // this is in the first 'else' //<<< this is a guess
+            }
+
+            Ooa;
+        }
+
+        ET(Oa :Operation, Ob :Operation) :Operation
+        { // Exclusion Transform.
+          // Transform Oa against its causally preceding operation Ob to
+          // produce Ooa in such a way that Ob's impact on Oa is excluded.
+          // Also define the timestamp of the virtual operation.
+
+            def Ooa =
+            if (Check_RA(Oa)) Oa 
+            else
+            match((T(Oa), T(Ob))) {
+              | (OperationType.Insert, OperationType.Insert) => ET_II(Oa, Ob)
+              | (OperationType.Insert, OperationType.Delete) => ET_ID(Oa, Ob)
+              | (OperationType.Delete, OperationType.Insert) => ET_DI(Oa, Ob)
+              | (OperationType.Delete, OperationType.Delete) => ET_DD(Oa, Ob)
+              | _ => IT_DD(Oa, Ob)                  
+            }; // end of 'def Ooa = ... ;'
+            
+            
+            Ooa.SourceSite = Oa.SourceSite;
+            Ooa.TimeStamp  = Oa.TimeStamp.Clone(); //copy
+    
+   	    log(2, $"ET(\n\t$(Oa), \n\t$(Ob)\n)\t\t=> $(Ooa);"); // just for debugging
+        
+            Ooa;
+        }
+
+        ET_II(Oa :Operation, Ob :Operation) :Operation
+        {
+            if ( P(Oa) <= P(Ob) ) {
+                Oa;
+            }
+            else if ( P(Oa) >= (P(Ob) + L(Ob)) ) {
+                Operation( OperationType.Insert, P(Oa) - L(Ob),  S(Oa));
             }
             else {
-                Op( OperationType.Insert, P(oa) + L(ob), S(oa));
+                def Ooa = Operation( OperationType.Insert, P(Oa) - P(Ob), S(Oa) );
+                Save_RA(Ooa, Ob);
+                Ooa;
             }
         }
 
-        IT_ID() :void        
+        ET_ID(Oa :Operation, Ob :Operation) :Operation        
         {
-            throw Exception("to be implemented");
-            ;
+            if (Check_LI(Oa, Ob)) Recover_LI(Oa)
+            else if (P(Oa) <= P(Ob)) Oa
+            else Operation( OperationType.Insert, P(Oa) + L(Ob), S(Oa) )
         }
 
-        IT_DI() :void        
+        ET_DI(Oa :Operation, Ob :Operation) :Operation 
         {
-            throw Exception("to be implemented");
-            ;
-        }
-
-        IT_DD() :void        
-        {
-            throw Exception("to be implemented");
-            ;
-        }
-
-        ET(oa :Operation, ob :Operation) :Operation
-        {
-            throw Exception("to be implemented");
-            oa;
-        }
-
-        ET_II(oa :Operation, ob :Operation) :Operation
-        {
-            if ( P(oa) <= P(ob) ) {
-                oa;
+            mutable Ooa = null :Operation;
+            
+            if ((P(Oa) + L(Oa)) <= P(Ob)) {
+                Ooa = Oa;
             }
-            else if ( P(oa) >= (P(ob) + L(ob)) ) {
-                Op( OperationType.Insert, P(oa) - L(ob),  S(oa));
+            else if (P(Oa) >= (P(Ob) + L(Ob))) {
+                Ooa = Operation( OperationType.Delete, P(Oa) - L(Ob), L(Oa))
             }
             else {
-                def ooa = Op( OperationType.Insert, P(oa) - P(ob), S(oa) );
-                Save_RA(ooa, ob);
-                ooa;
+                if ((P(Ob) <= P(Oa)) && ((P(Oa) + L(Oa))  <= (P(Ob) + L(Ob)))) {
+                    Ooa = Operation( OperationType.Delete, P(Oa) - P(Ob), L(Oa))
+                }
+                else if ((P(Ob) <= P(Oa)) && (((P(Oa) + L(Oa)) > (P(Ob) + L(Ob))))) {
+                    Ooa =
+                    Splitted ( Operation( OperationType.Delete,
+                                          (P(Oa) - P(Ob)), P(Ob) + L(Ob) - P(Oa) ),
+                              Operation( OperationType.Delete,
+                                         P(Ob), (P(Oa) + L(Oa))-(P(Ob) + L(Ob)) ) )
+                }
+                else if ((P(Oa) < P(Ob) && (((P(Ob) + L(Ob)) <= (P(Oa) + L(Oa))))) ) {
+                    Ooa =
+                    Splitted( Operation( OperationType.Delete, 0,     L(Ob)         ), 
+                              Operation( OperationType.Delete, P(Oa), L(Oa) - L(Ob) ) )
+                }
+                else {
+                    Ooa =
+                    Splitted( Operation( OperationType.Delete, 0, P(Oa) + L(Oa) - P(Ob) ), 
+                              Operation( OperationType.Delete, P(Oa), P(Ob) - P(Oa)     ) )
+                }
+                
+                Save_RA(Ooa, Ob); // this is in the first 'else' //<<< this is a guess
             }
-        }
-
-        ET_ID() :void        
-        {
-            throw Exception("to be implemented");
-            ;
-        }
-
-        ET_DI() :void 
-        {
-            throw Exception("to be implemented");
-            ;
+            Ooa;
         }
         
-        ET_DD() :void        
+        ET_DD(Oa :Operation, Ob :Operation) :Operation        
         {
-            throw Exception("to be implemented");
-            ;
+            if (Check_LI(Oa, Ob)) Recover_LI(Oa)
+            else if (P(Ob) >= (P(Oa) + L(Oa))) Oa
+            else if (P(Oa) >= P(Ob)) Operation( OperationType.Delete, P(Oa) + L(Ob), L(Oa))
+            else Splitted( Operation( OperationType.Delete,
+                                      P(Oa), P(Ob) - P(Oa)                  ),
+                           Operation( OperationType.Delete,
+                                      P(Ob) + L(Ob), L(Oa) -(P(Ob) - P(Oa)) ) )
         }
 
         #endregion
@@ -967,22 +1178,39 @@ namespace Chalks.ConcurrentEdition
         }
 
         // Lost information
-        Check_LI() :void        
-        {
-            throw Exception("to be implemented");
+        Check_LI(Oa :Operation, Ob :Operation) :bool
+        { // Ob was involved in a information lossing operation that afected Oa ?
+
+            //Oa.LI_base_op == Ob;
+            Oa.LI_base_op.Equals( Ob );
+        }
+
+        Save_LI(Oaa :Operation, Oa :Operation, Ob :Operation) :void        
+        { // Store in Oaa the information related to
+          // the paremeters of Oa and the reference to Ob.
+          // One operation can only store one and only one information lose.
+            
+            def copy_Oa = match(Oa.Type){
+
+              | OperationType.Insert =>
+                  Operation(Oa.Type, Oa.Pos, Oa.Text )
+
+              | OperationType.Delete =>
+                  Operation(Oa.Type, Oa.Pos, Oa.Length )
+                  
+              | _ =>
+                  throw Exception("Unmanaged operation type at Save_LI")
+            };
+    
+            Oaa.lost_information = copy_Oa;
+            Oaa.LI_base_op       = Ob;            
             ;
         }
 
-        Save_LI() :void        
-        {
-            throw Exception("to be implemented");
-            ;
-        }
-
-        Recover_LI() :void        
-        {
-            throw Exception("to be implemented");
-            ;
+        Recover_LI(Oa :Operation) :Operation
+        { // >>>>>>DID NOT FOUND SPECIFICATION (this could cause horrible errors)<<<<<<
+            
+            Oa.lost_information;
         }
 
         // Relative adresses
@@ -1054,8 +1282,8 @@ namespace Chalks.ConcurrentEdition
         public mutable Pos  :int;
         public mutable Text :string;
         public mutable Length :int;
-        public SourceSite :Guid;
-        public TimeStamp :Hashtable[Guid, int];
+        public mutable SourceSite :Guid;
+        public mutable TimeStamp :Hashtable[Guid, int];
 
         // non trivial cases members
         public mutable deleted_text :string; // deletions
@@ -1068,7 +1296,7 @@ namespace Chalks.ConcurrentEdition
         public mutable base_operation :Operation;
         public mutable delta_pos :int;
 
-        public mutable lost_information :object; // lost information
+        public mutable lost_information :Operation; // lost information
         public mutable LI_base_op :Operation;
 
         
@@ -1133,8 +1361,17 @@ namespace Chalks.ConcurrentEdition
         }
 
         // Methods
-        Equal() :void        
+        public Equals( Oa :Operation, Ob :Operation) :bool
         {
+            object.ReferenceEquals(Oa, Ob)
+            ||
+              (   Oa.TimeStamp.Equals( Ob.TimeStamp )
+               && Oa.SourceSite == Ob.SourceSite
+               && Oa.Type == Ob.Type
+               && Oa.Pos == Ob.Pos
+               && Oa.Length == Ob.Length
+               && Oa.Text == Ob.Text
+               ) // that is 'good enough'
             ;
         }
 

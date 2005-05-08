@@ -11,6 +11,17 @@ namespace Chalks {
     [System.Serializable]
     public class ArrayList['t] : System.Collections.ArrayList
     {
+
+        public this()
+        {
+            base();
+        }
+
+        public this(len :int)
+        {
+            base(len);
+        }
+        
         public  Add(value : 't) : void
         {
             _ = base.Add(value : object);
