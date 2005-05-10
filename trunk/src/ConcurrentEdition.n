@@ -24,8 +24,10 @@ using System.Guid;
 using Nemerle.Collections;
 
 using Chalks; 
+using Chalks.Helpers; // for HashToString
 using Chalks.Network;
 using Chalks.Gui.ChalksWindow; // get access to log function
+
 
 using System.Runtime.Remoting;
 
@@ -222,7 +224,7 @@ namespace Chalks.ConcurrentEdition
           // ---
           // The workflow is receive->apply->execute
 
-            log(1, $"Site $(site_id);$(state_vector); receiving $(op)");
+            log(1, $"Site $(site_id);$(HashToString(state_vector)); receiving $(op)");
 
             if( is_causally_ready(op) ) { // if it is causally ready
 
@@ -239,8 +241,9 @@ namespace Chalks.ConcurrentEdition
                     def enumerator = delayed_operations.GetEnumerator(); enumerator.Reset();
                     mutable t_op = null : Operation;
                     
-                    while (   enumerator.MoveNext() // returns false at the end of the list
-                             && (applied_an_operation == false) ){
+                    while (   (applied_an_operation == false) 
+                           && enumerator.MoveNext() // returns false at the end of the list
+                           ){
                         t_op = enumerator.Current :> Operation;
                         when ( is_causally_ready(t_op) ) {
                             apply(t_op);
@@ -258,7 +261,7 @@ namespace Chalks.ConcurrentEdition
         
 
             log(1, $"Site $(site_id); HB $(HB)");
-            log(1, $"Site $(site_id);$(state_vector); delayed_ops: $(delayed_operations)\n");
+            log(1, $"Site $(site_id);$(HashToString(state_vector)); delayed_ops: $(delayed_operations)\n");
             ;
         } // end of receive_operation
 
@@ -369,7 +372,7 @@ namespace Chalks.ConcurrentEdition
 
         
         apply(o_new :Operation) :void
-        { // Algorithm 3: The undo/transform-do/transform-redo scheme (sun98generic)
+        { // Algorithm 3: The undo/transform-do/transform-redo scheme (sun97generic, page 9)
           //
           // Given a new causally-ready operation Onew , and HB = [EO1,..., EOm,..., EOn ], the following steps are executed:
           //  1. Undo operations in HB from right to left until
@@ -393,10 +396,10 @@ namespace Chalks.ConcurrentEdition
                    || T(o_new) == OperationType.Delete,
                    "Invalid operation request.");
 
-            log(1, $"Site $(site_id);$(state_vector); '$(text_buffer.get_text())'; applying $(o_new)");
+            log(1, $"Site $(site_id);$(HashToString(state_vector)); '$(text_buffer.get_text())'; applying $(o_new)");
     
             // 1.
-            mutable m = -1; // manage the case HB == [] // (was  m = 0)
+            mutable m = -1; // manage the case HB == [] // (was  m = 0 in python)
             def undoed = ArrayList() :Chalks.ArrayList[Operation];
               
             {
@@ -406,6 +409,7 @@ namespace Chalks.ConcurrentEdition
                 // from right to left
                 while(enumerator.MoveNext() && not_in_total_ordering) {
                     m = enumerator.Current;
+                    log(1, $"apply: m == $m"); // just for debugging
                     def EOm = HB[m];
                     //log("check_total_ordering($(EOm), $(o_new)) => $(check_total_ordering(EOm, o_new))"); // just for debugging
                     
@@ -420,7 +424,7 @@ namespace Chalks.ConcurrentEdition
                     }
                 } 
             }
-            
+              
             when ( (len(HB) != 0)  && (len(undoed) == len(HB)) ) {
                 log(2, "No previous op found !");
                 m = -1; // to indicate that no previous op was found
@@ -804,7 +808,7 @@ namespace Chalks.ConcurrentEdition
         
         GOT(Onew :Operation, HB :Chalks.ArrayList[Operation]) :Operation
         { // GOT: Generic Operation Transform
-          // Algorithm 2: The GOT control scheme (sun98generic) 
+          // Algorithm 2: The GOT control scheme (sun97generic) 
           // Given a new causally-ready operation Onew , and HB = [EO1 , EO2, ..., EOm ].
           // The following steps are executed to obtain EOnew :
           //  
@@ -843,23 +847,26 @@ namespace Chalks.ConcurrentEdition
                     {
                         // (a) i.
                         def r = len(EOL); 
-    
+
+                        // ArrayList(r) fix the capacity of the list to r elements
                         def EOLl = ArrayList(r) :ArrayList[Operation]; // EOLl <=> EOL'
 
                         // just for debugging
-                        log(3,
-                            "GOT (a) i.; r $(r); (k,c1 - 1) $((k,c1 - 1)); len(HB) $(len(HB))");
+                        log(1,
+                            $"GOT (a) i.; r $(r); (k,c1 - 1) $((k,c1 - 1)); len(HB) $(len(HB))");
                         
-                        EOLl[0] = LET(EOL[0], reversed(HB.Slice(k,c1 - 1 +1)));
+                        EOLl.Add( /*EOLl[0] =*/
+                                 LET(EOL[0], reversed(HB.Slice(k,c1 - 1 +1))) );
                         // +1 because in paper notation ranges are incluse, incluse ('[]');
                         // while in python  they are incluse, exclusive ('[)')
                         // (this behaviour is copied in this pythonic nemerle code)
                         
                         // (a) ii.
-                        foreach (i in range(1,r))
+                        foreach (i in range(1, r))
                         {
                             def TO = LET(EOL[i], reversed(HB.Slice(k, c1 + i - 1 + 1)));
-                            EOLl[i] = LIT(TO, EOLl.Slice(1,i-1+1));
+                            EOLl.Add( /*EOLl[i] =*/
+                                     LIT(TO, EOLl.Slice(1,i-1+1)) );
                         }
                 
                         // (b)

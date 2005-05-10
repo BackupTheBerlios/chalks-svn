@@ -1,3 +1,17 @@
 All the documentation is aviable online at the site:
 
 http://chalks.berlios.de
+
+The core algorithm implemented is described in the works of ChengZheng Sun:
+
+Achieving convergence, causality-preservation, and intention.. - Sun, Jia et al. - 1998 <- the must
+http://citeseer.ist.psu.edu/sun98achieving.html
+
+A Generic Operation Transformation Scheme for Consistency.. - Sun, Jia (1997)
+http://citeseer.ist.psu.edu/sun97generic.html
+
+Operational Transformation in Real-Time Group Editors: Issues, Algorithms, and Achievements (1998)
+http://citeseer.ist.psu.edu/sun98operational.html
+
+Reversible inclusion and exclusion transformation for string.. - Sun, Chen et al. - 1998
+http://citeseer.ist.psu.edu/sun98reversible.html

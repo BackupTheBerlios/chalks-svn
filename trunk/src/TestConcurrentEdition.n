@@ -9,6 +9,8 @@ using System;
 using Nemerle.Collections;
 using Chalks.Network;
 
+using Chalks.Helpers; // for HashToString
+
 namespace Chalks.ConcurrentEdition
 {    
     
@@ -53,21 +55,6 @@ namespace Chalks.ConcurrentEdition
 
         #region Helper methods
 
-        HashToString(hash :Hashtable[Guid, int]) :string
-        {
-            mutable text = "";
-            foreach((k,v) in hash.KeyValuePairs) text += $"$(k):$(v),";
-
-            $"{ $text }";
-        }
-
-        HashToString(hash :Hashtable[Guid, Hashtable[Guid,int]]) :string
-        {
-            mutable text = "";
-            foreach((k,v) in hash.KeyValuePairs) text += $"$(k):$(HashToString(v)),";
-
-            $"{ $text }";
-        }
 
         #endregion
 
@@ -230,7 +217,7 @@ namespace Chalks.ConcurrentEdition
                 
                 success = success && t_res;
 
-                Console.WriteLine(  $"$(t_site);$(HashToString(t_sv));'$(t_text)';"
+                Console.WriteLine(  $"\n$(t_site);$(HashToString(t_sv));'$(t_text)';"
                                   + $"delayed_ops: $(t_delayed_ops); $(res_text(t_res))");
             }
 

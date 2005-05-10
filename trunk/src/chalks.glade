@@ -388,7 +388,10 @@
   <property name="website">http://chalks.berlios.de</property>
   <property name="website_label" translatable="yes">Chalks WebSite</property>
   <property name="authors">Rodrigo Benenson
-Ricardo Niederberger</property>
+Ricardo Niederberger
+
+Collaborative edition algorithm based on the works of:
+Chengzheng Sun et al.</property>
   <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
 </widget>
 

@@ -29,7 +29,7 @@ test_network.exe: TestNetwork.n Network.n ConcurrentEdition.n Gui.n ConcurrentEd
 
 test_cce.exe: TestConcurrentEdition.n ConcurrentEdition.n Network.n Gui.n ConcurrentEditionWidget.n helpers.dll
 	rm -f test_cce.exe
-	$(Compiler) $(Flags) -out:"test_cce.exe" -r:System.dll -r:nunit.framework.dll  $(DllResources) TestConcurrentEdition.n ConcurrentEdition.n Network.n Gui.n ConcurrentEditionWidget.n
+	$(Compiler) $(Flags) -out:"test_cce.exe" -r:nunit.framework.dll  $(DllResources) TestConcurrentEdition.n ConcurrentEdition.n Network.n Gui.n ConcurrentEditionWidget.n
 
 clean:
 	rm -f *.exe *~ test_*.dll helpers.dll TestResult.xml chalks.config
