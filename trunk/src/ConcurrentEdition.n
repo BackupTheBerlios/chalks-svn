@@ -137,7 +137,7 @@ namespace Chalks.ConcurrentEdition
                     }
                     
                     when(op.lost_information != null) {
-                        expand_timestamp( (op.lost_information :>Operation) );
+                        expand_timestamp( (op.lost_information :Operation) );
                         expand_timestamp(op.LI_base_op); 
                     }
                 }
@@ -180,7 +180,7 @@ namespace Chalks.ConcurrentEdition
                 }
 
                 when(op.lost_information != null) {
-                    contract_timestamp( (op.lost_information :>Operation) );
+                    contract_timestamp( (op.lost_information :Operation) );
                     contract_timestamp(op.LI_base_op); 
                 }
             }
@@ -207,7 +207,7 @@ namespace Chalks.ConcurrentEdition
             status;
         }
 
-        public set_status(status :ConcurrentEditableNodeStatus) :void
+        public set_status(_status :ConcurrentEditableNodeStatus) :void
         { // (re)initialize the internal state (occurs when entering in an existing session)
 
             throw Exception("to be implemented");
@@ -244,7 +244,7 @@ namespace Chalks.ConcurrentEdition
                     while (   (applied_an_operation == false) 
                            && enumerator.MoveNext() // returns false at the end of the list
                            ){
-                        t_op = enumerator.Current :> Operation;
+                        t_op = enumerator.Current :Operation;
                         when ( is_causally_ready(t_op) ) {
                             apply(t_op);
                             delayed_operations.Remove(t_op);
@@ -454,7 +454,7 @@ namespace Chalks.ConcurrentEdition
                     // paper [m+1,m+i - 1] -> c# [m+1:m+i +1]
                     def TO = LET( HB[m+1+i], reversed(HB.Slice(m+1, m+i +1)));
 
-                    def t_list = ArrayList() :> ArrayList[Operation];
+                    def t_list = ArrayList() :ArrayList[Operation];
                     t_list.Add(eo_new);  t_list.Append(EOoL);  //[eo_new] + EOoL
                     EOoL.Add( LIT( TO, t_list) );
                 }
@@ -485,7 +485,9 @@ namespace Chalks.ConcurrentEdition
             state_vector_table[eo_new.SourceSite] = eo_new.TimeStamp.Clone();
             
             // call the garbage collector (over a dummy periodic condition)
-            when ((len(HB) % 10) == 0) collect_garbage();
+            when ((len(HB) % 10) == 0) {
+                _ = collect_garbage(); // returns the garbage
+            }
                                 
             ;
         }
@@ -587,7 +589,7 @@ namespace Chalks.ConcurrentEdition
             foreach( site_id in MSV.Keys ) {
                 //MSV[i] = min( [ sv[i] for sv in SVT ] ) ;
 
-                def f(k:Guid, v:Hashtable[Guid, int], b:int) {
+                def f(_k:Guid, v:Hashtable[Guid, int], b:int) {
                     System.Math.Min(v[site_id], b)
                 }
                 
@@ -705,7 +707,7 @@ namespace Chalks.ConcurrentEdition
             def sum( t_list :Hashtable[Guid, int]) :int
             { // sum = lambda t_list: reduce(lambda x,y: x+y, t_list)
 
-                def f(k:Guid, v:int, b:int) {
+                def f(_k:Guid, v:int, b:int) {
                     v + b;
                 }
                 
@@ -1341,7 +1343,7 @@ namespace Chalks.ConcurrentEdition
             Type = optype;
             Pos = 0;
             Length = 0;
-            Text = "";
+            Text = text;
 
             SourceSite = source_site;
             TimeStamp = time_stamp.Clone();
@@ -1375,9 +1377,9 @@ namespace Chalks.ConcurrentEdition
               | OperationType.SetText =>
                   $"$Type $Text from $SourceSite "
                    + HashToString(TimeStamp);
-              | _ =>
+              /*| _ =>
                   $"$Type@$(Pos):$(Length):'$(Text)' from $(SourceSite.ToString().Substring(0,8)) "
-                   + HashToString(TimeStamp);
+                   + HashToString(TimeStamp);*/
             }
         }
 

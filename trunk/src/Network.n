@@ -98,14 +98,14 @@ namespace Chalks.Network
         }
         
         
-        public receive_operation(op :Operation) :void
+        public receive_operation(_op :Operation) :void
         {
-            ;
+            throw Exception("to be implemented");
         }
 
-        public receive_message(message :string) :void
+        public receive_message(_message :string) :void
         {
-            ;
+            throw Exception("to be implemented");
         }
 
         public get_site_id() :Guid
@@ -190,7 +190,7 @@ namespace Chalks.Network
                           //Console.WriteLine($"Going to tests port $(port.ToString())"); 
                           //Console.Out.Flush();
                           
-                        //| _ => (); // other exception are not managed
+                        | e => throw e; // other exception are not managed
                       }
                       
                   }
@@ -381,7 +381,7 @@ namespace Chalks.Network
                 stream.Close();
             }
             catch { // could not do the webpage trick
-                | e =>
+                | _ =>
                     def host = Net.Dns.GetHostByName(Net.Dns.GetHostName());
                     ip = Net.IPAddress(host.AddressList[0].Address).ToString();      
             }

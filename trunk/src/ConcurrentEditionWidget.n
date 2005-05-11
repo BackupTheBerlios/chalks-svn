@@ -93,7 +93,7 @@ namespace Chalks.ConcurrentEditionWidget
             { // iterate over the different regions
                 def text = Buffer.GetSlice(start_iter, end_iter, false);
                 def pos = start_iter.Offset;
-                gui.concurrent_editable.generate_operation(OperationType.Insert, pos, text);
+                _ = gui.concurrent_editable.generate_operation(OperationType.Insert, pos, text);
                 //Buffer.RemoveTag(to_send_tag, start_iter, end_iter);
                 Buffer.RemoveAllTags(start_iter, end_iter); // inserted text has no tag
 
