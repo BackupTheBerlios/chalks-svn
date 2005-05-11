@@ -2,6 +2,7 @@
 Helpers classes and Macros for the development.
 */
 
+using System;
 
 namespace Chalks {
 
@@ -83,8 +84,7 @@ namespace Chalks {
 
         new public GetEnumerator() : Nemerle.Collections.IEnumerator['t]
         {
-            ArrayListEnumerator( base.GetEnumerator() )
-                                                      :>  Nemerle.Collections.IEnumerator['t];
+            ArrayListEnumerator( base.GetEnumerator() ) :Nemerle.Collections.IEnumerator['t];
         }
 
         public Slice(_start:int, _stop:int) :ArrayList['t]
@@ -191,20 +191,47 @@ namespace Chalks {
         public HashToString(hash :Nemerle.Collections.Hashtable[System.Guid, int]) :string
         {
             mutable text = "";
-            foreach((k,v) in hash.KeyValuePairs) text += $"$(k):$(v),";
+            foreach((k,v) in hash.KeyValuePairs) text += $"$(k.ToString().Substring(0,8)):$(v.ToString()), ";
             
-            $"{ $text }";
+            $"{ $text}";
         }
 
         public HashToString(hash :Nemerle.Collections.Hashtable[
                      System.Guid, Nemerle.Collections.Hashtable[System.Guid,int]]) :string
         {
             mutable text = "";
-            foreach((k,v) in hash.KeyValuePairs) text += $"$(k):$(HashToString(v)),";
+            foreach((k,v) in hash.KeyValuePairs) text += $"$(k.ToString()):$(HashToString(v)), ";
             
-            $"{ $text }";
+            $"{ $text}";
         }
-    }
+
+
+    
+        public is_minor(a :Guid, b:Guid) :bool
+        { // setup a total ordering between Guid
+          // simply interpret Guid as huge number, and compare them  
+            
+            def a_array = a.ToByteArray();
+            def b_array = b.ToByteArray();
+            mutable c = 0;
+            for(c = a_array.Length - 1;
+                   (c >= 0)
+                && (a_array[c] < b_array[c]);
+                c-=1) ();
+            
+            // if all the elements of a_array are minor than b_array
+            // then a < b
+            if (c == -1) {
+                true;
+            }
+            else { // if not, a==b or a>b
+                false;
+            }
+        }
+        
+        
+    } // end of module Helpers
+
 
     #endregion
 

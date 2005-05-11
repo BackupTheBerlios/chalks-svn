@@ -66,7 +66,7 @@ namespace Chalks.ConcurrentEdition
         public Init() :void
         {
 
-            Console.Write("Doing the ConcurrentEdition tests setup. ");
+            Console.WriteLine("Doing the ConcurrentEdition tests setup. ");
             Console.Out.Flush();
             
             // create 3 sites
@@ -75,7 +75,16 @@ namespace Chalks.ConcurrentEdition
                 sites[c] = ConcurrentEditable(text_buffers[c]);
 
                 network_nodes[c] = NetworkForCeTest();
+            }
+
+            // order the network nodes
+            // ensures that site0 < site1 < site2
+            Array.Sort(network_nodes, NetworkNodesComparer());
+            
+            // set up the network interfaces
+            for(mutable c=0; c<sites.Length; c+=1) {
                 sites[c].set_network_interface(network_nodes[c]);
+                log(1, $"Site$c has id $(network_nodes[c].get_site_id())");
             }
 
             // make each site award of the other ones
@@ -83,7 +92,7 @@ namespace Chalks.ConcurrentEdition
                 foreach(network_node in network_nodes) {
                     site.add_site(network_node.get_site_id()) }}
                     
-            Console.WriteLine("Done.");
+            Console.WriteLine("Setup done.");
             Console.Out.Flush();
             
             ;
@@ -302,7 +311,20 @@ namespace Chalks.ConcurrentEdition
             // for the tests the operations are sent 'manually' to control the order of arrival
         }
     }
-    
+
+    class NetworkNodesComparer :System.Collections.IComparer
+    {
+        public Compare(x :object, y:object) :int
+        {
+            Compare(x :>INetworkForCe, y :>INetworkForCe)
+        }
+        
+        public Compare(x :INetworkForCe, y :INetworkForCe) :int
+        {
+            if(Chalks.Helpers.is_minor(x.get_site_id(), y.get_site_id())) -1
+            else 1 // 'equality' is suposed to do not happen
+        }
+    }
     #endregion
     
 } // end of namespace

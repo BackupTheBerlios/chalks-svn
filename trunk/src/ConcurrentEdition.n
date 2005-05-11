@@ -224,7 +224,7 @@ namespace Chalks.ConcurrentEdition
           // ---
           // The workflow is receive->apply->execute
 
-            log(1, $"Site $(site_id);$(HashToString(state_vector)); receiving $(op)");
+            log(1, $"Site $(site_id.ToString().Substring(0,8));$(HashToString(state_vector)); receiving $(op)");
 
             if( is_causally_ready(op) ) { // if it is causally ready
 
@@ -260,8 +260,8 @@ namespace Chalks.ConcurrentEdition
             }
         
 
-            log(1, $"Site $(site_id); HB $(HB)");
-            log(1, $"Site $(site_id);$(HashToString(state_vector)); delayed_ops: $(delayed_operations)\n");
+            log(1, $"Site $(site_id.ToString().Substring(0,8)); HB $(HB)");
+            log(1, $"Site $(site_id.ToString().Substring(0,8));$(HashToString(state_vector)); delayed_ops: $(delayed_operations)\n");
             ;
         } // end of receive_operation
 
@@ -340,7 +340,7 @@ namespace Chalks.ConcurrentEdition
 
         override public ToString():string
         {
-            $"Site $site_id";
+            $"Site $(site_id.ToString().Substring(0,8))";
         }
 
         public get_SV() :Hashtable[Guid, int] 
@@ -396,7 +396,7 @@ namespace Chalks.ConcurrentEdition
                    || T(o_new) == OperationType.Delete,
                    "Invalid operation request.");
 
-            log(1, $"Site $(site_id);$(HashToString(state_vector)); '$(text_buffer.get_text())'; applying $(o_new)");
+            log(1, $"Site $(site_id.ToString().Substring(0,8));$(HashToString(state_vector)); '$(text_buffer.get_text())'; applying $(o_new)");
     
             // 1.
             mutable m = -1; // manage the case HB == [] // (was  m = 0 in python)
@@ -409,7 +409,7 @@ namespace Chalks.ConcurrentEdition
                 // from right to left
                 while(enumerator.MoveNext() && not_in_total_ordering) {
                     m = enumerator.Current;
-                    log(1, $"apply: m == $m"); // just for debugging
+                    log(4, $"apply: m == $m"); // just for debugging
                     def EOm = HB[m];
                     //log("check_total_ordering($(EOm), $(o_new)) => $(check_total_ordering(EOm, o_new))"); // just for debugging
                     
@@ -442,7 +442,7 @@ namespace Chalks.ConcurrentEdition
             when (len(undoed) > 0) { // if there was an undo, then redo
                 
                 log(1, // just for debugging
-                    "Site $(site_id); '$(text_buffer.get_text())'; undoed $(undoed); executed $(eo_new);");
+                    $"Site $(site_id.ToString().Substring(0,8)); '$(text_buffer.get_text())'; undoed $(undoed); executed $(eo_new);");
                 
                 def EOoL = ArrayList() :ArrayList[Operation]; // EO'm+1 List
     
@@ -580,7 +580,7 @@ namespace Chalks.ConcurrentEdition
             def MSV = minimum_state_vector;
     
         
-            log(1, $"Site $(site_id); before garbage collector; HB $(HB)");
+            log(1, $"Site $(site_id.ToString().Substring(0,8)); before garbage collector; HB $(HB)");
             //"%s" % map(lambda x: "{from S%i%s}"%(x["source_site"], x["timestamp"]) , HB)));
         
             // compute the MSV
@@ -594,8 +594,9 @@ namespace Chalks.ConcurrentEdition
                 MSV[site_id] =  SVT.Fold(0, f);
             }
         
-        
-            log(1, $"Site $(site_id); garbage collector; MSV $(MSV); SVT $(SVT);");
+
+            log(1, $"Site $(site_id.ToString().Substring(0,8)); garbage collector; MSV "+ MSV.ToString() + "; SVT " + SVT.ToString() + ";");
+            //log(1, $"Site $(site_id.ToString().Substring(0,8)); garbage collector; MSV "+ HashToString(MSV) + "; SVT " + HashToString(SVT) + ";");
             
             // collect the garbage
             def deleted_operations_list = ArrayList() :ArrayList[Operation];
@@ -611,7 +612,7 @@ namespace Chalks.ConcurrentEdition
                     def SVEO = EO.TimeStamp;
                 
                 
-                    log(1,   $"Site $(site_id); garbage collector; EO $(EO);"
+                    log(1,   $"Site $(site_id.ToString().Substring(0,8)); garbage collector; EO $(EO);"
                            + $"i $(i); $(SVEO[i])<=? $(MSV[i])" );
             
                     condition = SVEO[i] <= MSV[i];
@@ -620,13 +621,13 @@ namespace Chalks.ConcurrentEdition
                         deleted_operations_list.Add(EO);
                         HB.Remove(EO);
                         
-                        log(1, $"Site $(site_id); garbage collector; removing $(EO)");
+                        log(1, $"Site $(site_id.ToString().Substring(0,8)); garbage collector; removing $(EO)");
                     }
                     //if condition == false, stop scanning HB
                 } 
             }
             
-            log(1, $"Site $(site_id); after garbage collector; HB $(HB)");
+            log(1, $"Site $(site_id.ToString().Substring(0,8)); after garbage collector; HB $(HB)");
             //"%s"% map(lambda x: "{from S%i%s}"%(x["source_site"], x["timestamp"]) , HB)
             
             deleted_operations_list;
@@ -711,28 +712,7 @@ namespace Chalks.ConcurrentEdition
                 t_list.Fold(0, f);
             }
 
-
-            def is_minor(a :Guid, b:Guid) :bool
-            { // setup a total ordering between Guid
-              // simply interpret Guid as huge number, and compare them  
-
-                def a_array = a.ToByteArray();
-                def b_array = b.ToByteArray();
-                mutable c = 0;
-                for(c = 0;
-                       (c < a_array.Length)
-                    && (a_array[c] < b_array[c]);
-                    c+=1) ();
-
-                // if all the elements of a_array are minor than b_array
-                // then a < b
-                if (c == a_array.Length) {
-                    true;
-                }
-                else { // if not, a==b or a>b
-                    false;
-                }
-            }
+            def is_minor = Chalks.Helpers.is_minor;            
             #endregion
             
             def SVOa = Oa.TimeStamp;
@@ -751,8 +731,8 @@ namespace Chalks.ConcurrentEdition
             //2.
             def i = Oa.SourceSite;
             def j = Ob.SourceSite;
-    
-            def condition2 = (sum(SVOa) == sum(SVOb)) && is_minor(i, j); // ... and (i < j)
+            
+            def condition2 =  (sum(SVOa) == sum(SVOb)) && is_minor(i, j); // ... and (i < j)
         
             condition1 || condition2;
         }
@@ -1387,13 +1367,17 @@ namespace Chalks.ConcurrentEdition
         {
             match(Type) {
               | OperationType.Insert =>
-                  $"$Type $Pos $Text $SourceSite";
+                  $"$(Type)@$(Pos):'$(Text)' from $(SourceSite.ToString().Substring(0,8)) "
+                   + HashToString(TimeStamp);
               | OperationType.Delete =>
-                  $"$Type $Pos $Length $SourceSite";
+                  $"$(Type)@$(Pos):$Length from $(SourceSite.ToString().Substring(0,8)) "
+                   + HashToString(TimeStamp);
               | OperationType.SetText =>
-                  $"$Type $Text $SourceSite";
+                  $"$Type $Text from $SourceSite "
+                   + HashToString(TimeStamp);
               | _ =>
-                  $"$Type $Pos $Length $Text $SourceSite";
+                  $"$Type@$(Pos):$(Length):'$(Text)' from $(SourceSite.ToString().Substring(0,8)) "
+                   + HashToString(TimeStamp);
             }
         }
 

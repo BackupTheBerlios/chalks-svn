@@ -2304,14 +2304,15 @@ def get_test_suite():
     """
     
     global dbg
-    dbg = 0
+    dbg = 1
     
     import unittest
     TestSuite = unittest.TestSuite()
     TestSuite.addTest(unittest.FunctionTestCase(TestConcurrentEditable1))
-    TestSuite.addTest(unittest.FunctionTestCase(TestConcurrentEditable2))
-    TestSuite.addTest(unittest.FunctionTestCase(TestConcurrentEditableServer))
-        
+    #TestSuite.addTest(unittest.FunctionTestCase(TestConcurrentEditable2))
+    #TestSuite.addTest(unittest.FunctionTestCase(TestConcurrentEditableServer))
+
+	
     return TestSuite
 #@+node:rodrigob.121403173614.1548:TestConcurrentEditable1
 
