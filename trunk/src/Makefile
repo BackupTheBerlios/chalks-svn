@@ -25,7 +25,7 @@ test_cce.dll: TestConcurrentEdition.n ConcurrentEdition.n Network.n Gui.n Concur
 
 test_network.exe: TestNetwork.n Network.n ConcurrentEdition.n Gui.n ConcurrentEditionWidget.n helpers.dll
 	rm -f test_network.exe
-	$(Compiler) $(Flags) -out:"test_network.exe" -r:nunit.framework.dll $(DllResources) TestNetwork.n Network.n ConcurrentEdition.n Gui.n ConcurrentEditionWidget.n helpers.dll
+	$(Compiler) $(Flags) -out:"test_network.exe" -r:nunit.framework.dll $(DllResources) TestNetwork.n Network.n ConcurrentEdition.n Gui.n ConcurrentEditionWidget.n
 
 test_cce.exe: TestConcurrentEdition.n ConcurrentEdition.n Network.n Gui.n ConcurrentEditionWidget.n helpers.dll
 	rm -f test_cce.exe
