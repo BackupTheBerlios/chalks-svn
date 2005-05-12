@@ -597,7 +597,7 @@ namespace Chalks.ConcurrentEdition
             }
         
 
-            log(1, $"Site $(site_id.ToString().Substring(0,8)); garbage collector; MSV "+ MSV.ToString() + "; SVT " + SVT.ToString() + ";");
+            log(1, $"Site $(site_id.ToString().Substring(0,8)); garbage collector; MSV $((MSV)); SVT $((SVT));");
             //log(1, $"Site $(site_id.ToString().Substring(0,8)); garbage collector; MSV "+ HashToString(MSV) + "; SVT " + HashToString(SVT) + ";");
             
             // collect the garbage
@@ -900,7 +900,7 @@ namespace Chalks.ConcurrentEdition
             def Ooa =
             if ( Check_RA(Oa) ) {
                 //just for debugging
-                log(4, $"Check_BO(\n\t$(Oa), \n\t$(Ob) \n)\t\t=> $(Check_BO(Oa, Ob))");
+                log(2, $"Check_BO(\n\t$(Oa), \n\t$(Ob) \n)\t\t=> $(Check_BO(Oa, Ob))");
                 
                 if ( Check_BO(Oa, Ob) ) {
                     Convert_AA(Oa, Ob) }
@@ -927,6 +927,7 @@ namespace Chalks.ConcurrentEdition
         
         IT_II(Oa :Operation, Ob :Operation) :Operation
         {
+            log(1, "ping");
             if ( P (Oa) < P (Ob) ) Oa
             else Operation( OperationType.Insert, P(Oa) + L(Ob), S(Oa))
         }
@@ -1223,8 +1224,9 @@ namespace Chalks.ConcurrentEdition
 
         
         Check_BO(oa :Operation, ob :Operation) :bool        
-        { //Ob is the base operation of Oa ? (in the relative address context)
+        { // Ob is the base operation of Oa ? (in the relative address context)
 
+            //log(4, $"Check_BO: ($(ob)).Equals( $(oa.base_operation) ) == $(ob.Equals( oa.base_operation ))"); // just for debugging
             // look at the definition of Equals in the Operation class
             ob.Equals( oa.base_operation );
         }
@@ -1234,7 +1236,7 @@ namespace Chalks.ConcurrentEdition
           // over the relative position of Ob.
             
             assert( Check_BO(oa,ob), "Convert_AA: Ob is not the base_operation of Oa" );
-            log(2, $"called Convert_AA($oa, $ob)"); // just for debugging
+            log(4, $"called Convert_AA($oa, $ob)"); // just for debugging
             
             match(T(oa)) {
                 | OperationType.Insert =>
@@ -1352,41 +1354,57 @@ namespace Chalks.ConcurrentEdition
 
         // Methods
         public Equals( Oa :Operation, Ob :Operation) :bool
-        {
-            object.ReferenceEquals(Oa, Ob)
-            ||
-              (   Oa.TimeStamp.Equals( Ob.TimeStamp )
-               && Oa.SourceSite == Ob.SourceSite
-               && Oa.Type == Ob.Type
-               && Oa.Pos == Ob.Pos
-               && Oa.Length == Ob.Length
-               && Oa.Text == Ob.Text
-               ) // that is 'good enough'
-            ;
-        }
+        { // The papers do not explain how to manage the TimeStamp of the operations
+          // during transforms and do not explain which operations are considered
+          // to be equivalents.
+          // Studying in detail the sequence of transformations that the example generate:
+          // LIT(ET(O4, ET(EO2, EO1)), [EO1, EO2])
+          //  I deduce that the first approach of using Operations class instances is wrong.
+          // Doing that Transformation mutate the operators passed is wrong too.
+          // If during transform the timestamp are preserved then timestamp and source_site are
+          // the unique identifiers of a operation.
+          // Then IT(EO, EOx) == ET(EO, EOx) == EO; this is not intuitive but it works.
+          //  ----
+          //  x==y calls x.__eq__(y)
+        
+            //assert isinstance(other, Operation), "Only operations instances can be compared (was comparing %s with %s)"%(self, other)
 
-        override public ToString() :string
-        {
-            match(Type) {
-              | OperationType.Insert =>
-                  $"$(Type)@$(Pos):'$(Text)' from $(SourceSite.ToString().Substring(0,8)) "
-                   + HashToString(TimeStamp);
-              | OperationType.Delete =>
-                  $"$(Type)@$(Pos):$Length from $(SourceSite.ToString().Substring(0,8)) "
-                   + HashToString(TimeStamp);
-              | OperationType.SetText =>
-                  $"$Type $Text from $SourceSite "
-                   + HashToString(TimeStamp);
-              /*| _ =>
-                  $"$Type@$(Pos):$(Length):'$(Text)' from $(SourceSite.ToString().Substring(0,8)) "
-                   + HashToString(TimeStamp);*/
-            }
+            (Oa.SourceSite.Equals(Ob.SourceSite)) && AreEquals(Oa.TimeStamp, Ob.TimeStamp);
         }
 
         public Equals(op :Operation) :bool
         {
             // same place, same moment
-            (SourceSite.Equals(op.SourceSite)) && (TimeStamp.Equals(op.TimeStamp)); 
+            //log(0, $"op.Equals: $(SourceSite).Equals($(op.SourceSite)) ==  $(SourceSite.Equals(op.SourceSite))");
+            //log(0, $"op.Equals: $(TimeStamp).Equals($(op.TimeStamp)) ==  $(TimeStamp.Equals(op.TimeStamp))");
+            
+            (SourceSite.Equals(op.SourceSite)) && AreEquals(TimeStamp, op.TimeStamp); 
+        }
+
+        override public ToString() :string
+        {
+
+            def additional_information =
+            if (relatively_addressed) {
+                $" is_RA delta_pos $delta_pos based_op $base_operation" }
+            else if (lost_information != null) {
+                $" contain LI lost_information $lost_information LI_base_op $LI_base_op" }
+            else { "" };
+                      
+            match(Type) {
+              | OperationType.Insert =>
+                  $"$(Type)@$(Pos):'$(Text)' from $(SourceSite.ToString().Substring(0,8)) "
+                   + HashToString(TimeStamp) + additional_information;
+              | OperationType.Delete =>
+                  $"$(Type)@$(Pos):$Length from $(SourceSite.ToString().Substring(0,8)) "
+                   + HashToString(TimeStamp) + additional_information;
+              | OperationType.SetText =>
+                  $"$Type $Text from $SourceSite "
+                   + HashToString(TimeStamp) + additional_information;
+              /*| _ =>
+                  $"$Type@$(Pos):$(Length):'$(Text)' from $(SourceSite.ToString().Substring(0,8)) "
+                   + HashToString(TimeStamp);*/
+            }
         }
 
     } // end of class Operation

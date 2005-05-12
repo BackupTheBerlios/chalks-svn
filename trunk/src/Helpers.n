@@ -4,6 +4,8 @@ Helpers classes and Macros for the development.
 
 using System;
 
+using Nemerle.Collections;
+
 namespace Chalks {
 
     // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
@@ -200,11 +202,23 @@ namespace Chalks {
                      System.Guid, Nemerle.Collections.Hashtable[System.Guid,int]]) :string
         {
             mutable text = "";
-            foreach((k,v) in hash.KeyValuePairs) text += $"$(k.ToString()):$(HashToString(v)), ";
+            foreach((k,v) in hash.KeyValuePairs) text += $"$(k.ToString().Substring(0,8)):$(HashToString(v)), ";
             
             $"{ $text}";
         }
 
+        public AreEquals(stamp_a :Nemerle.Collections.Hashtable[System.Guid,int],
+                         stamp_b :Nemerle.Collections.Hashtable[System.Guid,int] ) :bool
+        {
+            mutable ret = true;
+            def enumerator = stamp_a.KeyValuePairs.GetEnumerator(); enumerator.Reset();
+            while(enumerator.MoveNext() && ret)
+            {
+                def (k,v) = enumerator.Current;
+                ret = ( stamp_b.Contains(k) && stamp_b[k] == v);
+            }
+            ret;
+        }
 
     
         public is_minor(a :Guid, b:Guid) :bool
@@ -214,19 +228,32 @@ namespace Chalks {
             def a_array = a.ToByteArray();
             def b_array = b.ToByteArray();
             mutable c = 0;
-            for(c = a_array.Length - 1;
-                   (c >= 0)
-                && (a_array[c] < b_array[c]);
-                c-=1) ();
+            mutable result = 0; // 0=> a==b; 1=> a>b; -1=> a<b;
+            for(c = a_array.Length - 1; (c >= 0) && (result == 0); c-=1) {
+                if (a_array[c] < b_array[c]) result = -1;
+                else if (a_array[c] > b_array[c]) result = 1;
+                else result = 0;// a_array[c] == b_array[c]
+            }
+
+            when(false) // just for debugging
+            {
+                def f(a :string, b :byte) :void { a + b.ToString() }
+
+                mutable text = "";
+                for(mutable c=0; c<a_array.Length; c+=1) {
+                    text = text + " " + a_array[c].ToString(); } 
+                Console.WriteLine($"a [ $text ]");
+                text = "";
+                for(mutable c=0; c<b_array.Length; c+=1) {
+                    text = text + " " + b_array[c].ToString(); } 
+                Console.WriteLine($"b [ $text ]");
+                
+                when(result == -1) Console.WriteLine($"$a < $b"); 
+                when(result == +1) Console.WriteLine($"$a > $b");
+                when(result == 0) Console.WriteLine($"$a == $b");
+            }
             
-            // if all the elements of a_array are minor than b_array
-            // then a < b
-            if (c == -1) {
-                true;
-            }
-            else { // if not, a==b or a>b
-                false;
-            }
+            result == -1; // (a<b)?
         }
         
         

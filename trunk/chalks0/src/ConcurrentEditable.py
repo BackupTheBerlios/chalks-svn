@@ -845,7 +845,7 @@ def IT (Oa, Ob):
     Ooa["source_site"] = Oa["source_site"]
     Ooa["timestamp"]   = list(Oa["timestamp"]) # copy
     
-    if dbg>=2:	
+    if dbg>=0:	
         print "IT(\n\t%s, \n\t%s\n)\t\t=> %s;"%(Oa, Ob,Ooa) # just for debugging
         
     return Ooa
