@@ -1,23 +1,31 @@
 all: chalks.exe
 
-# make.exe aviable at http://unxutils.sourceforge.net/
-
-#rmCommand = del /F
-rmCommand = rm -f
 
 Compiler = ncc.exe
-DllResources = -pkg:gtk-sharp-2.0,glade-sharp-2.0 -r:Nini.dll -r:System.Runtime.Remoting.dll -r:helpers.dll #-pkg:gtksourceview-sharp
 
+#windows
+rmCommand = del /F
+GtkDllResources = -r:glade-sharp.dll -r:glib-sharp.dll -r:pango-sharp.dll -r:atk-sharp.dll -r:gdk-sharp.dll -r:gtk-sharp.dll
+
+#linux
+#rmCommand = rm -f
+#GtkDllResources = -pkg:gtk-sharp-2.0 -pkg:glade-sharp-2.0
+
+
+#GtkDllResources = -pkg:gtk-sharp-2.0 -pkg:glade-sharp-2.0 -pkg:gtksourceview-sharp
+
+DllResources = $(GtkDllResources) -r:Nini.dll -r:System.Runtime.remoting.dll -r:helpers.dll
 Resources =  -res:chalks.glade -res:chalks.ico
-Flags =
+Flags = 
 
 chalks.exe: chalks.glade chalks.ico Chalks.n Gui.n ConcurrentEditionWidget.n ConcurrentEdition.n Network.n helpers.dll
 	$(rmCommand) chalks.exe
-	$(Compiler) $(Flags) -out:"chalks.exe" $(DllResources) $(Resources) Chalks.n Gui.n ConcurrentEditionWidget.n ConcurrentEdition.n Network.n
+	$(Compiler) $(Flags) -out:"chalks.exe" $(Resources) $(DllResources) Chalks.n Gui.n ConcurrentEditionWidget.n Network.n ConcurrentEdition.n
 
 helpers.dll: Helpers.n
 	$(rmCommand) *.exe
-	$(Compiler) $(Flags)-r:Nemerle.Compiler.dll -t:dll -out:"helpers.dll" Helpers.n
+	$(Compiler) $(Flags) -t:dll -out:"helpers.dll" Helpers.n
+#-r:Nemerle.Compiler.dll # required if using macros
 
 test: test_network.dll test_cce.dll
 	nunit-console test_cce.dll test_network.dll /labels

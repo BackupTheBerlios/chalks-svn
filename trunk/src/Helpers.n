@@ -253,7 +253,20 @@ namespace Chalks {
             result == -1; // (a<b)?
         }
         
+		#region Pythonic syntax helpers
+		
+		public len(_list:System.Collections.ICollection) :int
+		{
+			_list.Count;
+		}
+		
+		public len(_list:Nemerle.Collections.Hashtable[Guid, int]) :int
+		{
+			_list.Count;
+		}
         
+		#endregion
+		
     } // end of module Helpers
 
 
@@ -264,10 +277,10 @@ namespace Chalks {
     #region Pythonic syntax helpers
 
 
-    macro len(_list)
+    /*macro len(_list)
     {
         <[ $_list.Count; ]>
-    }
+    }*/
 
 
 
@@ -399,14 +412,15 @@ namespace Chalks {
     {
         a || b;
     }
-     */
+     
     
     macro _not(a)
     syntax("not", a)
     {
         <[ ! $a ]>
     }
-    
+    */
+	
     #endregion
 
     // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~

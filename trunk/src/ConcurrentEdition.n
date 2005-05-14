@@ -101,7 +101,7 @@ namespace Chalks.ConcurrentEdition
         public add_site(site_id :Guid) :void
         { // called when we detect a new site collaborating
 
-            when(not state_vector.Contains(site_id)) { // security check
+            when(! state_vector.Contains(site_id)) { // security check
                 
                 // expand the state variables ---
 
@@ -110,7 +110,7 @@ namespace Chalks.ConcurrentEdition
                 
                 // expand the entries in the SVT
                 foreach(sv in state_vector_table.Values) {
-                    when(not object.ReferenceEquals (sv, state_vector)) {
+                    when(! object.ReferenceEquals (sv, state_vector)) {
                         sv[site_id] = 0; }}
             
                 def t_sv = state_vector.Clone(); 
@@ -413,7 +413,7 @@ namespace Chalks.ConcurrentEdition
                     def EOm = HB[m];
                     //log("check_total_ordering($(EOm), $(o_new)) => $(check_total_ordering(EOm, o_new))"); // just for debugging
                     
-                    if (not check_total_ordering(EOm, o_new)) {
+                    if (! check_total_ordering(EOm, o_new)) {
                         undo(EOm);
                         // operations do should not be erased from HB,
                         // because they will later be transformed !
@@ -786,7 +786,7 @@ namespace Chalks.ConcurrentEdition
           // (nor == not or; 0,0 => 1 , 0 else)
 
             //not (are_dependent(oa,ob) or are_dependent(ob,oa) );
-            not (are_dependent(oa,ob) || are_dependent(ob,oa) );
+            ! (are_dependent(oa,ob) || are_dependent(ob,oa) );
         }
         
         are_independent :Operation * Operation -> bool = are_concurrent; // just an alias
@@ -1142,7 +1142,7 @@ namespace Chalks.ConcurrentEdition
             assert (T(o1) == T(o2),
                     "Splitted operations are of different types, this is not sane.");
             
-            assert( not(o1.is_splitted || o2.is_splitted),
+            assert( ! (o1.is_splitted || o2.is_splitted),
                    "Recursive splitted operation not yet supported" );
             
             assert(T(o1) == OperationType.Delete,
