@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<project name="Chalks" default="chalks.exe" >
+
+  <!--<property name="debug" value="true" />-->
+
+<!-- ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~ -->
+
+  <target name="chalks.exe" depends="helpers.dll">
+
+    <delete file="chalks.exe" failonerror="false" />
+
+    <ncc target="exe" output="chalks.exe">
+
+      <sources>
+	<include name="Chalks.n" />
+	<include name="Gui.n" />
+	<include name="ConcurrentEditionWidget.n" />
+	<include name="ConcurrentEdition.n" />
+	<include name="Network.n" />
+      </sources>
+
+      <references>
+	<lib><include name="${nant.location}" /></lib>
+	<include name="helpers.dll" />
+        <include name="Nini.dll" />
+        <include name="System.Runtime.Remoting.dll" />
+	<!--  -pkg:gtk-sharp-2.0,glade-sharp-2.0 -->
+	<include name="glade-sharp.dll" />
+	<include name="glib-sharp.dll" />
+	<include name="pango-sharp.dll" />
+	<include name="atk-sharp.dll" />
+	<include name="gdk-sharp.dll" />
+	<include name="gtk-sharp.dll" />
+	<!--  -pkg:gtksourceview-sharp -->
+      </references>
+
+      <resources>
+        <include name="chalks.glade" />
+        <include name="chalks.ico" />
+      </resources>
+
+    </ncc>
+  </target>
+
+<!-- ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~ -->
+
+   <target name="run" depends="chalks.exe">
+      <exec program="chalks.exe"/>
+    </target>
+
+  <target name="clean">
+      <echo message="Cleaning the directory" />
+      <delete file="*.exe" failonerror="false" />
+      <delete file="*~" failonerror="false" />
+      <delete file="test_*.dll" failonerror="false" />
+      <delete file="helpers.dll" failonerror="false" />
+      <delete file="TestResult.xml" failonerror="false" />
+      <delete file="chalks.config" failonerror="false" />
+  </target>
+
+<!-- ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~ -->
+
+  <target name="helpers.dll">
+    <delete file="*.exe" failonerror="false" />
+    <ncc target="library" output="helpers.dll">
+      <sources>
+	<include name="Helpers.n" />
+      </sources>
+
+      <references>
+	<lib><include name="${nant.location}" /></lib>
+        <include name="Nemerle.Compiler.dll" />
+      </references>
+    </ncc> 
+  </target>
+
+<!-- ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~ -->
+
+  <target name="test_network.exe" depends="helpers.dll">
+
+    <delete file="test_network.exe" failonerror="false" />
+
+    <ncc target="exe" output="test_network.exe">
+      <sources>
+	<include name="TestNetwork.n" />
+	<include name="Gui.n" />
+	<include name="ConcurrentEditionWidget.n" />
+	<include name="ConcurrentEdition.n" />
+	<include name="Network.n" />
+      </sources>
+
+      <references>
+	<include name="nunit.framework.dll" />
+	<include name="Nini.dll" />
+        <include name="System.Runtime.Remoting.dll" />
+      </references>
+
+      <pkg-references>
+ 	<include name="gtk-sharp-2.0" />
+ 	<include name="glade-sharp-2.0" />
+	<!--<include name="gtksourceview-sharp" />-->
+      </pkg-references>
+    </ncc>
+  </target>
+
+  <target name="test_cce.exe">
+ 
+  </target>
+
+<!-- ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~ -->
+
+  <target name="test" depends="test_network.dll, test_cce.dll">
+    <!--<exec program="nunit-console test_cce.dll test_network.dll /labels" />-->
+
+    <nunit2>
+      <test assemblyname="test_cce.dll" />
+      <test assemblyname="test_network.dll" />
+      <arg value="/labels" />
+    </nunit2> 
+  </target>
+
+  <target name="test_network.dll">
+    <ncc target="library" output="test_network.dll">
+    </ncc> 
+  </target>
+
+  <target name="test_cce.dll">
+    <ncc target="library" output="test_cce.dll">
+    </ncc> 
+ 
+  </target>
+
+<!-- ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~ -->
+
+</project>
