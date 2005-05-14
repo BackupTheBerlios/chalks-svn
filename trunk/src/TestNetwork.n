@@ -68,10 +68,10 @@ namespace Network
 
             
             // Connects them as shown in chalks/doc/schemas/network_example
-            nodes[1].start_collaborating(nodes[0].get_self_uri());
-            nodes[2].start_collaborating(nodes[0].get_self_uri());
-            nodes[3].start_collaborating(nodes[0].get_self_uri());
-            nodes[4].start_collaborating(nodes[3].get_self_uri());
+            _ = nodes[1].start_collaborating(nodes[0].get_self_uri());
+            _ = nodes[2].start_collaborating(nodes[0].get_self_uri());
+            _ = nodes[3].start_collaborating(nodes[0].get_self_uri());
+            _ = nodes[4].start_collaborating(nodes[3].get_self_uri());
             
             
             ;
@@ -238,7 +238,7 @@ namespace Network
             status;
         }
 
-        public set_status(status :ConcurrentEditableNodeStatus) :void
+        public set_status(_status :ConcurrentEditableNodeStatus) :void
         { // (re)initialize the internal state (occurs when entering in an existing session)
 
             ;

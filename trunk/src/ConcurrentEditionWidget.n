@@ -49,12 +49,12 @@ namespace Chalks.ConcurrentEditionWidget
 
             // simple tests
             insert_text(Guid.NewGuid(), 0, "hello world\n");
-            
+                        
             mutable iter = Buffer.EndIter.Copy();
             def to_be_deleted = "damn! I'm trapped";
             Buffer.Insert(ref iter, "This text has to be sent\n" + to_be_deleted);
 
-            _ = delete_text(iter.Offset - to_be_deleted.Length, to_be_deleted.Length);
+             _ = delete_text(iter.Offset - to_be_deleted.Length, to_be_deleted.Length);
             // end of simple tests
             
             ;
@@ -93,10 +93,15 @@ namespace Chalks.ConcurrentEditionWidget
             { // iterate over the different regions
                 def text = Buffer.GetSlice(start_iter, end_iter, false);
                 def pos = start_iter.Offset;
-                _ = gui.concurrent_editable.generate_operation(OperationType.Insert, pos, text);
+
                 //Buffer.RemoveTag(to_send_tag, start_iter, end_iter);
                 Buffer.RemoveAllTags(start_iter, end_iter); // inserted text has no tag
-
+                
+                _ = gui.concurrent_editable.generate_operation(OperationType.Insert, pos, text);
+                // operations generated locally are not executed
+                // (because they where executed before generation)
+                // thus iterators still being valids
+                
                 // jump to the next section
                 _ = start_iter.ForwardToTagToggle(to_send_tag);
                 _ = end_iter.ForwardToTagToggle(to_send_tag);

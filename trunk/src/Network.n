@@ -260,8 +260,8 @@ namespace Chalks.Network
             catch {
                 | e =>
                   ret = false;
-                  log($"Connection failed : $(e.Message)");
-                  when (Chalks.Gui.ChalksWindow.verbosity_level > 1)
+                  log($"Connection failed : \n$e\n\n");
+                  when (Chalks.Gui.ChalksWindow.verbosity_level > 0)
                         throw e; // just for debugging
             }
 

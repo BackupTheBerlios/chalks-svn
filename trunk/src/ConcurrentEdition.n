@@ -497,21 +497,25 @@ namespace Chalks.ConcurrentEdition
         { // Modify the text buffer.
           // The lost information is stored into the operators for future undos.
 
-            log(4, $"Executing $eo");
-            if (eo.is_splitted) {
-                execute(eo.splitted_head, true); //splitted_part = true
-                execute(eo.splitted_tail, true); //splitted_part = true
-            }
-            else {
-                match (T(eo)) {
-                    | OperationType.Insert =>
-                      text_buffer.insert_text(site_id, P(eo), S(eo));
-                      
-                    | OperationType.Delete =>
-                      // stores the erased text for future undos
-                      eo.deleted_text = text_buffer.delete_text(P(eo), L(eo));
-                      
-                    | _ => throw Exception("Tried to execute an unmanaged operation type $(eo)");
+            // local operations where executed before being executed
+            when (eo.SourceSite != site_id ) { 
+            
+                log(4, $"Executing $eo");
+                if (eo.is_splitted) {
+                    execute(eo.splitted_head, true); //splitted_part = true
+                    execute(eo.splitted_tail, true); //splitted_part = true
+                }
+                else {
+                    match (T(eo)) {
+                        | OperationType.Insert =>
+                          text_buffer.insert_text(site_id, P(eo), S(eo));
+                          
+                        | OperationType.Delete =>
+                          // stores the erased text for future undos
+                          eo.deleted_text = text_buffer.delete_text(P(eo), L(eo));
+                          
+                        | _ => throw Exception("Tried to execute an unmanaged operation type $(eo)");
+                    }
                 }
             }
             ;
