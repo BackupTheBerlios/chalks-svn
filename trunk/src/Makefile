@@ -1,5 +1,7 @@
 all: chalks.exe
 
+# make.exe aviable at http://unxutils.sourceforge.net/
+
 #rmCommand = del /F
 rmCommand = rm -f
 
