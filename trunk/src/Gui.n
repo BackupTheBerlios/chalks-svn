@@ -75,8 +75,9 @@ namespace Chalks.Gui
 				gxml = Glade.XML(null, glade_resource_name, "chalks_window", null);
 			} catch {
 				| _ is System.ArgumentException => 
-					Console.WriteLine($"Could not find the Glade gui embedded resource '$(glade_resource_name)'");
+					Console.WriteLine($"Could not find the Glade gui embedded resource file '$(glade_resource_name)'");
 					Console.WriteLine("Will search it as an external file.");
+				| e => throw e;
 			}
 			
 			try {
@@ -86,7 +87,10 @@ namespace Chalks.Gui
 				| e is System.ArgumentException => 
 					Console.WriteLine($"Could not find the Glade gui resource external file '$(glade_resource_name)'");
 					Console.WriteLine($"$e");
+				| e => throw e;
 			}
+			
+			assert(gxml != null, $"Could not find the Glade gui resource file '$(glade_resource_name)'");
 			
             chalks_window = gxml.GetWidget("chalks_window") :> Window;
 
