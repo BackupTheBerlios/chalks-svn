@@ -64,6 +64,17 @@ namespace Chalks.Network
             
             //(null :ConcurrentEditableNodeProxy, Guid.Empty, ""); // <<< just as a test
         }
+
+
+        // Serialized tuple bug workaround
+        public login(site_id :Guid,
+                     nickname :string, password :string,
+                     ret_node_proxy :out ConcurrentEditableNodeProxy,
+                     ret_site_id  :out Guid,
+                     ret_nickname :out string) :void
+        {
+            (ret_node_proxy, ret_site_id, ret_nickname) = login(site_id, nickname, password);
+        }
         
     } // end of AuthenticationRealm class
         
@@ -242,9 +253,18 @@ namespace Chalks.Network
                 def remote_authentication_realm =
                     Activator.GetObject( typeof(AuthenticationRealm), uri) :> AuthenticationRealm; 
                 log("Starting authentication process");
-                def ret_tuple = remote_authentication_realm.login(site_id, nickname, password);
-                def (parent_node, parent_site_id, parent_nickname) = ret_tuple;
+                // Serialized tuple bug workaround
+                /*def ret_tuple = remote_authentication_realm.login(site_id, nickname, password);
+                def (parent_node, parent_site_id, parent_nickname) = ret_tuple;*/
+
+                mutable parent_node = null :ConcurrentEditableNodeProxy;
+                mutable parent_site_id = Guid.Empty;
+                mutable parent_nickname = "";
                 
+                remote_authentication_realm.login(
+                                          site_id, nickname, password, // in
+                                          out parent_node, out parent_site_id, out parent_nickname /*out*/ );
+                                
                 log("Credentials accepted, retrieving document");
                 def self_node_proxy = ConcurrentEditableNodeProxy(parent_site_id, this);
                 def parent_status = parent_node.add_node(self_node_proxy);
