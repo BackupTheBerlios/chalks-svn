@@ -69,29 +69,31 @@ namespace Chalks.Gui
             Application.Init ();
             
             
-			mutable gxml = null :Glade.XML;
-			try {
-				// chalks.glade file included as a resource "-res:chalks.glade"
-				gxml = Glade.XML(null, glade_resource_name, "chalks_window", null);
-			} catch {
-				| _ is System.ArgumentException => 
-					Console.WriteLine($"Could not find the Glade gui embedded resource file '$(glade_resource_name)'");
-					Console.WriteLine("Will search it as an external file.");
-				| e => throw e;
-			}
-			
-			try {
-				// chalks.glade file is in the same directory than chalks.exe
-				gxml = Glade.XML("./" + glade_resource_name, "chalks_window", null);
-			} catch {
-				| e is System.ArgumentException => 
-					Console.WriteLine($"Could not find the Glade gui resource external file '$(glade_resource_name)'");
-					Console.WriteLine($"$e");
-				| e => throw e;
-			}
-			
-			assert(gxml != null, $"Could not find the Glade gui resource file '$(glade_resource_name)'");
-			
+            mutable gxml = null :Glade.XML;
+            try {
+                // chalks.glade file included as a resource "-res:chalks.glade"
+                gxml = Glade.XML(null, glade_resource_name, "chalks_window", null);
+            } catch {
+                | _ is System.ArgumentException => 
+                  Console.WriteLine($"Could not find the Glade gui embedded resource file '$(glade_resource_name)'");
+                  Console.WriteLine("Will search it as an external file.");
+                | e => throw e;
+            }
+            
+            when(gxml == null) {
+                try {
+                    // chalks.glade file is in the same directory than chalks.exe
+                    gxml = Glade.XML("./" + glade_resource_name, "chalks_window", null);
+                } catch {
+                    | e is System.ArgumentException => 
+                      Console.WriteLine($"Could not find the Glade gui resource external file '$(glade_resource_name)'");
+                      Console.WriteLine($"$e");
+                    | e => throw e;
+                }
+            }
+            
+            assert(gxml != null, $"Could not find the Glade gui resource file '$(glade_resource_name)'");
+            
             chalks_window = gxml.GetWidget("chalks_window") :> Window;
 
             messages_textview = gxml.GetWidget("messages_textview") :> TextView;
