@@ -30,7 +30,7 @@ helpers.dll: Helpers.n
 	$(Compiler) $(Flags) -t:dll -out:"helpers.dll" Helpers.n
 #-r:Nemerle.Compiler.dll # required if using macros
 
-test: test_network.dll test_cce.dll
+nunits: test_network.dll test_cce.dll
 	nunit-console test_cce.dll test_network.dll /labels
 
 test_network.dll: TestNetwork.n Network.n ConcurrentEdition.n Gui.n ConcurrentEditionWidget.n helpers.dll
@@ -38,6 +38,11 @@ test_network.dll: TestNetwork.n Network.n ConcurrentEdition.n Gui.n ConcurrentEd
 
 test_cce.dll: TestConcurrentEdition.n ConcurrentEdition.n Network.n Gui.n ConcurrentEditionWidget.n helpers.dll
 	$(Compiler) $(Flags) -t:library -out:"test_cce.dll" -r:nunit.framework.dll  $(DllResources) TestConcurrentEdition.n ConcurrentEdition.n Network.n Gui.n ConcurrentEditionWidget.n
+
+
+test: test_network.exe test_cce.exe
+	./test_network.exe
+	./test_cce.exe	
 
 test_network.exe: TestNetwork.n Network.n ConcurrentEdition.n Gui.n ConcurrentEditionWidget.n helpers.dll
 	$(rmCommand) test_network.exe

@@ -48,6 +48,7 @@ namespace Chalks.ConcurrentEditionWidget
             
 
             // simple tests
+            /*
             insert_text(Guid.NewGuid(), 0, "hello world\n");
                         
             mutable iter = Buffer.EndIter.Copy();
@@ -55,6 +56,7 @@ namespace Chalks.ConcurrentEditionWidget
             Buffer.Insert(ref iter, "This text has to be sent\n" + to_be_deleted);
 
              _ = delete_text(iter.Offset - to_be_deleted.Length, to_be_deleted.Length);
+             */
             // end of simple tests
             
             ;

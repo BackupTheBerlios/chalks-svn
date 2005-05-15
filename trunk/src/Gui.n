@@ -287,9 +287,11 @@ namespace Chalks.Gui
                     current_file_path = dialog.Filename;
                     // set the text in the current node
                     throw Exception("to be implemented");
+
+                    // disconnect from actual session
+                    // cce.set_status()
                     //<<< cce_widget.set_text(); ? is this good ? should not be in the node ?
                   
-
 
                 | ResponseType.Cancel => Console.WriteLine ( "Canceled" );
                 | _ => Console.WriteLine ( "Unknown answer" );

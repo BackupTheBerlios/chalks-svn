@@ -218,8 +218,8 @@ namespace Chalks.ConcurrentEdition
                 def t_site = sites[c];
                 def t_text = text_buffers[c].get_text();
                 def t_sv   = t_site.get_SV();
-                def t_msv  = t_site.get_MSV();
-                def t_HB   = t_site.get_HB();
+                //def t_msv  = t_site.get_MSV();
+                //def t_HB   = t_site.get_HB();
                 def t_delayed_ops = t_site.get_delayed_operations();
                 
                 def t_res = (t_text == "ABCcD") && (len(t_delayed_ops) == 0);
@@ -269,7 +269,7 @@ namespace Chalks.ConcurrentEdition
         
         mutable text = "";
 
-        public insert_text(site_id :Guid, offset:int, _text:string):void
+        public insert_text(_site_id :Guid, offset:int, _text:string):void
         { // Due of UTF-8 encoding character counts are referred to as "offsets", 
           // this is consistent with the GTK code
 
@@ -305,7 +305,7 @@ namespace Chalks.ConcurrentEdition
             site_id;
         }
 
-        public send_operation( _op:Operation) :void
+        public send_operation(_comes_from :Guid, _op:Operation) :void
         {
             ; // dummy implementation
             // for the tests the operations are sent 'manually' to control the order of arrival

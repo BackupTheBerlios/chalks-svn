@@ -7,6 +7,7 @@ Documentation
 
 Gui
 
+* Check file open, save, save as implementation
 * When the user press Key.Up in the Command Entry this one should not lost the focus.
 ---
 * Add Gtk.ToolTipsData tooltips over the main text that shows the author of a paragraph. 

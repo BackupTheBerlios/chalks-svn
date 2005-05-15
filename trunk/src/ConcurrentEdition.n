@@ -207,13 +207,35 @@ namespace Chalks.ConcurrentEdition
             status;
         }
 
-        public set_status(_status :ConcurrentEditableNodeStatus) :void
+        public set_status(status :ConcurrentEditableNodeStatus) :void
         { // (re)initialize the internal state (occurs when entering in an existing session)
 
-            log(">>>CONCURRENTEDITION.set_status HAVE TO BE IMPLEMENTED<<<");
-            //throw Exception("to be implemented"); // just for testing..
-            ;
+            // clean all the state vectors ---
+            state_vector.Clear();
+            state_vector[site_id] = 0;
+            
+            state_vector_table.Clear();
+            state_vector_table[site_id] = state_vector; // link with local state_vector
 
+            minimum_state_vector.Clear();
+            minimum_state_vector[site_id] = 0;
+
+            HB.Clear(); // history buffer
+            delayed_operations.Clear();
+            
+            text_buffer.set_text("");
+
+            // set with new values ---
+            text_buffer.set_text(status.Text);
+
+            foreach((k,v) in status.SV.KeyValuePairs) state_vector[k] = v;
+            foreach((k,v) in status.MSV.KeyValuePairs) minimum_state_vector[k] = v;
+
+            foreach(op in status.HB) HB.Add(op);
+            foreach(op in status.delayed_operations) delayed_operations.Add(op);
+            
+            // done
+            ;
         }
 
         public receive_operation(op :Operation) :void
@@ -527,10 +549,10 @@ namespace Chalks.ConcurrentEdition
             execute(eo, false); // if omited, it is not a splitted_part operation
         }
 
-        redo(op :Operation) :void
-        { // an alias
-            execute(op); 
-        }
+        //redo(op :Operation) :void
+        //{ // an alias // never used
+        //    execute(op); 
+        //}
 
 
         undo(EO :Operation) :void
