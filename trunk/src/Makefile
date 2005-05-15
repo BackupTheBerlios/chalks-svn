@@ -19,7 +19,7 @@ Compiler = ncc.exe
 
 DllResources = $(GtkDllResources) -r:Nini.dll -r:System.Runtime.Remoting.dll -r:helpers.dll
 Resources =  -res:chalks.glade -res:chalks.ico
-Flags = 
+Flags = -g
 
 chalks.exe: chalks.glade chalks.ico Chalks.n Gui.n ConcurrentEditionWidget.n ConcurrentEdition.n Network.n helpers.dll
 	$(rmCommand) chalks.exe

@@ -38,4 +38,15 @@ Chalks
  
 Deployment
 
-* Choose the deployment system (packager, installers)
+* Choose the build system
+	- nAnt: brings Ant, a standard on the Java world to .NET
+	- Traditional Makefile
+	- A-A-P (http://www.a-a-p.org/): Traditional Makefile on steroids
+	
+* Choose the distribution system
+	- Nullsoft installer for Windows system: GPL and easy to use.
+	- Let's keep a dist-<platform> file for each one. I'm cheking in the -win one which 
+	  builds a .exe binary installer/uninstaller. 
+	- For nix platforms, I believe we just need to build a tar.gz archive with full sources
+	  (that could be a nAnt "src" target). After some time maintainers from *nix distributions 
+	  may create binary packages for us adhering to their proper standards.
