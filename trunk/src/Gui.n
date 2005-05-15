@@ -153,17 +153,11 @@ namespace Chalks.Gui
             cce_widget.set_site_id(site_id);
         }
 
-        public receive_message(_from :Guid, _message :string) :void
+        public receive_message(from :Guid, message :string) :void
         {
-            log("received a message");
-
-            throw Exception("to be implemented");
-            /*if() {
-                test ;
-            }*/
-            // buffer.Insert(ref iter, "\n" + message); 
-            // could be InsertWithTag
-
+            // should obtain the nickname
+            def nickname = from.ToString().Substring(0,8); // <<< dummy implementation
+            log($"$(nickname): $message");
         }
 
         #endregion
@@ -496,11 +490,25 @@ namespace Chalks.Gui
         #endregion
 
         on_command_entry_activate(_o :object, _args :EventArgs) :void
-        {
+        {            
+            // parse the command
+            def command = ""; // <<< to be implemented
+            def args = command_entry.Text;
+            match(command) {
+
+              | _ => // by default send the text as a message
+                  def sender = network_node.get_site_id();
+                  def addressee =  Guid.Empty;
+                  def message = args;
+                  network_node.send_message(Guid.Empty, sender, addressee, message);
+            }
+
+            // keep the history
             log(command_entry.Text);
             commands_past_stack.Push(command_entry.Text);
             command_entry.Text = "";
-            commands_future_stack.Clear();
+            commands_future_stack.Clear();   
+            ;
         }
 
         on_command_entry_key_press_event(_o :object, args :KeyPressEventArgs) :void

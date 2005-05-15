@@ -210,7 +210,8 @@ namespace Chalks.ConcurrentEdition
         public set_status(_status :ConcurrentEditableNodeStatus) :void
         { // (re)initialize the internal state (occurs when entering in an existing session)
 
-            throw Exception("to be implemented");
+            log(">>>CONCURRENTEDITION.set_status HAVE TO BE IMPLEMENTED<<<");
+            //throw Exception("to be implemented"); // just for testing..
             ;
 
         }

@@ -22,19 +22,18 @@ Network
 
 * Make the Chat Test pass
 * Write an Operation Transmission test
-* When loading the document, the download should show a progress bar. How to this in a remotign schema ? How does the design have to be modified ?
+* When loading the document, the download should show a progress bar. How to this in a remoting schema ? How does the design have to be modified ?
    
 
 ConcurrentEditable
 
-* Implement the interface
-* Make the test1 pass
+* Write more tests
 
 
 Chalks
 
 * When the window is close, the program does not quit (need double click to quit)
-
+ 
 
 Distribution
 

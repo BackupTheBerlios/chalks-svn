@@ -1,17 +1,21 @@
 all: chalks.exe
 
 
+linux = 1
+
+#ifeq ($(MAKE), make) ? or nmake ?
+
+ifeq ($(linux), 1) #linux
+  rmCommand = rm -f
+  GtkDllResources = -pkg:glade-sharp-2.0
+else #windows
+  rmCommand = del /F
+  GtkDllResources = -r:glade-sharp.dll -r:glib-sharp.dll -r:pango-sharp.dll -r:atk-sharp.dll -r:gdk-sharp.dll -r:gtk-sharp.dll
+endif
+
+# -pkg:gtksourceview-sharp
+
 Compiler = ncc.exe
-
-#windows
-#rmCommand = del /F
-#GtkDllResources = -r:glade-sharp.dll -r:glib-sharp.dll -r:pango-sharp.dll -r:atk-sharp.dll -r:gdk-sharp.dll -r:gtk-sharp.dll
-
-#linux
-rmCommand = rm -f
-GtkDllResources = -pkg:glade-sharp-2.0
-
-#GtkDllResources = -pkg:gtk-sharp-2.0 -pkg:glade-sharp-2.0 -pkg:gtksourceview-sharp
 
 DllResources = $(GtkDllResources) -r:Nini.dll -r:System.Runtime.Remoting.dll -r:helpers.dll
 Resources =  -res:chalks.glade -res:chalks.ico
