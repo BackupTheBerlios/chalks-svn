@@ -22,12 +22,10 @@ namespace Network
         #region Manual testing
         public this()
         {
-            Init();
-
-            TestMessageBroadcast();
-            //TestAdressedMessage();
+            Init(); TestMessageBroadcast(); Dispose();
+            Init(); TestAdressedMessage(); Dispose();
             
-            Dispose();
+            Console.WriteLine("\nTests passed.");
         }
         
         static public Main() :void
@@ -80,6 +78,13 @@ namespace Network
         [TestFixtureTearDown]
         public Dispose() :void
         {
+            Console.WriteLine("Doing the Network tests disposal");
+            
+            for(mutable c=0; c<nodes.Length; c+=1) {
+                nodes[c].stop_collaboration_service(); // free the uris
+                guis[c]  = null;
+                nodes[c] = null;
+            }
             ;
         }
     
@@ -93,7 +98,6 @@ namespace Network
         public TestMessageBroadcast() :void
         {
             
-            //Console.WriteLine("TestMessageBroadcast not yet implemented");
             Console.WriteLine("Running TestMessageBroadcast");
             Console.Out.Flush();
             
@@ -101,7 +105,10 @@ namespace Network
             def message_emitter = 3;
             
             // send a broadcast
-            nodes[message_emitter].send_message(Guid.Empty, test_message);
+            def comes_from = nodes[message_emitter].get_site_id();
+            def sender = nodes[message_emitter].get_site_id();
+            def addressee = Guid.Empty; // no addressee
+            nodes[message_emitter].send_message(comes_from, sender, addressee, test_message);
                       
             // way one second
             System.Threading.Thread.Sleep(1000);
@@ -111,7 +118,8 @@ namespace Network
                 when(c != message_emitter)
                     Assert.AreEqual(test_message, guis[c].received_messages);
             }
-                
+
+            Console.WriteLine("TestMessageBroadcast passed.\n");
             ;
         }
 
@@ -119,7 +127,6 @@ namespace Network
         public TestAdressedMessage() :void
         {
 
-            //Console.WriteLine("TestAdressedMessage not yet implemented");
             Console.WriteLine("Running test TestAdressedMessage");
             Console.Out.Flush();
             
@@ -128,7 +135,10 @@ namespace Network
             def message_adressee = 1;
             
             // send the message
-            nodes[message_emitter].send_message(Guid.Empty, test_message);
+            def comes_from = nodes[message_emitter].get_site_id();
+            def sender = nodes[message_emitter].get_site_id();
+            def addressee = nodes[message_adressee].get_site_id();
+            nodes[message_emitter].send_message(comes_from, sender, addressee, test_message);
                       
             // way one second
             System.Threading.Thread.Sleep(1000);
@@ -141,10 +151,9 @@ namespace Network
                     else
                         Assert.AreEqual("", guis[c].received_messages);
             }
-                
-            ;
 
-            
+            Console.WriteLine("TestAdressedMessage passed.\n");
+            ;            
         }
 
         #endregion

@@ -20,7 +20,6 @@ ConcurrentEditableWidget
 
 Network
 
-* Make the Chat Test pass
 * Write an Operation Transmission test
 * When loading the document, the download should show a progress bar. How to this in a remoting schema ? How does the design have to be modified ?
    
@@ -34,7 +33,6 @@ Chalks
 
 * When the window is close, the program does not quit (need double click to quit)
  
+Deployment
 
-Distribution
-
-* Choose the distribution system
+* Choose the deployment system (packager, installers)

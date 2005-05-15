@@ -158,7 +158,9 @@ namespace Chalks.Network
         mutable password :string = "";
 
         authentication_realm :AuthenticationRealm;
-        self_uri :string;
+        service_name :string;
+        mutable service_channel :Runtime.Remoting.Channels.Tcp.TcpServerChannel;
+        mutable self_uri :string;
 
         // site_id => ConcurrentEditableNodeProxy references (give access to other sites)
         public remote_sites :Hashtable[Guid, ConcurrentEditableNodeProxy] = Hashtable();
@@ -166,8 +168,11 @@ namespace Chalks.Network
         public local_proxies :Hashtable[Guid, ConcurrentEditableNodeProxy] = Hashtable();
         // site_id => nickname
         public sites_nicknames :Hashtable[Guid, string] = Hashtable(); 
+
         
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
         
+        #region Constructors and destructor
         
         public this(_gui :IGuiForNetwork, _cce :ICeForNetwork)
         {
@@ -176,24 +181,49 @@ namespace Chalks.Network
             // it should not be used in the application
         }
                 
-        public this(_gui :IGuiForNetwork, _cce :ICeForNetwork, service_name :string) 
+        public this(_gui :IGuiForNetwork, _cce :ICeForNetwork, _service_name :string) 
         {
             
             gui = _gui; // store the gui reference
             gui.set_site_id(site_id); // configure the cce_widget
 
             cce = _cce; // store concurrent editable reference
+
+            service_name = _service_name;
+            authentication_realm = AuthenticationRealm(this);
+
+            start_collaboration_service();
             
+            // register ourself with the cce object (we give him network access)
+            cce.set_network_interface(this);
+
+            log($"Chalks service aviable at:\n$(self_uri)\n");
+        }
+
+        
+        protected override Finalize() :void
+        {
+            Console.WriteLine($"Finalizing networknode $this");
+            stop_collaboration_service();
+        }
+
+        #endregion
+        
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+        #region Start/Stop Collaboration service
+        
+        public start_collaboration_service() :void
+        {
             // search channel for the service
-            mutable channel = null :TcpChannel;
             mutable found_port = false;
             mutable port = min_port;
 
             while( (!found_port) && port <= max_port)
             {
                 try {
-                    channel = /*Remoting.Channels.Tcp.*/ TcpServerChannel("", port);
-                    ChannelServices.RegisterChannel (channel);
+                    service_channel = Runtime.Remoting.Channels.Tcp.TcpServerChannel("", port);
+                    ChannelServices.RegisterChannel (service_channel);
                     found_port = true;
                 }
                 catch {
@@ -206,16 +236,15 @@ namespace Chalks.Network
                         // raised by already occupied uri
 
                         =>
-                          ChannelServices.UnregisterChannel (channel);
+                          ChannelServices.UnregisterChannel (service_channel);
                           port +=1;
                           //Console.WriteLine($"Going to tests port $(port.ToString())"); 
                           //Console.Out.Flush();
                           
                         | e => throw e; // other exception are not managed
-                      }
-                      
-                  }
-              }
+                    }
+                }
+            }
               
 
             assert(port < max_port,
@@ -224,20 +253,30 @@ namespace Chalks.Network
             Console.WriteLine($"Found available port $(port)"); Console.Out.Flush();
             
             // Publish the authentification service
-            authentication_realm = AuthenticationRealm(this);
             _ = RemotingServices.Marshal (authentication_realm,
                                           service_name, typeof(AuthenticationRealm));
        
             // set the uri of the published object
             def self_ip = find_self_ip();
             self_uri = $"tcp://$(self_ip):$(port)/$(service_name)";
-
-            // register ourself with the cce object (we give him network access)
-            cce.set_network_interface(this);
-
+            
             log($"Chalks service aviable at:\n$(self_uri)\n");
         }
 
+        public stop_collaboration_service() :void
+        {
+
+            Console.WriteLine( $"Stoping collaboration service at $self_uri");
+            
+            _ = RemotingServices.Disconnect (authentication_realm); // free the uri
+            ChannelServices.UnregisterChannel (service_channel); // free the port
+        }
+
+        #endregion
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+        
+        
         public is_equal_to_password(credential :string) :bool
         {
             credential == password;
@@ -258,8 +297,13 @@ namespace Chalks.Network
                 log("Trying to connect");
 
                 // requesting the realm remote object
-                ChannelServices.RegisterChannel(TcpClientChannel ()); // create a client channel
-
+                try {
+                    // create a client channel
+                    ChannelServices.RegisterChannel(TcpClientChannel ()); 
+                } catch {
+                    | _ is RemotingException => (); // if the channel was already registered
+                } 
+                
                 def remote_authentication_realm =
                     Activator.GetObject( typeof(AuthenticationRealm), uri) :> AuthenticationRealm; 
                 log("Starting authentication process");
@@ -267,13 +311,17 @@ namespace Chalks.Network
                 /*def ret_tuple = remote_authentication_realm.login(site_id, nickname, password);
                 def (parent_node, parent_site_id, parent_nickname) = ret_tuple;*/
 
+               
                 mutable parent_node = null :ConcurrentEditableNodeProxy;
                 mutable parent_site_id = Guid.Empty;
                 mutable parent_nickname = "";
                 
                 remote_authentication_realm.login(
                                           site_id, nickname, password, // in
-                                          out parent_node, out parent_site_id, out parent_nickname /*out*/ );
+                                          out parent_node,    //out
+                                          out parent_site_id, //out
+                                          out parent_nickname //out
+                                                  );
                                 
                 log("Credentials accepted, retrieving document");
                 def self_node_proxy = ConcurrentEditableNodeProxy(parent_site_id, this);
@@ -295,6 +343,8 @@ namespace Chalks.Network
                         throw e; // just for debugging
             }
 
+            when(ret) log($"Successful connection with  $(uri)\n");
+            
             ret;
         } // end of start_collaborating
         
@@ -310,7 +360,7 @@ namespace Chalks.Network
             { // local definition of the remote method callback
                 def _delegate = ((async_result :> AsyncResult).AsyncDelegate) :>receive_message_delegate;
                 // receive_message returns void, so, we only show success
-                log($"Message sent to $(site_id.ToString()) was received");
+                log($"Message sent to $(addressee.ToString()) was received");
                 //+ _delegate.EndInvoke(async_result).ToString() );
             }
 
