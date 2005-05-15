@@ -308,8 +308,11 @@ namespace Chalks.ConcurrentEdition
             def op = Operation(optype, pos, text, site_id, t_SV);
             //log($"generating $op");
             
-            // apply localy and send it to the peers
+            // apply localy 
             receive_operation(op);
+
+            //send it to the peers
+            network_node.send_operation(site_id, op);
             
             op;
         }
@@ -327,8 +330,11 @@ namespace Chalks.ConcurrentEdition
             def op = Operation(optype, pos, length, site_id, t_SV);
             //log($"generating $op");
             
-            // apply localy and sent it to the peers
+            // apply localy 
             receive_operation(op);
+
+            //sent it to the peers
+            network_node.send_operation(site_id, op);
             
             op;
         }
@@ -531,7 +537,7 @@ namespace Chalks.ConcurrentEdition
                 else {
                     match (T(eo)) {
                         | OperationType.Insert =>
-                          text_buffer.insert_text(site_id, P(eo), S(eo));
+                          text_buffer.insert_text(eo.SourceSite, P(eo), S(eo));
                           
                         | OperationType.Delete =>
                           // stores the erased text for future undos

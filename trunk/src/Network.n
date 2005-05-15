@@ -91,7 +91,11 @@ namespace Chalks.Network
         {
             local_node = _local_node; // this object is private
             // store the id of the remote node that uses the reference to this proxy instance
-            remote_site_id = _site_id; 
+            remote_site_id = _site_id;
+
+            // register the new site in the local_node.cce
+            local_node.cce.add_site(remote_site_id);
+            
             ;
         }
 
@@ -196,8 +200,6 @@ namespace Chalks.Network
             
             // register ourself with the cce object (we give him network access)
             cce.set_network_interface(this);
-
-            log($"Chalks service aviable at:\n$(self_uri)\n");
         }
 
         
