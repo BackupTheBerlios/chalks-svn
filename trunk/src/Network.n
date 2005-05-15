@@ -111,8 +111,8 @@ namespace Chalks.Network
         {
             // receive
             local_node.cce.receive_operation(op);
-            // and repeat
-            local_node.send_operation(op);
+            // and relay
+            local_node.send_operation(remote_site_id, op);
         }
 
         public receive_message(sender :Guid, addressee :Guid, message :string) :void
@@ -123,7 +123,7 @@ namespace Chalks.Network
                 local_node.gui.receive_message(sender, message);
             }
             
-            // and repeat
+            // and relay
             when (addressee != local_node.get_site_id() ) {
                 local_node.send_message(remote_site_id, sender, addressee, message);
             }
@@ -427,13 +427,16 @@ namespace Chalks.Network
 
         public delegate receive_operation_delegate(_ :Operation) :void;
         
-        public send_operation(op :Operation) :void
+        public send_operation(comes_from :Guid, op :Operation) :void
         { // broadcast an operation to the other sites
             
-            foreach(site in remote_sites.Values) {
-                def remote_method_delegate = receive_operation_delegate(site.receive_operation);
-                _ =  remote_method_delegate.BeginInvoke(op,
-                                                        AsyncCallback(null), null);
+            foreach((remote_site_id,site) in remote_sites.KeyValuePairs) {
+                when(remote_site_id != comes_from) {
+                    def remote_method_delegate =
+                               receive_operation_delegate(site.receive_operation);
+                    _ =  remote_method_delegate.BeginInvoke(op, null, null);
+                                                            //AsyncCallback(null), null);
+                }
             }
             ; // return void
         }
@@ -479,7 +482,7 @@ namespace Chalks.Network
     public interface INetworkForCe
     { // this are the methods that the ConcurrentEdition layer use of the NetworkNode object
         get_site_id() :Guid;
-        send_operation( op:Operation) :void;
+        send_operation(comes_from :Guid, op:Operation) :void;
     }
 
 }

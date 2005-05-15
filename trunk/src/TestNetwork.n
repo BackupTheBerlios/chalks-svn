@@ -24,6 +24,7 @@ namespace Network
         {
             Init(); TestMessageBroadcast(); Dispose();
             Init(); TestAdressedMessage(); Dispose();
+            Init(); TestOperationsEmission(); Dispose();
             
             Console.WriteLine("\nTests passed.");
         }
@@ -38,8 +39,10 @@ namespace Network
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
         #region Global variables
-        mutable nodes :array[NetworkNode] = array(5);
-        mutable guis :array[GuiForNetworkTest] = array(5);
+        num_of_sites = 5;
+        mutable nodes :array[NetworkNode] = array(num_of_sites);
+        mutable guis :array[GuiForNetworkTest] = array(num_of_sites);
+        mutable cces :array[CeForNetworkTest] = array(num_of_sites);
 
         #endregion
 
@@ -59,6 +62,7 @@ namespace Network
                 def dummy_gui = GuiForNetworkTest();
                 def dummy_ce = CeForNetworkTest();
 
+                cces[c] = dummy_ce;
                 guis[c] = dummy_gui;
                 nodes[c] = NetworkNode(dummy_gui, dummy_ce, $"node$(c)");
                 nodes[c].set_nickname($"Node$(c)");
@@ -114,7 +118,7 @@ namespace Network
             System.Threading.Thread.Sleep(1000);
             
             // check that every node has received it 
-            for(mutable c=0; c<4; c+=1) {
+            for(mutable c=0; c<nodes.Length; c+=1) {
                 when(c != message_emitter)
                     Assert.AreEqual(test_message, guis[c].received_messages);
             }
@@ -144,7 +148,7 @@ namespace Network
             System.Threading.Thread.Sleep(1000);
             
             // check that every node has received it 
-            for(mutable c=0; c<4; c+=1) {
+            for(mutable c=0; c<nodes.Length; c+=1) {
                 when(c != message_emitter)
                     if (c == message_adressee)
                         Assert.AreEqual(test_message, guis[c].received_messages);
@@ -162,8 +166,36 @@ namespace Network
 
         #region Operations emission reception tests
 
-        // <<< TO BE IMPLEMENTED
+        public TestOperationsEmission() :void
+        { // This test only verify that messages are receive by every node
+          // Tests about the interpretation of the operations
+          // can be found in TestConcurrentEdition.n
 
+            
+            Console.WriteLine("Running test OperationsEmission");
+            Console.Out.Flush();
+            
+            // generate an operation
+            def operation_emitter = 4;
+
+            def comes_from = nodes[operation_emitter].get_site_id();
+            def op = Operation(OperationType.Insert, 0, "ABC",
+                               nodes[operation_emitter].get_site_id(),
+                               Nemerle.Collections.Hashtable() );
+            nodes[operation_emitter].send_operation(comes_from, op);
+            
+            // way one second
+            System.Threading.Thread.Sleep(1000);
+            
+            // check that every node has received it 
+            for(mutable c=0; c<nodes.Length; c+=1) {
+                when(c != operation_emitter)
+                    Assert.AreEqual([op], cces[c].received_operations);
+            }
+
+            
+            Console.WriteLine("Test OperationsEmission passed.\n");
+        }
         #endregion
         
         
@@ -205,7 +237,9 @@ namespace Network
     public class CeForNetworkTest :ICeForNetwork
     {
         // implements the basic methods that Network uses from ConcurrentEdition.ConcurrentEditable
-
+        public mutable received_operations :list[Operation] = [];
+        mutable network_node  :INetworkForCe;
+        
         public this()
         {
             ;
@@ -214,13 +248,16 @@ namespace Network
         public set_network_interface(network_node_instance :NetworkNode) :void
         {
             Console.WriteLine($"Ce: Setting network interface using instance $(network_node_instance.ToString())");
+
+            network_node = network_node_instance;
             ;
         }
 
         public receive_operation(op :Operation) :void
         {
-            Console.WriteLine($"Ce: Received operation $(op.ToString())");
-            ;
+            Console.WriteLine(
+            $"Ce $(network_node.get_site_id().ToString().Substring(0,8)): Received operation $(op.ToString())");
+            received_operations = received_operations.Append([op]);
         }
 
         public add_site(site_id :Guid) :void
