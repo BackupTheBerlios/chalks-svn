@@ -26,7 +26,6 @@ using Nemerle.Collections;
 using Chalks; 
 using Chalks.Helpers; // for HashToString
 using Chalks.Network;
-using Chalks.Gui.ChalksWindow; // get access to log function
 
 
 using System.Runtime.Remoting;
@@ -39,6 +38,7 @@ namespace Chalks.ConcurrentEdition
       //This class defines an object that is able to manage concurrent edition from diferent sites.
       	// Definition of the members
         mutable network_node  :INetworkForCe;
+        mutable log :int*string->void;
         mutable site_id :Guid;
         
         // internal state
@@ -88,6 +88,7 @@ namespace Chalks.ConcurrentEdition
         {
             network_node = network_node_instance;
             site_id = network_node_instance.get_site_id();
+            log = network_node_instance.log;
             
             state_vector[site_id] = 0;
             
@@ -1485,17 +1486,12 @@ namespace Chalks.ConcurrentEdition
     }
     
 
-
-    public interface ICeForNetwork
-    { // Elements of ConcurrentEditable used by the Network module
-        set_network_interface(network_node_instance :NetworkNode) :void;
-        receive_operation(op :Operation) :void;
-        add_site(site_id :Guid) :void;
-        delete_site(site_id :Guid) :void;
-        get_status() :ConcurrentEditableNodeStatus;
-        set_status(status :ConcurrentEditableNodeStatus) :void;
+    public interface INetworkForCe
+    { // this are the methods that the ConcurrentEdition layer use of the NetworkNode object
+        log(_ :int, _:string) :void;
+        get_site_id() :Guid;
+        send_operation(comes_from :Guid, op:Operation) :void;
     }
-
 
 
     

@@ -17,8 +17,6 @@ using System.Threading;
 
 using Chalks; 
 using Chalks.ConcurrentEdition;
-using Chalks.Gui;
-using Chalks.Gui.ChalksWindow; // give access to the log
 
 
 namespace Chalks.Network
@@ -37,7 +35,7 @@ namespace Chalks.Network
             local_node = _local_node; // this object is private
 
             // just for debugging
-            log($"AuthenticationRealm instance created $(this.GetHashCode())"); 
+            local_node.gui.log(2,$"AuthenticationRealm instance created $(this.GetHashCode())"); 
             ;
         }
         
@@ -56,7 +54,7 @@ namespace Chalks.Network
                 throw RemotingException("Password does not match");
             
             
-            log(1, $"Site $(site_id) named as '$(nickname)' was accepted in the realm");
+            local_node.gui.log(1, $"Site $(site_id) named as '$(nickname)' was accepted in the realm");
             
             // give access to the local node, send us identifiers
             (ConcurrentEditableNodeProxy(site_id, local_node),
@@ -172,7 +170,6 @@ namespace Chalks.Network
         public local_proxies :Hashtable[Guid, ConcurrentEditableNodeProxy] = Hashtable();
         // site_id => nickname
         public sites_nicknames :Hashtable[Guid, string] = Hashtable(); 
-
         
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
         
@@ -341,7 +338,7 @@ namespace Chalks.Network
                 | e =>
                   ret = false;
                   log($"Connection failed : \n$e\n\n");
-                  when (Chalks.Gui.ChalksWindow.verbosity_level > 0)
+                  when (Helpers.verbosity_level > 0)
                         throw e; // just for debugging
             }
 
@@ -448,11 +445,22 @@ namespace Chalks.Network
             site_id;
         }
 
+        
+        public log( verbosity :int, message :string) :void
+        { 
+            if (gui != null) gui.log(verbosity, message)
+            else when(verbosity <= Helpers.verbosity_level) Console.WriteLine(message);
+        }
         #endregion
 
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
         #region Helpers methods
+
+        log(message:string) :void
+        {
+            log(0, message);
+        }
 
         find_self_ip() :string
         { // get the best estimate of our network ip
@@ -481,10 +489,22 @@ namespace Chalks.Network
         
     } // end of class NetworkNode
 
-    public interface INetworkForCe
-    { // this are the methods that the ConcurrentEdition layer use of the NetworkNode object
-        get_site_id() :Guid;
-        send_operation(comes_from :Guid, op:Operation) :void;
+    
+    public interface ICeForNetwork
+    { // Elements of ConcurrentEditable used by the Network module
+        set_network_interface(network_node_instance :NetworkNode) :void;
+        receive_operation(op :Operation) :void;
+        add_site(site_id :Guid) :void;
+        delete_site(site_id :Guid) :void;
+        get_status() :ConcurrentEditableNodeStatus;
+        set_status(status :ConcurrentEditableNodeStatus) :void;
     }
 
-}
+    public interface IGuiForNetwork
+    { // Elements of ChalksWindow used by the Network Module
+        log(_:int, _:string):void;
+        set_site_id(site_id :Guid) :void;
+        receive_message(from :Guid, message :string) :void;
+    }
+
+} // end of namespace

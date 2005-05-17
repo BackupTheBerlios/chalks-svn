@@ -16,6 +16,7 @@ using Glade;
 
 using Nini.Config;
 
+using Chalks;
 using Chalks.ConcurrentEditionWidget;
 using Chalks.ConcurrentEdition;
 using Chalks.Network;
@@ -159,20 +160,17 @@ namespace Chalks.Gui
             def nickname = from.ToString().Substring(0,8); // <<< dummy implementation
             log($"$(nickname): $message");
         }
-
         #endregion
 
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
         
-        #region Global log method
-        static public verbosity_level = 1;
-        
-        static public log( verbosity :int, message :string) :void
+        #region Global log method        
+        public log( verbosity :int, message :string) :void
         { // various verbosity levels
-            when(verbosity <= verbosity_level) log(message);
+            when(verbosity <= Helpers.verbosity_level) log(message);
         }
         
-        static public log(message :string) :void 
+        public log(message :string) :void 
         { // alias method
             log(message, array[]:array[TextTag]);
         }
@@ -642,11 +640,5 @@ namespace Chalks.Gui
 
     #endregion
 
-
-    public interface IGuiForNetwork
-    { // Elements of ChalksWindow used by the Network Module
-        set_site_id(site_id :Guid) :void;
-        receive_message(from :Guid, message :string) :void;
-    }
 
 } // end of namespace

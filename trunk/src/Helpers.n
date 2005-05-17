@@ -190,6 +190,9 @@ namespace Chalks {
 
     public module Helpers
     {
+
+        public verbosity_level = 1;
+        
         public HashToString(hash :Nemerle.Collections.Hashtable[System.Guid, int]) :string
         {
             mutable text = "";
