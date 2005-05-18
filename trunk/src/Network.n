@@ -9,6 +9,7 @@ using System.Net;
 using System.IO;
 using System.Guid;
 
+
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
@@ -214,6 +215,11 @@ namespace Chalks.Network
         
         public start_collaboration_service() :void
         {
+
+            // required by .Net 1.1
+            def sink_provider = Runtime.Remoting.Channels.BinaryServerFormatterSinkProvider();
+            sink_provider = Runtime.Serialization.Formatters.TypeFilterLevel.Full;
+            
             // search channel for the service
             mutable found_port = false;
             mutable port = min_port;
@@ -221,7 +227,9 @@ namespace Chalks.Network
             while( (!found_port) && port <= max_port)
             {
                 try {
-                    service_channel = Runtime.Remoting.Channels.Tcp.TcpServerChannel("", port);
+                    service_channel =
+                       //Runtime.Remoting.Channels.Tcp.TcpServerChannel("", port, sink_provider);
+                       Runtime.Remoting.Channels.Tcp.TcpServerChannel("", port);
                     ChannelServices.RegisterChannel (service_channel);
                     found_port = true;
                 }
