@@ -186,11 +186,9 @@ namespace Chalks.Gui
         #region SignalsHandlers
         // Connect the Signals defined in Glade
         
-        on_chalks_window_delete_event( _o :object, args :DeleteEventArgs) : void 
+        static on_chalks_window_delete_event( _o :object, _args :DeleteEventArgs) :void
         {
             Application.Quit ();
-            args.RetVal = true;
-            ;
         }
         
         #region Menu items Handlers
@@ -341,11 +339,10 @@ namespace Chalks.Gui
             dialog.Destroy();
         }
 
-        on_quit_menu_item_activate(_o :object,  _args : EventArgs) :void
+        static on_quit_menu_item_activate(_o :object,  _args : EventArgs) :void
         {
+            //log(0, "Quitting");
             Application.Quit();
-            // TODO The application quit only at the second click 
-            // (need to do something to EventArgs ?)
         }
     
         on_about_menu_item_activate(_o :object,  _args : EventArgs) :void

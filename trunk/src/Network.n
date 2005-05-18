@@ -218,7 +218,8 @@ namespace Chalks.Network
 
             // required by .Net 1.1
             def sink_provider = Runtime.Remoting.Channels.BinaryServerFormatterSinkProvider();
-            sink_provider = Runtime.Serialization.Formatters.TypeFilterLevel.Full;
+            sink_provider.TypeFilterLevel =
+                          Runtime.Serialization.Formatters.TypeFilterLevel.Full;
             
             // search channel for the service
             mutable found_port = false;
