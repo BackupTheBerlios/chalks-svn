@@ -22,12 +22,10 @@ namespace Chalks.ConcurrentEdition
         #region Manual testing
         public this()
         {
-            Init();
-
-            TestConcurrentEditable1();
-            //TestConcurrentEditable2();
-            
-            Dispose();
+            Init(); TestConcurrentEditable1(); Dispose();
+	    //Init(); TestConcurrentEditable2(); Dispose();	
+                        
+	    Console.WriteLine("\nConcurrentEdition tests passed.");
         }
         
         static public Main() :void
@@ -299,6 +297,14 @@ namespace Chalks.ConcurrentEdition
     public class NetworkForCeTest :INetworkForCe
     {
         site_id :Guid = Guid.NewGuid();
+
+        public log( verbosity :int, message :string) :void
+        { 
+            when(verbosity <= Helpers.verbosity_level) {
+                Console.WriteLine(message);
+                Console.Out.Flush();
+            }
+        }
 
         public get_site_id() :Guid
         {

@@ -25,38 +25,6 @@ using Chalks.Gui.ChalksWindow; // access to the log function
 namespace Chalks.Gui
 {
     
-	public class GladeHelper 
-	{
-        static public getXML(glade_resource_name :string, dialog_name :string) :Glade.XML
-        {
-            mutable gxml = null :Glade.XML;
-            try {
-                // chalks.glade file included as a resource "-res:chalks.glade"
-                gxml = Glade.XML(null, glade_resource_name, dialog_name, null);
-            } catch {
-                | _ is System.ArgumentException => 
-                  Console.WriteLine($"Could not find the Glade gui embedded resource file '$(glade_resource_name)'");
-                  Console.WriteLine("Will search it as an external file.");
-                | e => throw e;
-            }
-            
-            when(gxml == null) {
-                try {
-                    // chalks.glade file is in the same directory than chalks.exe
-                    gxml = Glade.XML("./" + glade_resource_name, dialog_name, null);
-                } catch {
-                    | e is System.ArgumentException => 
-                      Console.WriteLine($"Could not find the Glade gui resource external file '$(glade_resource_name)'");
-                      Console.WriteLine($"$e");
-                    | e => throw e;
-                }
-            }
-                        
-        	gxml;
-        }
-    }
-	
-
     public class ChalksWindow :IGuiForNetwork
     {
         #region Properties
@@ -70,6 +38,7 @@ namespace Chalks.Gui
         static mutable messages_textview :TextView = null;
         static mutable messages_textview_endmark :TextMark = null;
         command_entry :Entry;
+        status_bar :Statusbar; 
 
         cce_widget :ConcurrentEditionWidget; // cce == ConcurrentEdition
         public concurrent_editable :ConcurrentEditable;
@@ -115,7 +84,9 @@ namespace Chalks.Gui
             commands_past_stack  = Stack();
             commands_future_stack = Stack();
 
-
+            status_bar = gxml.GetWidget("status_bar") :> Statusbar;
+            set_status_bar("1 users");
+            
             // Connect the custom widget with the existing layout
             def scrolledwindow3 = gxml.GetWidget("scrolledwindow3") :> ScrolledWindow;
             scrolledwindow3.Add(cce_widget);
@@ -203,6 +174,13 @@ namespace Chalks.Gui
         }
         #endregion
 
+
+        public set_status_bar(message:string) :void
+        {
+            status_bar.Pop(0);
+            _ = status_bar.Push(0, message);
+        }
+         
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
 
         #region SignalsHandlers
@@ -648,6 +626,47 @@ namespace Chalks.Gui
     #endregion
 
     #endregion
+
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+    
+    #region class GladeHelper
+    
+    public class GladeHelper 
+    { // Helper class to access internal or external resources
+        
+        static public getXML(glade_resource_name :string, dialog_name :string) :Glade.XML
+        {
+            mutable gxml = null :Glade.XML;
+            try {
+                // chalks.glade file included as a resource "-res:chalks.glade"
+                gxml = Glade.XML(null, glade_resource_name, dialog_name, null);
+            } catch {
+                | _ is System.ArgumentException => 
+                  Console.WriteLine($"Could not find the Glade gui embedded resource file '$(glade_resource_name)'");
+                  Console.WriteLine("Will search it as an external file.");
+                | e => throw e;
+            }
+            
+            when(gxml == null) {
+                try {
+                    // chalks.glade file is in the same directory than chalks.exe
+                    gxml = Glade.XML("./" + glade_resource_name, dialog_name, null);
+                } catch {
+                    | e is System.ArgumentException => 
+                      Console.WriteLine($"Could not find the Glade gui resource external file '$(glade_resource_name)'");
+                      Console.WriteLine($"$e");
+                    | e => throw e;
+                }
+            }
+                        
+            gxml;
+        }
+    }
+	
+    #endregion
+    
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
 
 } // end of namespace

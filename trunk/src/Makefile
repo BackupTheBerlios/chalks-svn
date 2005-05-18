@@ -44,16 +44,17 @@ test_cce.dll: TestConcurrentEdition.n chalks_core.dll Gui.n ConcurrentEditionWid
 # -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
 test: test_network.exe test_cce.exe
-	./test_network.exe
-	./test_cce.exe	
+
 
 test_network.exe: TestNetwork.n  Gui.n ConcurrentEditionWidget.n chalks_core.dll
 	$(rmCommand) test_network.exe
 	$(Compiler) $(Flags) -out:"test_network.exe" -r:nunit.framework.dll $(DllResources) -r:chalks_core.dll TestNetwork.n  Gui.n ConcurrentEditionWidget.n
+	./test_network.exe	
 
-test_cce.exe: TestConcurrentEdition.nGui.n ConcurrentEditionWidget.n chalks_core.dll
+test_cce.exe: TestConcurrentEdition.n Gui.n ConcurrentEditionWidget.n chalks_core.dll
 	$(rmCommand) test_cce.exe
 	$(Compiler) $(Flags) -out:"test_cce.exe" -r:nunit.framework.dll  $(DllResources) -r:chalks_core.dll TestConcurrentEdition.n  Gui.n ConcurrentEditionWidget.n
+	./test_cce.exe	
 
 # -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 

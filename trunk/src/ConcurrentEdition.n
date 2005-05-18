@@ -294,8 +294,19 @@ namespace Chalks.ConcurrentEdition
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
         #region Methods used by ConcurrentEditionWidget
-        
         public generate_operation(optype :OperationType, pos :int, text :string) :Operation
+        {
+            generate_operation(false, optype, pos, text)
+        }
+
+        public generate_operation(optype :OperationType, pos :int, length :int) :Operation
+        {
+            generate_operation(false, optype, pos, length)
+        }
+
+        
+        public generate_operation(_executed_before_creation :bool,
+                                  optype :OperationType, pos :int, text :string) :Operation
         { // The site generate an operation, and apply it locally.
             
             assert(this.site_id != Guid.Empty,
@@ -307,6 +318,7 @@ namespace Chalks.ConcurrentEdition
             
             // create operation object
             def op = Operation(optype, pos, text, site_id, t_SV);
+            op.executed_before_creation = _executed_before_creation;
             //log($"generating $op");
             
             // apply localy 
@@ -318,7 +330,8 @@ namespace Chalks.ConcurrentEdition
             op;
         }
         
-        public generate_operation(optype :OperationType, pos :int, length :int) :Operation
+        public generate_operation(_executed_before_creation :bool,
+                                  optype :OperationType, pos :int, length :int) :Operation
         { // The site generate an operation, and apply it locally.
             assert(this.site_id != Guid.Empty,
                    "Can not generate operations before the network interface has been set");
@@ -329,6 +342,7 @@ namespace Chalks.ConcurrentEdition
 
             // create operation object
             def op = Operation(optype, pos, length, site_id, t_SV);
+            op.executed_before_creation = _executed_before_creation;
             //log($"generating $op");
             
             // apply localy 
@@ -527,8 +541,8 @@ namespace Chalks.ConcurrentEdition
         { // Modify the text buffer.
           // The lost information is stored into the operators for future undos.
 
-            // local operations where executed before being executed
-            when (eo.SourceSite != site_id ) { 
+            // local operations already where executed before being executed
+            if (! eo.executed_before_creation ) { 
             
                 log(4, $"Executing $eo");
                 if (eo.is_splitted) {
@@ -547,6 +561,9 @@ namespace Chalks.ConcurrentEdition
                         | _ => throw Exception("Tried to execute an unmanaged operation type $(eo)");
                     }
                 }
+            }
+            else {
+                eo.executed_before_creation = false;
             }
             ;
         }
@@ -1325,6 +1342,9 @@ namespace Chalks.ConcurrentEdition
         public mutable lost_information :Operation; // lost information
         public mutable LI_base_op :Operation;
 
+        // gui logic variable
+        public mutable executed_before_creation :bool = false;
+        
         
         // Constructors
         public this(optype :OperationType, pos :int, text :string)

@@ -4,11 +4,11 @@ Test the Network class
 
 using System;
 
+using Chalks;
 using Chalks.Gui;
 using Chalks.Network;
 using Chalks.ConcurrentEdition;
 using Chalks.ConcurrentEditionWidget;
-
 
 namespace Network
 {    
@@ -26,7 +26,7 @@ namespace Network
             Init(); TestAdressedMessage(); Dispose();
             Init(); TestOperationsEmission(); Dispose();
             
-            Console.WriteLine("\nTests passed.");
+            Console.WriteLine("\nNetwork tests passed.");
         }
         
         static public Main() :void
@@ -217,6 +217,16 @@ namespace Network
             ;
         }
 
+        public log( verbosity :int, message :string) :void
+        { 
+            
+            when(verbosity <= Helpers.verbosity_level) {
+                Console.WriteLine(message);
+                Console.Out.Flush();
+            }
+        }
+
+        
         public set_site_id(site_id :Guid) :void
         {
             Console.WriteLine($"Gui: set_site_id($(site_id.ToString()))");
