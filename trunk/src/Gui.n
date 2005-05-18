@@ -25,6 +25,38 @@ using Chalks.Gui.ChalksWindow; // access to the log function
 namespace Chalks.Gui
 {
     
+	public class GladeHelper 
+	{
+        static public getXML(glade_resource_name :string, dialog_name :string) :Glade.XML
+        {
+            mutable gxml = null :Glade.XML;
+            try {
+                // chalks.glade file included as a resource "-res:chalks.glade"
+                gxml = Glade.XML(null, glade_resource_name, dialog_name, null);
+            } catch {
+                | _ is System.ArgumentException => 
+                  Console.WriteLine($"Could not find the Glade gui embedded resource file '$(glade_resource_name)'");
+                  Console.WriteLine("Will search it as an external file.");
+                | e => throw e;
+            }
+            
+            when(gxml == null) {
+                try {
+                    // chalks.glade file is in the same directory than chalks.exe
+                    gxml = Glade.XML("./" + glade_resource_name, dialog_name, null);
+                } catch {
+                    | e is System.ArgumentException => 
+                      Console.WriteLine($"Could not find the Glade gui resource external file '$(glade_resource_name)'");
+                      Console.WriteLine($"$e");
+                    | e => throw e;
+                }
+            }
+                        
+        	gxml;
+        }
+    }
+	
+
     public class ChalksWindow :IGuiForNetwork
     {
         #region Properties
@@ -70,30 +102,7 @@ namespace Chalks.Gui
             Application.Init ();
             
             
-            mutable gxml = null :Glade.XML;
-            try {
-                // chalks.glade file included as a resource "-res:chalks.glade"
-                gxml = Glade.XML(null, glade_resource_name, "chalks_window", null);
-            } catch {
-                | _ is System.ArgumentException => 
-                  Console.WriteLine($"Could not find the Glade gui embedded resource file '$(glade_resource_name)'");
-                  Console.WriteLine("Will search it as an external file.");
-                | e => throw e;
-            }
-            
-            when(gxml == null) {
-                try {
-                    // chalks.glade file is in the same directory than chalks.exe
-                    gxml = Glade.XML("./" + glade_resource_name, "chalks_window", null);
-                } catch {
-                    | e is System.ArgumentException => 
-                      Console.WriteLine($"Could not find the Glade gui resource external file '$(glade_resource_name)'");
-                      Console.WriteLine($"$e");
-                    | e => throw e;
-                }
-            }
-            
-            assert(gxml != null, $"Could not find the Glade gui resource file '$(glade_resource_name)'");
+            mutable gxml = GladeHelper.getXML(glade_resource_name, "chalks_window");
             
             chalks_window = gxml.GetWidget("chalks_window") :> Window;
 
@@ -257,7 +266,7 @@ namespace Chalks.Gui
 
             
             /*def dialog_name = "open_file_dialog";
-            def gxml = Glade.XML(null, glade_resource_name, dialog_name, null);
+            def gxml = GladeHelper.getXML(glade_resource_name, dialog_name);
             def dialog = gxml.GetWidget(dialog_name) :> Dialog;*/
             
             // if editing, confirm that the user wants to kill the session
@@ -320,8 +329,8 @@ namespace Chalks.Gui
                         
             //def dialog = File???("Save current document as...");
             // Could not found the default Gtk.Dialog
-            def dialog_name = "save_file_dialog";
-            def gxml = Glade.XML(null, glade_resource_name, dialog_name, null);
+            def dialog_name = "save_file_dialog";            
+            def gxml = GladeHelper.getXML(glade_resource_name, dialog_name);            
             def dialog = gxml.GetWidget(dialog_name) :> FileChooserDialog; //Dialog;
 
             def ret = dialog.Run() :> ResponseType;
@@ -363,8 +372,8 @@ namespace Chalks.Gui
     
         on_about_menu_item_activate(_o :object,  _args : EventArgs) :void
         {                       
-            def dialog_name = "about_dialog";
-            def gxml = Glade.XML(null, glade_resource_name, dialog_name, null);
+            def dialog_name = "about_dialog";            
+            def gxml = GladeHelper.getXML(glade_resource_name, dialog_name);
             def dialog = gxml.GetWidget(dialog_name) :> Dialog;
             def _ret = dialog.Run() :> ResponseType;
             dialog.Destroy();
@@ -553,7 +562,7 @@ namespace Chalks.Gui
         { 
             def dialog_name = "connection_dialog";
             def server_entry_name = "server_entry";
-            def gxml = Glade.XML(null, ChalksWindow.glade_resource_name, dialog_name, null);
+            def gxml = GladeHelper.getXML(glade_resource_name, dialog_name);
 
             dialog = gxml.GetWidget(dialog_name) :>Dialog;
             server_entry = gxml.GetWidget(server_entry_name) :>Entry;       
@@ -580,8 +589,8 @@ namespace Chalks.Gui
         public this()
         { 
             def dialog_name = "choose_nickname_dialog";
-            def gxml = Glade.XML(null, ChalksWindow.glade_resource_name, dialog_name, null);
-            
+            def gxml = GladeHelper.getXML(glade_resource_name, dialog_name);
+                        
             dialog = gxml.GetWidget(dialog_name) :>Dialog;
             nickname_entry = gxml.GetWidget("nickname_entry") :>Entry;
             ok_button = gxml.GetWidget("ok_button") :>Button;
@@ -618,8 +627,8 @@ namespace Chalks.Gui
 
         public this()
         { 
-            def dialog_name = "enter_password_dialog";
-            def gxml = Glade.XML(null, ChalksWindow.glade_resource_name, dialog_name, null);
+            def dialog_name = "enter_password_dialog";            
+            def gxml = GladeHelper.getXML(glade_resource_name, dialog_name);
             
             dialog = gxml.GetWidget(dialog_name) :>Dialog;
             password_entry = gxml.GetWidget("password_entry") :>Entry;
