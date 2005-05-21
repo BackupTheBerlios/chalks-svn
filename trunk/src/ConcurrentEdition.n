@@ -370,7 +370,7 @@ namespace Chalks.ConcurrentEdition
 
             def recent_ops = ArrayList();
             
-            // transfrom from past to present
+            // transform from past to present
             def op_to_undo_now = LIT(op_to_undo, recent_ops);
 
             // apply the inverse now in the present

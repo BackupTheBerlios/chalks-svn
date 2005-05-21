@@ -2,7 +2,6 @@ TODO
 
 Priorities
 
-1  - The quit bug
 4  - ZeroConf support
 5  - Interface and interactions design validation
 6  - Preferences dialog (what we want to make customizable ?)
@@ -46,13 +45,13 @@ Network
 
 ConcurrentEditable
 
+* Write a test for generate_undo
 * Write more tests
 
 
 Chalks
 
-* When the window is close, the program does not quit (need double click to quit)
-
+-- no pending tasks --
  
 Deployment
 

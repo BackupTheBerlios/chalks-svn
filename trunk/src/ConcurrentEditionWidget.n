@@ -339,7 +339,7 @@ namespace Chalks.ConcurrentEditionWidget
 
         public undo() :void
         {
-            if(redo_stack.Count > 0) {
+            if(undo_stack.Count > 0) {
                 def done_op = undo_stack.Pop();
                 
                 // undo the past operation in the present

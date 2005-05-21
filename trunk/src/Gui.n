@@ -102,9 +102,15 @@ namespace Chalks.Gui
             
             // run
             cce_widget.HasFocus = true; //start with focus on the main text
-            Application.Run();
+            //Application.Run(); is called from Chalks.n
         }
+
         
+        static quit() :void
+        {
+            //Console.WriteLine("Quitting"); Console.Out.Flush();
+            Application.Quit ();
+        }
 
         create_default_config_source() :ConfigSourceBase
         { // creates the default configuration file
@@ -190,7 +196,8 @@ namespace Chalks.Gui
         
         static on_chalks_window_delete_event( _o :object, _args :DeleteEventArgs) :void
         {
-            Application.Quit ();
+            quit();
+            _args.RetVal = true;
         }
         
         #region Menu items Handlers
@@ -343,8 +350,7 @@ namespace Chalks.Gui
 
         static on_quit_menu_item_activate(_o :object,  _args : EventArgs) :void
         {
-            //log(0, "Quitting");
-            Application.Quit();
+            quit();
         }
     
         on_about_menu_item_activate(_o :object,  _args : EventArgs) :void
