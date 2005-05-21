@@ -64,12 +64,15 @@ namespace Chalks.ConcurrentEditionWidget
             // call flush_inserted_text each second
             timeout_handler_id = Timeout.Add(1000, flush_inserted_text); 
 
-            // Tooltips
+
+            // Tooltips work only on EventBoxes
             tips = Tooltips(); tips.Enable();
-            tips.SetTip(this, "you wrote it", "long description");
-            tip_data = TooltipsData.Get(this); // for a direct access
+            
+            //def eventbox1 = this.Parent.Parent :>EventBox;
+            //tips.SetTip( eventbox1, "hello world", "long description");
+            //tip_data = TooltipsData.Get(eventbox1); // for a direct access
             //tip_data.TipText = "you wrote it";
-            log($"tip_data '$(tip_data.TipText)'");
+            //log($"tip_data '$(tip_data.TipText)'");
             
             // undo, redo
             undo_stack = Stack();
@@ -251,12 +254,21 @@ namespace Chalks.ConcurrentEditionWidget
                         def nickname = gui.nicknames[site_id];
                         // set the tooltip
                         gui.set_status($"$nickname wrote it"); // while tooltip does not work
+
+                        def eventbox1 = this.Parent.Parent :>EventBox;
+                        tips.SetTip( eventbox1, $"$nickname wrote it", "");
+                        //tip_data = TooltipsData.Get(eventbox1); // for a direct access
+                        //tip_data.TipText = "you wrote it";
                     }
                 }
                 ();
                 
             } else {
                 gui.set_status("");
+
+                def eventbox1 = this.Parent.Parent :>EventBox;
+                tips.SetTip( eventbox1, "", "");
+
                 ();
             }
         }

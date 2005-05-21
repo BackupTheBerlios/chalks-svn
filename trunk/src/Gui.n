@@ -96,10 +96,12 @@ namespace Chalks.Gui
             set_status("1 users");
             
             // Connect the custom widget with the existing layout
+
             def scrolledwindow3 = gxml.GetWidget("scrolledwindow3") :>ScrolledWindow;
             scrolledwindow3.Add(cce_widget);
             scrolledwindow3.ShowAll();
 
+                        
             gxml.Autoconnect (this);
 
             // obtain some parameters of the configuration
