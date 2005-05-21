@@ -9,6 +9,9 @@ using System;
 using Gtk;
 //using GtkSourceView;
 
+// about GtkSourceView on windows
+// http://lists.ximian.com/archives/public/gtk-sharp-list/2003-December/002949.html
+
 using Nemerle.Collections;
 using Nemerle.Utility;
 

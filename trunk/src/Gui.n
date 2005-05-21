@@ -43,7 +43,8 @@ namespace Chalks.Gui
         cce_widget :ConcurrentEditionWidget; // cce == ConcurrentEdition
         public concurrent_editable :ConcurrentEditable;
         network_node :NetworkNode;
-            
+
+        mutable command_entry_last_key :Gdk.Key;
         commands_past_stack :Stack;
         commands_future_stack :Stack;
         #endregion
@@ -467,7 +468,13 @@ namespace Chalks.Gui
 
         on_preferences_menu_item_activate(_o :object,  _args : EventArgs) :void
         {
-            log("to be implemented");
+            def dialog = PreferencesDialog();
+            def ret = dialog.Run();
+            match(ret) {
+                | ResponseType.Ok =>
+                  log("Configuration was modified");
+                | _ => log( "Canceled" );
+            }
         }
         #endregion
 
@@ -489,6 +496,10 @@ namespace Chalks.Gui
 
             // keep the history
             log(command_entry.Text);
+
+            foreach(command in commands_future_stack) {
+                commands_past_stack.Push(command);
+            }
             commands_past_stack.Push(command_entry.Text);
             command_entry.Text = "";
             commands_future_stack.Clear();   
@@ -499,27 +510,55 @@ namespace Chalks.Gui
         {
             match ( args.Event.Key )
             {
-                | Gdk.Key.Up => 
-                  commands_future_stack.Push(command_entry.Text);
+                | Gdk.Key.Up =>
                   try {
-                      command_entry.Text = commands_past_stack.Pop() :>string;
-                  } catch { |_ => ();}
-                  //command_entry.GrabFocus();
-                  //command_entry.GrabDefault();
-                  //true;
+                      when(command_entry_last_key == Gdk.Key.Down) {
+                          def text = commands_past_stack.Pop();
+                          commands_future_stack.Push(text);
+                      }
+                      def text = commands_past_stack.Pop() :>string;
+                      commands_future_stack.Push(text);
+                      command_entry.Text = text;
+                  } catch {
+                      | _ is System.InvalidOperationException => ();
+                      | e => log($"Internal error: $(e.Message)");
+                  }
                   
-                | Gdk.Key.Down => 
-                  commands_past_stack.Push(command_entry.Text);
+                | Gdk.Key.Down =>
                   try {
-                      command_entry.Text = commands_future_stack.Pop() :>string;
-                  } catch { |_ => ();}
-                  //false;
+                      when(command_entry_last_key == Gdk.Key.Up) {
+                          def text = commands_future_stack.Pop();
+                          commands_past_stack.Push(text);
+                      }
+                      def text = commands_future_stack.Pop() :>string;
+                      commands_past_stack.Push(text);
+                      command_entry.Text = text;
+                      command_entry.Position = command_entry.Text.Length;
+                  } catch {
+                      | _ is System.InvalidOperationException => command_entry.Text = "";
+                      | e => log($"Internal error: $(e.Message)");
+                  }
+                  
                   
                 | _ => 
-                  log("Pressed " +  args.Event.Key.ToString() );
-                  //false;
+                  log(2, "Pressed " +  args.Event.Key.ToString() );
+                  ();
+            }
+            command_entry_last_key = args.Event.Key;
+        }
+
+        on_command_entry_focus_out_event(_o :object, args :FocusOutEventArgs) :void
+        {
+            // a good document on Gtk focus
+            // http://mail.gnome.org/archives/gtk-devel-list/2000-October/msg00108.html
+
+            when(command_entry_last_key == Gdk.Key.Up) {
+                command_entry.GrabFocus();
+                command_entry.SelectRegion(0,0);
+                command_entry.Position = command_entry.Text.Length;
             }
         }
+        
 
         #endregion    
 
@@ -617,15 +656,36 @@ namespace Chalks.Gui
             dialog.Destroy();
             ret;
         }
-        
-        
     } // end of class EnterPasswordDialog
     #endregion
 
+    #region Preferences Dialog
+    class PreferencesDialog
+    {
+        dialog :Dialog;
+
+        public this()
+        { 
+            def dialog_name = "preferences_dialog";            
+            def gxml = GladeHelper.getXML(glade_resource_name, dialog_name);
+            
+            dialog = gxml.GetWidget(dialog_name) :>Dialog;
+            gxml.Autoconnect (this);
+        }
+        
+        public Run() :ResponseType
+        {
+            def ret = dialog.Run() :>ResponseType;
+            dialog.Destroy();
+            ret;
+        }
+    } // end of class PreferencesDialog
+    #endregion
+
     #endregion
 
 
-        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
     
     #region class GladeHelper
     
