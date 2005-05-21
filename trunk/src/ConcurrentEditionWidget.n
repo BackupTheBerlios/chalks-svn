@@ -24,15 +24,23 @@ namespace Chalks.ConcurrentEditionWidget
 
     public class ConcurrentEditionWidget : TextView/*SourceView*/, Chalks.ConcurrentEdition.ITextBuffer
     {
-
+        
 	static to_send_tag :TextTag = TextTag("to_send");
         static mutable applying_operation :bool = false;
         static mutable gui :Gui.ChalksWindow;
 
+        tags_to_site_id :Hashtable[TextTag, Guid] = Hashtable();
+        
+        mutable site_id :Guid;
+        mutable site_tag :TextTag;
+        
         timeout_handler_id :uint;
 
         undo_stack :Stack[Operation];
         redo_stack :Stack[Operation];
+
+        tips : Tooltips;
+        tip_data :TooltipsData;
         
 	public this(_gui :Gui.ChalksWindow)
         {
@@ -51,10 +59,19 @@ namespace Chalks.ConcurrentEditionWidget
             this.Buffer.InsertText += on_insert_text_event;
             this.Buffer.DeleteRange += on_delete_range_event;
             //this.Buffer.PasteClipboard += on_paste_clipboard_event;
-
+            this.MotionNotifyEvent += on_motion_notify_event;
+            
             // call flush_inserted_text each second
             timeout_handler_id = Timeout.Add(1000, flush_inserted_text); 
+
+            // Tooltips
+            tips = Tooltips(); tips.Enable();
+            tips.SetTip(this, "you wrote it", "long description");
+            tip_data = TooltipsData.Get(this); // for a direct access
+            //tip_data.TipText = "you wrote it";
+            log($"tip_data '$(tip_data.TipText)'");
             
+            // undo, redo
             undo_stack = Stack();
             redo_stack = Stack();
             
@@ -120,7 +137,8 @@ namespace Chalks.ConcurrentEditionWidget
                     
                     //Buffer.RemoveTag(to_send_tag, start_iter, end_iter);
                     Buffer.RemoveAllTags(start_iter, end_iter); // inserted text has no tag
-
+                    Buffer.ApplyTag(site_tag, start_iter, end_iter); //apply local tag
+                    
                     def ce = gui.concurrent_editable;
                     def op = ce.generate_operation(executed_before_creation,
                                                    OperationType.Insert, pos, text);
@@ -205,6 +223,48 @@ namespace Chalks.ConcurrentEditionWidget
         
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
 
+        on_motion_notify_event(_o:object, _args :MotionNotifyEventArgs) :void
+        {
+            update_tooltip();
+        }
+        
+        update_tooltip() :void
+        { // set the tooltip value in function of the underlying text
+
+            // using
+            //http://lists.ximian.com/archives/public/gtk-sharp-list/2004-August/004625.html
+            //this.GetWindow (TextWindowType.Widget).GetPointer (out xloc, out yloc, out mask);
+            //TextIter ti = this.GetIterAtLocation(xloc,yloc);
+
+            mutable xloc = 0;
+            mutable yloc = 0;
+            mutable mask = Gdk.ModifierType.ReleaseMask :Gdk.ModifierType;
+            _ = this.GetWindow(TextWindowType.Widget).GetPointer (out xloc, out yloc, out mask);
+            def iter = this.GetIterAtLocation(xloc, yloc);
+            def tags = iter.Tags;
+
+            if (tags.Length > 0) {
+                def tag = tags[0];                
+                when(tags_to_site_id.Contains(tag)) {
+                    def site_id = tags_to_site_id[tag];                    
+                    when(gui.nicknames.Contains(site_id)) {
+                        def nickname = gui.nicknames[site_id];
+                        // set the tooltip
+                        gui.set_status($"$nickname wrote it"); // while tooltip does not work
+                    }
+                }
+                ();
+                
+            } else {
+                gui.set_status("");
+                ();
+            }
+        }
+        
+
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
+        
+        
         #region Helpers
                 
         create_site_tag( site_id :Guid) :TextTag
@@ -212,6 +272,7 @@ namespace Chalks.ConcurrentEditionWidget
 
             def tag = TextTag(site_id.ToString());
             Buffer.TagTable.Add(tag); // add it to the widget
+            tags_to_site_id[tag] = site_id; // add to the inverse hashtable
             
             // local helper function
             def hsv_to_rgb(h :float, s :float, v :float) :array[float]
@@ -300,7 +361,6 @@ namespace Chalks.ConcurrentEditionWidget
             
             applying_operation = true;
             Buffer.InsertWithTags(ref iter, text, array[site_tag]);
-            //Buffer.Insert(ref iter, text);
             applying_operation = false;
             ;
         }
@@ -322,19 +382,31 @@ namespace Chalks.ConcurrentEditionWidget
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
         #region Methods accessed by Gui
-        public set_site_id(site_id :Guid) :void
+        public set_site_id(_site_id :Guid) :void
         {
             // create the local tag
-            // this allow to distinguish local text (white background) to other users ones (colored background)
+            // this allow to distinguish local text (white background)
+            // from other users ones (colored background)
 
+            site_id = _site_id;
+            
             // check if local user exist
-            mutable site_tag = Buffer.TagTable.Lookup(site_id.ToString());
+            site_tag = Buffer.TagTable.Lookup(site_id.ToString());
             when (site_tag == null) 
                 site_tag = create_site_tag(site_id); // create a new tag for a new user
-                
+                // create_site_id already register it
+            
             // set background as white
             site_tag.BackgroundGdk = Gdk.Color(255b, 255b, 255b);
-            ;
+        }
+
+        public get_site_color(site_id :Guid) :Gdk.Color
+        {
+            mutable site_tag = Buffer.TagTable.Lookup(site_id.ToString());
+            when (site_tag == null) // check if user exist
+                site_tag = create_site_tag(site_id); // create a new tag for a new user
+            
+            site_tag.BackgroundGdk;
         }
 
         public undo() :void

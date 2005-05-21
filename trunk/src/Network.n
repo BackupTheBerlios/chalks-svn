@@ -118,17 +118,20 @@ namespace Chalks.Network
             local_node.send_operation(remote_site_id, op);
         }
 
-        public receive_message(sender :Guid, addressee :Guid, message :string) :void
+        public receive_message(sender :Guid, sender_nickname:string,
+                               addressee :Guid, message :string) :void
         {
             // receive
             // if it is a broadcast or we are the addressee
             when ( addressee == Guid.Empty || addressee == local_node.get_site_id() ) {
-                local_node.gui.receive_message(sender, message);
+                local_node.gui.receive_message(sender, sender_nickname, message);
             }
             
             // and relay
             when (addressee != local_node.get_site_id() ) {
-                local_node.send_message(remote_site_id, sender, addressee, message);
+                local_node.send_message(remote_site_id,
+                                        sender, sender_nickname,
+                                        addressee, message);
             }
         }
 
@@ -357,10 +360,19 @@ namespace Chalks.Network
         } // end of start_collaborating
         
 
-        public delegate receive_message_delegate(_ :Guid, _ :Guid, _ :string) :void;
+        public delegate receive_message_delegate(_ :Guid, _:string,
+                                                 _ :Guid, _ :string) :void;
+
+        public send_message(addressee :Guid, message :string) :void 
+        { // method used internally to send messages from me to addressee
+            send_message(Guid.Empty,
+                         this.site_id, this.nickname,
+                         addressee, message );
+        }
         
         public send_message(comes_from :Guid,
-                            sender :Guid, addressee :Guid, message :string) :void 
+                            sender :Guid, sender_nickname :string,
+                            addressee :Guid, message :string) :void 
         { // sends a message to another user
             // when site_id == Guid.Empty, the message is a broadcast
 
@@ -368,31 +380,34 @@ namespace Chalks.Network
             { // local definition of the remote method callback
                 def _delegate = ((async_result :> AsyncResult).AsyncDelegate) :>receive_message_delegate;
                 // receive_message returns void, so, we only show success
-                log($"Message sent to $(addressee.ToString()) was received");
+                //log($"Message sent to $(addressee.ToString()) was received");
+                
                 //+ _delegate.EndInvoke(async_result).ToString() );
             }
 
             
             def send_a_message(site :ConcurrentEditableNodeProxy,
-                               sender :Guid, addressee :Guid, message :string) :void
+                               sender :Guid, sender_nickname:string, 
+                               addressee :Guid, message :string) :void
             { // local helper function that send a message to a remote instance
               // the action is asyncronous
                 
                 def remote_method_delegate = receive_message_delegate(site.receive_message);
-                _ = remote_method_delegate.BeginInvoke(sender, addressee, message,
+                _ = remote_method_delegate.BeginInvoke(sender, sender_nickname,
+                                                       addressee, message,
                                                        AsyncCallback(async_callback), null);
             }
             
             if (   addressee != Guid.Empty //addressed message
                 && remote_sites.ContainsKey(addressee)) { // and we know the addressee
                     def site = remote_sites[addressee];
-                    send_a_message(site, sender, addressee, message);
+                    send_a_message(site, sender, sender_nickname, addressee, message);
             } // if we do not know the adressee, we broadcast the message
             
             else { // broadcast message
                 foreach((remote_site_id, site) in remote_sites.KeyValuePairs) {
                     when(remote_site_id != comes_from) {
-                        send_a_message(site, sender, addressee, message); }}
+                        send_a_message(site, sender, sender_nickname, addressee, message); }}
             }
             ; // return void
         }
@@ -513,7 +528,7 @@ namespace Chalks.Network
     { // Elements of ChalksWindow used by the Network Module
         log(_:int, _:string):void;
         set_site_id(site_id :Guid) :void;
-        receive_message(from :Guid, message :string) :void;
+        receive_message(from :Guid, sender_nickname:string, message :string) :void;
     }
 
 } // end of namespace

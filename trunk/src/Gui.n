@@ -16,6 +16,8 @@ using Glade;
 
 using Nini.Config;
 
+using Nemerle.Collections;
+
 using Chalks;
 using Chalks.ConcurrentEditionWidget;
 using Chalks.ConcurrentEdition;
@@ -39,7 +41,7 @@ namespace Chalks.Gui
         static mutable messages_textview :TextView = null;
         static mutable messages_textview_endmark :TextMark = null;
         command_entry :Entry;
-        status_bar :Statusbar; 
+        status_label :Label; 
 
         cce_widget :ConcurrentEditionWidget; // cce == ConcurrentEdition
         public concurrent_editable :ConcurrentEditable;
@@ -48,6 +50,9 @@ namespace Chalks.Gui
         mutable command_entry_last_key :Gdk.Key;
         commands_past_stack :Nemerle.Collections.Stack[string];
         commands_future_stack :Nemerle.Collections.Stack[string];
+
+        mutable nickname :string = "you";
+        public nicknames :Nemerle.Collections.Hashtable[Guid, string] = Hashtable();
         #endregion
 
         public this()
@@ -62,7 +67,8 @@ namespace Chalks.Gui
                 | _ => ();
             }
             config_source.AutoSave = true; // save at each change
-                  
+            
+                      
             // create our special widget
             cce_widget = ConcurrentEditionWidget(this); // cce == ConcurrentEdition
             cce_widget.CanFocus = true;
@@ -75,26 +81,30 @@ namespace Chalks.Gui
             
             mutable gxml = GladeHelper.getXML(glade_resource_name, "chalks_window");
             
-            chalks_window = gxml.GetWidget("chalks_window") :> Window;
+            chalks_window = gxml.GetWidget("chalks_window") :>Window;
 
-            messages_textview = gxml.GetWidget("messages_textview") :> TextView;
+            messages_textview = gxml.GetWidget("messages_textview") :>TextView;
             {
                 def buffer = messages_textview.Buffer;
                 messages_textview_endmark = buffer.CreateMark("end", buffer.EndIter, false);
             }
-            command_entry = gxml.GetWidget("command_entry") :> Entry;
+            command_entry = gxml.GetWidget("command_entry") :>Entry;
             commands_past_stack  = Nemerle.Collections.Stack();
             commands_future_stack = Nemerle.Collections.Stack();
 
-            status_bar = gxml.GetWidget("status_bar") :> Statusbar;
-            set_status_bar("1 users");
+            status_label = gxml.GetWidget("status_label") :>Label;
+            set_status("1 users");
             
             // Connect the custom widget with the existing layout
-            def scrolledwindow3 = gxml.GetWidget("scrolledwindow3") :> ScrolledWindow;
+            def scrolledwindow3 = gxml.GetWidget("scrolledwindow3") :>ScrolledWindow;
             scrolledwindow3.Add(cce_widget);
             scrolledwindow3.ShowAll();
 
             gxml.Autoconnect (this);
+
+            // obtain some parameters of the configuration
+            nickname = config_source.Configs["User"].GetString("nickname", "");;
+            //log("Your nickname is: " + nickname );
 
             // instanciate the core objects
             concurrent_editable = ConcurrentEditable(cce_widget);
@@ -139,14 +149,34 @@ namespace Chalks.Gui
 
         public set_site_id(site_id :Guid) :void
         {
+            nicknames[site_id] = nickname;
             cce_widget.set_site_id(site_id);
         }
 
-        public receive_message(from :Guid, message :string) :void
+        public receive_message(from :Guid, sender_nickname:string, message :string) :void
         {
-            // should obtain the nickname
-            def nickname = from.ToString().Substring(0,8); // <<< dummy implementation
-            log($"$(nickname): $message");
+            // register the nickname
+            //def sender_nickname = from.ToString().Substring(0,8);
+            when(! nicknames.Contains(from) ) {
+                nicknames[from] = sender_nickname;
+            }
+            
+            // obtain the tag for the nickname
+            def buffer = messages_textview.Buffer;
+            mutable from_tag = buffer.TagTable.Lookup(from.ToString());
+            when (from_tag == null) { // check if user known
+                // create a new tag for the new user
+                from_tag = TextTag(from.ToString());
+                buffer.TagTable.Add(from_tag); // add it to the widget
+                from_tag.BackgroundGdk = cce_widget.get_site_color(from);
+            }
+            
+            // print the message
+           
+            mutable iter = buffer.EndIter.Copy();
+            buffer.InsertWithTags(ref iter, $"\n$(sender_nickname):", array[from_tag]);
+            buffer.InsertWithTags(ref iter, $" $message", array[]);
+            messages_textview.ScrollMarkOnscreen(messages_textview_endmark);
         }
         #endregion
 
@@ -182,11 +212,10 @@ namespace Chalks.Gui
         }
         #endregion
 
-
-        public set_status_bar(message:string) :void
+        // called from other modules too (mostly for debugging)
+        public set_status(message:string) :void
         {
-            status_bar.Pop(0);
-            _ = status_bar.Push(0, message);
+            status_label.Text = message;
         }
          
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
@@ -366,7 +395,7 @@ namespace Chalks.Gui
         on_connect_menu_item_activate(_o :object, _args : EventArgs) :void
         {
             // Check nickname
-            mutable nickname = config_source.Configs["User"].GetString("nickname", "");;
+            nickname = config_source.Configs["User"].GetString("nickname", "");;
 
             
             when (nickname == "") {
@@ -376,6 +405,7 @@ namespace Chalks.Gui
                     | ResponseType.Ok => 
                       nickname = dialog.nickname_entry.Text;
                       config_source.Configs["User"].Set("nickname", nickname);
+                      nicknames[network_node.get_site_id()] = nickname;
                     | _ => log( "Canceled" );
                 }
             }
@@ -389,10 +419,11 @@ namespace Chalks.Gui
 
                 def connect_dialog = ConnectionDialog();
                 def ret = connect_dialog.Run();
+
                 match(ret)
                 {
                     | ResponseType.Ok =>
-                      
+                      def ip_and_port = connect_dialog.server_entry.Text; // 0.0.0.0:0
                       // request password
                       def password_dialog = EnterPasswordDialog();
                       def ret = password_dialog.Run();
@@ -404,7 +435,7 @@ namespace Chalks.Gui
                             network_node.set_password(password);
                             
                             // obtain the uri and connect to the server
-                            def ip_and_port = connect_dialog.server_entry.Text; // 0.0.0.0:0
+                            assert(ip_and_port != "");
                             def uri = $"tcp://$(ip_and_port)/chalks"  ;
                             _ = network_node.start_collaborating(uri); // start the show !
                             
@@ -505,15 +536,15 @@ namespace Chalks.Gui
             match(command) {
 
               | _ => // by default send the text as a message
-                  def sender = network_node.get_site_id();
-                  def addressee =  Guid.Empty;
+                  def addressee = Guid.Empty; // broadcast
                   def message = args;
-                  network_node.send_message(Guid.Empty, sender, addressee, message);
+                  network_node.send_message(addressee, message);
+                  // show it locally
+                  receive_message(network_node.get_site_id(), nickname, message);
             }
 
             // keep the history
-            log(command_entry.Text);
-
+            
             foreach(command in commands_future_stack) {
                 commands_past_stack.Push(command);
             }

@@ -2,18 +2,19 @@ TODO
 
 Priorities
 
-4  - ZeroConf support
-5  - Interface and interactions design validation
-6  - Preferences dialog (what we want to make customizable ?)
-7  - Undo/Redo implementation
-8  - Implement password user interface
-9  - Application and wiki documentation
-10 - ConcurrentEditableWidget tooltips
-11 - SourceView usage
-12 - More automated tests for concurrentedition
-13 - More automated tests for network layer
-14 - MacOs support
-15 - Promotional videos
+1  - ZeroConf support
+2  - Interface and interactions design validation
+3  - Preferences dialog (what we want to make customizable ?)
+4  - Undo/Redo implementation
+5  - Implement password user interface
+6  - Colored chat nicknames
+7  - ConcurrentEditableWidget tooltips
+8  - Application and wiki documentation
+9  - SourceView usage
+10 - More automated tests for concurrentedition
+11 - More automated tests for network layer
+12 - MacOs support
+13 - Promotional videos
 
 
 Documentation
@@ -23,8 +24,9 @@ Documentation
 
 Gui
 
+* Colored nicknames does not work in both senses (there is a bug)
 * Check file open, save, save as implementation
-* Implement set password dialog* Messages should show colored nicknames
+* Implement set password dialog
 ---
 * Add Gtk.ToolTipsData tooltips over the main text that shows the author of a paragraph. 
 
@@ -40,6 +42,7 @@ ConcurrentEditableWidget
 Network
 
 * ZeroConf support
+* Have to implement the propagation of the "user has quited the session" event
 * When loading the document, the download should show a progress bar. How to this in a remoting schema ? How does the design have to be modified ?
    
 

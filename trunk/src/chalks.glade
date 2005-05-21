@@ -343,17 +343,20 @@
 
 	      <child>
 		<widget class="GtkStatusbar" id="status_bar">
-		  <property name="width_request">75</property>
-		  <property name="height_request">21</property>
+		  <property name="width_request">22</property>
 		  <property name="visible">True</property>
 		  <property name="has_resize_grip">True</property>
 		</widget>
 		<packing>
 		  <property name="padding">0</property>
 		  <property name="expand">False</property>
-		  <property name="fill">True</property>
+		  <property name="fill">False</property>
 		  <property name="pack_type">GTK_PACK_END</property>
 		</packing>
+	      </child>
+
+	      <child>
+		<placeholder/>
 	      </child>
 
 	      <child>
@@ -375,10 +378,34 @@
 		  <signal name="focus_out_event" handler="on_command_entry_focus_out_event" last_modification_time="Sat, 21 May 2005 16:05:27 GMT"/>
 		</widget>
 		<packing>
-		  <property name="padding">1</property>
+		  <property name="padding">0</property>
 		  <property name="expand">True</property>
 		  <property name="fill">True</property>
-		  <property name="pack_type">GTK_PACK_END</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkLabel" id="status_label">
+		  <property name="visible">True</property>
+		  <property name="label" translatable="yes">status_label</property>
+		  <property name="use_underline">False</property>
+		  <property name="use_markup">False</property>
+		  <property name="justify">GTK_JUSTIFY_LEFT</property>
+		  <property name="wrap">False</property>
+		  <property name="selectable">False</property>
+		  <property name="xalign">0.5</property>
+		  <property name="yalign">0.5</property>
+		  <property name="xpad">5</property>
+		  <property name="ypad">0</property>
+		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+		  <property name="width_chars">-1</property>
+		  <property name="single_line_mode">False</property>
+		  <property name="angle">0</property>
+		</widget>
+		<packing>
+		  <property name="padding">0</property>
+		  <property name="expand">False</property>
+		  <property name="fill">True</property>
 		</packing>
 	      </child>
 	    </widget>
