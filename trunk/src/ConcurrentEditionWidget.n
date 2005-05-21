@@ -24,6 +24,8 @@ namespace Chalks.ConcurrentEditionWidget
 	static to_send_tag :TextTag = TextTag("to_send");
         static mutable applying_operation :bool = false;
         static mutable gui :Gui.ChalksWindow;
+
+        timeout_handler_id :uint;
         
 	public this(_gui :Gui.ChalksWindow)
         {
@@ -44,7 +46,7 @@ namespace Chalks.ConcurrentEditionWidget
             //this.Buffer.PasteClipboard += on_paste_clipboard_event;
 
             // call flush_inserted_text each second
-            _ = Timeout.Add(1000, flush_inserted_text); 
+            timeout_handler_id = Timeout.Add(1000, flush_inserted_text); 
             
 
             // simple tests
@@ -62,6 +64,14 @@ namespace Chalks.ConcurrentEditionWidget
             ;
         }
 
+        /*new public Finalize() :void
+        { // destructor
+
+            //base.Finalize();
+            Console.WriteLine("Finalizing cew"); Console.Out.Flush();
+            Timeout.Remove(timeout_handler_id);
+        }*/
+        
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
         flush_inserted_text() :bool
@@ -72,51 +82,56 @@ namespace Chalks.ConcurrentEditionWidget
                - each time someone ends a phrase
             */
 
-            mutable found_a_region = false;
-            
-            def start_iter = this.Buffer.StartIter.Copy();
-            def end_iter = this.Buffer.StartIter.Copy();
-
-            found_a_region = start_iter.HasTag(to_send_tag);
-            _ = end_iter.ForwardToTagToggle(to_send_tag); // go to the first Toggle
-            
-            
-            // search the first to_send tagger region
-            when (! found_a_region) {
-                _ = start_iter.ForwardToTagToggle(to_send_tag);
-                _ = end_iter.ForwardToTagToggle(to_send_tag);
+            if (this.Buffer != null) {
+                mutable found_a_region = false;
                 
-                found_a_region = ! start_iter.Equal(Buffer.EndIter);
-            }
-
+                def start_iter = this.Buffer.StartIter.Copy();
+                def end_iter = this.Buffer.StartIter.Copy();
+                
+                found_a_region = start_iter.HasTag(to_send_tag);
+                _ = end_iter.ForwardToTagToggle(to_send_tag); // go to the first Toggle
+                
+                
+                // search the first to_send tagger region
+                when (! found_a_region) {
+                    _ = start_iter.ForwardToTagToggle(to_send_tag);
+                    _ = end_iter.ForwardToTagToggle(to_send_tag);
+                    
+                    found_a_region = ! start_iter.Equal(Buffer.EndIter);
+                }
+                
             //log($"flush: $(found_a_region) first region at [$(start_iter.Offset),$(end_iter.Offset)]");
-            
-            while(found_a_region)
-            { // iterate over the different regions
-                def text = Buffer.GetSlice(start_iter, end_iter, false);
-                def pos = start_iter.Offset;
-                def executed_before_creation = true;
                 
-                //Buffer.RemoveTag(to_send_tag, start_iter, end_iter);
-                Buffer.RemoveAllTags(start_iter, end_iter); // inserted text has no tag
+                while(found_a_region)
+                { // iterate over the different regions
+                    def text = Buffer.GetSlice(start_iter, end_iter, false);
+                    def pos = start_iter.Offset;
+                    def executed_before_creation = true;
+                    
+                    //Buffer.RemoveTag(to_send_tag, start_iter, end_iter);
+                    Buffer.RemoveAllTags(start_iter, end_iter); // inserted text has no tag
                 
-                _ =
-                gui.concurrent_editable.generate_operation(executed_before_creation,
-                                                           OperationType.Insert, pos, text);
-                // operations generated locally are not executed
-                // (because they where executed before generation)
-                // thus iterators still being valids
+                    _ =
+                    gui.concurrent_editable.generate_operation(executed_before_creation,
+                                                               OperationType.Insert, pos, text);
+                    // operations generated locally are not executed
+                    // (because they where executed before generation)
+                    // thus iterators still being valids
+                    
+                    // jump to the next section
+                    _ = start_iter.ForwardToTagToggle(to_send_tag);
+                    _ = end_iter.ForwardToTagToggle(to_send_tag);
+                    _ = start_iter.ForwardToTagToggle(to_send_tag);
+                    _ = end_iter.ForwardToTagToggle(to_send_tag);
+                    
+                    found_a_region = ! start_iter.Equal(Buffer.EndIter);
+                }
                 
-                // jump to the next section
-                _ = start_iter.ForwardToTagToggle(to_send_tag);
-                _ = end_iter.ForwardToTagToggle(to_send_tag);
-                _ = start_iter.ForwardToTagToggle(to_send_tag);
-                _ = end_iter.ForwardToTagToggle(to_send_tag);
-
-                found_a_region = ! start_iter.Equal(Buffer.EndIter);
+                true; // return true to be called periodically
+                
+            } else {
+                false; // return false to stop the periodical behaviour
             }
-
-            true; // return true to be called periodically
         }
         
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
