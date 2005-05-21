@@ -39,6 +39,10 @@ def build(target):
         clean()
     elif target == "test":
         test()
+    elif target == "test_network.exe":
+        test_network()
+    elif target == "test_cce.exe":
+        test_cce()
     elif target == "nunits":
         nunits()
     else:
@@ -68,7 +72,7 @@ def chalks():
             os.remove(target)
 
         build_command = Compiler + Flags \
-                        + '-t:exe -out:"chalks.exe" ' \
+                        + "-t:exe "  '-out:"%s" '%target \
                         + Resources + "-r:chalks_core.dll " + DllResources \
                         + " ".join(compilable_sources)
         print "Executing:\n%s\n" % build_command
@@ -105,7 +109,7 @@ def chalks_core():
             os.remove(target)
         
         build_command = Compiler + Flags \
-                        + '-t:library -out:"chalks_core.dll" ' \
+                        + "-t:library " + '-out:"%s" '%target \
                         + DllResources \
                         + " ".join(compilable_sources)
         print "Executing:\n%s\n" % build_command
@@ -132,23 +136,92 @@ def clean():
 # -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
 def test():
-    '''
-    test: test_network.exe test_cce.exe
 
+    test_network()
+    test_cce()
 
-test_network.exe: TestNetwork.n  Gui.n ConcurrentEditionWidget.n chalks_core.dll
-	$(rmCommand) test_network.exe
-	$(Compiler) $(Flags) -out:"test_network.exe" -r:nunit.framework.dll $(DllResources) -r:chalks_core.dll TestNetwork.n  Gui.n ConcurrentEditionWidget.n
-	./test_network.exe	
-
-test_cce.exe: TestConcurrentEdition.n Gui.n ConcurrentEditionWidget.n chalks_core.dll
-	$(rmCommand) test_cce.exe
-	$(Compiler) $(Flags) -out:"test_cce.exe" -r:nunit.framework.dll  $(DllResources) -r:chalks_core.dll TestConcurrentEdition.n  Gui.n ConcurrentEditionWidget.n
-	./test_cce.exe	
-
-    '''
-    raise "to be implemented"
     return
+
+
+def test_network():
+
+    target = "test_network.exe"
+    
+    resources = ["chalks.glade", "chalks.ico"]
+    compiled_sources = ["chalks_core.dll"]
+    compilable_sources = ["TestNetwork.n", "Gui.n", "ConcurrentEditionWidget.n"]
+    sources =  resources + compiled_sources + compilable_sources
+
+    for source in compiled_sources:
+        if not os.path.exists(source):
+            build(source)
+
+    ret = is_older(target, sources)
+    
+    if ret:
+        print "Building %s" % target
+        if os.path.exists(target):
+            os.remove(target)
+
+        build_command = Compiler + Flags \
+                        + "-t:exe " + '-out:"%s" '%target \
+                        + "-r:chalks_core.dll -r:nunit.framework.dll " + DllResources \
+                        + " ".join(compilable_sources)
+        print "Executing:\n%s\n" % build_command
+        ret = os.system(build_command)
+        if ret != 0:
+            raise "Error during the compilation"
+    else:
+        print "%s is up to date" % target
+
+    command = "./%s" % target
+    print "Executing:\n%s\n" % command
+    ret = os.system(command)
+    if ret != 0:
+        raise "%s raised an error" % command
+
+    return
+
+def test_cce():
+
+    target = "test_cce.exe"
+    
+    resources = ["chalks.glade", "chalks.ico"]
+    compiled_sources = ["chalks_core.dll"]
+    compilable_sources = ["TestConcurrentEdition.n", "Gui.n", "ConcurrentEditionWidget.n"]
+    sources =  resources + compiled_sources + compilable_sources
+
+    for source in compiled_sources:
+        if not os.path.exists(source):
+            build(source)
+
+    ret = is_older(target, sources)
+    
+    if ret:
+        print "Building %s" % target
+        if os.path.exists(target):
+            os.remove(target)
+
+        build_command = Compiler + Flags \
+                        + "-t:exe " + '-out:"%s" '%target \
+                        + "-r:chalks_core.dll -r:nunit.framework.dll " + DllResources \
+                        + " ".join(compilable_sources)
+        print "Executing:\n%s\n" % build_command
+        ret = os.system(build_command)
+        if ret != 0:
+            raise "Error during the compilation"
+    else:
+        print "%s is up to date" % target
+
+    command = "./%s" % target
+    print "Executing:\n%s\n" % command
+    ret = os.system(command)
+    if ret != 0:
+        raise "%s raised an error" % command
+
+    return
+
+# -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
 def nunits():
     '''
@@ -180,9 +253,9 @@ def is_older(target, sources):
     ret = []
     target_mtime = os.stat(target).st_mtime;
     for source in sources:
-        if os.stat(target).st_mtime > target_mtime:
-            ret.add(source)
-
+        if os.stat(source).st_mtime > target_mtime:
+            ret.append(source)
+    #print str(ret) + " are newer than " + str(target)
     return ret
 
 # -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
