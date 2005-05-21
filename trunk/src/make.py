@@ -61,8 +61,7 @@ def chalks():
     sources =  resources + compiled_sources + compilable_sources
 
     for source in compiled_sources:
-        if not os.path.exists(source):
-            build(source)
+        build(source)
 
     ret = is_older(target, sources)
     
@@ -96,8 +95,7 @@ def chalks_core():
     sources =  resources + compiled_sources + compilable_sources
     
     for source in compiled_sources:
-        if not os.path.exists(source):
-            build(source)
+        build(source)
 
     ret = is_older(target, sources)
     
@@ -153,8 +151,7 @@ def test_network():
     sources =  resources + compiled_sources + compilable_sources
 
     for source in compiled_sources:
-        if not os.path.exists(source):
-            build(source)
+        build(source)
 
     ret = is_older(target, sources)
     
@@ -192,8 +189,7 @@ def test_cce():
     sources =  resources + compiled_sources + compilable_sources
 
     for source in compiled_sources:
-        if not os.path.exists(source):
-            build(source)
+        build(source)
 
     ret = is_older(target, sources)
     

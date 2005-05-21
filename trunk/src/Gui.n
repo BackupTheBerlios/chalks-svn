@@ -22,6 +22,7 @@ using Chalks.ConcurrentEdition;
 using Chalks.Network;
 using Chalks.Gui.ChalksWindow; // access to the log function
 
+
 namespace Chalks.Gui
 {
     
@@ -45,8 +46,8 @@ namespace Chalks.Gui
         network_node :NetworkNode;
 
         mutable command_entry_last_key :Gdk.Key;
-        commands_past_stack :Stack;
-        commands_future_stack :Stack;
+        commands_past_stack :Nemerle.Collections.Stack[string];
+        commands_future_stack :Nemerle.Collections.Stack[string];
         #endregion
 
         public this()
@@ -82,8 +83,8 @@ namespace Chalks.Gui
                 messages_textview_endmark = buffer.CreateMark("end", buffer.EndIter, false);
             }
             command_entry = gxml.GetWidget("command_entry") :> Entry;
-            commands_past_stack  = Stack();
-            commands_future_stack = Stack();
+            commands_past_stack  = Nemerle.Collections.Stack();
+            commands_future_stack = Nemerle.Collections.Stack();
 
             status_bar = gxml.GetWidget("status_bar") :> Statusbar;
             set_status_bar("1 users");
@@ -431,6 +432,16 @@ namespace Chalks.Gui
 
         #region Edit submenu
 
+        on_undo_menu_item_activate(_o :object,  _args : EventArgs) :void
+        {
+            cce_widget.undo();
+        }
+
+        on_redo_menu_item_activate(_o :object,  _args : EventArgs) :void
+        {
+            cce_widget.redo();
+        }
+
         on_copy_menu_item_activate(_o :object,  _args : EventArgs) :void
         {
             def clipboard = cce_widget.GetClipboard(Gdk.Selection.Clipboard);
@@ -516,7 +527,7 @@ namespace Chalks.Gui
                           def text = commands_past_stack.Pop();
                           commands_future_stack.Push(text);
                       }
-                      def text = commands_past_stack.Pop() :>string;
+                      def text = commands_past_stack.Pop();
                       commands_future_stack.Push(text);
                       command_entry.Text = text;
                   } catch {
@@ -530,7 +541,7 @@ namespace Chalks.Gui
                           def text = commands_future_stack.Pop();
                           commands_past_stack.Push(text);
                       }
-                      def text = commands_future_stack.Pop() :>string;
+                      def text = commands_future_stack.Pop();
                       commands_past_stack.Push(text);
                       command_entry.Text = text;
                       command_entry.Position = command_entry.Text.Length;

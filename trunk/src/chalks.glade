@@ -49,7 +49,7 @@
 		      <signal name="activate" handler="on_connect_menu_item_activate" last_modification_time="Sun, 17 Apr 2005 03:49:27 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image11">
+			<widget class="GtkImage" id="image18">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-connect</property>
 			  <property name="icon_size">1</property>
@@ -70,7 +70,7 @@
 		      <signal name="activate" handler="on_disconnect_menu_item_activate" last_modification_time="Sun, 17 Apr 2005 03:49:27 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image12">
+			<widget class="GtkImage" id="image19">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-disconnect</property>
 			  <property name="icon_size">1</property>
@@ -152,6 +152,30 @@
 
 	      <child>
 		<widget class="GtkMenu" id="edition_menu_item_menu">
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="undo_menu_item">
+		      <property name="visible">True</property>
+		      <property name="label">gtk-undo</property>
+		      <property name="use_stock">True</property>
+		      <signal name="activate" handler="on_undo_menu_item_activate" last_modification_time="Sat, 21 May 2005 19:43:10 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="redo_menu_item">
+		      <property name="visible">True</property>
+		      <property name="label">gtk-redo</property>
+		      <property name="use_stock">True</property>
+		      <signal name="activate" handler="on_redo_menu_item_activate" last_modification_time="Sat, 21 May 2005 19:43:10 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="séparateur4">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
 
 		  <child>
 		    <widget class="GtkImageMenuItem" id="cut_menu_item">

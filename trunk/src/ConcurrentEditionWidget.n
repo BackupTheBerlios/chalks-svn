@@ -15,7 +15,8 @@ using Gtk;
 using Nemerle.Collections;
 using Nemerle.Utility;
 
-using Chalks.Gui.ChalksWindow; // access to the log function
+using Chalks;
+using Chalks.Helpers;
 using Chalks.ConcurrentEdition;
 
 namespace Chalks.ConcurrentEditionWidget
@@ -29,6 +30,9 @@ namespace Chalks.ConcurrentEditionWidget
         static mutable gui :Gui.ChalksWindow;
 
         timeout_handler_id :uint;
+
+        undo_stack :Stack[Operation];
+        redo_stack :Stack[Operation];
         
 	public this(_gui :Gui.ChalksWindow)
         {
@@ -51,7 +55,10 @@ namespace Chalks.ConcurrentEditionWidget
             // call flush_inserted_text each second
             timeout_handler_id = Timeout.Add(1000, flush_inserted_text); 
             
-
+            undo_stack = Stack();
+            redo_stack = Stack();
+            
+            
             // simple tests
             /*
             insert_text(Guid.NewGuid(), 0, "hello world\n");
@@ -113,13 +120,14 @@ namespace Chalks.ConcurrentEditionWidget
                     
                     //Buffer.RemoveTag(to_send_tag, start_iter, end_iter);
                     Buffer.RemoveAllTags(start_iter, end_iter); // inserted text has no tag
-                
-                    _ =
-                    gui.concurrent_editable.generate_operation(executed_before_creation,
-                                                               OperationType.Insert, pos, text);
+
+                    def ce = gui.concurrent_editable;
+                    def op = ce.generate_operation(executed_before_creation,
+                                                   OperationType.Insert, pos, text);
                     // operations generated locally are not executed
                     // (because they where executed before generation)
                     // thus iterators still being valids
+                    undo_stack.Push(op); // store for futures undos
                     
                     // jump to the next section
                     _ = start_iter.ForwardToTagToggle(to_send_tag);
@@ -252,6 +260,12 @@ namespace Chalks.ConcurrentEditionWidget
             tag;
         }
 
+
+        log(text :string) :void
+        {
+            gui.log(text);
+        }
+
         #endregion
                 
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
@@ -321,6 +335,38 @@ namespace Chalks.ConcurrentEditionWidget
             // set background as white
             site_tag.BackgroundGdk = Gdk.Color(255b, 255b, 255b);
             ;
+        }
+
+        public undo() :void
+        {
+            if(redo_stack.Count > 0) {
+                def done_op = undo_stack.Pop();
+                
+                // undo the past operation in the present
+                // return the operation that undo the past operation in the present
+                def ce = gui.concurrent_editable;
+                def undo_op = ce.generate_undo(done_op);
+
+                redo_stack.Push(undo_op);
+            } else {
+                log("No more operations to undo");
+            }
+        }
+
+
+        public redo() :void
+        { // redo is to undo the undoed
+            
+            if(redo_stack.Count > 0) {
+                def undo_op = redo_stack.Pop();
+
+                def ce = gui.concurrent_editable;
+                def redo_op = ce.generate_undo(undo_op);
+                
+                undo_stack.Push(redo_op);
+            }else {
+                log("No more operations to redo");
+            }
         }
         
         #endregion

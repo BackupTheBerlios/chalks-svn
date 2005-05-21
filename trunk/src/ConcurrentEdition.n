@@ -354,7 +354,43 @@ namespace Chalks.ConcurrentEdition
             op;
         }
 
-        
+
+        public generate_undo( op_to_undo :Operation) :Operation
+        { // take an operation in the past
+          // transform it to include the recent operations
+          // apply and send to the peers
+          //
+          // redo is implemented with undo
+          // redo: "take the operation resulted from the undo, and undo it"
+
+            throw Exception("to be implemented");
+            
+            // get the new operations to include in the transfrom
+            // (transforming a past operartion into a present operation)
+
+            def recent_ops = ArrayList();
+            
+            // transfrom from past to present
+            def op_to_undo_now = LIT(op_to_undo, recent_ops);
+
+            // apply the inverse now in the present
+            def undo_op = 
+            match(op_to_undo.Type) {
+                
+                | OperationType.Insert =>
+                  generate_operation(OperationType.Delete,
+                                     op_to_undo_now.Pos, op_to_undo_now.Text.Length );
+                  
+                | OperationType.Delete =>
+                  generate_operation(OperationType.Insert,
+                                     op_to_undo_now.Pos, op_to_undo_now.deleted_text );
+                  
+                | _ =>
+                  throw Exception($"Unmanaged operation type $(op_to_undo.Type) for undo");
+            }
+            
+            undo_op;
+        }        
         #endregion
 
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
