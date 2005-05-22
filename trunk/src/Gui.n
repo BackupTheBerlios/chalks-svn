@@ -100,7 +100,6 @@ namespace Chalks.Gui
             def scrolledwindow3 = gxml.GetWidget("scrolledwindow3") :>ScrolledWindow;
             scrolledwindow3.Add(cce_widget);
             scrolledwindow3.ShowAll();
-
                         
             gxml.Autoconnect (this);
 

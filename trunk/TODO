@@ -8,13 +8,12 @@ Priorities
 4  - Undo/Redo implementation
 5  - Implement password user interface
 6  - Colored chat nicknames
-7  - ConcurrentEditableWidget tooltips
-8  - Application and wiki documentation
-9  - SourceView usage
-10 - More automated tests for concurrentedition
-11 - More automated tests for network layer
-12 - MacOs support
-13 - Promotional videos
+7  - Application and wiki documentation
+8  - SourceView usage (win32 compilation)
+9  - More automated tests for concurrentedition
+10 - More automated tests for network layer
+11 - MacOs support
+12 - Promotional videos
 
 
 Documentation

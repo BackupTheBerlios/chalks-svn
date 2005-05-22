@@ -38,9 +38,6 @@ namespace Chalks.ConcurrentEditionWidget
 
         undo_stack :Stack[Operation];
         redo_stack :Stack[Operation];
-
-        tips : Tooltips;
-        tip_data :TooltipsData;
         
 	public this(_gui :Gui.ChalksWindow)
         {
@@ -59,38 +56,14 @@ namespace Chalks.ConcurrentEditionWidget
             this.Buffer.InsertText += on_insert_text_event;
             this.Buffer.DeleteRange += on_delete_range_event;
             //this.Buffer.PasteClipboard += on_paste_clipboard_event;
-            this.MotionNotifyEvent += on_motion_notify_event;
             
             // call flush_inserted_text each second
             timeout_handler_id = Timeout.Add(1000, flush_inserted_text); 
 
-
-            // Tooltips work only on EventBoxes
-            tips = Tooltips(); tips.Enable();
-            
-            //def eventbox1 = this.Parent.Parent :>EventBox;
-            //tips.SetTip( eventbox1, "hello world", "long description");
-            //tip_data = TooltipsData.Get(eventbox1); // for a direct access
-            //tip_data.TipText = "you wrote it";
-            //log($"tip_data '$(tip_data.TipText)'");
-            
             // undo, redo
             undo_stack = Stack();
             redo_stack = Stack();
-            
-            
-            // simple tests
-            /*
-            insert_text(Guid.NewGuid(), 0, "hello world\n");
                         
-            mutable iter = Buffer.EndIter.Copy();
-            def to_be_deleted = "damn! I'm trapped";
-            Buffer.Insert(ref iter, "This text has to be sent\n" + to_be_deleted);
-
-             _ = delete_text(iter.Offset - to_be_deleted.Length, to_be_deleted.Length);
-             */
-            // end of simple tests
-            
             ;
         }
 
@@ -223,59 +196,9 @@ namespace Chalks.ConcurrentEditionWidget
         }
 
         #endregion
+
         
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
-
-        on_motion_notify_event(_o:object, _args :MotionNotifyEventArgs) :void
-        {
-            update_tooltip();
-        }
-        
-        update_tooltip() :void
-        { // set the tooltip value in function of the underlying text
-
-            // using
-            //http://lists.ximian.com/archives/public/gtk-sharp-list/2004-August/004625.html
-            //this.GetWindow (TextWindowType.Widget).GetPointer (out xloc, out yloc, out mask);
-            //TextIter ti = this.GetIterAtLocation(xloc,yloc);
-
-            mutable xloc = 0;
-            mutable yloc = 0;
-            mutable mask = Gdk.ModifierType.ReleaseMask :Gdk.ModifierType;
-            _ = this.GetWindow(TextWindowType.Widget).GetPointer (out xloc, out yloc, out mask);
-            def iter = this.GetIterAtLocation(xloc, yloc);
-            def tags = iter.Tags;
-
-            if (tags.Length > 0) {
-                def tag = tags[0];                
-                when(tags_to_site_id.Contains(tag)) {
-                    def site_id = tags_to_site_id[tag];                    
-                    when(gui.nicknames.Contains(site_id)) {
-                        def nickname = gui.nicknames[site_id];
-                        // set the tooltip
-                        gui.set_status($"$nickname wrote it"); // while tooltip does not work
-
-                        def eventbox1 = this.Parent.Parent :>EventBox;
-                        tips.SetTip( eventbox1, $"$nickname wrote it", "");
-                        //tip_data = TooltipsData.Get(eventbox1); // for a direct access
-                        //tip_data.TipText = "you wrote it";
-                    }
-                }
-                ();
-                
-            } else {
-                gui.set_status("");
-
-                def eventbox1 = this.Parent.Parent :>EventBox;
-                tips.SetTip( eventbox1, "", "");
-
-                ();
-            }
-        }
-        
-
-        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
-        
         
         #region Helpers
                 
@@ -452,7 +375,27 @@ namespace Chalks.ConcurrentEditionWidget
                 log("No more operations to redo");
             }
         }
-        
+
+        public get_site_id_under_mouse() :Guid
+        { 
+            // using
+            //http://lists.ximian.com/archives/public/gtk-sharp-list/2004-August/004625.html
+            //this.GetWindow (TextWindowType.Widget).GetPointer (out xloc, out yloc, out mask);
+            //TextIter ti = this.GetIterAtLocation(xloc,yloc);
+
+            mutable xloc = 0;
+            mutable yloc = 0;
+            mutable mask = Gdk.ModifierType.ReleaseMask :Gdk.ModifierType;
+            _ = this.GetWindow(TextWindowType.Widget).GetPointer (out xloc, out yloc, out mask);
+            def iter = this.GetIterAtLocation(xloc, yloc);
+            def tags = iter.Tags;
+
+            if (tags.Length > 0) {
+                def tag = tags[0];                
+                if(tags_to_site_id.Contains(tag)) tags_to_site_id[tag];
+                else Guid.Empty;                
+            } else Guid.Empty;
+        }        
         #endregion
     } // end of class ConcurrentEditionWidget
 
