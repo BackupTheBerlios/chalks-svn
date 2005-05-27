@@ -12,11 +12,13 @@ import sys
 if os.name in ["posix", "cygwin"]:
     GtkDllResources = "-pkg:glade-sharp-2.0 "
     RemoveCommand = "rm -f "
+    Resources =  "-res:chalks.glade -res:chalks.ico "
 elif os.name in ["win32", "nt"]:
-    GtkDllResources =  "-r:glade-sharp.dll -r:glib-sharp.dll" \
-                     + "-r:pango-sharp.dll -r:atk-sharp.dll" \
+    GtkDllResources =  "-r:glade-sharp.dll -r:glib-sharp.dll " \
+                     + "-r:pango-sharp.dll -r:atk-sharp.dll " \
                      + "-r:gdk-sharp.dll -r:gtk-sharp.dll "
     RemoveCommand = "del /F "
+    Resources =  " "
 else: 
     raise "Unknown os named %s" % os.name
 
@@ -24,7 +26,7 @@ else:
 Compiler = "ncc.exe "
 
 DllResources = GtkDllResources + "-r:Nini.dll -r:System.Runtime.Remoting.dll " 
-Resources =  "-res:chalks.glade -res:chalks.ico "
+
 Flags = "-g "
 
 
@@ -124,7 +126,7 @@ def chalks_core():
 def clean():
 
     command = RemoveCommand \
-              + " *.exe *~ test_*.dll chalks_core.dll TestResult.xml chalks.config \#*\#"
+              + " *.exe *~ test_*.dll chalks_core.dll TestResult.xml chalks.config"
 
     print "Executing:\n%s\n" % command
     os.system(command)
