@@ -4,7 +4,7 @@ Priorities
 
 1  - ZeroConf support
 2  - Interface and interactions design validation
-3  - Preferences dialog (what we want to make customizable ?)
+3  - Preferences dialog
 4  - Undo/Redo implementation
 5  - Implement password user interface
 6  - Colored chat nicknames
@@ -41,7 +41,7 @@ ConcurrentEditableWidget
 
 Network
 
-
+* Chalks blocks at start if internet is not avialable
 * ZeroConf support
 * Have to implement the propagation of the "user has quited the session" event
 * Have to implement the propagation of the "nickname change" event
@@ -50,6 +50,7 @@ Network
 
 ConcurrentEditable
 
+* Finish undo implementation
 * Write a test for generate_undo
 * Write more tests
 

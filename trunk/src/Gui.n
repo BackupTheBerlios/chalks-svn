@@ -52,7 +52,7 @@ namespace Chalks.Gui
         commands_future_stack :Nemerle.Collections.Stack[string];
 
         mutable nickname :string = "you";
-        public nicknames :Nemerle.Collections.Hashtable[Guid, string] = Hashtable();
+        nicknames :NicknamesWidget;
         #endregion
 
         public this()
@@ -100,7 +100,7 @@ namespace Chalks.Gui
             def scrolledwindow3 = gxml.GetWidget("scrolledwindow3") :>ScrolledWindow;
             scrolledwindow3.Add(cce_widget);
             scrolledwindow3.ShowAll();
-                        
+            
             gxml.Autoconnect (this);
 
             // instanciate the core objects
@@ -110,28 +110,17 @@ namespace Chalks.Gui
             // setup the configuration values ---
 
             // nickname
+            
+            nicknames = NicknamesWidget(gxml, cce_widget); 
             nickname = config_source.Configs["User"].GetString("nickname", "");;
             log($"Your nickname is: '$(nickname)'");
-            nicknames[network_node.get_site_id()] = nickname;
-            
-            
-            { // playground ---
-                def nicknames_treeview = gxml.GetWidget("nicknames_treeview") :>TreeView;
-                assert(nicknames_treeview != null);
-                def nicknames_treestore = TreeStore (typeof (string), typeof (string));
-                _ = nicknames_treestore.AppendValues(nickname, "happy");
-            
-                nicknames_treeview.Model = nicknames_treestore;
-
-                def cell_renderer = CellRendererText();
-                cell_renderer.BackgroundGdk = cce_widget.get_site_color(Guid()); // random color
-                nicknames_treeview.AppendColumn ("Nickname", cell_renderer, "text", 0);
-                nicknames_treeview.AppendColumn ("Status", cell_renderer, "text", 1);
-                
-            } // end of playground
-            
-
-            
+            nicknames.Set(network_node.get_site_id(), nickname);
+            {  // just as a test
+                def id = Guid();
+                nicknames.Set(id, "test_nick");
+                nicknames.SetStatus(id, "happy");
+            }
+                        
             // document password
             def default_password =
                         config_source.Configs["NetworkNode"].GetString("default_password", null);
@@ -193,18 +182,17 @@ namespace Chalks.Gui
         #region Methods called by Network, implementation of IGuiForNetwork
 
         public set_site_id(site_id :Guid) :void
-        {
-            nicknames[site_id] = nickname;
+        { // called once, during the startup of the application
+            
+            //nicknames.Set(site_id, nickname);
             cce_widget.set_site_id(site_id);
         }
 
         public receive_message(from :Guid, sender_nickname:string, message :string) :void
         {
-            // register the nickname
-            //def sender_nickname = from.ToString().Substring(0,8);
-            when(! nicknames.Contains(from) ) {
-                nicknames[from] = sender_nickname;
-            }
+            // register/update the nickname
+            nicknames.Set(from, sender_nickname);
+            
             
             // obtain the tag for the nickname
             def buffer = messages_textview.Buffer;
@@ -463,7 +451,7 @@ namespace Chalks.Gui
                     | ResponseType.Ok => 
                       nickname = dialog.nickname_entry.Text;
                       config_source.Configs["User"].Set("nickname", nickname);
-                      nicknames[network_node.get_site_id()] = nickname;
+                      nicknames.Set(network_node.get_site_id(), nickname);
                     | _ => log( "Canceled" );
                 }
             }
@@ -886,12 +874,116 @@ namespace Chalks.Gui
 
     #endregion
 
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
+    #region Nicknames view helper
+
+    class NicknamesWidget
+    { // helper class that manage the nicknames
+
+        // Treeview information aviable at
+        // http://scentric.net/tutorial/treeview-tutorial.html
+        // http://scentric.net/tutorial/sec-treeview-col-whole-row.html
+
+        cce_widget :ConcurrentEditionWidget;
+        
+        nicknames :Nemerle.Collections.Hashtable[Guid, string] = Hashtable();
+        statuses :Nemerle.Collections.Hashtable[Guid, string] = Hashtable();
+
+        treeview :TreeView;
+        treestore : ListStore;
+        treeiters :Nemerle.Collections.Hashtable[Guid, TreeIter] = Hashtable();
+        
+        nickname_column :int = 0;
+        color_column :int = 1;
+        status_column :int = 2;
+        
+        public this( gxml :Glade.XML, _cce_widget :ConcurrentEditionWidget)
+        {
+
+            treeview = gxml.GetWidget("nicknames_treeview") :>TreeView;
+            assert(treeview != null);
+            
+            cce_widget = _cce_widget;
+
+
+            treestore = ListStore (typeof (string), // nickname
+                                   typeof(Gdk.Color), // color
+                                   typeof (string) // status
+                                   );
+
+            treeview.Model = treestore;
+
+            treeview.AppendColumn ("Nickname", CellRendererText(),
+                                   "text", nickname_column,
+                                   "background-gdk", color_column);
+            treeview.AppendColumn ("Status", CellRendererText(), "text", status_column);
+        }
+        
+
+        public Set(site_id:Guid, nickname :string ) :void
+        {
+            nicknames[site_id] = nickname;
+
+            if(treeiters.Contains(site_id)) {
+                treestore.SetValue(treeiters[site_id], nickname_column, nickname);
+            } else {
+                treeiters[site_id] = treestore.AppendValues(nickname,
+                                                            cce_widget.get_site_color(site_id),
+                                                            GetStatus(site_id));
+            }
+        }
+
+        public Get(site_id:Guid) :string
+        {
+            when( ! nicknames.Contains(site_id)) {
+                nicknames[site_id] = site_id.ToString().Substring(0,8);
+            }
+            
+            nicknames[site_id];
+        }
+
+        public SetStatus(site_id:Guid, status :string ) :void
+        {
+            statuses[site_id] = status;
+
+            if(treeiters.Contains(site_id)) {
+                treestore.SetValue(treeiters[site_id], status_column, status);
+            } else {
+                treeiters[site_id] = treestore.AppendValues(Get(site_id),
+                                                            cce_widget.get_site_color(site_id),
+                                                            status);
+            }
+        }
+
+        public GetStatus(site_id:Guid) :string
+        {
+            if(statuses.Contains(site_id)) statuses[site_id];
+            else "";
+        }
+
+        public Contains(site_id:Guid) :bool
+        {
+            nicknames.Contains(site_id);
+        }
+
+        public Remove(site_id:Guid) :void
+        {
+            assert(treeiters.Contains(site_id),
+                   "Fatal error, NicknamesWidget has an internal inconsistency");
+            nicknames.Remove(site_id);
+            statuses.Remove(site_id);
+            mutable iter = treeiters[site_id];
+            treestore.Remove(ref iter);
+            treeiters.Remove(site_id);
+        }
+    }
+    
     // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
     
     #region class GladeHelper
     
-    public class GladeHelper 
+    class GladeHelper 
     { // Helper class to access internal or external resources
         
         static public getXML(glade_resource_name :string, dialog_name :string) :Glade.XML
