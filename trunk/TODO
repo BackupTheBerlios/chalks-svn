@@ -32,6 +32,7 @@ Gui
 
 ConcurrentEditableWidget
 
+* Solve the "delete_text" implementation error
 * Reenable use of SourceView, disabled because of Gtk 1.0/2.0 compilation issues, has to be solved. Disabling is just a workarround (how does Monodev solve this issue ?)
 ---
 * Trigger flush when finishing a word or a phrase, slowdown the automatic flush timer
@@ -40,8 +41,10 @@ ConcurrentEditableWidget
 
 Network
 
+
 * ZeroConf support
 * Have to implement the propagation of the "user has quited the session" event
+* Have to implement the propagation of the "nickname change" event
 * When loading the document, the download should show a progress bar. How to this in a remoting schema ? How does the design have to be modified ?
    
 

@@ -103,14 +103,47 @@ namespace Chalks.Gui
                         
             gxml.Autoconnect (this);
 
-            // obtain some parameters of the configuration
-            nickname = config_source.Configs["User"].GetString("nickname", "");;
-            //log("Your nickname is: " + nickname );
-
             // instanciate the core objects
             concurrent_editable = ConcurrentEditable(cce_widget);
             network_node = NetworkNode(this, concurrent_editable);
             
+            // setup the configuration values ---
+
+            // nickname
+            nickname = config_source.Configs["User"].GetString("nickname", "");;
+            log($"Your nickname is: '$(nickname)'");
+            nicknames[network_node.get_site_id()] = nickname;
+            
+            
+            { // playground ---
+                def nicknames_treeview = gxml.GetWidget("nicknames_treeview") :>TreeView;
+                assert(nicknames_treeview != null);
+                def nicknames_treestore = TreeStore (typeof (string), typeof (string));
+                _ = nicknames_treestore.AppendValues(nickname, "happy");
+            
+                nicknames_treeview.Model = nicknames_treestore;
+
+                def cell_renderer = CellRendererText();
+                cell_renderer.BackgroundGdk = cce_widget.get_site_color(Guid()); // random color
+                nicknames_treeview.AppendColumn ("Nickname", cell_renderer, "text", 0);
+                nicknames_treeview.AppendColumn ("Status", cell_renderer, "text", 1);
+                
+            } // end of playground
+            
+
+            
+            // document password
+            def default_password =
+                        config_source.Configs["NetworkNode"].GetString("default_password", null);
+            if(default_password != null) {
+                network_node.set_password(default_password);
+                log("The password for this document is: '$(default_password)'");
+            }
+            else {
+                network_node.set_password("");
+                on_set_password_menu_item_activate(null, null); // ask for a password 
+            }
+                        
             // run
             cce_widget.HasFocus = true; //start with focus on the main text
             //Application.Run(); is called from Chalks.n
@@ -129,10 +162,21 @@ namespace Chalks.Gui
             def config_source = XmlConfigSource();
             
             _ = config_source.AddConfig("User");
-            config_source.Configs["User"].Set("nickname", "");
 
-            _ = config_source.AddConfig("Preferences");
+            { // nickname
+                def dialog = ChooseNicknameDialog();
+                def ret = dialog.Run(); 
+                match (ret) {
+                    | ResponseType.Ok => 
+                      config_source.Configs["User"].Set("nickname", dialog.nickname_entry.Text);
+                    | _ => config_source.Configs["User"].Set("nickname", "");
+                }
+            }
+            
+            _ = config_source.AddConfig("Gui");
 
+            _ = config_source.AddConfig("NetworkNode");
+            
             config_source.Save(config_source_name);
             config_source;
 
@@ -231,8 +275,13 @@ namespace Chalks.Gui
         }
         
         #region Menu items Handlers
+
+        #region Files menu items handlers
         on_new_menu_item_activate (_o :object,  _args : EventArgs) : void
         {
+            log("does 'new' has anysense on chalks ?");
+            log("to be implemented");
+            
             // confirm that the user want to close the current session
             //<<<
 
@@ -382,7 +431,15 @@ namespace Chalks.Gui
         {
             quit();
         }
-    
+        #endregion
+        
+        #region Help menu items handlers
+        on_help_menu_item_activate(_o :object,  _args : EventArgs) :void
+        {
+            //<<< should implement something better...
+            log("look at http://chalks.berlios.de for some hints...");
+        }
+        
         on_about_menu_item_activate(_o :object,  _args : EventArgs) :void
         {                       
             def dialog_name = "about_dialog";            
@@ -391,13 +448,13 @@ namespace Chalks.Gui
             def _ret = dialog.Run() :> ResponseType;
             dialog.Destroy();
         }
+        #endregion
 
         #region Connection and disconnection
         on_connect_menu_item_activate(_o :object, _args : EventArgs) :void
         {
             // Check nickname
-            nickname = config_source.Configs["User"].GetString("nickname", "");;
-
+            nickname = config_source.Configs["User"].GetString("nickname", "");
             
             when (nickname == "") {
                 def dialog = ChooseNicknameDialog();
@@ -426,7 +483,7 @@ namespace Chalks.Gui
                     | ResponseType.Ok =>
                       def ip_and_port = connect_dialog.server_entry.Text; // 0.0.0.0:0
                       // request password
-                      def password_dialog = EnterPasswordDialog();
+                      def password_dialog = GetPasswordDialog();
                       def ret = password_dialog.Run();
                       match(ret)
                       {
@@ -440,21 +497,14 @@ namespace Chalks.Gui
                             def uri = $"tcp://$(ip_and_port)/chalks"  ;
                             _ = network_node.start_collaborating(uri); // start the show !
                             
-                            
-                          | ResponseType.Cancel =>
+                          | _ =>
+                          //| ResponseType.Cancel =>
                             log( "Canceled" );
-                            
-                      
-                          | _ => ();
-                            
                       }
-                      
-                     
-                    | ResponseType.Cancel =>
-                        log( "Canceled" );
-                        
-                      
-                    | _ => ();
+                    
+                    | _ =>
+                    //| ResponseType.Cancel =>
+                      log( "Canceled" );
                 }
 
                 ;
@@ -463,7 +513,58 @@ namespace Chalks.Gui
 
         on_disconnect_menu_item_activate(_o :object,  _args : EventArgs) :void
         {
-            ;
+            log("to be implemented");
+        }
+
+        on_set_password_menu_item_activate(_o :object,  _args : EventArgs) :void
+        {
+
+            // check if connected or not
+
+            //<<< if connected the user should not be able to change the password
+
+            
+            // request password
+            def password_dialog = SetPasswordDialog();
+
+            def network_node_configurations = config_source.Configs["NetworkNode"];
+
+            assert(network_node_configurations != null,
+                   "Configuration file is corrupted (no NetworkNode configurations)");
+            
+            def default_password =
+                        network_node_configurations.GetString("default_password", null);
+            when(default_password != null) {
+                password_dialog.password_entry.Text = default_password;
+                password_dialog.use_as_default_password_checkbutton.Active = true;
+            }
+            
+            def ret = password_dialog.Run();
+            
+            match(ret)
+            {
+                | ResponseType.Ok =>
+                  // set password
+                  def password = password_dialog.password_entry.Text;
+                  network_node.set_password(password);
+
+                  //check if have to be stored as default value
+                  if (password_dialog.use_as_default_password_checkbutton.Active) {
+                      // save the preference                      
+                      network_node_configurations.Set("default_password", password);
+                                                                                           
+                      log($"Your new default password is: '$(password)'");
+                  } 
+                  else {
+                      // disable "default_password" usage
+                      network_node_configurations.Remove("default_password");
+                  }
+                
+
+                | _ =>
+                //| ResponseType.Cancel =>
+                  log( "Canceled" );
+            }
         }
         #region
 
@@ -639,6 +740,12 @@ namespace Chalks.Gui
             ret;
         }
         
+
+        on_server_entry_activate(_o :object, _args :EventArgs) :void
+        {
+            dialog.Respond(ResponseType.Ok);
+        }            
+
         
     } // end of class ConnectToDialog
 
@@ -678,19 +785,59 @@ namespace Chalks.Gui
                 ok_button.Sensitive = true;
         }            
 
+        on_nickname_entry_activate(_o :object, _args :EventArgs) :void
+        {
+            when (nickname_entry.Text.Length > 3) dialog.Respond(ResponseType.Ok);
+        }            
+               
     } // end of class ChooseNicknameDialog
     #endregion
 
+    #region Set Password Dialog
+    class SetPasswordDialog
+    {
+        dialog :Dialog;
+        public password_entry :Entry;
+        public use_as_default_password_checkbutton :CheckButton;
 
-    #region Enter Password Dialog
-    class EnterPasswordDialog
+        public this()
+        { 
+            def dialog_name = "set_password_dialog";            
+            def gxml = GladeHelper.getXML(glade_resource_name, dialog_name);
+            
+            dialog = gxml.GetWidget(dialog_name) :>Dialog;
+            password_entry = gxml.GetWidget("password_entry") :>Entry;
+            use_as_default_password_checkbutton =
+                           gxml.GetWidget("use_as_default_password_checkbutton") :>CheckButton;
+            gxml.Autoconnect (this);
+            
+        }
+        
+        public Run() :ResponseType
+        {
+            def ret = dialog.Run() :>ResponseType;
+            dialog.Destroy();
+            ret;
+        }
+
+        on_password_entry_activate(_o :object, _args :EventArgs) :void
+        {
+            dialog.Respond(ResponseType.Ok);
+        }            
+
+    } // end of class SetPasswordDialog
+    #endregion
+
+
+    #region Set Password Dialog
+    class GetPasswordDialog
     {
         dialog :Dialog;
         public password_entry :Entry;
 
         public this()
         { 
-            def dialog_name = "enter_password_dialog";            
+            def dialog_name = "get_password_dialog";            
             def gxml = GladeHelper.getXML(glade_resource_name, dialog_name);
             
             dialog = gxml.GetWidget(dialog_name) :>Dialog;
@@ -705,7 +852,13 @@ namespace Chalks.Gui
             dialog.Destroy();
             ret;
         }
-    } // end of class EnterPasswordDialog
+
+        on_password_entry_activate(_o :object, _args :EventArgs) :void
+        {
+            dialog.Respond(ResponseType.Ok);
+        }            
+
+    } // end of class GetPasswordDialog
     #endregion
 
     #region Preferences Dialog

@@ -434,12 +434,17 @@ namespace Chalks.Network
         {
             nickname = _nickname;
             // this event should be propagated to the remote nodes
+            // <<< TO BE IMPLEMENTED (send a special message)
         }
         
         public set_password(_password :string) :void
         { // set the access password for the local document
           // it is also the password used to connect to other nodes
-            // if users are already connected to the local node, disconnect them, they need a new credential
+          // if users are already connected to the local node, disconnect them, they need a new credential
+
+            // <<< TO BE IMPLEMENTED
+            
+            //throw Exception("to be implemented");
             ;
         }
         #endregion
