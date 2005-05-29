@@ -1003,6 +1003,7 @@ namespace Chalks.Gui
         status_column :int = 2;
 
         nickname_button :Button;
+        status_label :Label;
         
         public this( gxml :Glade.XML, _site_id:Guid,
                     _cce_widget :ConcurrentEditionWidget)
@@ -1014,7 +1015,9 @@ namespace Chalks.Gui
             nickname_button = gxml.GetWidget("nickname_button") :>Button;
             assert(nickname_button != null);
 
-
+            status_label = gxml.GetWidget("status_label") :>Label;
+            assert(status_label != null);
+            
             site_id = _site_id;
             cce_widget = _cce_widget;
 
@@ -1049,6 +1052,8 @@ namespace Chalks.Gui
                 nickname_button.Label = nickname;
                 log($"Your nickname is: '$(nickname)'", array[] :array[TextTag]);
             }
+
+            status_label.Text = $"$(nicknames.Count) users";
         }
 
         public Get(site_id:Guid) :string
@@ -1070,6 +1075,8 @@ namespace Chalks.Gui
                 treeiters[site_id] = treestore.AppendValues(Get(site_id),
                                                             cce_widget.get_site_color(site_id),
                                                             status);
+
+                status_label.Text = $"$(nicknames.Count) users";
             }
         }
 
@@ -1093,6 +1100,8 @@ namespace Chalks.Gui
             mutable iter = treeiters[site_id];
             _ = treestore.Remove(ref iter);
             treeiters.Remove(site_id);
+
+            status_label.Text = $"$(nicknames.Count) users";
         }
     }
     
