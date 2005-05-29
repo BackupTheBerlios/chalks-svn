@@ -23,6 +23,7 @@ Documentation
 
 Gui
 
+* Allow the user to change his nickname and status
 * Colored nicknames does not work in both senses (there is a bug)
 * Check file open, save, save as implementation
 * Implement set password dialog
@@ -41,6 +42,7 @@ ConcurrentEditableWidget
 
 Network
 
+* how other modules (gui) are supposed to know if collaborating or not? (how they know when connection is lost ?)
 * Chalks blocks at start if internet is not avialable
 * ZeroConf support
 * Have to implement the propagation of the "user has quited the session" event

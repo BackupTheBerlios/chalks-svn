@@ -115,11 +115,6 @@ namespace Chalks.Gui
             nickname = config_source.Configs["User"].GetString("nickname", "");;
             log($"Your nickname is: '$(nickname)'");
             nicknames.Set(network_node.get_site_id(), nickname);
-            {  // just as a test
-                def id = Guid();
-                nicknames.Set(id, "test_nick");
-                nicknames.SetStatus(id, "happy");
-            }
                         
             // document password
             def default_password =
@@ -501,7 +496,26 @@ namespace Chalks.Gui
 
         on_disconnect_menu_item_activate(_o :object,  _args : EventArgs) :void
         {
-            log("to be implemented");
+            // check if connected or not 
+            // <<< TO BE IMPLEMENTED
+            
+            def dialog = MessageDialog(chalks_window, 
+                                       DialogFlags.DestroyWithParent,
+                                       MessageType.Warning, 
+                                       ButtonsType.YesNo,
+                                       "Are you sure you want to finish the collaboration ?"
+                                     + "\n(users connected to you will also be disconnected)");
+            def ret = dialog.Run() :>ResponseType;
+            dialog.Destroy();
+            match(ret) {
+                | ResponseType.Yes =>
+                  log("to be implemented");
+                  
+                | _ =>
+                //| ResponseType.No =>
+                  ();
+                  log("Canceled");
+            }
         }
 
         on_set_password_menu_item_activate(_o :object,  _args : EventArgs) :void
@@ -913,11 +927,11 @@ namespace Chalks.Gui
                                    );
 
             treeview.Model = treestore;
-
-            treeview.AppendColumn ("Nickname", CellRendererText(),
+            
+            _ = treeview.AppendColumn ("Nickname", CellRendererText(),
                                    "text", nickname_column,
                                    "background-gdk", color_column);
-            treeview.AppendColumn ("Status", CellRendererText(), "text", status_column);
+            _ = treeview.AppendColumn ("Status", CellRendererText(), "text", status_column);
         }
         
 
@@ -974,7 +988,7 @@ namespace Chalks.Gui
             nicknames.Remove(site_id);
             statuses.Remove(site_id);
             mutable iter = treeiters[site_id];
-            treestore.Remove(ref iter);
+            _ = treestore.Remove(ref iter);
             treeiters.Remove(site_id);
         }
     }
