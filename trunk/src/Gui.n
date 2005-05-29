@@ -111,10 +111,12 @@ namespace Chalks.Gui
 
             // nickname
             
-            nicknames = NicknamesWidget(gxml, cce_widget); 
-            nickname = config_source.Configs["User"].GetString("nickname", "");;
-            log($"Your nickname is: '$(nickname)'");
-            nicknames.Set(network_node.get_site_id(), nickname);
+            nicknames = NicknamesWidget(gxml, network_node.get_site_id(), cce_widget);
+            def user_configurations = config_source.Configs["User"];
+            def site_id = network_node.get_site_id();
+            nickname = user_configurations.GetString("nickname", "");
+            nicknames.Set(site_id, nickname);
+            nicknames.SetStatus(site_id, user_configurations.GetString("status", ""));
                         
             // document password
             def default_password =
@@ -148,7 +150,7 @@ namespace Chalks.Gui
             _ = config_source.AddConfig("User");
 
             { // nickname
-                def dialog = ChooseNicknameDialog();
+                def dialog = SetNicknameDialog();
                 def ret = dialog.Run(); 
                 match (ret) {
                     | ResponseType.Ok => 
@@ -156,6 +158,8 @@ namespace Chalks.Gui
                     | _ => config_source.Configs["User"].Set("nickname", "");
                 }
             }
+
+            config_source.Configs["User"].Set("status", "");
             
             _ = config_source.AddConfig("Gui");
 
@@ -440,7 +444,7 @@ namespace Chalks.Gui
             nickname = config_source.Configs["User"].GetString("nickname", "");
             
             when (nickname == "") {
-                def dialog = ChooseNicknameDialog();
+                def dialog = SetNicknameDialog();
                 def ret = dialog.Run();
                 match(ret) {
                     | ResponseType.Ok => 
@@ -715,6 +719,36 @@ namespace Chalks.Gui
         #endregion    
 
 
+        on_nickname_button_pressed(_o :object, _args :EventArgs) :void
+        {
+            def user_configurations = config_source.Configs["User"];
+            def dialog = SetNicknameAndStatusDialog(user_configurations);
+            def ret = dialog.Run(); 
+            match (ret) {
+                | ResponseType.Ok => 
+                  def id = network_node.get_site_id();
+                  nicknames.Set(id, dialog.nickname_entry.Text);
+                  user_configurations.Set("nickname", dialog.nickname_entry.Text);
+                  nicknames.SetStatus(id, dialog.status_entry.Text);
+                  user_configurations.Set("status", dialog.status_entry.Text);
+                | _ =>
+                  ();
+                  //log("Canceled");
+            }            
+        }
+        
+
+        on_nicknames_treeview_row_activated(_o :object, _args :EventArgs) :void
+        {
+            // check if row correspond to our nickname
+            // <<< to be implemented
+            def ret = true;
+            
+            when(ret) {
+                on_nickname_button_pressed(null, null);
+            }
+        }
+
     } // end of ChalksWindow class
 
     #region Helper Dialogs classes
@@ -751,8 +785,8 @@ namespace Chalks.Gui
         
     } // end of class ConnectToDialog
 
-    #region Choose Nickname Dialog
-    class ChooseNicknameDialog
+    #region Nickname Dialog
+    class SetNicknameDialog
     {
         dialog :Dialog;
         public nickname_entry :Entry;
@@ -760,7 +794,7 @@ namespace Chalks.Gui
 
         public this()
         { 
-            def dialog_name = "choose_nickname_dialog";
+            def dialog_name = "set_nickname_dialog";
             def gxml = GladeHelper.getXML(glade_resource_name, dialog_name);
                         
             dialog = gxml.GetWidget(dialog_name) :>Dialog;
@@ -769,6 +803,7 @@ namespace Chalks.Gui
             gxml.Autoconnect (this);
 
             nickname_entry.Text = System.Environment.UserName;
+            
         }
         
         public Run() :ResponseType
@@ -792,7 +827,61 @@ namespace Chalks.Gui
             when (nickname_entry.Text.Length > 3) dialog.Respond(ResponseType.Ok);
         }            
                
-    } // end of class ChooseNicknameDialog
+    } // end of class SetNicknameDialog
+    #endregion
+
+    #region Nickname and Status Dialog
+    class SetNicknameAndStatusDialog
+    {
+        dialog :Dialog;
+        public nickname_entry :Entry;
+        public status_entry :Entry;
+        ok_button :Button;
+
+        public this(user_configurations :Nini.Config.IConfig)
+        { 
+            def dialog_name = "set_nickname_and_status_dialog";
+            def gxml = GladeHelper.getXML(glade_resource_name, dialog_name);
+                        
+            dialog = gxml.GetWidget(dialog_name) :>Dialog;
+            nickname_entry = gxml.GetWidget("nickname_entry") :>Entry;
+            status_entry = gxml.GetWidget("status_entry") :>Entry;
+            ok_button = gxml.GetWidget("ok_button") :>Button;
+            gxml.Autoconnect (this);
+            
+            nickname_entry.Text = user_configurations.GetString("nickname",
+                                                                System.Environment.UserName);
+            status_entry.Text = user_configurations.GetString("status", "");
+            
+            nickname_entry.HasFocus = true;
+        }
+        
+        public Run() :ResponseType
+        {
+            def ret = dialog.Run() :>ResponseType;
+            dialog.Destroy();
+            ret;
+        }
+        
+        on_nickname_entry_changed(_o :object, _args :EventArgs) :void
+        {
+            if (nickname_entry.Text.Length < 3)
+                ok_button.Sensitive = false;
+            else
+                ok_button.Sensitive = true;
+        }            
+
+        on_nickname_entry_activate(_o :object, _args :EventArgs) :void
+        {
+            when (nickname_entry.Text.Length > 3) dialog.Respond(ResponseType.Ok);
+        }
+
+        on_status_entry_activate(_o :object, _args :EventArgs) :void
+        {
+            on_nickname_entry_activate(null, null);
+        }
+        
+    } // end of class SetNicknameAndStatusDialog
     #endregion
 
     #region Set Password Dialog
@@ -899,25 +988,34 @@ namespace Chalks.Gui
         // http://scentric.net/tutorial/treeview-tutorial.html
         // http://scentric.net/tutorial/sec-treeview-col-whole-row.html
 
+        site_id :Guid;
         cce_widget :ConcurrentEditionWidget;
         
         nicknames :Nemerle.Collections.Hashtable[Guid, string] = Hashtable();
         statuses :Nemerle.Collections.Hashtable[Guid, string] = Hashtable();
 
         treeview :TreeView;
-        treestore : ListStore;
+        treestore :ListStore;
         treeiters :Nemerle.Collections.Hashtable[Guid, TreeIter] = Hashtable();
         
         nickname_column :int = 0;
         color_column :int = 1;
         status_column :int = 2;
+
+        nickname_button :Button;
         
-        public this( gxml :Glade.XML, _cce_widget :ConcurrentEditionWidget)
+        public this( gxml :Glade.XML, _site_id:Guid,
+                    _cce_widget :ConcurrentEditionWidget)
         {
 
             treeview = gxml.GetWidget("nicknames_treeview") :>TreeView;
             assert(treeview != null);
-            
+
+            nickname_button = gxml.GetWidget("nickname_button") :>Button;
+            assert(nickname_button != null);
+
+
+            site_id = _site_id;
             cce_widget = _cce_widget;
 
 
@@ -929,8 +1027,8 @@ namespace Chalks.Gui
             treeview.Model = treestore;
             
             _ = treeview.AppendColumn ("Nickname", CellRendererText(),
-                                   "text", nickname_column,
-                                   "background-gdk", color_column);
+                                       "text", nickname_column,
+                                       "background-gdk", color_column);
             _ = treeview.AppendColumn ("Status", CellRendererText(), "text", status_column);
         }
         
@@ -945,6 +1043,11 @@ namespace Chalks.Gui
                 treeiters[site_id] = treestore.AppendValues(nickname,
                                                             cce_widget.get_site_color(site_id),
                                                             GetStatus(site_id));
+            }
+
+            when (site_id == this.site_id) {
+                nickname_button.Label = nickname;
+                log($"Your nickname is: '$(nickname)'", array[] :array[TextTag]);
             }
         }
 
