@@ -106,11 +106,22 @@ namespace Chalks.Gui
             // instanciate the core objects
             concurrent_editable = ConcurrentEditable(cce_widget);
             network_node = NetworkNode(this, concurrent_editable);
-            
-            // setup the configuration values ---
 
-            // nickname
+            // setup the configuration values ---
+            #region Setup the configuration values
             
+            // gui editor font
+            def font_name = config_source.Configs["Gui"].GetString("editor_font", null);
+            when( font_name != null) {
+                // change the editor font
+                def font_desc = Pango.FontDescription.FromString(font_name);
+                cce_widget.ModifyFont(font_desc);
+            }
+            
+            // gui editor tabs
+            // ??
+            
+            // nickname            
             nicknames = NicknamesWidget(gxml, network_node.get_site_id(), cce_widget);
             def user_configurations = config_source.Configs["User"];
             def site_id = network_node.get_site_id();
@@ -126,10 +137,13 @@ namespace Chalks.Gui
                 log("The password for this document is: '$(default_password)'");
             }
             else {
-                network_node.set_password("");
-                on_set_password_menu_item_activate(null, null); // ask for a password 
+                /*network_node.set_password("");
+                on_set_password_menu_item_activate(null, null); // ask for a password
+                 */ // will ask for a password when pertinent
             }
-                        
+
+            #endregion
+            
             // run
             cce_widget.HasFocus = true; //start with focus on the main text
             //Application.Run(); is called from Chalks.n
@@ -173,6 +187,7 @@ namespace Chalks.Gui
             logFileNameText.Text = config.Get ("File Name");
             maxFileSizeText.Text = config.GetString ("MaxFileSize");
             userNameText.Text = source.Configs["User"].GetInt ("Name");
+            a_config.Set("a", b);
             source.Save();*/
 
         }
@@ -263,29 +278,8 @@ namespace Chalks.Gui
         
         #region Menu items Handlers
 
-        #region Files menu items handlers
-        on_new_menu_item_activate (_o :object,  _args : EventArgs) : void
-        {
-            log("does 'new' has anysense on chalks ?");
-            log("to be implemented");
-            
-            // confirm that the user want to close the current session
-            //<<<
-
-            // do I save the current file before closing ?
-            //<<<
-
-            // kill the current server and document
-            //<<<
-
-            // start a new fresh server, and a new fresh document
-            //<<<
-
-            // change the window title
-            ;
-        }
-        
-        on_open_menu_item_activate (_o :object,  _args : EventArgs) : void
+        #region Files menu items handlers        
+        on_open_local_menu_item_activate (_o :object,  _args : EventArgs) : void
         {
             
             //def _ = OpenFileDialog();
@@ -437,9 +431,10 @@ namespace Chalks.Gui
         }
         #endregion
 
-        #region Connection and disconnection
-        on_connect_menu_item_activate(_o :object, _args : EventArgs) :void
-        {
+        #region Open remote, Share and Disconnect
+        on_open_remote_menu_item_activate(_o :object, _args : EventArgs) :void
+        { // open_remote_file == connect
+            
             // Check nickname
             nickname = config_source.Configs["User"].GetString("nickname", "");
             
@@ -498,6 +493,13 @@ namespace Chalks.Gui
             } // end of when
         }
 
+
+        on_share_menu_item_activate(_o :object, _args : EventArgs) :void
+        {
+            //  <<< TO BE IMPLEMENTED
+            log("to be implemented");
+        }
+        
         on_disconnect_menu_item_activate(_o :object,  _args : EventArgs) :void
         {
             // check if connected or not 
@@ -625,10 +627,45 @@ namespace Chalks.Gui
         on_preferences_menu_item_activate(_o :object,  _args : EventArgs) :void
         {
             def dialog = PreferencesDialog();
+
+            // set configured values ---
+
+            // edition
+            mutable t_font_name = config_source.Configs["Gui"].GetString("editor_font", null);
+            when( t_font_name == null) { // get the default font name
+                t_font_name = cce_widget.PangoContext.FontDescription.ToString();
+            }
+            dialog.editor_fontbutton.FontName = t_font_name;
+            
+            // connection
+            // ??
+                        
             def ret = dialog.Run();
             match(ret) {
                 | ResponseType.Ok =>
                   log("Configuration was modified");
+
+                  // Edition options ---
+
+                  // change the fonts
+                  def font_name = dialog.editor_fontbutton.FontName;
+                  def font_desc = Pango.FontDescription.FromString(font_name);
+                  cce_widget.ModifyFont(font_desc);
+
+                  config_source.Configs["Gui"].Set("editor_font", font_name);
+                  
+                  // change the tabs (how to do it ?)
+                  // <<< TO BE IMPLEMENTED
+                  log("Tabs configuration has to be implemented");
+
+                  //config_source.Configs["Gui"].Set("tab_width", tab_width);
+                  //config_source.Configs["Gui"].Set("tab_are_spaces", tab_are_spaces_bool);
+                  
+                  // Connection options ---
+
+                  
+
+                  
                 | _ => log( "Canceled" );
             }
         }
@@ -703,7 +740,7 @@ namespace Chalks.Gui
             command_entry_last_key = args.Event.Key;
         }
 
-        on_command_entry_focus_out_event(_o :object, args :FocusOutEventArgs) :void
+        on_command_entry_focus_out_event(_o :object, _args :FocusOutEventArgs) :void
         {
             // a good document on Gtk focus
             // http://mail.gnome.org/archives/gtk-devel-list/2000-October/msg00108.html
@@ -956,13 +993,23 @@ namespace Chalks.Gui
     class PreferencesDialog
     {
         dialog :Dialog;
-
+        public editor_fontbutton :FontButton;
+        public tabswidth_spinbutton :SpinButton;
+        public tabs_checkbutton :CheckButton;
+        
         public this()
         { 
             def dialog_name = "preferences_dialog";            
             def gxml = GladeHelper.getXML(glade_resource_name, dialog_name);
-            
             dialog = gxml.GetWidget(dialog_name) :>Dialog;
+
+            // edition parameters
+            tabswidth_spinbutton = gxml.GetWidget("tabswidth_spinbutton") :>SpinButton;
+            tabs_checkbutton     = gxml.GetWidget("tabs_checkbutton")     :>CheckButton;
+            editor_fontbutton    = gxml.GetWidget("editor_fontbutton")    :>FontButton;
+            
+            // connection parameters
+            
             gxml.Autoconnect (this);
         }
         
@@ -972,6 +1019,7 @@ namespace Chalks.Gui
             dialog.Destroy();
             ret;
         }
+        
     } // end of class PreferencesDialog
     #endregion
 

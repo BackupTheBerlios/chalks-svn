@@ -22,6 +22,7 @@ using System.IO;
 using System.Guid;
 
 using Nemerle.Collections;
+using Nemerle.English;
 
 using Chalks; 
 using Chalks.Helpers; // for HashToString
@@ -102,7 +103,7 @@ namespace Chalks.ConcurrentEdition
         public add_site(site_id :Guid) :void
         { // called when we detect a new site collaborating
 
-            when(! state_vector.Contains(site_id)) { // security check
+            when(not state_vector.Contains(site_id)) { // security check
                 
                 // expand the state variables ---
 
@@ -111,7 +112,7 @@ namespace Chalks.ConcurrentEdition
                 
                 // expand the entries in the SVT
                 foreach(sv in state_vector_table.Values) {
-                    when(! object.ReferenceEquals (sv, state_vector)) {
+                    when(not object.ReferenceEquals (sv, state_vector)) {
                         sv[site_id] = 0; }}
             
                 def t_sv = state_vector.Clone(); 
@@ -266,7 +267,7 @@ namespace Chalks.ConcurrentEdition
                     mutable t_op = null : Operation;
                     
                     while (   (applied_an_operation == false) 
-                           && enumerator.MoveNext() // returns false at the end of the list
+                           and enumerator.MoveNext() // returns false at the end of the list
                            ){
                         t_op = enumerator.Current :Operation;
                         when ( is_causally_ready(t_op) ) {
@@ -362,16 +363,37 @@ namespace Chalks.ConcurrentEdition
           //
           // redo is implemented with undo
           // redo: "take the operation resulted from the undo, and undo it"
-
-            throw Exception("to be implemented");
             
             // get the new operations to include in the transfrom
-            // (transforming a past operartion into a present operation)
+            // (transforming a past operation into a present operation)
 
-            def recent_ops = ArrayList();
+            // as the operation was generated locally we are sure that
+            // it is present on the local HB
+            // so we search backward on it until we find the operation
+            mutable recent_ops = ArrayList();
+            {
+                mutable c = len(HB) -1;
+                recent_ops.Capacity = c;
+
+                mutable stop_condition = false;
+                while(not stop_condition) {
+                    stop_condition = c<=0 or AreEquals(HB[c].TimeStamp, op_to_undo.TimeStamp);
+                    c -= 1;
+                }
+                c+=1; // c points to the undo_op HB index
+                
+                recent_ops.AddRange( HB.Slice(c+1,":"));
+
+                log(1, $"recent_ops $recent_ops"); //just for debugging
+            }
             
             // transform from past to present
             def op_to_undo_now = LIT(op_to_undo, recent_ops);
+
+
+            log(1, $"op_to_undo_now.deleted_text $op_to_undo_now.deleted_text"); //just for debugging
+
+            assert (op_to_undo_now.deleted_text != null); 
 
             // apply the inverse now in the present
             def undo_op = 
@@ -384,6 +406,7 @@ namespace Chalks.ConcurrentEdition
                 | OperationType.Delete =>
                   generate_operation(OperationType.Insert,
                                      op_to_undo_now.Pos, op_to_undo_now.deleted_text );
+                  
                   
                 | _ =>
                   throw Exception($"Unmanaged operation type $(op_to_undo.Type) for undo");
@@ -473,7 +496,7 @@ namespace Chalks.ConcurrentEdition
 
 
             assert(   T(o_new) == OperationType.Insert
-                   || T(o_new) == OperationType.Delete,
+                   or T(o_new) == OperationType.Delete,
                    "Invalid operation request.");
 
             log(1, $"Site $(site_id.ToString().Substring(0,8));$(HashToString(state_vector)); '$(text_buffer.get_text())'; applying $(o_new)");
@@ -487,13 +510,13 @@ namespace Chalks.ConcurrentEdition
                 mutable not_in_total_ordering = true;
                 //foreach( m in range(len(HB), 0) ) {
                 // from right to left
-                while(enumerator.MoveNext() && not_in_total_ordering) {
+                while(enumerator.MoveNext() and not_in_total_ordering) {
                     m = enumerator.Current;
                     log(4, $"apply: m == $m"); // just for debugging
                     def EOm = HB[m];
                     //log("check_total_ordering($(EOm), $(o_new)) => $(check_total_ordering(EOm, o_new))"); // just for debugging
                     
-                    if (! check_total_ordering(EOm, o_new)) {
+                    if (not check_total_ordering(EOm, o_new)) {
                         undo(EOm);
                         // operations do should not be erased from HB,
                         // because they will later be transformed !
@@ -505,7 +528,7 @@ namespace Chalks.ConcurrentEdition
                 } 
             }
               
-            when ( (len(HB) != 0)  && (len(undoed) == len(HB)) ) {
+            when ( (len(HB) != 0)  and (len(undoed) == len(HB)) ) {
                 log(2, "No previous op found !");
                 m = -1; // to indicate that no previous op was found
             }
@@ -578,7 +601,7 @@ namespace Chalks.ConcurrentEdition
           // The lost information is stored into the operators for future undos.
 
             // local operations already where executed before being executed
-            if (! eo.executed_before_creation ) { 
+            if (not eo.executed_before_creation ) { 
             
                 log(4, $"Executing $eo");
                 if (eo.is_splitted) {
@@ -694,7 +717,7 @@ namespace Chalks.ConcurrentEdition
             {
                 def enumerator = HB.Clone().GetEnumerator(); enumerator.Reset();
                 mutable condition = true;
-                while(enumerator.MoveNext() && condition) {
+                while(enumerator.MoveNext() and condition) {
 
                     def EO = enumerator.Current;
                     def i    = EO.SourceSite;
@@ -775,10 +798,10 @@ namespace Chalks.ConcurrentEdition
             mutable condition2 = true;
             foreach( site_id in SVd.Keys ) {
                 when( site_id != op_site ) {
-                    condition2 = condition2 && (SVo[site_id] <= SVd[site_id]); }
+                    condition2 = condition2 and (SVo[site_id] <= SVd[site_id]); }
             }
 
-            condition1 && condition2; // return value
+            condition1 and condition2; // return value
         }
 
         check_total_ordering( Oa :Operation, Ob :Operation) :bool
@@ -807,7 +830,7 @@ namespace Chalks.ConcurrentEdition
             def SVOa = Oa.TimeStamp;
             def SVOb = Ob.TimeStamp;
     
-            assert( (len(SVOa) != 0) && (len(SVOb) != 0),
+            assert( (len(SVOa) != 0) and (len(SVOb) != 0),
                    $"can not check operations without timestamp. (Oa:$(Oa); Ob:$(Ob))");
 
             assert( len(SVOa) == len(SVOb),
@@ -821,9 +844,9 @@ namespace Chalks.ConcurrentEdition
             def i = Oa.SourceSite;
             def j = Ob.SourceSite;
             
-            def condition2 =  (sum(SVOa) == sum(SVOb)) && is_minor(i, j); // ... and (i < j)
+            def condition2 =  (sum(SVOa) == sum(SVOb)) and is_minor(i, j); // ... and (i < j)
         
-            condition1 || condition2;
+            condition1 or condition2;
         }
 
         // Definition 1: Causal ordering relation "->"
@@ -869,7 +892,7 @@ namespace Chalks.ConcurrentEdition
           // (nor == not or; 0,0 => 1 , 0 else)
 
             //not (are_dependent(oa,ob) or are_dependent(ob,oa) );
-            ! (are_dependent(oa,ob) || are_dependent(ob,oa) );
+            not (are_dependent(oa,ob) or are_dependent(ob,oa) );
         }
         
         are_independent :Operation * Operation -> bool = are_concurrent; // just an alias
@@ -1056,14 +1079,14 @@ namespace Chalks.ConcurrentEdition
             else if (P(Oa) >= (P(Ob) + L(Ob))) {
                 Ooa = Operation( OperationType.Delete, P(Oa) - L(Ob), L(Oa)); }
             else {
-                if ( (P(Ob) >= P(Oa)) && ((P(Oa) + L(Oa)) <= (P(Ob) + L(Ob))) ) {
+                if ( (P(Ob) >= P(Oa)) and ((P(Oa) + L(Oa)) <= (P(Ob) + L(Ob))) ) {
                     Ooa = Operation( OperationType.Delete, P(Oa), 0 )
                 }
-                else if ( (P(Ob) <= P(Oa)) && ((P(Oa) + L(Oa)) > (P(Ob) + L(Ob))) ) {
+                else if ( (P(Ob) <= P(Oa)) and ((P(Oa) + L(Oa)) > (P(Ob) + L(Ob))) ) {
                     Ooa = Operation( OperationType.Delete,
                                      P(Ob), P(Oa) + L(Oa) - (P(Ob)+ L(Ob)) )
                 }
-                else if ( (P(Ob) > P(Oa)) && ((P(Ob) + L(Ob)) >= (P(Oa) + L(Oa))) ) {
+                else if ( (P(Ob) > P(Oa)) and ((P(Ob) + L(Ob)) >= (P(Oa) + L(Oa))) ) {
                     Ooa = Operation( OperationType.Delete, P(Oa), P(Ob) - P (Oa) )
                 }
                 else {
@@ -1135,17 +1158,17 @@ namespace Chalks.ConcurrentEdition
                 Ooa = Operation( OperationType.Delete, P(Oa) - L(Ob), L(Oa))
             }
             else {
-                if ((P(Ob) <= P(Oa)) && ((P(Oa) + L(Oa))  <= (P(Ob) + L(Ob)))) {
+                if ((P(Ob) <= P(Oa)) and ((P(Oa) + L(Oa))  <= (P(Ob) + L(Ob)))) {
                     Ooa = Operation( OperationType.Delete, P(Oa) - P(Ob), L(Oa))
                 }
-                else if ((P(Ob) <= P(Oa)) && (((P(Oa) + L(Oa)) > (P(Ob) + L(Ob))))) {
+                else if ((P(Ob) <= P(Oa)) and (((P(Oa) + L(Oa)) > (P(Ob) + L(Ob))))) {
                     Ooa =
                     Splitted ( Operation( OperationType.Delete,
                                           (P(Oa) - P(Ob)), P(Ob) + L(Ob) - P(Oa) ),
                               Operation( OperationType.Delete,
                                          P(Ob), (P(Oa) + L(Oa))-(P(Ob) + L(Ob)) ) )
                 }
-                else if ((P(Oa) < P(Ob) && (((P(Ob) + L(Ob)) <= (P(Oa) + L(Oa))))) ) {
+                else if ((P(Oa) < P(Ob) and (((P(Ob) + L(Ob)) <= (P(Oa) + L(Oa))))) ) {
                     Ooa =
                     Splitted( Operation( OperationType.Delete, 0,     L(Ob)         ), 
                               Operation( OperationType.Delete, P(Oa), L(Oa) - L(Ob) ) )
@@ -1225,7 +1248,7 @@ namespace Chalks.ConcurrentEdition
             assert (T(o1) == T(o2),
                     "Splitted operations are of different types, this is not sane.");
             
-            assert( ! (o1.is_splitted || o2.is_splitted),
+            assert( not (o1.is_splitted or o2.is_splitted),
                    "Recursive splitted operation not yet supported" );
             
             assert(T(o1) == OperationType.Delete,
@@ -1459,7 +1482,7 @@ namespace Chalks.ConcurrentEdition
         
             //assert isinstance(other, Operation), "Only operations instances can be compared (was comparing %s with %s)"%(self, other)
 
-            (Oa.SourceSite.Equals(Ob.SourceSite)) && AreEquals(Oa.TimeStamp, Ob.TimeStamp);
+            (Oa.SourceSite.Equals(Ob.SourceSite)) and AreEquals(Oa.TimeStamp, Ob.TimeStamp);
         }
 
         public Equals(op :Operation) :bool
@@ -1468,7 +1491,7 @@ namespace Chalks.ConcurrentEdition
             //log(0, $"op.Equals: $(SourceSite).Equals($(op.SourceSite)) ==  $(SourceSite.Equals(op.SourceSite))");
             //log(0, $"op.Equals: $(TimeStamp).Equals($(op.TimeStamp)) ==  $(TimeStamp.Equals(op.TimeStamp))");
             
-            (SourceSite.Equals(op.SourceSite)) && AreEquals(TimeStamp, op.TimeStamp); 
+            (SourceSite.Equals(op.SourceSite)) and AreEquals(TimeStamp, op.TimeStamp); 
         }
 
         override public ToString() :string

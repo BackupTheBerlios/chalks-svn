@@ -212,7 +212,7 @@ namespace Chalks {
 
         public AreEquals(stamp_a :Nemerle.Collections.Hashtable[System.Guid,int],
                          stamp_b :Nemerle.Collections.Hashtable[System.Guid,int] ) :bool
-        {
+        { // compare to TimeStamps
             mutable ret = true;
             def enumerator = stamp_a.KeyValuePairs.GetEnumerator(); enumerator.Reset();
             while(enumerator.MoveNext() && ret)
