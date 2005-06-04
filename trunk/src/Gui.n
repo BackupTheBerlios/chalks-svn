@@ -794,6 +794,14 @@ namespace Chalks.Gui
 
         dialog :Dialog;
         public server_entry :Entry;
+        public documents_treeview :TreeView;
+        public documents_treestore :ListStore;
+
+        address_column :int;
+        ping_column :int;
+        collaborator_column :int;
+        document_name_column :int;
+        
         
         public this() 
         { 
@@ -802,7 +810,43 @@ namespace Chalks.Gui
             def gxml = GladeHelper.getXML(glade_resource_name, dialog_name);
 
             dialog = gxml.GetWidget(dialog_name) :>Dialog;
-            server_entry = gxml.GetWidget(server_entry_name) :>Entry;       
+            server_entry = gxml.GetWidget(server_entry_name) :>Entry;
+            documents_treeview = gxml.GetWidget("servers_treeview") :>TreeView;
+
+            // set up the tree view
+            documents_treestore = ListStore (typeof (string), // address ip:port
+                                             typeof (int), // ping
+                                             typeof (string), // collaborator nickname
+                                             typeof (string) // document name
+                                             );
+            address_column = 0;
+            ping_column = 1;
+            collaborator_column = 2;
+            document_name_column = 3;
+
+
+            documents_treeview.Model = documents_treestore;
+            def renderer = CellRendererText();
+            _ = documents_treeview.AppendColumn ("Collaborator", renderer,
+                                                 "text", collaborator_column);
+            _ = documents_treeview.AppendColumn ("Document", renderer,
+                                                 "text", document_name_column);
+            _ = documents_treeview.AppendColumn ("Latency", renderer,
+                                                 "text", ping_column );
+            _ = documents_treeview.AppendColumn ("Address", renderer,
+                                                 "text", address_column);
+
+
+            // dummy text
+            _ = documents_treestore.AppendValues("200.1.127.2:1000", 100,
+                                                 "Ricardo", "A test file.txt");
+
+            _ = documents_treestore.AppendValues("158.12.53.1:1003", 254,
+                                                 "Rodrigo", "Another file.txt");
+
+            _ = documents_treestore.AppendValues("125.67.12.23:1000", 732,
+                                                 "AnnaPaola", "Another file.txt");
+
             gxml.Autoconnect (this);
         }
         
@@ -819,6 +863,17 @@ namespace Chalks.Gui
             dialog.Respond(ResponseType.Ok);
         }            
 
+        on_servers_treeview_row_activated(_o :object, args :Gtk.RowActivatedArgs) :void
+        {
+            mutable iter = TreeIter();
+            
+            _ = documents_treestore.GetIter(out iter, args.Path);
+            def address = documents_treestore.GetValue(iter, address_column) :>string;
+
+            server_entry.Text = address;
+        }
+        
+        
         
     } // end of class ConnectToDialog
 

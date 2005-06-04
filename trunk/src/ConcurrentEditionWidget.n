@@ -309,6 +309,8 @@ namespace Chalks.ConcurrentEditionWidget
             applying_operation = true;
             Buffer.Delete(ref start_iter, ref end_iter);
             applying_operation = false;
+
+            assert(deleted_text != null);
             deleted_text;
         }
 

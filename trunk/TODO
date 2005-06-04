@@ -3,17 +3,15 @@ TODO
 Priorities
 
 1  - ZeroConf support
-2  - Preferences dialog
-3  - Undo/Redo implementation
-4  - Implement password user interface
-5  - Colored chat nicknames
-6  - Wiki documentation
-7  - Application documentation
-8  - SourceView usage (win32 compilation)
-9  - More automated tests for concurrentedition
-10 - More automated tests for network layer
-11 - Promotional videos
-12 - MacOs support
+2  - Implement password user interface
+3  - Test, debug, polish
+4  - Wiki documentation
+5  - Application documentation
+6  - SourceView usage (win32 compilation)
+7  - More automated tests for concurrentedition
+8  - More automated tests for network layer
+9  - Promotional videos
+10 - MacOs support
 
 
 Documentation
@@ -27,6 +25,9 @@ Gui
 * Check file open, save, save as implementation
 * Put set password dialog into the preferences
 * The current file name should appear in the window title
+* How to change tabs by spaces ?
+* Link the Connection section of the Preferences dialog to an underlying action
+* Disconnect dialog should show how many users are connected to you
 ---
 * Add Gtk.ToolTipsData tooltips over the main text that shows the author of a paragraph. 
 
@@ -52,7 +53,7 @@ Network
 
 ConcurrentEditable
 
-* Finish undo implementation
+* Finish redo has a horrible bug implementation
 * Write a test for generate_undo
 * Write more tests
 

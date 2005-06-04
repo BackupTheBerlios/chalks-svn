@@ -392,8 +392,9 @@ namespace Chalks.ConcurrentEdition
 
 
             log(1, $"op_to_undo_now.deleted_text $op_to_undo_now.deleted_text"); //just for debugging
-
-            assert (op_to_undo_now.deleted_text != null); 
+            when (op_to_undo_now.Type == OperationType.Delete) {
+                assert ( op_to_undo_now.deleted_text != null,
+                        "There is a weird bug here. solution <<< TO BE IMPLEMENTED"); }
 
             // apply the inverse now in the present
             def undo_op = 
