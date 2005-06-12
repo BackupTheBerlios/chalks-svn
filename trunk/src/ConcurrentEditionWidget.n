@@ -22,7 +22,7 @@ using Chalks.ConcurrentEdition;
 namespace Chalks.ConcurrentEditionWidget
 {
 
-    public class ConcurrentEditionWidget : TextView/*SourceView*/, Chalks.ConcurrentEdition.ITextBuffer
+    public class ConcurrentEditionWidget : TextView/*SourceView*/, Chalks.ITextBuffer
     {
         
 	static to_send_tag :TextTag = TextTag("to_send");
@@ -305,6 +305,8 @@ namespace Chalks.ConcurrentEditionWidget
             mutable start_iter = Buffer.GetIterAtOffset(offset);
             mutable end_iter = Buffer.GetIterAtOffset(offset + length);
 
+            // <<< THIS IS AN ERROR DOES NOT HAVE TO DELETE to_send TEXT
+            
             def deleted_text =  Buffer.GetSlice(start_iter, end_iter, true);
             applying_operation = true;
             Buffer.Delete(ref start_iter, ref end_iter);

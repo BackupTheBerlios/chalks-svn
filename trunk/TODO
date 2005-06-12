@@ -53,7 +53,7 @@ Network
 
 ConcurrentEditable
 
-* Finish redo has a horrible bug implementation
+* Solve redo horrible bug
 * Write a test for generate_undo
 * Write more tests
 

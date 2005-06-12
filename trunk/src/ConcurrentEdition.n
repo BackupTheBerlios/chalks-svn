@@ -1546,32 +1546,7 @@ namespace Chalks.ConcurrentEdition
     
     #endregion
     
-    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
-    public interface ITextBuffer
-    { // This interface define a recipient where the ConcurrentEdition system store the up to date version of the text.
-        
-        insert_text(site_id :Guid, offset:int, text:string):void;
-        // Due of UTF-8 encoding character counts are referred to as "offsets", 
-        // this is consistent with the GTK code
-        
-        delete_text(offset:int, length:int): string;
-        // returns the deleted text
-        
-        get_text():string;
-        // return all the text in the buffer
-        
-        set_text(text:string):void;
-        // overwrite the buffer text content
-    }
-    
-
-    public interface INetworkForCe
-    { // this are the methods that the ConcurrentEdition layer use of the NetworkNode object
-        log(_ :int, _:string) :void;
-        get_site_id() :Guid;
-        send_operation(comes_from :Guid, op:Operation) :void;
-    }
 
 
     

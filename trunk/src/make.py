@@ -27,7 +27,7 @@ Compiler = "ncc.exe "
 
 DllResources = GtkDllResources + "-r:Nini.dll -r:System.Runtime.Remoting.dll " 
 
-Flags = "-g "
+Flags = "-debug "
 
 
 # -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
@@ -48,7 +48,7 @@ def build(target):
     elif target == "nunits":
         nunits()
     else:
-        raise "No method to build the target %s" % target
+        raise "No method to build the target '%s'" % target
 
     return
 
@@ -93,7 +93,7 @@ def chalks_core():
 
     resources = []
     compiled_sources = []
-    compilable_sources = ["ConcurrentEdition.n", "Network.n", "Helpers.n"]
+    compilable_sources = ["ConcurrentEdition.n", "Network.n", "Helpers.n", "Interfaces.n"]
     sources =  resources + compiled_sources + compilable_sources
     
     for source in compiled_sources:

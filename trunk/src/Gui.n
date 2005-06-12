@@ -16,6 +16,7 @@ using Glade;
 
 using Nini.Config;
 
+using Nemerle.English;
 using Nemerle.Collections;
 
 using Chalks;
@@ -45,7 +46,7 @@ namespace Chalks.Gui
 
         cce_widget :ConcurrentEditionWidget; // cce == ConcurrentEdition
         public concurrent_editable :ConcurrentEditable;
-        network_node :NetworkNode;
+        network_node :INetworkForGui;
 
         mutable command_entry_last_key :Gdk.Key;
         commands_past_stack :Nemerle.Collections.Stack[string];
@@ -106,7 +107,8 @@ namespace Chalks.Gui
             // instanciate the core objects
             concurrent_editable = ConcurrentEditable(cce_widget);
             network_node = NetworkNode(this, concurrent_editable);
-
+            
+            
             // setup the configuration values ---
             #region Setup the configuration values
             
@@ -197,9 +199,10 @@ namespace Chalks.Gui
 
         public set_site_id(site_id :Guid) :void
         { // called once, during the startup of the application
-            
+
             //nicknames.Set(site_id, nickname);
             cce_widget.set_site_id(site_id);
+            
         }
 
         public receive_message(from :Guid, sender_nickname:string, message :string) :void
@@ -224,6 +227,25 @@ namespace Chalks.Gui
             buffer.InsertWithTags(ref iter, $"\n$(sender_nickname):", array[from_tag]);
             buffer.InsertWithTags(ref iter, $" $message", array[]);
             messages_textview.ScrollMarkOnscreen(messages_textview_endmark);
+        }
+
+        public connection_closed(site_id :Guid) :void
+        { // this method is called by the network layer when the connection is lost/closed
+
+            
+            log("Site $(site_id.ToString().Substring(0,8)) closed his connection");
+
+            // colateral effects
+            // if site_id is us: we have finished our connection service
+
+            // if site_id is us parent: we have lost our parent
+
+            // if site_id is a children: a member of the session has disconnected
+            
+            
+            //  <<< TO BE IMPLEMENTED
+            log("to be implemented");
+
         }
         #endregion
 
@@ -495,35 +517,58 @@ namespace Chalks.Gui
 
 
         on_share_menu_item_activate(_o :object, _args : EventArgs) :void
-        {
+        { // publish online the document and allow other users to connect
             //  <<< TO BE IMPLEMENTED
             log("to be implemented");
         }
+
         
         on_disconnect_menu_item_activate(_o :object,  _args : EventArgs) :void
-        {
-            // check if connected or not 
-            // <<< TO BE IMPLEMENTED
+        { // close all the connections aviable
             
-            def dialog = MessageDialog(chalks_window, 
-                                       DialogFlags.DestroyWithParent,
-                                       MessageType.Warning, 
-                                       ButtonsType.YesNo,
-                                       "Are you sure you want to finish the collaboration ?"
-                                     + "\n(users connected to you will also be disconnected)");
-            def ret = dialog.Run() :>ResponseType;
-            dialog.Destroy();
-            match(ret) {
-                | ResponseType.Yes =>
-                  log("to be implemented");
-                  
-                | _ =>
-                //| ResponseType.No =>
-                  ();
-                  log("Canceled");
+            // check if connected or not
+            def (self_uri, _ , childrens_ids) = network_node.get_connection_status();
+            // self uri indicate about the service or not
+            // parent_id indicate about if connected to a parent
+            // childrens_ids indicate about the existing childrens
+            
+            if(self_uri != null and self_uri != "")
+            {
+                
+                def message = 
+                if (childrens_ids.IsEmpty) {
+                    "Are you sure you want to finish the collaboration ?"
+                }
+                else {
+                    "Are you sure you want to finish the collaboration ?\n" +
+                    $"($(childrens_ids.Count) users connected to you will also be disconnected)"
+                };
+                
+                def dialog = MessageDialog(chalks_window, 
+                                           DialogFlags.DestroyWithParent,
+                                           MessageType.Warning, 
+                                           ButtonsType.YesNo,
+                                           message);
+                
+                def ret = dialog.Run() :>ResponseType;
+                dialog.Destroy();
+                match(ret) {
+                    | ResponseType.Yes =>
+                      log("Closing all the communications");
+                      network_node.stop_collaborating();
+                      set_status("file not shared");
+                      
+                    | _ =>
+                      //| ResponseType.No =>
+                      ();
+                      log("Canceled");
+                }
+            }
+            else {
+                log("You are already not connected");
             }
         }
-
+        
         on_set_password_menu_item_activate(_o :object,  _args : EventArgs) :void
         {
 
@@ -1248,5 +1293,6 @@ namespace Chalks.Gui
     
     // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
-
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+    
 } // end of namespace

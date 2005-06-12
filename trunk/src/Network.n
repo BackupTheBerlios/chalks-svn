@@ -149,7 +149,7 @@ namespace Chalks.Network
 
     // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
             
-    public class NetworkNode :INetworkForCe
+    public class NetworkNode :INetworkForCe, INetworkForGui
     {
         static default_service_name = "chalks";
         min_port = 1080;
@@ -167,7 +167,8 @@ namespace Chalks.Network
         service_name :string;
         mutable service_channel :Runtime.Remoting.Channels.Tcp.TcpServerChannel;
         mutable self_uri :string;
-
+        
+        mutable parent_site_id :Guid = Guid.Empty;
         // site_id => ConcurrentEditableNodeProxy references (give access to other sites)
         public remote_sites :Hashtable[Guid, ConcurrentEditableNodeProxy] = Hashtable();
         // site_id => ConcurrentEditableNodeProxy instances (give access from other sites)
@@ -188,10 +189,9 @@ namespace Chalks.Network
                 
         public this(_gui :IGuiForNetwork, _cce :ICeForNetwork, _service_name :string) 
         {
-            
-            gui = _gui; // store the gui reference
+            // store the gui reference
+            gui = _gui;
             gui.set_site_id(site_id); // configure the cce_widget
-
             cce = _cce; // store concurrent editable reference
 
             service_name = _service_name;
@@ -295,7 +295,7 @@ namespace Chalks.Network
         
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
         
-        # region Methods used by the Gui
+        # region Methods used by the Gui, INetworkForGui interface implementation
 
         public start_collaborating(uri :string) :bool
         { // this implement the protocol described in the schema at
@@ -324,7 +324,7 @@ namespace Chalks.Network
 
                
                 mutable parent_node = null :ConcurrentEditableNodeProxy;
-                mutable parent_site_id = Guid.Empty;
+                parent_site_id = Guid.Empty;
                 mutable parent_nickname = "";
                 
                 remote_authentication_realm.login(
@@ -358,7 +358,13 @@ namespace Chalks.Network
             
             ret;
         } // end of start_collaborating
-        
+
+
+        public stop_collaborating():void
+        { // disconnect from other users and stop sharing the document
+
+            stop_collaboration_service();
+        }
 
         public delegate receive_message_delegate(_ :Guid, _:string,
                                                  _ :Guid, _ :string) :void;
@@ -447,6 +453,19 @@ namespace Chalks.Network
             //throw Exception("to be implemented");
             ;
         }
+
+
+        public get_connection_status() :string*Guid*Nemerle.Collections.ICollection[Guid]
+        { // return useful information about the local node, the parent and the childrens
+
+            // returns (self_uri, parent_id, [children_id1,children_id2,...])
+
+            def childrens_id = remote_sites.Keys.Clone();
+            childrens_id.Remove(parent_site_id);
+            
+            (self_uri, parent_site_id, childrens_id);
+        }
+        
         #endregion
 
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
@@ -470,7 +489,7 @@ namespace Chalks.Network
         }
 
         public get_site_id() : Guid
-        { // return the unique site id for the local document
+        { // return the unique site id for the local document, used by Cce and Gui
             site_id;
         }
 
@@ -519,21 +538,5 @@ namespace Chalks.Network
     } // end of class NetworkNode
 
     
-    public interface ICeForNetwork
-    { // Elements of ConcurrentEditable used by the Network module
-        set_network_interface(network_node_instance :NetworkNode) :void;
-        receive_operation(op :Operation) :void;
-        add_site(site_id :Guid) :void;
-        delete_site(site_id :Guid) :void;
-        get_status() :ConcurrentEditableNodeStatus;
-        set_status(status :ConcurrentEditableNodeStatus) :void;
-    }
-
-    public interface IGuiForNetwork
-    { // Elements of ChalksWindow used by the Network Module
-        log(_:int, _:string):void;
-        set_site_id(site_id :Guid) :void;
-        receive_message(from :Guid, sender_nickname:string, message :string) :void;
-    }
 
 } // end of namespace
