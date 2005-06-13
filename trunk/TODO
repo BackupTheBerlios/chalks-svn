@@ -22,14 +22,10 @@ Documentation
 Gui
 
 * Colored nicknames does not work in both senses (there is a bug)
-* Check file open, save, save as implementation
-* Put set password dialog into the preferences
-* The current file name should appear in the window title
-* How to change tabs by spaces ?
+* Check local file open and remote file open implementation
+* Enable use of the set password dialog into the preferences
 * Link the Connection section of the Preferences dialog to an underlying action
-* Disconnect dialog should show how many users are connected to you
----
-* Add Gtk.ToolTipsData tooltips over the main text that shows the author of a paragraph. 
+* How to change tabs by spaces ?
 
 
 ConcurrentEditableWidget
@@ -43,9 +39,9 @@ ConcurrentEditableWidget
 
 Network
 
-* how other modules (gui) are supposed to know if collaborating or not? (how they know when connection is lost ?)
 * Chalks blocks at start if internet is not available
 * ZeroConf support
+* Implement callback if connection is lost
 * Have to implement the propagation of the "user has quited the session" event
 * Have to implement the propagation of the "nickname change" event
 * When loading the document, the download should show a progress bar. How to this in a remoting schema ? How does the design have to be modified ?

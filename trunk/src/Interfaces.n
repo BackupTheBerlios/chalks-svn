@@ -31,6 +31,7 @@ namespace Chalks
     { // Network interface for the Gui
         get_site_id() :Guid;
         get_self_uri() :string;
+        start_collaborating() :bool;   
         start_collaborating(uri :string) :bool;   
         stop_collaborating():void;
         get_connection_status() :string*Guid*Nemerle.Collections.ICollection[Guid];

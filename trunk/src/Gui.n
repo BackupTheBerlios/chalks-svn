@@ -94,7 +94,7 @@ namespace Chalks.Gui
             commands_future_stack = Nemerle.Collections.Stack();
 
             status_label = gxml.GetWidget("status_label") :>Label;
-            set_status("1 users");
+            update_statusbar_label();
             
             // Connect the custom widget with the existing layout
 
@@ -124,24 +124,23 @@ namespace Chalks.Gui
             // ??
             
             // nickname            
-            nicknames = NicknamesWidget(gxml, network_node.get_site_id(), cce_widget);
+            nicknames = NicknamesWidget(this, gxml, network_node.get_site_id(), cce_widget);
             def user_configurations = config_source.Configs["User"];
             def site_id = network_node.get_site_id();
             nickname = user_configurations.GetString("nickname", "");
             nicknames.Set(site_id, nickname);
             nicknames.SetStatus(site_id, user_configurations.GetString("status", ""));
-                        
+            update_statusbar_label();
+            
             // document password
             def default_password =
                         config_source.Configs["NetworkNode"].GetString("default_password", null);
             if(default_password != null) {
                 network_node.set_password(default_password);
-                log("The password for this document is: '$(default_password)'");
+                //log($"The password for this document is: '$(default_password)'");
             }
             else {
-                /*network_node.set_password("");
-                on_set_password_menu_item_activate(null, null); // ask for a password
-                 */ // will ask for a password when pertinent
+                // will ask for a password when pertinent
             }
 
             #endregion
@@ -281,12 +280,61 @@ namespace Chalks.Gui
         }
         #endregion
 
-        // called from other modules too (mostly for debugging)
-        public set_status(message:string) :void
-        {
+        set_statusbar_label(message:string) :void
+        { // update the text on the status bar
             status_label.Text = message;
         }
-         
+
+        public update_statusbar_label() :void
+        { // make the text on the status bar coherent with the network status
+
+            //def (self_uri, _, _) = network_node.get_connection_status();
+            def self_uri = if(network_node != null) network_node.get_self_uri() else null;
+            
+            if (self_uri == null) {
+                status_label.Text = "file not shared";
+            } else {
+                status_label.Text = $"$(nicknames.Count) users";
+            }
+        }
+        
+        // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+        #region Gui class helpers methods
+
+        is_sharing() :bool
+        { // returns true if the local node is able to receive connections
+
+            def (self_uri, _, _) = network_node.get_connection_status();
+
+            //log( //just for debugging
+            //$"(self_uri, parent_id, childrens_ids) ($self_uri , $parent_id , $childrens_ids)");
+            
+            if(self_uri != null) {
+                true; }
+            else false;
+        }
+
+        
+        is_connected() :bool
+        { // returns true if the local node is connected to a parent or serving a children
+
+            def (self_uri, parent_id, childrens_ids) = network_node.get_connection_status();
+
+            //log( //just for debugging
+            //$"(self_uri, parent_id, childrens_ids) ($self_uri , $parent_id , $childrens_ids)");
+            
+            if(self_uri != null) {
+                if( parent_id != Guid.Empty or (not childrens_ids.IsEmpty) ) {
+                    true; }
+                else {                
+                    false; }
+            }            
+            else false;
+        }
+
+        #endregion
+        
+        
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~        
 
         #region SignalsHandlers
@@ -301,79 +349,8 @@ namespace Chalks.Gui
         #region Menu items Handlers
 
         #region Files menu items handlers        
-        on_open_local_menu_item_activate (_o :object,  _args : EventArgs) : void
-        {
-            
-            //def _ = OpenFileDialog();
-            /*def menu_item = o :> MenuItem;
-            
-            Console.WriteLine(menu_item.Name);
-            
-            def dialog = 
-            match(menu_item.Name)
-            {
-                | "open_menu_item" => FileSelection("Open a text file");
-                | "save_menu_item" => FileEntry("Save the current text file");
-                | _ => null;
-                  
-            };*/
 
-
-            /*
-			| "Open" =>
-                                def stream = IO.StreamReader (fs.Filename);
-				input.Buffer.Text = stream.ReadToEnd();
- 
-			| "Save as..." =>
-				def s = IO.StreamWriter(fs.Filename);
-				s.Write(input.Buffer.Text);
-				s.Close();
-
-            */
-
-            
-            /*def dialog_name = "open_file_dialog";
-            def gxml = GladeHelper.getXML(glade_resource_name, dialog_name);
-            def dialog = gxml.GetWidget(dialog_name) :> Dialog;*/
-            
-            // if editing, confirm that the user wants to kill the session
-            //<<<
-
-            // kill the current session
-            //<<<
-
-            // select the file to open
-            def dialog = FileSelection("Open a text to edit");
-            def ret = dialog.Run() :> ResponseType;
-            match(ret)
-            {
-                | ResponseType.Ok => 
-                    Console.WriteLine ( "Ok");
-                    Console.WriteLine ( dialog.Filename );
-                    Console.WriteLine ( dialog.ToString );
-                    
-                    // <<< reading a new file should be managed at the ConcurrentEdition level
-
-                    // read the file
-                    def stream = IO.StreamReader (dialog.Filename);
-                    def _text = stream.ReadToEnd();
-                    stream.Close();
-                    current_file_path = dialog.Filename;
-                    // set the text in the current node
-                    throw Exception("to be implemented");
-
-                    // disconnect from actual session
-                    // cce.set_status()
-                    //<<< cce_widget.set_text(); ? is this good ? should not be in the node ?
-                  
-
-                | ResponseType.Cancel => Console.WriteLine ( "Canceled" );
-                | _ => Console.WriteLine ( "Unknown answer" );
-            }
-
-            dialog.Destroy();
-        }
-        
+        #region Save and Save as menu items
         on_save_menu_item_activate(o :object,  args : EventArgs) : void
         {
 
@@ -394,12 +371,19 @@ namespace Chalks.Gui
         on_save_as_menu_item_activate(_o :object,  _args : EventArgs) : void
         {
                         
-            //def dialog = File???("Save current document as...");
-            // Could not found the default Gtk.Dialog
-            def dialog_name = "save_file_dialog";            
-            def gxml = GladeHelper.getXML(glade_resource_name, dialog_name);            
-            def dialog = gxml.GetWidget(dialog_name) :> FileChooserDialog; //Dialog;
+            def dialog = FileChooserDialog("Save current document as...",
+                                           chalks_window,
+                                           FileChooserAction.Save,
+                                           array[
+                                                 Gtk.Stock.Cancel :object, ResponseType.Cancel,
+                                                 Gtk.Stock.Save,   ResponseType.Ok]
+                                           :array[object]);
 
+            when(current_file_path != null)
+            _ = dialog.SetFilename(current_file_path);
+
+            // <<< when the user press Enter, should save the file
+            
             def ret = dialog.Run() :> ResponseType;
             match(ret)
             {
@@ -416,19 +400,20 @@ namespace Chalks.Gui
                     stream.Close();
 
                     // change the window title
-                    // <<<
                     def filename = Path.GetFileName(current_file_path);
                     chalks_window.Title = filename;
 
                     // change the RendezVous published object
-                    // <<<
+                    // <<< TO BE IMPLEMENTED
 
-                | ResponseType.Cancel => Console.WriteLine ( "Canceled" );
-                | _ => Console.WriteLine ( "Unknown answer" );
+                //| ResponseType.Cancel => 
+                | _ =>
+                  Console.WriteLine ( "Canceled" );
             }
 
             dialog.Destroy();
         }
+        #endregion
 
         static on_quit_menu_item_activate(_o :object,  _args : EventArgs) :void
         {
@@ -453,7 +438,56 @@ namespace Chalks.Gui
         }
         #endregion
 
-        #region Open remote, Share and Disconnect
+        #region Open local, Open remote, Share and Disconnect
+        on_open_local_menu_item_activate (_o :object,  _args : EventArgs) : void
+        {
+
+            // if connected ask for disconnection
+            when( is_connected() ) {
+
+                
+            }
+            
+
+            // if disconnected load the file and then ask for sharing it or not
+            when( not is_connected() ) {
+
+                // select the file to open
+                def dialog = FileSelection("Open a text to edit");
+                def ret = dialog.Run() :> ResponseType;
+                match(ret)
+                {
+                    | ResponseType.Ok => 
+                      Console.WriteLine ( "Ok");
+                      Console.WriteLine ( dialog.Filename );
+                      Console.WriteLine ( dialog.ToString );
+                      
+                      // <<< reading a new file should be managed at the ConcurrentEdition level
+                      
+                      // read the file
+                      def stream = IO.StreamReader (dialog.Filename);
+                      def _text = stream.ReadToEnd();
+                      stream.Close();
+                      current_file_path = dialog.Filename;
+                      // set the text in the current node
+                      throw Exception("to be implemented");
+                      
+                      // disconnect from actual session
+                      // cce.set_status()
+                      //<<< cce_widget.set_text(); ? is this good ? should not be in the node ?
+
+                      // ask for sharing the file
+                      
+                      
+                    //| ResponseType.Cancel => 
+                    | _ =>
+                      Console.WriteLine ( "Canceled" );
+                }
+                dialog.Destroy();
+            }            
+        } // end of on_open_local_menu_item_activate
+
+        
         on_open_remote_menu_item_activate(_o :object, _args : EventArgs) :void
         { // open_remote_file == connect
             
@@ -518,8 +552,29 @@ namespace Chalks.Gui
 
         on_share_menu_item_activate(_o :object, _args : EventArgs) :void
         { // publish online the document and allow other users to connect
-            //  <<< TO BE IMPLEMENTED
-            log("to be implemented");
+            
+            if( is_sharing() )
+            {
+                log("The current file is already being shared at address\n"
+                    + network_node.get_self_uri());
+            }
+            else { // if not connected
+
+                // set the password
+                def password_ret = run_set_password_dialog();
+
+                if (password_ret == ResponseType.Ok) {
+                
+                    def ret = network_node.start_collaborating();
+                    when(not ret)
+                    {
+                        log("An error ocurred, could not share the file");
+                    }
+                } else {
+                    log("No password was setup to share the document. File not shared");
+                }
+            }
+            update_statusbar_label();
         }
 
         
@@ -527,12 +582,12 @@ namespace Chalks.Gui
         { // close all the connections aviable
             
             // check if connected or not
-            def (self_uri, _ , childrens_ids) = network_node.get_connection_status();
+            def (_ , _ , childrens_ids) = network_node.get_connection_status();
             // self uri indicate about the service or not
             // parent_id indicate about if connected to a parent
             // childrens_ids indicate about the existing childrens
             
-            if(self_uri != null and self_uri != "")
+            if( is_sharing() )
             {
                 
                 def message = 
@@ -549,17 +604,17 @@ namespace Chalks.Gui
                                            MessageType.Warning, 
                                            ButtonsType.YesNo,
                                            message);
-                
                 def ret = dialog.Run() :>ResponseType;
                 dialog.Destroy();
+                
                 match(ret) {
                     | ResponseType.Yes =>
                       log("Closing all the communications");
                       network_node.stop_collaborating();
-                      set_status("file not shared");
+                      
                       
                     | _ =>
-                      //| ResponseType.No =>
+                    //| ResponseType.No =>
                       ();
                       log("Canceled");
                 }
@@ -567,59 +622,69 @@ namespace Chalks.Gui
             else {
                 log("You are already not connected");
             }
+            update_statusbar_label();
         }
-        
-        on_set_password_menu_item_activate(_o :object,  _args : EventArgs) :void
-        {
 
+
+        run_set_password_dialog() :ResponseType
+        {            
             // check if connected or not
-
-            //<<< if connected the user should not be able to change the password
-
-            
-            // request password
-            def password_dialog = SetPasswordDialog();
-
-            def network_node_configurations = config_source.Configs["NetworkNode"];
-
-            assert(network_node_configurations != null,
-                   "Configuration file is corrupted (no NetworkNode configurations)");
-            
-            def default_password =
-                        network_node_configurations.GetString("default_password", null);
-            when(default_password != null) {
-                password_dialog.password_entry.Text = default_password;
-                password_dialog.use_as_default_password_checkbutton.Active = true;
+            if(is_connected()) {
+                //if connected the user should is not able to change the password
+                log("Password can not be changed while sharing a document");
+                ResponseType.None;
             }
-            
-            def ret = password_dialog.Run();
-            
-            match(ret)
-            {
-                | ResponseType.Ok =>
-                  // set password
-                  def password = password_dialog.password_entry.Text;
-                  network_node.set_password(password);
-
-                  //check if have to be stored as default value
-                  if (password_dialog.use_as_default_password_checkbutton.Active) {
-                      // save the preference                      
-                      network_node_configurations.Set("default_password", password);
-                                                                                           
-                      log($"Your new default password is: '$(password)'");
-                  } 
-                  else {
-                      // disable "default_password" usage
-                      network_node_configurations.Remove("default_password");
-                  }
+            else { // if not connected
                 
+                def network_node_configurations = config_source.Configs["NetworkNode"];
+                
+                assert(network_node_configurations != null,
+                       "Configuration file is corrupted (no NetworkNode configurations)");
+                
+                def default_password =
+                    network_node_configurations.GetString("default_password", null);
 
-                | _ =>
-                //| ResponseType.Cancel =>
-                  log( "Canceled" );
-            }
-        }
-        #region
+                if (default_password != null) { // set default password
+                    network_node.set_password(default_password);
+                    log($"Using the preconfigured default password '$(default_password)'");
+                    ResponseType.Ok;
+                }
+                else { // request password
+                    def password_dialog = SetPasswordDialog();
+                
+                    def ret = password_dialog.Run();
+                
+                    match(ret)
+                    {
+                        | ResponseType.Ok =>
+                          // set password
+                          def password = password_dialog.password_entry.Text;
+                          network_node.set_password(password);
+                          
+                          //check if have to be stored as default value
+                          if (password_dialog.use_as_default_password_checkbutton.Active) {
+                              // save the preference                      
+                              network_node_configurations.Set("default_password", password);
+                              
+                              log($"Your new default password is: '$(password)'");
+                          } 
+                        else {
+                            // disable "default_password" usage
+                            network_node_configurations.Remove("default_password");
+                        }
+                    
+
+                        | _ =>
+                          //| ResponseType.Cancel =>
+                          log( "Canceled" );
+                    } // end of match
+
+                    ret;
+                } // end of 'if no default password'
+            } // end of 'if not connected'
+        } //end run_set_password_dialog
+        
+        #endregion
 
 
         #region Edit submenu
@@ -684,7 +749,25 @@ namespace Chalks.Gui
             
             // connection
             // ??
-                        
+
+            // node password
+            /*
+                def network_node_configurations = config_source.Configs["NetworkNode"];
+                
+                assert(network_node_configurations != null,
+                       "Configuration file is corrupted (no NetworkNode configurations)");
+                
+                def default_password =
+                    network_node_configurations.GetString("default_password", null);
+                
+                when(default_password != null) {
+                    password_dialog.password_entry.Text = default_password;
+                    password_dialog.use_as_default_password_checkbutton.Active = true;
+                }
+
+             */
+
+            // run the dialog and interpret the response ---
             def ret = dialog.Run();
             match(ret) {
                 | ResponseType.Ok =>
@@ -708,7 +791,40 @@ namespace Chalks.Gui
                   
                   // Connection options ---
 
+
+                  // Node password options ---
                   
+                  /*
+            // check if connected or not
+            if(is_connected()) {
+                //if connected the user should is not able to change the password
+                log("Password can not be changed while sharing a document");
+                log("Default password for future documents was modified");
+                ResponseType.None;
+            }
+            else { // if not connected
+                                
+                      // set password
+                      def password = password_dialog.password_entry.Text;
+                      network_node.set_password(password);
+                      
+                      //check if have to be stored as default value
+                      if (password_dialog.use_as_default_password_checkbutton.Active) {
+                          // save the preference                      
+                          network_node_configurations.Set("default_password", password);
+                          
+                          log($"Your new default password is: '$(password)'");
+                      } 
+                    else {
+                        // disable "default_password" usage
+                        network_node_configurations.Remove("default_password");
+                    }
+                    
+            } // end of 'if not connected'
+
+
+
+                   */
 
                   
                 | _ => log( "Canceled" );
@@ -1151,20 +1267,19 @@ namespace Chalks.Gui
         status_column :int = 2;
 
         nickname_button :Button;
-        status_label :Label;
+
+        gui :ChalksWindow;
         
-        public this( gxml :Glade.XML, _site_id:Guid,
+        public this( _gui: ChalksWindow, gxml :Glade.XML, _site_id:Guid,
                     _cce_widget :ConcurrentEditionWidget)
         {
 
+            gui = _gui;
             treeview = gxml.GetWidget("nicknames_treeview") :>TreeView;
             assert(treeview != null);
 
             nickname_button = gxml.GetWidget("nickname_button") :>Button;
             assert(nickname_button != null);
-
-            status_label = gxml.GetWidget("status_label") :>Label;
-            assert(status_label != null);
             
             site_id = _site_id;
             cce_widget = _cce_widget;
@@ -1201,7 +1316,7 @@ namespace Chalks.Gui
                 log($"Your nickname is: '$(nickname)'", array[] :array[TextTag]);
             }
 
-            status_label.Text = $"$(nicknames.Count) users";
+            gui.update_statusbar_label();
         }
 
         public Get(site_id:Guid) :string
@@ -1224,7 +1339,7 @@ namespace Chalks.Gui
                                                             cce_widget.get_site_color(site_id),
                                                             status);
 
-                status_label.Text = $"$(nicknames.Count) users";
+                gui.update_statusbar_label();
             }
         }
 
@@ -1249,7 +1364,12 @@ namespace Chalks.Gui
             _ = treestore.Remove(ref iter);
             treeiters.Remove(site_id);
 
-            status_label.Text = $"$(nicknames.Count) users";
+            gui.update_statusbar_label();
+        }
+
+        public Count :int
+        {
+            get { nicknames.Count }
         }
     }
     

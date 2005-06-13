@@ -197,7 +197,7 @@ namespace Chalks.Network
             service_name = _service_name;
             authentication_realm = AuthenticationRealm(this);
 
-            start_collaboration_service();
+            //start_collaboration_service(); // no start by default, user has to activate it
             
             // register ourself with the cce object (we give him network access)
             cce.set_network_interface(this);
@@ -216,7 +216,7 @@ namespace Chalks.Network
 
         #region Start/Stop Collaboration service
         
-        public start_collaboration_service() :void
+        start_collaboration_service() :void
         {
 
             // required by .Net 1.1
@@ -274,13 +274,15 @@ namespace Chalks.Network
             log($"Chalks service aviable at:\n$(self_uri)\n");
         }
 
-        public stop_collaboration_service() :void
+        stop_collaboration_service() :void
         {
 
             Console.WriteLine( $"Stoping collaboration service at $self_uri");
             
             _ = RemotingServices.Disconnect (authentication_realm); // free the uri
             ChannelServices.UnregisterChannel (service_channel); // free the port
+
+            self_uri = null; // tag no sharing status
         }
 
         #endregion
@@ -297,6 +299,20 @@ namespace Chalks.Network
         
         # region Methods used by the Gui, INetworkForGui interface implementation
 
+        public start_collaborating() :bool
+        {
+            try {
+                start_collaboration_service();
+                true;
+            }
+            catch
+            {
+                | e =>
+                  log("Could not start collaboration: " + e.Message);
+                  false; 
+            }
+        }
+        
         public start_collaborating(uri :string) :bool
         { // this implement the protocol described in the schema at
           // chalks/doc/schemas/chalks.dia
@@ -360,7 +376,7 @@ namespace Chalks.Network
         } // end of start_collaborating
 
 
-        public stop_collaborating():void
+        public stop_collaborating(): void
         { // disconnect from other users and stop sharing the document
 
             stop_collaboration_service();
