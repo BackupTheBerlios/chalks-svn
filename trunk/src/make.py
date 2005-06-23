@@ -47,6 +47,8 @@ def build(target):
         test_cce()
     elif target == "nunits":
         nunits()
+    elif target == "test_zeroconf.exe":
+        test_zeroconf()
     else:
         raise "No method to build the target '%s'" % target
 
@@ -203,6 +205,45 @@ def test_cce():
         build_command = Compiler + Flags \
                         + "-t:exe " + '-out:"%s" '%target \
                         + "-r:chalks_core.dll -r:nunit.framework.dll " + DllResources \
+                        + " ".join(compilable_sources)
+        print "Executing:\n%s\n" % build_command
+        ret = os.system(build_command)
+        if ret != 0:
+            raise "Error during the compilation"
+    else:
+        print "%s is up to date" % target
+
+    command = "./%s" % target
+    print "Executing:\n%s\n" % command
+    ret = os.system(command)
+    if ret != 0:
+        raise "%s raised an error" % command
+
+    return
+
+
+def test_zeroconf():
+
+    target = "test_zeroconf.exe"
+    
+    resources = []
+    compiled_sources = []
+    compilable_sources = ["TestZeroConf.n", "ZeroConf.n"]
+    sources =  resources + compiled_sources + compilable_sources
+
+    for source in compiled_sources:
+        build(source)
+
+    ret = is_older(target, sources)
+    
+    if ret:
+        print "Building %s" % target
+        if os.path.exists(target):
+            os.remove(target)
+
+        build_command = Compiler + Flags \
+                        + "-t:exe " + '-out:"%s" '%target \
+                        + "-r:nunit.framework.dll " + DllResources \
                         + " ".join(compilable_sources)
         print "Executing:\n%s\n" % build_command
         ret = os.system(build_command)
