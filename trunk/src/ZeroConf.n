@@ -4,8 +4,6 @@ using System.Threading;
 
 using Nemerle.English;
 
-#define Posix
-
 namespace Chalks.Network
 {
     
@@ -21,13 +19,21 @@ namespace Chalks.Network
                 
         public this()
         {
-        #if (Posix)
-            publish_program = "mDNSPublish";
-            browse_program = "mDNSBrowse";
-        #else
-            publish_program = "mDNSPublish.exe";
-            browse_program = "mDNSBrowse.exe";
-        #endif
+            
+            // 128 || 4 == PlatformID.Unix
+            //see
+            //http://www.mono-project.com/FAQ:_Technical#How_to_detect_the_execution_platform_.3F
+            def id = Environment.OSVersion.Platform :> int;
+            if(id == 4 or id == 128) { // if in a Unix system
+                
+                publish_program = "mDNSPublish";
+                browse_program = "mDNSBrowse";
+            }
+            else {
+                publish_program = "mDNSPublish.exe";
+                browse_program = "mDNSBrowse.exe";
+            }
+       
         }
 
         protected override Finalize() :void
