@@ -15,20 +15,28 @@ namespace TestZeroConf
         {
             def z = ZeroConf();
             def z2 = ZeroConf();
-
-            Console.WriteLine("Starting browsing process");
-            z.start_browsing();
-            Console.WriteLine("Starting a publishing process");
-            z.start_publishing(Guid.NewGuid(), "tester1", "file1", 1001);
-            Console.WriteLine("Starting a second publishing process");
-            z2.start_publishing(Guid.NewGuid(), "tester2", "file2", 1002);
-            Console.WriteLine("Retrieving some information");
-            z.get_browse_results(add_detected_site, del_detected_site);
-            z2.stop_publishing();
+            def z_site_id = Guid.NewGuid();
+            def z2_site_id = Guid.NewGuid();
             
+            
+            Console.WriteLine("Starting browsing process");
+            z.start_browsing(add_detected_site, del_detected_site);
+            Console.WriteLine("Starting a publishing process");
+            z.start_publishing(z_site_id, "tester1", "file1", 1001);
+            Console.WriteLine("Starting a second publishing process");
+            z2.start_publishing(z2_site_id, "tester2", "file2", 1002);
+            Console.WriteLine("Waiting 5 seconds");
+            Threading.Thread.Sleep(1000);
+            z2.stop_publishing();
+            Threading.Thread.Sleep(1000);
+            z2.start_publishing(z2_site_id, "tester2", "file3", 1002);
+            Threading.Thread.Sleep(3000);
             z.stop_browsing();
-
-            z.get_browse_results(add_detected_site, del_detected_site);  
+            
+            z.stop_publishing();
+            Threading.Thread.Sleep(1000);
+            Console.WriteLine("End of test.");
+            
         }
 
         static add_detected_site(site_id :string, address :string, filename :string, nickname :string) :void

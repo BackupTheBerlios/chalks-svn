@@ -14,6 +14,7 @@ namespace Chalks.Network
 
         mutable publish_process :Process;
         mutable browse_thread :Thread;
+        mutable browse_task :BrowseTask;
         
         publish_program :string;
         browse_program  :string;
@@ -29,6 +30,14 @@ namespace Chalks.Network
         #endif
         }
 
+        protected override Finalize() :void
+        {
+            
+            publish_process.Kill();
+            publish_process.Close();
+            
+            when (browse_task != null) browse_task.stop_browsing();
+        }
 
         public start_publishing(site_id :Guid, nickname :string, filename :string, port :int) :void
         {
@@ -45,49 +54,38 @@ namespace Chalks.Network
             start_info.RedirectStandardError = true;
             
             _ = publish_process.Start();
-            Console.WriteLine($"Running $(start_info.FileName) $(start_info.Arguments)");
+            //Console.WriteLine($"Running $(start_info.FileName) $(start_info.Arguments)");
         }
 
         public stop_publishing() :void
         {
+            publish_process.Kill();
             publish_process.Close();
         }
 
 
-        public start_browsing() :void
+        public start_browsing(add_site_callback :string*string*string*string->void,
+                              del_site_callback :string->void ) :void
         {
-            //mDNSBrowse _chalks._tcp
-            browse_process = Process();
-            def start_info = browse_process.StartInfo;
-            start_info.FileName   = browse_program;
-            start_info.Arguments  = " _chalks._tcp";
-            start_info.UseShellExecute = false;
-            start_info.RedirectStandardOutput = true;
-            start_info.RedirectStandardError = true;
-            
-            _ = browse_process.Start();
-        }
-
-        public get_browse_results(add_site_callback :string*string*string*string->void,
-                                  del_site_callback :string->void ) :void
-        {
-
-            def task = BrowseTask(browse_process.StandardError,
+            browse_task = BrowseTask(browse_program,
                                   add_site_callback, del_site_callback);
 
             when(browse_thread != null) {
                 browse_thread.Abort(); // kill the thread
             }
             
-            browse_thread = Thread(ThreadStart(task.get_browse_results));
+            browse_thread = Thread(ThreadStart(browse_task.start_browsing));
             browse_thread.Start();
         }
 
         public stop_browsing() :void
         {
+            Console.WriteLine("Stoping browsing");
+            browse_task.stop_browsing();
+            
             browse_thread.Abort(); // kill the thread
             browse_thread = null;
-            browse_process.Close();
+
         }
         
 
@@ -98,62 +96,91 @@ namespace Chalks.Network
     {
         add_detected_site :string*string*string*string->void;
         del_detected_site :string->void;
-        browse_process_stream :IO.StreamReader;
-        mutable browse_process :Process;
+        browse_program_name  :string;
+        browse_process :Process;
         
-        public this( _browse_process_stream :IO.StreamReader,
+        public this( _browse_program_name :string,
                      add_site_callback :string*string*string*string->void,
                      del_site_callback :string->void)
         {
             //: string*string*string->void; // site_id, address, filename, nickname
             add_detected_site = add_site_callback;
             del_detected_site = del_site_callback; // :string->void // site_id
-            browse_process_stream = _browse_process_stream;
+            browse_program_name = _browse_program_name;
+
+            //mDNSBrowse _chalks._tcp
+            browse_process = Process();
+            def start_info = browse_process.StartInfo;
+            start_info.FileName   = browse_program_name;
+            start_info.Arguments  = " _chalks._tcp";
+            start_info.UseShellExecute = false;
+            start_info.RedirectStandardOutput = true;
+            start_info.RedirectStandardError = true;
+
+            _ = browse_process.Start(); // start the process
         }
 
-        public browse() :void
+        public start_browsing() :void
         {
+            
+            // Analyse the outputs of the process
+            def browse_process_stream = browse_process.StandardError;
+            
             mutable line = null :string;
-            
-            do
-            {
-                line = browse_process_stream.ReadLine();
-                def splitted_line = line.Split(array[':'], 2);
-                when(     splitted_line.Length == 2
-                     and  splitted_line[1].IndexOf("_chalks._tcp") > 0)
-                {
+            try {
+                while(true) {
+                    line = browse_process_stream.ReadLine();
+                    def splitted_line = line.Split(array[':'], 2);
+                    when(     splitted_line.Length == 2
+                         and  splitted_line[1].IndexOf("_chalks._tcp") > 0)
+                    {
                     
                     
-                    //Console.WriteLine(splitted_line[0] + " -> " + splitted_line[1]);
+                        //Console.WriteLine(splitted_line[0] + " -> " + splitted_line[1]);
 
-                    match(splitted_line[0]) {
+                        match(splitted_line[0]) {
                         
-                        | "resolve reply" =>
-                          def t_list = splitted_line[1].Split(array[' ']);
-                          def site_id =  t_list[2];
-                          def address = t_list[t_list.Length -2] +":"+ t_list[t_list.Length -1];
-                          
-                          def filename_line = browse_process_stream.ReadLine();
-                          def filename =
-                          filename_line.Split(array['['], 3)[2].Split(array[']'], 2)[0];
-                          
-                          def nickname_line = browse_process_stream.ReadLine();
-                          def nickname =
-                          nickname_line.Split(array['['], 3)[2].Split(array[']'], 2)[0];
-                          
-                          add_detected_site(site_id, address, filename, nickname);
-                    
-                        | "remove service" =>
-                          def t_list = splitted_line[1].Split(array[' ']);
-                          def site_id =  t_list[2];
-                          del_detected_site(site_id);
-                                                
-                        | _ => (); // else do nothing
+                            | "resolve reply" =>
+                              def t_list = splitted_line[1].Split(array[' ']);
+                              def site_id =  t_list[2];
+                              def address =
+                                  t_list[t_list.Length -2] +":"+ t_list[t_list.Length -1];
+                              
+                              def filename_line = browse_process_stream.ReadLine();
+                              def filename =
+                              filename_line.Split(array['['], 3)[2].Split(array[']'], 2)[0];
+                              
+                              def nickname_line = browse_process_stream.ReadLine();
+                              def nickname =
+                              nickname_line.Split(array['['], 3)[2].Split(array[']'], 2)[0];
+                              
+                              add_detected_site(site_id, address, filename, nickname);
+                              
+                            | "remove service" =>
+                              def t_list = splitted_line[1].Split(array[' ']);
+                              def site_id =  t_list[2];
+                              del_detected_site(site_id);
+                              
+                            | _ => (); // else do nothing
+                        }
                     }
-                }
-                
-            }while(line != null);
+                    
+                } // end of "while(1)"
+            }
+            catch
+            {
+                | _ is IO.IOException =>
+                  Console.WriteLine("browse_process_stream closed");
+
+                | e => throw e;
+            }
             
+        }
+
+        public stop_browsing() :void
+        {
+            browse_process.Kill();
+            browse_process.Close();
         }
     }
     
