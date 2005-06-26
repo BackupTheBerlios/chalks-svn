@@ -45,7 +45,7 @@ Network
 * Have to implement the propagation of the "user has quited the session" event
 * Have to implement the propagation of the "nickname change" event
 * When loading the document, the download should show a progress bar. How to this in a remoting schema ? How does the design have to be modified ?
-   
+* Implement ping calculator method   
 
 ConcurrentEditable
 

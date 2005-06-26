@@ -22,132 +22,6 @@ using Chalks.ConcurrentEdition;
 
 namespace Chalks.Network
 {
-
-
-    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
-    class AuthenticationRealm :MarshalByRefObject
-    { // object that allow login of remote users
-      // all his public methods are exposed to remote calls
-
-        local_node :NetworkNode;
-        
-        public this(_local_node :NetworkNode)
-        {
-            local_node = _local_node; // this object is private
-
-            // just for debugging
-            local_node.gui.log(2,$"AuthenticationRealm instance created $(this.GetHashCode())"); 
-            ;
-        }
-        
-        public login(site_id :Guid,
-                     nickname :string, password :string
-                     ) :ConcurrentEditableNodeProxy * Guid * string
-        {
-            when (local_node.remote_sites.Contains(site_id))
-                throw RemotingException("Fatal error: overlapping site_ids");
-
-            when (nickname.Length < 3)
-                throw RemotingException(
-                $"Nickname has to have at least three characters. Yours was '$(nickname)'.");
-
-            when ( ! local_node.is_equal_to_password(password) )
-                throw RemotingException("Password does not match");
-            
-            
-            local_node.gui.log(1, $"Site $(site_id) named as '$(nickname)' was accepted in the realm");
-            
-            // give access to the local node, send us identifiers
-            (ConcurrentEditableNodeProxy(site_id, local_node),
-             local_node.get_site_id(), local_node.nickname);
-        }
-
-
-        // Serialized tuple bug workaround
-        public login(site_id :Guid,
-                     nickname :string, password :string,
-                     ret_node_proxy :out ConcurrentEditableNodeProxy,
-                     ret_site_id  :out Guid,
-                     ret_nickname :out string) :void
-        {
-            (ret_node_proxy, ret_site_id, ret_nickname) = login(site_id, nickname, password);
-        }
-        
-    } // end of AuthenticationRealm class
-        
-    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
-        
-    public class ConcurrentEditableNodeProxy :MarshalByRefObject
-    // manage the network calls to the local calls
-    // all his public methods are exposed to remote calls
-    // this is the object that is passed to other nodes when login
-    {
-
-        local_node :NetworkNode;
-        remote_site_id :Guid;
-        
-        public this(_site_id :Guid, _local_node :NetworkNode)
-        {
-            local_node = _local_node; // this object is private
-            // store the id of the remote node that uses the reference to this proxy instance
-            remote_site_id = _site_id;
-
-            // register the new site in the local_node.cce
-            local_node.cce.add_site(remote_site_id);
-            
-            ;
-        }
-
-
-        public add_node(remote_node :ConcurrentEditableNodeProxy) :ConcurrentEditableNodeStatus
-        { // a remote node connects himself
-          // return the "Set text" operation and send all the HB  
-
-          // register the new remote_node_proxy reference
-          local_node.remote_sites[remote_site_id] = remote_node;
-
-          local_node.cce.get_status();
-        }
-        
-        
-        public receive_operation(op :Operation) :void
-        {
-            // receive
-            local_node.cce.receive_operation(op);
-            // and relay
-            local_node.send_operation(remote_site_id, op);
-        }
-
-        public receive_message(sender :Guid, sender_nickname:string,
-                               addressee :Guid, message :string) :void
-        {
-            // receive
-            // if it is a broadcast or we are the addressee
-            when ( addressee == Guid.Empty || addressee == local_node.get_site_id() ) {
-                local_node.gui.receive_message(sender, sender_nickname, message);
-            }
-            
-            // and relay
-            when (addressee != local_node.get_site_id() ) {
-                local_node.send_message(remote_site_id,
-                                        sender, sender_nickname,
-                                        addressee, message);
-            }
-        }
-
-        public get_site_id() :Guid
-        {
-            local_node.get_site_id();
-        }
-
-        public get_nickname() :string
-        {
-            "get_nickname is not yet implemented";
-        }
-
-    }
-
-    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
             
     public class NetworkNode :INetworkForCe, INetworkForGui
     {
@@ -156,17 +30,20 @@ namespace Chalks.Network
         max_port = 1090;
         
         site_id :Guid = System.Guid.NewGuid();
-
+        zeroconf :ZeroConf = ZeroConf();
+        
         public gui :IGuiForNetwork;
         public cce :ICeForNetwork;
         
         public mutable nickname :string = "";
         mutable password :string = "";
-
+        mutable filename :string ="";
+        
         authentication_realm :AuthenticationRealm;
         service_name :string;
         mutable service_channel :Runtime.Remoting.Channels.Tcp.TcpServerChannel;
         mutable self_uri :string;
+        mutable self_port :int;
         
         mutable parent_site_id :Guid = Guid.Empty;
         // site_id => ConcurrentEditableNodeProxy references (give access to other sites)
@@ -270,7 +147,12 @@ namespace Chalks.Network
             // set the uri of the published object
             def self_ip = find_self_ip();
             self_uri = $"tcp://$(self_ip):$(port)/$(service_name)";
+            self_port = port;
             
+            // publish for detection
+          
+            zeroconf.start_publishing(site_id, nickname, filename, port);
+                        
             log($"Chalks service aviable at:\n$(self_uri)\n");
         }
 
@@ -283,6 +165,8 @@ namespace Chalks.Network
             ChannelServices.UnregisterChannel (service_channel); // free the port
 
             self_uri = null; // tag no sharing status
+            
+            zeroconf.stop_publishing(); // stop publishing
         }
 
         #endregion
@@ -445,18 +329,34 @@ namespace Chalks.Network
             sites_nicknames[site_id];
         }
 
-        public discover_nodes() :void
-        { // return a list of published documents->uri
-          // this method use RendezVous services 
+        
+        public start_discovering_nodes(add_site_callback :string*string*string*string->void,
+                                       del_site_callback :string->void ) :void
+        { // connect the callbacks to the the ZeroConf/RendezVous/Bonjour service
+            
+            zeroconf.start_browsing(add_site_callback, del_site_callback);
+        }
 
-            ;
+        public stop_discovering_nodes() :void
+        {
+            zeroconf.stop_browsing();
         }
 
         public set_nickname(_nickname :string) :void
         {
+            def old_nickname = nickname;
             nickname = _nickname;
-            // this event should be propagated to the remote nodes
-            // <<< TO BE IMPLEMENTED (send a special message)
+
+            when(self_uri != null) { // when online
+                
+                // Broadcast the change, so other nodes changes they references
+                // should be a special message ?
+                send_message(Guid.Empty,
+                             $"The user '$(old_nickname)' has renamed itself as '$(nickname)'");
+                
+                // update published information
+                zeroconf.start_publishing(site_id, nickname, filename, self_port);
+            }
         }
         
         public set_password(_password :string) :void
@@ -470,7 +370,17 @@ namespace Chalks.Network
             ;
         }
 
+        public set_filename(_filename :string) :void
+        {
+            filename = _filename;
 
+            when(self_uri != null) { // when online
+                // update published information
+                zeroconf.start_publishing(site_id, nickname, filename, self_port);
+            }
+        }
+
+        
         public get_connection_status() :string*Guid*Nemerle.Collections.ICollection[Guid]
         { // return useful information about the local node, the parent and the childrens
 
@@ -553,6 +463,131 @@ namespace Chalks.Network
         
     } // end of class NetworkNode
 
-    
+  
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+      
+    class AuthenticationRealm :MarshalByRefObject
+    { // object that allow login of remote users
+      // all his public methods are exposed to remote calls
+
+        local_node :NetworkNode;
+        
+        public this(_local_node :NetworkNode)
+        {
+            local_node = _local_node; // this object is private
+
+            // just for debugging
+            local_node.gui.log(2,$"AuthenticationRealm instance created $(this.GetHashCode())"); 
+            ;
+        }
+        
+        public login(site_id :Guid,
+                     nickname :string, password :string
+                     ) :ConcurrentEditableNodeProxy * Guid * string
+        {
+            when (local_node.remote_sites.Contains(site_id))
+                throw RemotingException("Fatal error: overlapping site_ids");
+
+            when (nickname.Length < 3)
+                throw RemotingException(
+                $"Nickname has to have at least three characters. Yours was '$(nickname)'.");
+
+            when ( ! local_node.is_equal_to_password(password) )
+                throw RemotingException("Password does not match");
+            
+            
+            local_node.gui.log(1, $"Site $(site_id) named as '$(nickname)' was accepted in the realm");
+            
+            // give access to the local node, send us identifiers
+            (ConcurrentEditableNodeProxy(site_id, local_node),
+             local_node.get_site_id(), local_node.nickname);
+        }
+
+
+        // Serialized tuple bug workaround
+        public login(site_id :Guid,
+                     nickname :string, password :string,
+                     ret_node_proxy :out ConcurrentEditableNodeProxy,
+                     ret_site_id  :out Guid,
+                     ret_nickname :out string) :void
+        {
+            (ret_node_proxy, ret_site_id, ret_nickname) = login(site_id, nickname, password);
+        }
+        
+    } // end of AuthenticationRealm class
+        
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+        
+    public class ConcurrentEditableNodeProxy :MarshalByRefObject
+    // manage the network calls to the local calls
+    // all his public methods are exposed to remote calls
+    // this is the object that is passed to other nodes when login
+    {
+
+        local_node :NetworkNode;
+        remote_site_id :Guid;
+        
+        public this(_site_id :Guid, _local_node :NetworkNode)
+        {
+            local_node = _local_node; // this object is private
+            // store the id of the remote node that uses the reference to this proxy instance
+            remote_site_id = _site_id;
+
+            // register the new site in the local_node.cce
+            local_node.cce.add_site(remote_site_id);
+            
+            ;
+        }
+
+
+        public add_node(remote_node :ConcurrentEditableNodeProxy) :ConcurrentEditableNodeStatus
+        { // a remote node connects himself
+          // return the "Set text" operation and send all the HB  
+
+          // register the new remote_node_proxy reference
+          local_node.remote_sites[remote_site_id] = remote_node;
+
+          local_node.cce.get_status();
+        }
+        
+        
+        public receive_operation(op :Operation) :void
+        {
+            // receive
+            local_node.cce.receive_operation(op);
+            // and relay
+            local_node.send_operation(remote_site_id, op);
+        }
+
+        public receive_message(sender :Guid, sender_nickname:string,
+                               addressee :Guid, message :string) :void
+        {
+            // receive
+            // if it is a broadcast or we are the addressee
+            when ( addressee == Guid.Empty || addressee == local_node.get_site_id() ) {
+                local_node.gui.receive_message(sender, sender_nickname, message);
+            }
+            
+            // and relay
+            when (addressee != local_node.get_site_id() ) {
+                local_node.send_message(remote_site_id,
+                                        sender, sender_nickname,
+                                        addressee, message);
+            }
+        }
+
+        public get_site_id() :Guid
+        {
+            local_node.get_site_id();
+        }
+
+        public get_nickname() :string
+        {
+            "get_nickname is not yet implemented";
+        }
+
+    } // end of class ConcurrentEditableNodeProxy
+      
+    // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 
 } // end of namespace

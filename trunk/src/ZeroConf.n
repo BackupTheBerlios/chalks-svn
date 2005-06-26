@@ -47,8 +47,9 @@ namespace Chalks.Network
 
         public start_publishing(site_id :Guid, nickname :string, filename :string, port :int) :void
         {
-            //mDNSPublish "my_file.txt" _chalks._tcp 80
             
+            //mDNSPublish "my_file.txt" _chalks._tcp 80
+            stop_publishing();
             publish_process = Process();
 
             def start_info = publish_process.StartInfo;
@@ -65,8 +66,11 @@ namespace Chalks.Network
 
         public stop_publishing() :void
         {
-            publish_process.Kill();
-            publish_process.Close();
+            when(publish_process != null)
+            {
+                publish_process.Kill();
+                publish_process.Close();
+            }
         }
 
 

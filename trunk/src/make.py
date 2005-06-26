@@ -49,6 +49,8 @@ def build(target):
         nunits()
     elif target == "test_zeroconf.exe":
         test_zeroconf()
+    elif target == "ping.dll":
+        ping()
     else:
         raise "No method to build the target '%s'" % target
 
@@ -94,8 +96,10 @@ def chalks_core():
     target = "chalks_core.dll"
 
     resources = []
-    compiled_sources = []
-    compilable_sources = ["ConcurrentEdition.n", "Network.n", "Helpers.n", "Interfaces.n"]
+    compiled_sources = ["ping.dll"]
+    compilable_sources = ["ConcurrentEdition.n",
+                          "Network.n", "ZeroConf.n",
+                          "Helpers.n", "Interfaces.n"]
     sources =  resources + compiled_sources + compilable_sources
     
     for source in compiled_sources:
@@ -111,6 +115,42 @@ def chalks_core():
             os.remove(target)
         
         build_command = Compiler + Flags \
+                        + "-t:library " + '-out:"%s" '%target \
+                        + DllResources \
+                        + " ".join(compilable_sources)
+        print "Executing:\n%s\n" % build_command
+        ret = os.system(build_command)
+        if ret != 0:
+            raise "Error during the compilation"
+        
+    else:
+        print "%s is up to date" % target
+
+    return
+
+
+def ping():
+    
+    target = "ping.dll"
+
+    resources = []
+    compiled_sources = []
+    compilable_sources = ["Ping.cs"]
+    sources =  resources + compiled_sources + compilable_sources
+    
+    for source in compiled_sources:
+        build(source)
+
+    ret = is_older(target, sources)
+    
+    if ret:
+        print "Building %s" % target
+        os.system(RemoveCommand + target)
+                
+        if os.path.exists(target):
+            os.remove(target)
+        
+        build_command = "mcs " + Flags \
                         + "-t:library " + '-out:"%s" '%target \
                         + DllResources \
                         + " ".join(compilable_sources)

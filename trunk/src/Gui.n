@@ -75,7 +75,7 @@ namespace Chalks.Gui
             cce_widget.CanFocus = true;
 
             // create the window
-            current_file_path = null;
+
 
             Application.Init ();
             
@@ -83,7 +83,7 @@ namespace Chalks.Gui
             mutable gxml = GladeHelper.getXML(glade_resource_name, "chalks_window");
             
             chalks_window = gxml.GetWidget("chalks_window") :>Window;
-
+            
             messages_textview = gxml.GetWidget("messages_textview") :>TextView;
             {
                 def buffer = messages_textview.Buffer;
@@ -107,7 +107,12 @@ namespace Chalks.Gui
             // instanciate the core objects
             concurrent_editable = ConcurrentEditable(cce_widget);
             network_node = NetworkNode(this, concurrent_editable);
-            
+
+            // setup the initial filename
+            current_file_path = "Unsaved Document";
+            def filename = Path.GetFileName(current_file_path);
+            chalks_window.Title = $"$filename - Chalks";
+            network_node.set_filename(filename);
             
             // setup the configuration values ---
             #region Setup the configuration values
@@ -131,6 +136,7 @@ namespace Chalks.Gui
             nicknames.Set(site_id, nickname);
             nicknames.SetStatus(site_id, user_configurations.GetString("status", ""));
             update_statusbar_label();
+            network_node.set_nickname(nickname);
             
             // document password
             def default_password =
@@ -401,11 +407,10 @@ namespace Chalks.Gui
 
                     // change the window title
                     def filename = Path.GetFileName(current_file_path);
-                    chalks_window.Title = filename;
-
-                    // change the RendezVous published object
-                    // <<< TO BE IMPLEMENTED
-
+                    chalks_window.Title = $"$filename - Chalks";
+                    network_node.set_filename(filename);
+                    // .set_filename will automatically update the ZeroConf information
+              
                 //| ResponseType.Cancel => 
                 | _ =>
                   Console.WriteLine ( "Canceled" );
@@ -513,7 +518,7 @@ namespace Chalks.Gui
                 // set nickname
                 network_node.set_nickname(nickname);
 
-                def connect_dialog = ConnectionDialog();
+                def connect_dialog = ConnectionDialog(network_node);
                 def ret = connect_dialog.Run();
 
                 match(ret)
@@ -958,13 +963,16 @@ namespace Chalks.Gui
         public documents_treeview :TreeView;
         public documents_treestore :ListStore;
 
+        network_node :INetworkForGui;
+
+        site_id_column :int;
         address_column :int;
         ping_column :int;
         collaborator_column :int;
         document_name_column :int;
         
         
-        public this() 
+        public this(_network_node :INetworkForGui) 
         { 
             def dialog_name = "connection_dialog";
             def server_entry_name = "server_entry";
@@ -974,16 +982,21 @@ namespace Chalks.Gui
             server_entry = gxml.GetWidget(server_entry_name) :>Entry;
             documents_treeview = gxml.GetWidget("servers_treeview") :>TreeView;
 
+
+            network_node = _network_node;
+            
             // set up the tree view
-            documents_treestore = ListStore (typeof (string), // address ip:port
+            documents_treestore = ListStore (typeof (Guid), // site_id
+                                             typeof (string), // address ip:port
                                              typeof (int), // ping
                                              typeof (string), // collaborator nickname
                                              typeof (string) // document name
                                              );
-            address_column = 0;
-            ping_column = 1;
-            collaborator_column = 2;
-            document_name_column = 3;
+            site_id_column = 0;
+            address_column = 1;
+            ping_column = 2;
+            collaborator_column = 3;
+            document_name_column = 4;
 
 
             documents_treeview.Model = documents_treestore;
@@ -999,22 +1012,37 @@ namespace Chalks.Gui
 
 
             // dummy text
-            _ = documents_treestore.AppendValues("200.1.127.2:1000", 100,
+            _ = documents_treestore.AppendValues(Guid.NewGuid(),
+                                                 "200.1.127.2:1000", 100,
                                                  "Ricardo", "A test file.txt");
 
-            _ = documents_treestore.AppendValues("158.12.53.1:1003", 254,
+            _ = documents_treestore.AppendValues(Guid.NewGuid(),
+                                                 "158.12.53.1:1003", 254,
                                                  "Rodrigo", "Another file.txt");
 
-            _ = documents_treestore.AppendValues("125.67.12.23:1000", 732,
+            _ = documents_treestore.AppendValues(Guid.NewGuid(),
+                                                 "125.67.12.23:1000", 732,
                                                  "AnnaPaola", "Another file.txt");
 
+
+            network_node.start_discovering_nodes(add_discovered_node, del_discovered_node);
+
             gxml.Autoconnect (this);
+        }
+
+
+        protected override Finalize() :void
+        {
+            network_node.stop_discovering_nodes();
         }
         
         public Run() :ResponseType
         {
             def ret = dialog.Run() :>ResponseType;
             dialog.Destroy();
+
+            // stop browsing !
+            
             ret;
         }
         
@@ -1033,8 +1061,36 @@ namespace Chalks.Gui
 
             server_entry.Text = address;
         }
+
         
+        add_discovered_node(site_id :string, address :string,
+                            filename :string, nickname :string) :void
+        {
+            def default_ping = -1;
+            _ = documents_treestore.AppendValues(Guid(site_id),
+                                                 address, default_ping,
+                                                 nickname, filename);
+        }
         
+
+        del_discovered_node(site_id :string) :void
+        {
+            mutable iter = TreeIter();
+            mutable list_is_not_finished = true;
+            
+            _ = documents_treestore.GetIterFirst(out iter);
+
+            //find the adecuate row
+            while(     (documents_treestore.GetValue(iter, site_id_column) :> Guid) != Guid(site_id)
+                   and list_is_not_finished )
+            {
+                list_is_not_finished = documents_treestore.IterNext(ref iter);
+            }
+            
+            _ = documents_treestore.Remove(ref iter);
+        }
+    
+               
         
     } // end of class ConnectToDialog
 

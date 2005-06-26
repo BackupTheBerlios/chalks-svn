@@ -49,7 +49,7 @@
 		      <signal name="activate" handler="on_open_local_menu_item_activate" last_modification_time="Wed, 13 Apr 2005 22:24:14 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image53">
+			<widget class="GtkImage" id="image61">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-open</property>
 			  <property name="icon_size">1</property>
@@ -70,7 +70,7 @@
 		      <signal name="activate" handler="on_open_remote_menu_item_activate" last_modification_time="Sat, 04 Jun 2005 18:16:36 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image54">
+			<widget class="GtkImage" id="image62">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-connect</property>
 			  <property name="icon_size">1</property>
@@ -91,7 +91,7 @@
 		      <signal name="activate" handler="on_share_menu_item_activate" last_modification_time="Sat, 04 Jun 2005 18:04:11 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image55">
+			<widget class="GtkImage" id="image63">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-network</property>
 			  <property name="icon_size">1</property>
@@ -112,7 +112,7 @@
 		      <signal name="activate" handler="on_disconnect_menu_item_activate" last_modification_time="Sun, 17 Apr 2005 03:49:27 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image56">
+			<widget class="GtkImage" id="image64">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-disconnect</property>
 			  <property name="icon_size">1</property>
@@ -141,14 +141,14 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkImageMenuItem" id="save_as1">
+		    <widget class="GtkImageMenuItem" id="save_as">
 		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">Save _As...</property>
 		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_save_as1_activate" last_modification_time="Thu, 14 Apr 2005 00:19:43 GMT"/>
+		      <signal name="activate" handler="on_save_as_menu_item_activate" last_modification_time="Sun, 26 Jun 2005 15:05:21 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image57">
+			<widget class="GtkImage" id="image65">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-save-as</property>
 			  <property name="icon_size">1</property>

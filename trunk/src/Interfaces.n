@@ -35,7 +35,9 @@ namespace Chalks
         start_collaborating(uri :string) :bool;   
         stop_collaborating():void;
         get_connection_status() :string*Guid*Nemerle.Collections.ICollection[Guid];
-        discover_nodes() :void;
+        start_discovering_nodes(add_site_callback :string*string*string*string->void,
+                                del_site_callback :string->void ) :void;
+        stop_discovering_nodes() :void;
         
         send_message(addressee :Guid, message :string) :void;
         send_message(comes_from :Guid,
@@ -46,6 +48,8 @@ namespace Chalks
         
         set_nickname(_nickname :string) :void;
         set_password(_password :string) :void;
+        set_filename(_filename :string) :void;
+        
     }
 
 
