@@ -47,7 +47,6 @@ namespace Chalks.Network
 
         public start_publishing(site_id :Guid, nickname :string, filename :string, port :int) :void
         {
-            
             //mDNSPublish "my_file.txt" _chalks._tcp 80
             stop_publishing();
             publish_process = Process();
@@ -62,12 +61,15 @@ namespace Chalks.Network
             
             _ = publish_process.Start();
             //Console.WriteLine($"Running $(start_info.FileName) $(start_info.Arguments)");
+            Console.WriteLine($"Publishing $(publish_process.StartInfo.Arguments)");
         }
 
         public stop_publishing() :void
         {
             when(publish_process != null)
             {
+                Console.WriteLine($"Stoping to publish $(publish_process.StartInfo.Arguments)");
+                
                 publish_process.Kill();
                 publish_process.Close();
             }
@@ -163,12 +165,13 @@ namespace Chalks.Network
                               def nickname_line = browse_process_stream.ReadLine();
                               def nickname =
                               nickname_line.Split(array['['], 3)[2].Split(array[']'], 2)[0];
-                              
+                              //Console.WriteLine($"Adding $(site_id.Substring(0,8)) $nickname @ $address  $filename");
                               add_detected_site(site_id, address, filename, nickname);
                               
                             | "remove service" =>
                               def t_list = splitted_line[1].Split(array[' ']);
                               def site_id =  t_list[2];
+                              //Console.WriteLine($"Deleting $(site_id.Substring(0,8))");
                               del_detected_site(site_id);
                               
                             | _ => (); // else do nothing

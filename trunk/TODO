@@ -2,16 +2,15 @@ TODO
 
 Priorities
 
-1  - ZeroConf support
-2  - Implement password user interface
-3  - Test, debug, polish
-4  - Wiki documentation
-5  - Application documentation
-6  - SourceView usage (win32 compilation)
-7  - More automated tests for concurrentedition
-8  - More automated tests for network layer
-9  - Promotional videos
-10 - MacOs support
+1  - Finish to implement the file manipulations cases (open, save, close)
+2  - Test, debug, polish
+3  - Wiki documentation
+4  - Application documentation
+5  - SourceView usage (win32 compilation)
+6  - More automated tests for concurrentedition
+7  - More automated tests for network layer
+8  - Promotional videos
+9  - MacOs support
 
 
 Documentation
@@ -21,6 +20,7 @@ Documentation
 
 Gui
 
+* Open remote file ZeroConf node appearance/deletion does not work (where is the bug ?)
 * Colored nicknames does not work in both senses (there is a bug)
 * Check local file open and remote file open implementation
 * Enable use of the set password dialog into the preferences
@@ -40,12 +40,12 @@ ConcurrentEditableWidget
 Network
 
 * Chalks blocks at start if internet is not available
-* ZeroConf support
 * Implement callback if connection is lost
 * Have to implement the propagation of the "user has quited the session" event
 * Have to implement the propagation of the "nickname change" event
 * When loading the document, the download should show a progress bar. How to this in a remoting schema ? How does the design have to be modified ?
 * Implement ping calculator method   
+* Find a way to ensure that mDNSPublish.exe is killed if Chalks.exe closes or crash
 
 ConcurrentEditable
 
@@ -56,11 +56,12 @@ ConcurrentEditable
 
 Chalks
 
--- no pending tasks --
+* The application crash when closing it after having tryed to open a remote file ?
+
  
 Deployment
 
-* Implement distribution build in make.py:
+* Implement distribution builds in make.py:
 	- Nullsoft installed for windows
 	- Unzip and run zip file (gtk+gtksharp dlls included)
 	- Tar.gz of compiled .Net program

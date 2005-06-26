@@ -129,7 +129,7 @@ namespace Chalks.Gui
             // ??
             
             // nickname            
-            nicknames = NicknamesWidget(this, gxml, network_node.get_site_id(), cce_widget);
+            nicknames = NicknamesWidget(this, gxml, cce_widget, network_node);
             def user_configurations = config_source.Configs["User"];
             def site_id = network_node.get_site_id();
             nickname = user_configurations.GetString("nickname", "");
@@ -267,7 +267,7 @@ namespace Chalks.Gui
             log(message, array[]:array[TextTag]);
         }
 
-        static public log(message :string, tags :array[TextTag]) :void
+        public log(message :string, tags :array[TextTag]) :void
         { // the global log method
             if (   (messages_textview         != null) 
                 && (messages_textview_endmark != null)) 
@@ -518,7 +518,7 @@ namespace Chalks.Gui
                 // set nickname
                 network_node.set_nickname(nickname);
 
-                def connect_dialog = ConnectionDialog(network_node);
+                def connect_dialog = ConnectionDialog(this, network_node);
                 def ret = connect_dialog.Run();
 
                 match(ret)
@@ -963,6 +963,7 @@ namespace Chalks.Gui
         public documents_treeview :TreeView;
         public documents_treestore :ListStore;
 
+        gui: ChalksWindow;
         network_node :INetworkForGui;
 
         site_id_column :int;
@@ -972,7 +973,7 @@ namespace Chalks.Gui
         document_name_column :int;
         
         
-        public this(_network_node :INetworkForGui) 
+        public this(_gui: ChalksWindow, _network_node :INetworkForGui) 
         { 
             def dialog_name = "connection_dialog";
             def server_entry_name = "server_entry";
@@ -982,7 +983,7 @@ namespace Chalks.Gui
             server_entry = gxml.GetWidget(server_entry_name) :>Entry;
             documents_treeview = gxml.GetWidget("servers_treeview") :>TreeView;
 
-
+            gui = _gui;
             network_node = _network_node;
             
             // set up the tree view
@@ -998,7 +999,7 @@ namespace Chalks.Gui
             collaborator_column = 3;
             document_name_column = 4;
 
-
+            
             documents_treeview.Model = documents_treestore;
             def renderer = CellRendererText();
             _ = documents_treeview.AppendColumn ("Collaborator", renderer,
@@ -1012,6 +1013,7 @@ namespace Chalks.Gui
 
 
             // dummy text
+            /*
             _ = documents_treestore.AppendValues(Guid.NewGuid(),
                                                  "200.1.127.2:1000", 100,
                                                  "Ricardo", "A test file.txt");
@@ -1023,7 +1025,7 @@ namespace Chalks.Gui
             _ = documents_treestore.AppendValues(Guid.NewGuid(),
                                                  "125.67.12.23:1000", 732,
                                                  "AnnaPaola", "Another file.txt");
-
+            */
 
             network_node.start_discovering_nodes(add_discovered_node, del_discovered_node);
 
@@ -1066,15 +1068,22 @@ namespace Chalks.Gui
         add_discovered_node(site_id :string, address :string,
                             filename :string, nickname :string) :void
         {
+            Console.WriteLine(
+                    $"Adding node $(site_id.Substring(0,8)) $nickname @ $address  $filename");
+            
             def default_ping = -1;
             _ = documents_treestore.AppendValues(Guid(site_id),
                                                  address, default_ping,
                                                  nickname, filename);
+            gui.log(0, $"Adding treestore entry for site $site_id");
+            //documents_treeview.QueueDraw(); // refresh the widget
         }
         
 
         del_discovered_node(site_id :string) :void
         {
+            Console.WriteLine($"Deleting node $(site_id.Substring(0,8))");
+            
             mutable iter = TreeIter();
             mutable list_is_not_finished = true;
             
@@ -1086,8 +1095,13 @@ namespace Chalks.Gui
             {
                 list_is_not_finished = documents_treestore.IterNext(ref iter);
             }
-            
-            _ = documents_treestore.Remove(ref iter);
+
+            when( (documents_treestore.GetValue(iter, site_id_column) :> Guid) == Guid(site_id))
+            {
+                _ = documents_treestore.Remove(ref iter);
+                gui.log(0, $"Removing treestore entry for site $site_id");
+                //documents_treeview.QueueDraw(); // refresh the widget
+            }
         }
     
                
@@ -1310,6 +1324,7 @@ namespace Chalks.Gui
 
         site_id :Guid;
         cce_widget :ConcurrentEditionWidget;
+        network_node :INetworkForGui;
         
         nicknames :Nemerle.Collections.Hashtable[Guid, string] = Hashtable();
         statuses :Nemerle.Collections.Hashtable[Guid, string] = Hashtable();
@@ -1326,8 +1341,8 @@ namespace Chalks.Gui
 
         gui :ChalksWindow;
         
-        public this( _gui: ChalksWindow, gxml :Glade.XML, _site_id:Guid,
-                    _cce_widget :ConcurrentEditionWidget)
+        public this( _gui: ChalksWindow, gxml :Glade.XML,
+                    _cce_widget :ConcurrentEditionWidget, _network_node :INetworkForGui)
         {
 
             gui = _gui;
@@ -1336,10 +1351,10 @@ namespace Chalks.Gui
 
             nickname_button = gxml.GetWidget("nickname_button") :>Button;
             assert(nickname_button != null);
-            
-            site_id = _site_id;
-            cce_widget = _cce_widget;
 
+            network_node = _network_node;
+            site_id =  network_node.get_site_id();
+            cce_widget = _cce_widget;
 
             treestore = ListStore (typeof (string), // nickname
                                    typeof(Gdk.Color), // color
@@ -1357,6 +1372,7 @@ namespace Chalks.Gui
 
         public Set(site_id:Guid, nickname :string ) :void
         {
+            def old_nickname = nicknames[site_id];
             nicknames[site_id] = nickname;
 
             if(treeiters.Contains(site_id)) {
@@ -1368,8 +1384,14 @@ namespace Chalks.Gui
             }
 
             when (site_id == this.site_id) {
-                nickname_button.Label = nickname;
-                log($"Your nickname is: '$(nickname)'", array[] :array[TextTag]);
+                
+                when(old_nickname != nickname)
+                { // propage the change
+                    nickname_button.Label = nickname;
+                    network_node.set_nickname(nickname);
+                }
+                
+                gui.log($"Your nickname is: '$(nickname)'");      
             }
 
             gui.update_statusbar_label();
