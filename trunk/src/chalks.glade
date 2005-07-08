@@ -560,7 +560,7 @@ Chengzheng Sun et al.</property>
   <property name="width_request">500</property>
   <property name="height_request">400</property>
   <property name="visible">True</property>
-  <property name="title" translatable="yes">Connect to a remote file</property>
+  <property name="title" translatable="yes">Open Remote File...</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>

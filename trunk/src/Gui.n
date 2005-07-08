@@ -238,7 +238,7 @@ namespace Chalks.Gui
         { // this method is called by the network layer when the connection is lost/closed
 
             
-            log("Site $(site_id.ToString().Substring(0,8)) closed his connection");
+            log($"Site $(site_id.ToString().Substring(0,8)) closed his connection");
 
             // colateral effects
             // if site_id is us: we have finished our connection service
@@ -361,11 +361,8 @@ namespace Chalks.Gui
         {
 
             // if out file object already exist
-            if(current_file_path != null) {   
-                // simply flush the data
-                def stream = IO.StreamWriter(current_file_path);
-                stream.Write(cce_widget.get_text());
-                stream.Close();
+            if(current_file_path != null) {
+                concurrent_editable.save_file(current_file_path);
             }
             else {
                 // if it does not exist
@@ -395,21 +392,18 @@ namespace Chalks.Gui
             {
                 | ResponseType.Ok => 
                   Console.WriteLine ( "Ok");
-                    Console.WriteLine ( dialog.Filename );
-                    Console.WriteLine ( dialog.GetType().ToString() );
-                    Console.WriteLine ( dialog.ToString );
-
-                    current_file_path = dialog.Filename;
-                    // flush the data to the new out file object
-                    def stream = IO.StreamWriter(current_file_path);
-                    stream.Write(cce_widget.get_text());
-                    stream.Close();
-
-                    // change the window title
-                    def filename = Path.GetFileName(current_file_path);
-                    chalks_window.Title = $"$filename - Chalks";
-                    network_node.set_filename(filename);
-                    // .set_filename will automatically update the ZeroConf information
+                  Console.WriteLine ( dialog.Filename );
+                  Console.WriteLine ( dialog.GetType().ToString() );
+                  Console.WriteLine ( dialog.ToString );
+                  
+                  current_file_path = dialog.Filename;
+                  concurrent_editable.save_file(current_file_path);
+                  
+                  // change the window title
+                  def filename = Path.GetFileName(current_file_path);
+                  chalks_window.Title = $"$filename - Chalks";
+                  network_node.set_filename(filename);
+                  // .set_filename will automatically update the ZeroConf information
               
                 //| ResponseType.Cancel => 
                 | _ =>
@@ -430,7 +424,7 @@ namespace Chalks.Gui
         on_help_menu_item_activate(_o :object,  _args : EventArgs) :void
         {
             //<<< should implement something better...
-            log("look at http://chalks.berlios.de for some hints...");
+            log("look at \nhttp://chalks.berlios.de\n for some hints...");
         }
         
         on_about_menu_item_activate(_o :object,  _args : EventArgs) :void
@@ -447,15 +441,30 @@ namespace Chalks.Gui
         on_open_local_menu_item_activate (_o :object,  _args : EventArgs) : void
         {
 
-            // if connected ask for disconnection
-            when( is_connected() ) {
+            when( is_sharing() ) {  // if sharing ask for disconnection
 
+                def message = "You need to close your current connection in order to open a new file.\nDo you want to disconnect now ?";
+                def dialog = MessageDialog(chalks_window, 
+                                           DialogFlags.DestroyWithParent,
+                                           MessageType.Warning, 
+                                           ButtonsType.OkCancel,
+                                           message);
+                def ret = dialog.Run() :>ResponseType;
+                dialog.Destroy();
                 
+                match(ret) {
+                    | ResponseType.Ok =>
+                      on_disconnect_menu_item_activate(null, null);
+                      
+                    | _ =>
+                    //| ResponseType.Cancel =>
+                      log("Canceled");
+                }
             }
             
 
             // if disconnected load the file and then ask for sharing it or not
-            when( not is_connected() ) {
+            when( not is_sharing() ) {
 
                 // select the file to open
                 def dialog = FileSelection("Open a text to edit");
@@ -466,27 +475,54 @@ namespace Chalks.Gui
                       Console.WriteLine ( "Ok");
                       Console.WriteLine ( dialog.Filename );
                       Console.WriteLine ( dialog.ToString );
-                      
-                      // <<< reading a new file should be managed at the ConcurrentEdition level
-                      
-                      // read the file
-                      def stream = IO.StreamReader (dialog.Filename);
-                      def _text = stream.ReadToEnd();
-                      stream.Close();
-                      current_file_path = dialog.Filename;
-                      // set the text in the current node
-                      throw Exception("to be implemented");
-                      
-                      // disconnect from actual session
-                      // cce.set_status()
-                      //<<< cce_widget.set_text(); ? is this good ? should not be in the node ?
 
-                      // ask for sharing the file
-                      
-                      
-                    //| ResponseType.Cancel => 
+                      mutable opening_succeed = false;
+                      try {
+                          // open the file
+                          opening_succeed = concurrent_editable.open_file(dialog.Filename); 
+                      } catch { e => log($"Error: $(e.Message)"); }
+                    
+                      if(opening_succeed)
+                      {
+                          current_file_path = dialog.Filename;
+                          
+                          // change the window title
+                          def filename = Path.GetFileName(current_file_path);
+                          chalks_window.Title = $"$filename - Chalks";
+                          network_node.set_filename(filename);
+                          // .set_filename will automatically update the ZeroConf information
+                          
+                          // ask for sharing the file
+                          {
+                              def message = "Do you want to share this file with remote users ?";
+                              def dialog = MessageDialog(chalks_window, 
+                                                         DialogFlags.DestroyWithParent,
+                                                         MessageType.Question, 
+                                                         ButtonsType.YesNo,
+                                                         message);
+                              def ret = dialog.Run() :>ResponseType;
+                              dialog.Destroy();
+                              
+                              match(ret) {
+                                  | ResponseType.Yes =>
+                                    on_share_menu_item_activate(null, null);
+                                    
+                                  | _ =>
+                                    //| ResponseType.No =>
+                                    ();
+                                    log("The current file is not yet being shared");
+                              }
+                          }
+                          
+                      }
+                      else
+                      {
+                          log( $"Could not open the file located at $(dialog.Filename)" );
+                      }
+                          
                     | _ =>
-                      Console.WriteLine ( "Canceled" );
+                    //| ResponseType.Cancel =>                       
+                      log( "Canceled" );
                 }
                 dialog.Destroy();
             }            
@@ -495,6 +531,30 @@ namespace Chalks.Gui
         
         on_open_remote_menu_item_activate(_o :object, _args : EventArgs) :void
         { // open_remote_file == connect
+
+
+            
+            when( is_connected() ) { // if connected ask for disconnection
+
+                def message = "You need to close your current connection in order to open a new file.\nDo you want to disconnect now ?";
+                def dialog = MessageDialog(chalks_window, 
+                                           DialogFlags.DestroyWithParent,
+                                           MessageType.Warning, 
+                                           ButtonsType.OkCancel,
+                                           message);
+                def ret = dialog.Run() :>ResponseType;
+                dialog.Destroy();
+                
+                match(ret) {
+                    | ResponseType.Ok =>
+                      on_disconnect_menu_item_activate(null, null);
+                      
+                    | _ =>
+                    //| ResponseType.Cancel =>
+                      log("Canceled");
+                }
+            }
+
             
             // Check nickname
             nickname = config_source.Configs["User"].GetString("nickname", "");
@@ -512,7 +572,7 @@ namespace Chalks.Gui
             }
              
             // Select connection
-            when (nickname != "") {
+            when ((nickname != "") and (not is_connected())) {
 
                 log("Your nickname is: " + nickname );
                 // set nickname
@@ -1387,7 +1447,7 @@ namespace Chalks.Gui
                 
                 when(old_nickname != nickname)
                 { // propage the change
-                    nickname_button.Label = nickname;
+                    nickname_button.Label = nickname.Replace("_", "__");
                     network_node.set_nickname(nickname);
                 }
                 

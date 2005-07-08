@@ -2,15 +2,14 @@ TODO
 
 Priorities
 
-1  - Finish to implement the file manipulations cases (open, save, close)
-2  - Test, debug, polish
-3  - Wiki documentation
-4  - Application documentation
-5  - SourceView usage (win32 compilation)
-6  - More automated tests for concurrentedition
-7  - More automated tests for network layer
-8  - Promotional videos
-9  - MacOs support
+1  - Test, debug, polish
+2  - Wiki documentation
+3  - Application documentation
+4  - SourceView usage (win32 compilation)
+5  - More automated tests for concurrentedition
+6  - More automated tests for network layer
+7  - Promotional videos
+8  - MacOs support
 
 
 Documentation

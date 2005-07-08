@@ -80,6 +80,31 @@ namespace Chalks.ConcurrentEdition
             //log("Concurrent editable instance created");
             ;   
         }
+
+
+        reset_internal_state() :void
+        { // reset all the internal state variables
+
+            // network_node // still being the same
+            // log // still being the same
+            // site_id // still being the same
+
+            state_vector.Clear();
+            state_vector[site_id] = 0;
+            
+            state_vector_table.Clear();
+            state_vector_table[site_id] = state_vector; // link with local state_vector
+            
+            minimum_state_vector.Clear();
+            minimum_state_vector[site_id] = 0;
+
+            HB.Clear(); // history buffer
+            delayed_operations.Clear();
+
+            text_buffer.set_text("");
+
+            log(0, "Concurrent editable instance has been reset");
+        }
         
         // -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
         
@@ -421,8 +446,42 @@ namespace Chalks.ConcurrentEdition
 
         #region Methods used by Gui
 
+        public open_file(file_path :string) :bool
+        { // return true if could open the file with success
+            
+            def file_extension =  Path.GetExtension(file_path);
+            
+            //<<< should use mime file type detection instead of simple file_extension
+            match(file_extension)
+            {
+                | ".txt" =>
+                  def stream = IO.StreamReader(file_path);
+                  def file_content = stream.ReadToEnd();
+                  stream.Close();
+
+                  reset_internal_state(); // reset the internal state of the object
+                  text_buffer.set_text(file_content); // set the base text
+
+                  true; // could open the file with success
+                  
+                | _ => 
+                  Console.WriteLine(
+                      $"Extension of the file to open was not recognized '$(file_extension)' "
+                    + "try with a '.txt' file");
+                  false; // file could not be open
+                  
+              }
+        } // end of open_file
+
+        
         public save_file(file_path :string) :void
         {
+            
+            // simply flush the data
+            /*def stream = IO.StreamWriter(current_file_path);
+            stream.Write(cce_widget.get_text());
+            stream.Close();*/
+            
             def file_extension =  Path.GetExtension(file_path);
             match(file_extension)
             {
